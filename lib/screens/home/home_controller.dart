@@ -23,7 +23,7 @@ class HomeController extends GetxController {
       onSuccess: (dynamic data, dynamic response) {
         dismissLoading();
         this.response = data;
-        auctionMaster = data;
+        auctionMaster = this.response;
         setCurrentAuctions();
         isLoading = false;
         update();

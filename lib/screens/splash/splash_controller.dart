@@ -36,7 +36,7 @@ class SplashController extends GetxController {
   }
 
   Future<void> navigate() async {
-    Get.offAndToNamed(routeCodeVerificationSheet);
+    Get.offAndToNamed(routeHome);
     await FlutterBranchSdk.init(enableLogging: true);
     listenDynamicLinks();
   }

@@ -403,7 +403,7 @@ class MyAppController extends GetxController {
       onSuccess: (dynamic data, dynamic response) {
         consoleLog(Get.currentRoute, key: 'Get.currentRoute');
         if (Get.find<HomeBottomBarController>().bottomBarIndex == 0) {
-          Get.find<HomeController>().getHomeData();
+          // Get.find<HomeController>().getHomeData();
         }
         dismissLoading();
       },
