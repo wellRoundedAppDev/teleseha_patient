@@ -1,7 +1,7 @@
 import 'dart:io';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -13,7 +13,6 @@ import 'services/push_notification_service.dart';
 // import 'services/push_notification_service.dart';
 
 Future<void> main() async {
-  // tz.initializeTimeZones();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       systemNavigationBarColor: Colors.transparent,
@@ -27,25 +26,19 @@ Future<void> main() async {
   await GetStorage.init();
 
   WidgetsFlutterBinding.ensureInitialized();
-  await SystemChrome.setPreferredOrientations(
-    <DeviceOrientation>[
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ],
-  );
+  await Firebase.initializeApp();
+  await SystemChrome.setPreferredOrientations(<DeviceOrientation>[
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
 
-  await Permission.notification.isDenied.then(
-    (bool value) {
-      if (value) {
-        Permission.notification.request();
-      }
-    },
-  );
+  await Permission.notification.isDenied.then((bool value) {
+    if (value) {
+      Permission.notification.request();
+    }
+  });
 
   await PushNotificationService().setupInteractedMessage();
-  final dynamic event = await FirebaseDatabase.instance.ref('base_url').once();
-  baseUrl = event.snapshot.value.toString();
-  consoleLog(event.snapshot.value.toString(), key: 'firebase_event');
   consoleLogPretty(baseUrl, key: 'baseUrl');
   Get.put(MyAppController());
   HttpOverrides.global = MyHttpOverrides();

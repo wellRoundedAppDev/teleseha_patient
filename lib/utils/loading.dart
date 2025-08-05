@@ -5,7 +5,7 @@ import '../general_exports.dart';
 void startLoading() {
   SmartDialog.showLoading(
     builder: (BuildContext context) => Image.asset(
-      gifLoading,
+      iconLocation,
       height: DEVICE_HEIGHT * 0.2,
       width: DEVICE_WIDTH * 0.2,
     ),

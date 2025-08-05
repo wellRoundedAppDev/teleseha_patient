@@ -1,13 +1,8 @@
 import 'dart:ui';
-
-import 'package:flutter_svg/svg.dart';
-
 import '../../general_exports.dart';
 
 class NoInternetConnection extends StatelessWidget {
-  const NoInternetConnection({
-    Key? key,
-  }) : super(key: key);
+  const NoInternetConnection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +18,7 @@ class NoInternetConnection extends StatelessWidget {
                 vertical: DEVICE_HEIGHT * 0.02,
               ),
               decoration: BoxDecoration(
-                color: Colors.grey.shade200.withOpacity(
-                  0.5,
-                ),
+                color: Colors.grey.shade200.withOpacity(0.5),
               ),
               child: Wrap(
                 children: <Widget>[
@@ -40,29 +33,13 @@ class NoInternetConnection extends StatelessWidget {
                       Text(
                         'waiting_for_network'.tr,
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              color: const Color(AppColors.black),
-                            ),
+                          color: const Color(AppColors.grey),
+                        ),
                       ),
                     ],
                   ),
                 ],
               ),
-            ),
-          ),
-        ),
-        Positioned(
-          top: DEVICE_HEIGHT * 0.02,
-          left: isRTL ? DEVICE_WIDTH * 0.05 : null,
-          right: isRTL ? null : DEVICE_WIDTH * 0.05,
-          child: GestureDetector(
-            onTap: () {
-              Get.find<MyAppController>()
-                  .changeShowNoInternetDialogState(false);
-            },
-            child: SvgPicture.asset(
-              iconCloseSheet,
-              width: DEVICE_WIDTH * 0.05,
-              height: DEVICE_WIDTH * 0.05,
             ),
           ),
         ),

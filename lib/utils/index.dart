@@ -1,8 +1,5 @@
 export 'api_utils.dart';
 export 'assets.dart';
-export 'date_utils.dart';
-export 'deep_link_utils.dart';
-export 'google_map_utils.dart';
 export 'launch_urls_utils.dart';
 export 'loading.dart';
 export 'local_storage.dart';
@@ -11,3 +8,4 @@ export 'log.dart';
 export 'messages.dart';
 export 'pdf_utils.dart';
 export 'ui_utils.dart';
+export 'deep_link_utils.dart';

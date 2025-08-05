@@ -13,20 +13,19 @@ class PushNotificationService {
     FirebaseOptions options;
     if (Platform.isAndroid) {
       options = const FirebaseOptions(
-        apiKey: 'AIzaSyAkhQP8df-AJWYtripRLmLyJ6bWtGOa14w',
-        appId: '1:62981869376:android:6d09d56191826240e8b4a5',
-        messagingSenderId: '62981869376',
-        projectId: 'safqah-a6fd4',
+        apiKey: '',
+        appId: '',
+        messagingSenderId: '',
+        projectId: '',
       );
     } else {
       options = const FirebaseOptions(
-        apiKey: 'AIzaSyBDFd1pH0-NG9TSwIgIY3mutjOWCdR1px8',
-        appId: '1:62981869376:ios:594e3603602b564ce8b4a5',
-        messagingSenderId: '62981869376',
-        projectId: 'safqah-a6fd4',
+        apiKey: '',
+        appId: '',
+        messagingSenderId: '',
+        projectId: '',
       );
     }
-    await Firebase.initializeApp(options: options);
     final RemoteMessage? initialMessage =
         await FirebaseMessaging.instance.getInitialMessage();
 

@@ -22,9 +22,6 @@ Future<void> openUrl(String url) async {
   }
 }
 
-String getFont() => isEnglish() ? 'Outfit-light' : 'Tajawal-Regular';
-
-bool isEnglish() => Get.find<MyAppController>().appLocale == 'en';
 // void openSelectSheet(
 //   List<dynamic> list,
 //   Function(dynamic)? onTap,
@@ -242,13 +239,13 @@ List<dynamic> getListFromKey(List<dynamic> list, String key) =>
 TextStyle textPrimaryStyle() =>
     Theme.of(Get.context!).textTheme.bodySmall!.copyWith(
           color: const Color(
-            AppColors.primary,
+            AppColors.grey,
           ),
         );
 
 TextStyle textPrimaryBoldStyle() =>
     Theme.of(Get.context!).textTheme.bodyMedium!.copyWith(
-          color: const Color(AppColors.black),
+          color: const Color(AppColors.grey),
           fontWeight: FontWeight.bold,
         );
 

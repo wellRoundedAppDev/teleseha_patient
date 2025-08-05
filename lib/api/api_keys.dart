@@ -1,4 +1,4 @@
-String baseUrl = '';
+String baseUrl = 'https://jsonplaceholder.typicode.com/';
 
 // ******************** KEYS ********************
 

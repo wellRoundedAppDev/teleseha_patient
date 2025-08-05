@@ -11,7 +11,6 @@ class SplashController extends GetxController {
 
     myAppController.lov(
       onDataFetched: () async {
-        // await setBaseUrl();
         // checkAppVersion();
         if (myAppController.userData != null) {
           // if (myAppController.isTokenExpiredOrNull()) {
@@ -37,7 +36,7 @@ class SplashController extends GetxController {
   }
 
   Future<void> navigate() async {
-    Get.offAndToNamed(routeHomeBottomBar);
+    Get.offAndToNamed(routeCodeVerificationSheet);
     await FlutterBranchSdk.init(enableLogging: true);
     listenDynamicLinks();
   }
@@ -45,11 +44,11 @@ class SplashController extends GetxController {
   Future<void> setBaseUrl() async {
     final Map<String, dynamic> deviceQueryParams =
         await getDefaultQueryParams();
-    final List<dynamic> labDevices = myAppController.lovData[keyLabDevices];
+    final List<dynamic> labDevices = myAppController.lovData[name];
 
     for (final dynamic labDevice in labDevices) {
-      if (deviceQueryParams[keyDeviceId] == labDevice[keyDeviceId]) {
-        baseUrl = labDevice[keyUrl];
+      if (deviceQueryParams[name] == labDevice[name]) {
+        baseUrl = labDevice[name];
         await myAppController.lov();
         if (myAppController.userData != null) {
           // myAppController.getNotificationCounter();
@@ -58,7 +57,7 @@ class SplashController extends GetxController {
       }
     }
 
-    baseUrl = myAppController.getSetOptionValue(keyApiBaseUrl);
+    baseUrl = myAppController.getSetOptionValue(name);
     // baseUrl = 'https://www.tfaseel.com/apex/lab/';
 
     if (myAppController.userData != null) {

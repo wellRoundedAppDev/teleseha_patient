@@ -44,7 +44,7 @@ class HomeBottomBar extends StatelessWidget {
                                           .userData[storeLocationPermission] ==
                                       1,
                               child: Image.asset(
-                                gifAnimatedIcon,
+                                iconLocation,
                                 width: DEVICE_HEIGHT * 0.01,
                                 height: DEVICE_HEIGHT * 0.01,
                               ),

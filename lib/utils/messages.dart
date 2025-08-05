@@ -1,14 +1,6 @@
-import 'package:flutter_svg/svg.dart';
-
 import '../../general_exports.dart';
 
-enum MessageTypes {
-  basic,
-  success,
-  error,
-  warning,
-  info,
-}
+enum MessageTypes { basic, success, error, warning, info }
 
 void showMessage({
   String? description,
@@ -23,78 +15,51 @@ void showMessage({
   final Color fontColor = textColor != null
       ? Color(textColor)
       : type == MessageTypes.success
-          ? const Color(0xff287D3C) // success
-          : type == MessageTypes.error
-              ? const Color(0xffDA1414) // error
-              : type == MessageTypes.warning
-                  ? const Color(0xffB95000) // warning
-                  : type == MessageTypes.info
-                      ? const Color(0xff2E5AAC) // info
-                      : Colors.black; // basic
+      ? const Color(0xff287D3C) // success
+      : type == MessageTypes.error
+      ? const Color(0xffDA1414) // error
+      : type == MessageTypes.warning
+      ? const Color(0xffB95000) // warning
+      : type == MessageTypes.info
+      ? const Color(0xff2E5AAC) // info
+      : Colors.black; // basic
 
-  final Color backgroundColor = messageBackgroundColor ??
+  final Color backgroundColor =
+      messageBackgroundColor ??
       (type == MessageTypes.success
           ? const Color(0xffEDF9F0) // success
           : type == MessageTypes.error
-              ? const Color(0xffFEEFEF) // error
-              : type == MessageTypes.warning
-                  ? const Color(0xffFFF4EC) // warning
-                  : type == MessageTypes.info
-                      ? const Color(0xffEEF2FA) // info
-                      : Colors.white.withOpacity(0.8)); // basic
+          ? const Color(0xffFEEFEF) // error
+          : type == MessageTypes.warning
+          ? const Color(0xffFFF4EC) // warning
+          : type == MessageTypes.info
+          ? const Color(0xffEEF2FA) // info
+          : Colors.white.withOpacity(0.8)); // basic
 
   Get.snackbar(
     '',
     '',
     borderRadius: DEVICE_WIDTH * 0.02,
-    margin: EdgeInsets.all(
-      DEVICE_WIDTH * 0.04,
-    ),
+    margin: EdgeInsets.all(DEVICE_WIDTH * 0.04),
     titleText: title != null
         ? Row(
             children: <Widget>[
-              SvgPicture.asset(iconAuction),
-              SizedBox(
-                width: DEVICE_WIDTH * 0.04,
-              ),
+              SizedBox(width: DEVICE_WIDTH * 0.04),
               Text(
                 title,
-                style: Theme.of(Get.context!).textTheme.bodyMedium!.copyWith(
-                      color: fontColor,
-                    ),
+                style: Theme.of(
+                  Get.context!,
+                ).textTheme.bodyMedium!.copyWith(color: fontColor),
               ),
             ],
           )
-        : const SizedBox(
-            width: 0,
-            height: 0,
-          ),
-    messageText: Text(
-      description!,
-      style: Theme.of(Get.context!).textTheme.bodyMedium!.copyWith(
-            color: fontColor,
-          ),
-    ),
+        : const SizedBox(width: 0, height: 0),
     icon: withIcon
-        ? Icon(
-            Icons.info,
-            color: fontColor,
-          )
-        : const SizedBox(
-            width: 0,
-            height: 0,
-          ),
+        ? Icon(Icons.info, color: fontColor)
+        : const SizedBox(width: 0, height: 0),
     mainButton: TextButton(
       onPressed: null,
-      child: GestureDetector(
-        onTap: Get.closeCurrentSnackbar,
-        child: SvgPicture.asset(
-          iconCloseSheet,
-          colorFilter: ColorFilter.mode(fontColor, BlendMode.srcIn),
-          width: DEVICE_WIDTH * 0.05,
-          height: DEVICE_WIDTH * 0.05,
-        ),
-      ),
+      child: GestureDetector(onTap: Get.closeCurrentSnackbar),
     ),
     backgroundColor: backgroundColor,
     duration: Duration(seconds: duration),

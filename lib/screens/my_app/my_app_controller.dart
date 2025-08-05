@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:io';
+// import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -13,7 +13,6 @@ class MyAppController extends GetxController {
   String? buildNumber;
   bool isInternetConnect = true;
   bool shouldShowNoInternetDialog = true;
-  String appLocale = 'ar';
   dynamic lovData;
   dynamic response;
   String otp = '';
@@ -42,22 +41,8 @@ class MyAppController extends GetxController {
         await localStorage.getFromStorage(key: storeLocationPermission) ?? '';
 
     consoleLog(userData, key: 'userData');
-    consoleLog('\x1B[33m App Language: $appLocale');
-    Get.updateLocale(Locale(appLocale));
 
-    await checkInternet();
     timer();
-  }
-
-  void changeLanguage(
-    String selectedLanguage, {
-    Function()? onLanguageUpdated,
-  }) {
-    appLocale = selectedLanguage;
-    Get.updateLocale(
-      Locale(appLocale),
-    ).then((dynamic value) => onLanguageUpdated!());
-    update();
   }
 
   @override
@@ -79,14 +64,11 @@ class MyAppController extends GetxController {
   }
 
   void getAllItems() {
-    // startLoading();
+    startLoading();
     ApiRequest(
-      path: '$general?sharedKey=$sharedKey',
+      path: users,
       className: 'MapScreenController',
       formatResponse: true,
-      queryParameters: <String, String>{
-        name: Get.find<MyAppController>().appLocale,
-      },
     ).request(
       onSuccess: (dynamic data, dynamic response) {
         dismissLoading();
@@ -107,24 +89,6 @@ class MyAppController extends GetxController {
     update();
     if (Get.isRegistered<HomeBottomBarController>()) {
       Get.find<HomeBottomBarController>();
-    }
-  }
-
-  Future<void> checkInternet() async {
-    try {
-      final List<InternetAddress> response = await InternetAddress.lookup(
-        'www.google.com',
-      );
-      if (response.isNotEmpty && !isInternetConnect) {
-        isInternetConnect = true;
-        changeShowNoInternetDialogState(true);
-        update();
-      }
-    } on SocketException {
-      if (isInternetConnect) {
-        isInternetConnect = false;
-        update();
-      }
     }
   }
 
@@ -151,7 +115,6 @@ class MyAppController extends GetxController {
 
   Timer timer({bool isClose = false}) =>
       Timer.periodic(const Duration(seconds: 3), (Timer timer) {
-        checkInternet();
         if (isClose) {
           timer.cancel();
         }
@@ -166,28 +129,11 @@ class MyAppController extends GetxController {
     update();
   }
 
-  // void updateLanguage(dynamic language) {
-  //   selectedLanguage = language;
-  //   changeLanguage(
-  //     language[keyLanguageCode],
-  //     onLanguageUpdated: () {
-  //       Get.updateLocale(Locale(appLocale));
-  //       storeLanguageKey(language[keyLanguageCode]);
-  //       setIsRTL(Get.context!);
-  //       getFontFamily(language[keyLanguageCode]);
-  //       Get.back();
-  //     },
-  //   );
-  // }
-
   Future<void> lov({dynamic onDataFetched}) async {
     await ApiRequest(
-      path: '$name?sharedKey=$sharedKey',
+      path: users,
       className: 'MyAppController',
       formatResponse: true,
-      queryParameters: <String, dynamic>{
-        'langId': Get.find<MyAppController>().appLocale,
-      },
     ).request(
       onSuccess: (dynamic data, dynamic response) {
         onLovUpdated(data);
@@ -230,7 +176,7 @@ class MyAppController extends GetxController {
     }
     startLoading();
     ApiRequest(
-      path: general,
+      path: users,
       method: ApiMethods.post,
       className: 'MyAppController/preSignIn',
       header: <String, dynamic>{name: '+966${phoneController.text}'},
@@ -256,7 +202,7 @@ class MyAppController extends GetxController {
     startLoading();
     final String fcId = await FirebaseMessaging.instance.getToken() ?? '';
     ApiRequest(
-      path: (authType == AuthType.signIn ? general : general),
+      path: (authType == AuthType.signIn ? users : users),
       method: ApiMethods.post,
       className: 'MyAppController/signIn',
       header: <String, dynamic>{name: '+966${phoneController.text}'},
@@ -305,58 +251,58 @@ class MyAppController extends GetxController {
     );
   }
 
-  void preSignUp({bool shouldOpenCodeVerificationSheet = true}) {
-    if (!isCompanySelected) {
-      if (firstNameController.text.isEmpty) {
-        showToast(message: 'please_enter_first_name'.tr);
-        return;
-      }
-      if (lastNameController.text.isEmpty) {
-        showToast(message: 'please_enter_last_name'.tr);
-        return;
-      }
-    } else {
-      if (companyEnNameController.text.isEmpty) {
-        showToast(message: 'please_enter_english_company_name'.tr);
-        return;
-      }
-      if (companyArNameController.text.isEmpty) {
-        showToast(message: 'please_enter_arabic_company_name'.tr);
-        return;
-      }
-      if (companyRegistrationNumber.text.isEmpty) {
-        showToast(message: 'please_enter_commercial_registration_no'.tr);
-        return;
-      }
-      if (companyEmail.text.isEmpty) {
-        showToast(message: 'please_enter_email'.tr);
-        return;
-      }
-    }
-    startLoading();
-    ApiRequest(
-      path: general,
-      method: ApiMethods.post,
-      className: 'MyAppController/preSignIn',
-      header: <String, dynamic>{name: '+966${phoneController.text}'},
-      // queryParameters: <String, dynamic>{
-      //   keyFirstName: firstNameController.text,
-      //   keyLastName: lastNameController.text,
-      //   keyIsCompany: isCompanySelected ? '1' : '0',
-      // },
-    ).request(
-      onSuccess: (dynamic data, dynamic response) {
-        dismissLoading();
-        if (response[name] == '1') {
-          if (shouldOpenCodeVerificationSheet) {
-            openCodeVerificationSheet();
-          }
-        } else {
-          showToast(message: response?[name] ?? 'Error');
-        }
-      },
-    );
-  }
+  // void preSignUp({bool shouldOpenCodeVerificationSheet = true}) {
+  //   if (!isCompanySelected) {
+  //     if (firstNameController.text.isEmpty) {
+  //       showToast(message: 'please_enter_first_name'.tr);
+  //       return;
+  //     }
+  //     if (lastNameController.text.isEmpty) {
+  //       showToast(message: 'please_enter_last_name'.tr);
+  //       return;
+  //     }
+  //   } else {
+  //     if (companyEnNameController.text.isEmpty) {
+  //       showToast(message: 'please_enter_english_company_name'.tr);
+  //       return;
+  //     }
+  //     if (companyArNameController.text.isEmpty) {
+  //       showToast(message: 'please_enter_arabic_company_name'.tr);
+  //       return;
+  //     }
+  //     if (companyRegistrationNumber.text.isEmpty) {
+  //       showToast(message: 'please_enter_commercial_registration_no'.tr);
+  //       return;
+  //     }
+  //     if (companyEmail.text.isEmpty) {
+  //       showToast(message: 'please_enter_email'.tr);
+  //       return;
+  //     }
+  //   }
+  //   startLoading();
+  //   ApiRequest(
+  //     path: users,
+  //     method: ApiMethods.post,
+  //     className: 'MyAppController/preSignIn',
+  //     header: <String, dynamic>{name: '+966${phoneController.text}'},
+  //     // queryParameters: <String, dynamic>{
+  //     //   keyFirstName: firstNameController.text,
+  //     //   keyLastName: lastNameController.text,
+  //     //   keyIsCompany: isCompanySelected ? '1' : '0',
+  //     // },
+  //   ).request(
+  //     onSuccess: (dynamic data, dynamic response) {
+  //       dismissLoading();
+  //       if (response[name] == '1') {
+  //         if (shouldOpenCodeVerificationSheet) {
+  //           openCodeVerificationSheet();
+  //         }
+  //       } else {
+  //         showToast(message: response?[name] ?? 'Error');
+  //       }
+  //     },
+  //   );
+  // }
 
   void openSignInSheet({Function()? action}) {
     if (action != null) {
@@ -369,13 +315,6 @@ class MyAppController extends GetxController {
     if (Get.isBottomSheetOpen!) {
       Get.back();
     }
-    Get.bottomSheet(
-      BottomSheetContainer(
-        title: 'login'.tr,
-        child: SignInSheet(successAction: action),
-      ),
-      isScrollControlled: true,
-    );
   }
 
   void openSignUpSheet({Function()? action}) {
@@ -384,13 +323,6 @@ class MyAppController extends GetxController {
     if (Get.isBottomSheetOpen!) {
       Get.back();
     }
-    Get.bottomSheet(
-      BottomSheetContainer(
-        title: 'create_new_account'.tr,
-        child: SignUpSheet(successAction: action),
-      ),
-      isScrollControlled: true,
-    );
   }
 
   Future<void> openCodeVerificationSheet() async {
@@ -416,7 +348,7 @@ class MyAppController extends GetxController {
       if (authType == AuthType.signIn) {
         preSignIn(shouldOpenCodeVerificationSheet: false);
       } else {
-        preSignUp(shouldOpenCodeVerificationSheet: false);
+        // preSignUp(shouldOpenCodeVerificationSheet: false);
       }
     }
   }
@@ -465,7 +397,7 @@ class MyAppController extends GetxController {
     ApiRequest(
       className: 'MyAppController/addRemoveFavorite',
       method: ApiMethods.post,
-      path: '$general?$general=$objectId&$general=$objectType',
+      path: '$users?$users=$objectId&$users=$objectType',
       queryParameters: <String, dynamic>{name: userData[name]},
     ).request(
       onSuccess: (dynamic data, dynamic response) {

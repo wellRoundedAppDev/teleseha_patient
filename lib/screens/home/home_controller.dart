@@ -1,8 +1,6 @@
 import '../../general_exports.dart';
 
 class HomeController extends GetxController {
-  List<dynamic> auctionStatuses =
-      Get.find<MyAppController>().lovData[name][name];
   dynamic selectedAuctionStatus;
   List<dynamic> currentAuctions = <dynamic>[];
   List<dynamic> auctionMaster = <dynamic>[];
@@ -18,25 +16,16 @@ class HomeController extends GetxController {
   void getHomeData() {
     startLoading();
     ApiRequest(
-      path: general,
+      path: users,
       className: 'HomeController',
       formatResponse: true,
-      queryParameters: <String, String>{
-        name: Get.find<MyAppController>().appLocale,
-      },
     ).request(
       onSuccess: (dynamic data, dynamic response) {
         dismissLoading();
-
         this.response = data;
-        auctionMaster = data[name];
-        selectedAuctionStatus = auctionStatuses
-            .where((dynamic element) => element[name] == data[name])
-            .first;
+        auctionMaster = data;
         setCurrentAuctions();
-        filterMapData = data[name];
         isLoading = false;
-
         update();
       },
     );
@@ -49,11 +38,15 @@ class HomeController extends GetxController {
 
   void setCurrentAuctions() {
     currentAuctions.clear();
-    currentAuctions.addAll(
-      auctionMaster.where(
-        (dynamic element) => element[name] == selectedAuctionStatus[name],
-      ),
-    );
+    if (selectedAuctionStatus != null) {
+      currentAuctions.addAll(
+        auctionMaster.where(
+          (element) => element[name] == selectedAuctionStatus[name],
+        ),
+      );
+    } else {
+      currentAuctions.addAll(auctionMaster);
+    }
     update();
   }
 }

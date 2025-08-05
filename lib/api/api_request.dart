@@ -53,10 +53,10 @@ class ApiRequest {
           //  'sharedKey': sharedKey,
           ...(header ?? <String, dynamic>{}),
         },
-        queryParameters: <String, dynamic>{
-          ...defaultQueryParams,
-          ...queryParameters ?? <String, dynamic>{},
-        },
+        // queryParameters: <String, dynamic>{
+        //   ...defaultQueryParams,
+        //   ...queryParameters ?? <String, dynamic>{},
+        // },
       ),
     );
   }
@@ -204,7 +204,7 @@ class ApiRequest {
     startLoading();
     final String fcId = await FirebaseMessaging.instance.getToken() ?? '';
     ApiRequest(
-      path: '$general?$sharedKey',
+      path: '$users?$sharedKey',
       method: ApiMethods.post,
       shouldRemoveBidderIdFromDefaultQuery: true,
       className: 'ApiRequest',

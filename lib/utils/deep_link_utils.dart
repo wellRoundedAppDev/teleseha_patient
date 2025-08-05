@@ -53,18 +53,18 @@ Future<void> listenDynamicLinks() async {
 
 void redirectDeepLink(Map<dynamic, dynamic> data) {
   consoleLog(data, key: 'deep_link_data');
-  final String id = data[keyId]?.toString() ?? '';
-  final String page = data[keyScreenName]?.toString() ?? '';
+  final String id = data[users]?.toString() ?? '';
+  final String page = data[name]?.toString() ?? '';
   consoleLog(page, key: 'page');
-  consoleLog(id, key: keyId);
+  consoleLog(id, key: name);
   if (page == 'auction_item_detail') {
     Get.toNamed(
-      routeAuctionItemDetails,
+      routeHome,
       arguments: <String, dynamic>{'auctionItemId': int.parse(id)},
     );
   } else if (page == 'my_auctions') {
     if (Get.find<MyAppController>().userData != null) {
-      Get.offAllNamed(routeHomeBottomBar);
+      Get.offAllNamed(routeHome);
       Get.find<HomeBottomBarController>().onItemTapped(2);
     }
   }
