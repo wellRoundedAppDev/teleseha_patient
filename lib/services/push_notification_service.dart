@@ -1,0 +1,134 @@
+import 'dart:io';
+
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart'
+    as flutter_local_notifications;
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
+import '../general_exports.dart';
+
+class PushNotificationService {
+  Future<void> setupInteractedMessage() async {
+    FirebaseOptions options;
+    if (Platform.isAndroid) {
+      options = const FirebaseOptions(
+        apiKey: 'AIzaSyAkhQP8df-AJWYtripRLmLyJ6bWtGOa14w',
+        appId: '1:62981869376:android:6d09d56191826240e8b4a5',
+        messagingSenderId: '62981869376',
+        projectId: 'safqah-a6fd4',
+      );
+    } else {
+      options = const FirebaseOptions(
+        apiKey: 'AIzaSyBDFd1pH0-NG9TSwIgIY3mutjOWCdR1px8',
+        appId: '1:62981869376:ios:594e3603602b564ce8b4a5',
+        messagingSenderId: '62981869376',
+        projectId: 'safqah-a6fd4',
+      );
+    }
+    await Firebase.initializeApp(options: options);
+    final RemoteMessage? initialMessage =
+        await FirebaseMessaging.instance.getInitialMessage();
+
+    if (initialMessage != null) {
+      notificationRedirect(initialMessage.data);
+    }
+
+    enableIOSNotifications();
+    await registerNotificationListeners();
+  }
+
+  Future<void> registerNotificationListeners() async {
+    final AndroidNotificationChannel channel = androidNotificationChannel();
+    final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+        FlutterLocalNotificationsPlugin();
+    await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.createNotificationChannel(channel);
+    const AndroidInitializationSettings androidSettings =
+        AndroidInitializationSettings('@drawable/ic_launcher');
+    const DarwinInitializationSettings iOSSettings =
+        DarwinInitializationSettings(
+      requestSoundPermission: false,
+      requestBadgePermission: false,
+      requestAlertPermission: false,
+    );
+    const InitializationSettings initSettings =
+        InitializationSettings(android: androidSettings, iOS: iOSSettings);
+
+    flutterLocalNotificationsPlugin.initialize(
+      initSettings,
+      onDidReceiveNotificationResponse: (NotificationResponse details) {
+        // We're receiving the payload as string that looks like this
+        // {buttontext: Button Text, subtitle: Subtitle, imageurl: , typevalue: 14, type: course_details}
+        // So the code below is used to convert string to map and read whatever property you want
+
+        final List<String> str =
+            details.payload!.replaceAll('{', '').replaceAll('}', '').split(',');
+        final Map<String, dynamic> result = <String, dynamic>{};
+        for (int i = 0; i < str.length; i++) {
+          final List<String> s = str[i].split(':');
+          result.putIfAbsent(s[0].trim(), () => s[1].trim());
+        }
+        notificationRedirect(result);
+      },
+    );
+    // onMessage is called when the app is in foreground and a notification is received
+    FirebaseMessaging.onMessage.listen((RemoteMessage? message) {
+      consoleLog(message, key: 'firebase_message');
+      final RemoteNotification? notification = message!.notification;
+      final AndroidNotification? android = message.notification?.android;
+      // If `onMessage` is triggered with a notification, construct our own
+      // local notification to show to users using the created channel.
+      if (notification != null && android != null) {
+        flutterLocalNotificationsPlugin.show(
+          notification.hashCode,
+          notification.title,
+          notification.body,
+          flutter_local_notifications.NotificationDetails(
+            android: AndroidNotificationDetails(
+              channel.id,
+              channel.name,
+              channelDescription: channel.description,
+              icon: android.smallIcon,
+            ),
+          ),
+          payload: message.data.toString(),
+        );
+      }
+    });
+    // This function is called when ios app is opened, for android case `onDidReceiveNotificationResponse` function is called
+    FirebaseMessaging.onMessageOpenedApp.listen(
+      (RemoteMessage message) {
+        consoleLog('message', key: 'IOS-Notif');
+        notificationRedirect(message.data);
+      },
+    );
+  }
+
+  Future<void> enableIOSNotifications() async {
+    await FirebaseMessaging.instance
+        .setForegroundNotificationPresentationOptions(
+      alert: true, // Required to display a heads up notification
+      badge: true,
+      sound: true,
+    );
+  }
+
+  AndroidNotificationChannel androidNotificationChannel() =>
+      const AndroidNotificationChannel(
+        'high_importance_channel', // id
+        'High Importance Notifications', // title
+        description:
+            'This channel is used for important notifications.', // description
+        importance: Importance.max,
+      );
+
+  Future<void> notificationRedirect(dynamic result) async {
+    consoleLog('REDIRECT', key: 'redirect');
+    // final int id = int.parse(result[keyId]);
+    // final String page = result[keyPage];
+    // openScreenBasedOnScreenName(page, id);
+  }
+}
