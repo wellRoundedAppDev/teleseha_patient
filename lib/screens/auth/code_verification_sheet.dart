@@ -64,10 +64,10 @@ class CodeVerificationSheet extends StatelessWidget {
             SizedBox(height: DEVICE_HEIGHT * 0.05),
             SizedBox(
               width: DEVICE_WIDTH,
-              child: CustomButton(
-                text: 'verify'.tr,
-                onPressed: myAppController.auth,
-              ),
+              // child: CustomButton(
+              //   text: 'verify'.tr,
+              //   onPressed: myAppController.auth,
+              // ),
             ),
           ],
         ),

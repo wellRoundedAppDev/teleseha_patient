@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:ui' as ui;
 
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../general_exports.dart';
@@ -179,11 +178,7 @@ Future<void> openUrl(String url) async {
 void showToast({
   String message = '',
 }) {
-  Fluttertoast.showToast(
-    msg: message,
-    toastLength: Toast.LENGTH_LONG,
-    gravity: ToastGravity.CENTER,
-  );
+
 }
 
 // String propertyCodeSuffix(dynamic item) => item.containsKey(keyBuildingNo)

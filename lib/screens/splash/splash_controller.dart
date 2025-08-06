@@ -1,67 +1,10 @@
-import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
-
 import '../../general_exports.dart';
 
 class SplashController extends GetxController {
-  MyAppController myAppController = Get.find<MyAppController>();
-
   @override
-  void onReady() {
+  void onReady() async {
     super.onReady();
-
-    myAppController.lov(
-      onDataFetched: () async {
-        // checkAppVersion();
-        if (myAppController.userData != null) {
-          // if (myAppController.isTokenExpiredOrNull()) {
-          // refreshToken();
-          // myAppController.setTokenExpiryDate(
-          // int.parse(
-          // myAppController.getSetOptionValue(keyTokenExpiryHours),
-          // ),
-          // );
-          // } else {
-          // isDataLoaded = true;
-          // navigate();
-          // }
-          // if (myAppController.userData != null) {
-          // isAccountDelete();
-          // }
-          // } else {
-          // isDataLoaded = true;
-        }
-        navigate();
-      },
-    );
-  }
-
-  Future<void> navigate() async {
+    await Future<void>.delayed(Duration(seconds: 3));
     Get.offAndToNamed(routeHome);
-    await FlutterBranchSdk.init(enableLogging: true);
-    listenDynamicLinks();
-  }
-
-  Future<void> setBaseUrl() async {
-    final Map<String, dynamic> deviceQueryParams =
-        await getDefaultQueryParams();
-    final List<dynamic> labDevices = myAppController.lovData[name];
-
-    for (final dynamic labDevice in labDevices) {
-      if (deviceQueryParams[name] == labDevice[name]) {
-        baseUrl = labDevice[name];
-        await myAppController.lov();
-        if (myAppController.userData != null) {
-          // myAppController.getNotificationCounter();
-        }
-        return;
-      }
-    }
-
-    baseUrl = myAppController.getSetOptionValue(name);
-    // baseUrl = 'https://www.tfaseel.com/apex/lab/';
-
-    if (myAppController.userData != null) {
-      // myAppController.getNotificationCounter();
-    }
   }
 }

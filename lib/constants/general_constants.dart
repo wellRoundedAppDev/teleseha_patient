@@ -1,8 +1,6 @@
 import 'dart:io';
 import 'dart:ui';
 
-import 'package:flutter/material.dart';
-
 const bool viewLog = true;
 
 const String testImage = 'https://i.imgur.com/X30QPYP.jpg';

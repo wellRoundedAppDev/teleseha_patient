@@ -1,17 +1,10 @@
-import 'package:client_information/client_information.dart';
 
 import '../../general_exports.dart';
 
 Future<Map<String, dynamic>> getDefaultQueryParams() async {
-  final ClientInformation deviceInfo = await ClientInformation.fetch();
   final MyAppController myAppController = Get.find<MyAppController>();
   Map<String, dynamic> data = <String, dynamic>{};
   data = <String, dynamic>{
-    name: deviceInfo.osName,
-    name: deviceInfo.deviceName,
-    name: deviceInfo.deviceId,
-    name: deviceInfo.osVersion,
-    name: myAppController.buildNumber,
     // keyDeviceModel: deviceInfo.osName,
     // keyDeviceName: deviceInfo.deviceName,
     // keyDeviceId: deviceInfo.deviceId,
@@ -24,7 +17,7 @@ Future<Map<String, dynamic>> getDefaultQueryParams() async {
     // keyBidderId: 101, // Need nafath
     // keyBidderId: 54, // Already registered
     // keyBidderId: 54, // User has wallet
-    name: myAppController.userData?[name],
+    keyName: myAppController.userData?[keyName],
   };
   if (myAppController.userData != null) {
     // data[keyStudentId] = myAppController.userData[keyStudentId];

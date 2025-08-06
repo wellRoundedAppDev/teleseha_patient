@@ -1,8 +1,4 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-
 import '../general_exports.dart';
 
 class ApiRequest {
@@ -35,15 +31,12 @@ class ApiRequest {
   final dynamic body;
   final dynamic queryParameters;
   dynamic response;
-  String authorization() => myAppController.userData != null
-      ? 'Bearer ${myAppController.userData[name]}'
-      : '';
 
   Future<Dio> _dio() async {
     final Map<String, dynamic> defaultQueryParams =
         await getDefaultQueryParams();
     if (shouldRemoveBidderIdFromDefaultQuery) {
-      defaultQueryParams.remove(name);
+      defaultQueryParams.remove(keyName);
     }
     return Dio(
       BaseOptions(
@@ -98,7 +91,6 @@ class ApiRequest {
           );
           break;
       }
-      final int time = DateTime.now().difference(startTime).inMilliseconds;
       // print response data in console
       if (shouldShowRequestDetails) {
         showRequestDetails(
@@ -111,7 +103,6 @@ class ApiRequest {
           headers: dio.options.headers,
           queryParameters: dio.options.queryParameters.toString(),
           response: response.data,
-          time: time,
         );
       }
 
@@ -138,20 +129,6 @@ class ApiRequest {
                 <String, String>{'message': error.toString()},
               ],
             };
-        if (onError != null) {
-          onError(errorData);
-        }
-        if (error.response?.statusCode == 401) {
-          refreshToken(
-            successAction: () {
-              request(
-                onSuccessWithHeader: onSuccessWithHeader,
-                onSuccess: onSuccess,
-                onError: onError,
-              );
-            },
-          );
-        }
         // print response error
         if (shouldShowRequestDetails) {
           showRequestDetails(
@@ -168,8 +145,6 @@ class ApiRequest {
             isError: true,
           );
         }
-
-        //handle DioError here by error type or by error code
         if (shouldShowMessage) {
           showMessage(
             description:
@@ -179,7 +154,6 @@ class ApiRequest {
           );
         }
       } else {
-        // handle another errors
         if (shouldShowRequestDetails) {
           showRequestDetails(
             method: method.toString(),
@@ -198,43 +172,6 @@ class ApiRequest {
         }
       }
     }
-  }
-
-  Future<void> refreshToken({Function()? successAction}) async {
-    startLoading();
-    final String fcId = await FirebaseMessaging.instance.getToken() ?? '';
-    ApiRequest(
-      path: '$users?$sharedKey',
-      method: ApiMethods.post,
-      shouldRemoveBidderIdFromDefaultQuery: true,
-      className: 'ApiRequest',
-      queryParameters: <String, dynamic>{
-        name: myAppController.userData[name],
-        name: fcId,
-        '': myAppController.userData[name],
-      },
-    ).request(
-      onSuccessWithHeader: (dynamic data, dynamic response, dynamic headers) {
-        dismissLoading();
-        if (response[name] == '1') {
-          if (!response.containsKey(name)) {
-            response[name] = headers[name][0];
-          }
-          myAppController.onUserAuthenticated(response);
-          if (successAction != null) {
-            successAction.call();
-          }
-        } else {
-          consoleLog('11');
-          signOutUserAbdOpenSignInSheet();
-        }
-      },
-      onError: (dynamic error) {
-        dismissLoading();
-        consoleLog('22');
-        signOutUserAbdOpenSignInSheet();
-      },
-    );
   }
 
   void signOutUserAbdOpenSignInSheet() {

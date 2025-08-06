@@ -10,6 +10,7 @@ class Splash extends StatelessWidget {
         init: SplashController(),
         builder: (SplashController controller) {
           return Container(
+            child: Text("loading Splash..."),
             alignment: Alignment.center,
             color: const Color(AppColors.grey),
             height: DEVICE_HEIGHT,
