@@ -1,0 +1,1 @@
+export 'Diagnosis_recipient.dart';

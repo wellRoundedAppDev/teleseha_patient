@@ -1,4 +1,4 @@
-import '../../general_exports.dart';
+import '../../../general_exports.dart';
 
 class StepOne extends StatelessWidget {
   @override
@@ -36,13 +36,14 @@ class StepOne extends StatelessWidget {
               child: GetBuilder<PassTypeAndAge>(
                 builder: (controller) {
                   return TextFormField(
+                    keyboardType: TextInputType.number,
                     validator: (value) {
                       if (value == '') {
                         return 'الرجاء ادخال العمر';
                       }
                       return null;
                     },
-                    controller: controller.Textfield,
+                    controller: controller.TextfieldAge,
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       contentPadding: EdgeInsets.symmetric(
@@ -77,15 +78,6 @@ class StepOne extends StatelessWidget {
                 fontFamily: 'Cairo',
                 fontStyle: FontStyle.normal,
               ),
-            ),
-            SizedBox(height: DEVICE_HEIGHT * 0.02),
-            GetBuilder<PassTypeAndAge>(
-              builder: (controller) {
-                return Text('${controller.viewVaildType}');
-                // return controller.viewVaildType
-                //     ? Text('error')
-                //     : Container(height: 0);
-              },
             ),
             SizedBox(height: DEVICE_HEIGHT * 0.02),
             GetBuilder<PassTypeAndAge>(
@@ -150,6 +142,17 @@ class StepOne extends StatelessWidget {
                     );
                   }).toList(),
                 );
+              },
+            ),
+            SizedBox(height: DEVICE_HEIGHT * 0.01),
+            GetBuilder<PassTypeAndAge>(
+              builder: (controller) {
+                return controller.viewVaildType
+                    ? Text(
+                        'الرجاء اختيار النوع',
+                        style: TextStyle(color: Colors.red),
+                      )
+                    : Container();
               },
             ),
           ],
