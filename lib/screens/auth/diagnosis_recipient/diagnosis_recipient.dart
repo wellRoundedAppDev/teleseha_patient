@@ -15,7 +15,7 @@ class DiagnosisRecipient extends StatelessWidget {
         margin: EdgeInsets.symmetric(vertical: DEVICE_HEIGHT * 0.11),
         child: Column(
           children: [
-            Logo(),
+            // Logo(),
             SizedBox(height: DEVICE_HEIGHT * 0.1),
             Text(
               'howDiagnosis'.tr,

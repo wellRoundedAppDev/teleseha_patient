@@ -43,7 +43,7 @@ class Success extends StatelessWidget {
             Btn(
               text: 'next'.tr,
               onNext: () {
-                Get.toNamed('/diagnosisRecipient');
+                Get.toNamed(routeDiagnosis);
               },
             ),
           ],

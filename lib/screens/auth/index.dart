@@ -1,5 +1,5 @@
 export 'auth_type.dart';
-export 'auth.dart';
+export 'fanger.dart';
 export 'package:flutter_svg/flutter_svg.dart';
 export 'steps/index.dart';
 export 'start_steps/start_steps.dart';
