@@ -1,5 +1,8 @@
-const String iconsPath = 'assets/images/';
+const String iconsPath = 'assets/icons/';
 
-// ****** ICONS ******
+// ICONS
 
-const String iconLocation = '${iconsPath}location.png';
+const String iconBack = '${iconsPath}back.svg';
+const String iconBottom = '${iconsPath}bottom.svg';
+const String iconFemale = '${iconsPath}female.svg';
+const String iconMale = '${iconsPath}male.svg';

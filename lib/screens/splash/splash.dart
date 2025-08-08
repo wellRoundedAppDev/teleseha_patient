@@ -6,18 +6,19 @@ class Splash extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GetBuilder<SplashController>(
-        init: SplashController(),
-        builder: (SplashController controller) {
-          return Container(
-            child: Text("loading Splash..."),
-            alignment: Alignment.center,
-            color: const Color(AppColors.grey),
-            height: DEVICE_HEIGHT,
-            width: DEVICE_WIDTH,
-          );
-        },
-      ),
+      body: Text("test"),
+      // body: GetBuilder<SplashController>(
+      //   init: SplashController(),
+      //   builder: (SplashController controller) {
+      //     return Container(
+      //       child: Text("loading Splash..."),
+      //       alignment: Alignment.center,
+      //       color: const Color(AppColors.grey),
+      //       height: DEVICE_HEIGHT,
+      //       width: DEVICE_WIDTH,
+      //     );
+      //   },
+      // ),
     );
   }
 }

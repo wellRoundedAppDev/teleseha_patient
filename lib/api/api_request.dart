@@ -62,8 +62,6 @@ class ApiRequest {
     Function(dynamic error)? onError,
   }) async {
     // start request time
-    final DateTime startTime = DateTime.now();
-
     final Dio dio = await _dio();
 
     try {
@@ -119,8 +117,6 @@ class ApiRequest {
     } on Exception catch (error) {
       dismissLoading();
       // request time
-      final int time = DateTime.now().difference(startTime).inMilliseconds;
-
       if (error is DioException) {
         final dynamic errorData =
             error.response?.data ??
@@ -141,7 +137,6 @@ class ApiRequest {
             headers: dio.options.headers,
             queryParameters: dio.options.queryParameters.toString(),
             response: errorData,
-            time: time,
             isError: true,
           );
         }
@@ -165,7 +160,6 @@ class ApiRequest {
             headers: dio.options.headers,
             queryParameters: dio.options.queryParameters.toString(),
             response: error,
-            time: time,
             isError: true,
             otherCatch: true,
           );
@@ -176,16 +170,6 @@ class ApiRequest {
 
   void signOutUserAbdOpenSignInSheet() {
     myAppController.onSignOut();
-    // Navigator.popUntil(
-    //   Get.context!,
-    //   (dynamic r) => r.settings.name == routeHomeBottomBar,
-    // );
-    // myAppController.openSignInSheet(
-    //   action: () {
-    //     Get.find<HomeBottomBarController>().onItemTapped(0);
-    //     Get.find<HomeBottomBarController>().update();
-    //   },
-    // );
   }
 }
 

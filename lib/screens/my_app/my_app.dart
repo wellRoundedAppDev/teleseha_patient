@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 
 import '../../general_exports.dart';
@@ -12,8 +10,17 @@ class MyApp extends StatelessWidget {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: GetMaterialApp(
+        locale: Locale('ar'),
+        supportedLocales: [Locale('ar')],
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        translations: Translation(),
         debugShowCheckedModeBanner: false,
-        initialRoute: routeSplash,
+        // initialRoute: routeSplash,
+        initialRoute: routeAuth,
         getPages: appRoutes,
         builder: (BuildContext context, Widget? child) {
           return Stack(
