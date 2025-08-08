@@ -1,7 +1,7 @@
 import '../../general_exports.dart';
 
-class Auth extends StatelessWidget {
-  const Auth({super.key});
+class Fanger extends StatelessWidget {
+  const Fanger({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +66,7 @@ class Auth extends StatelessWidget {
                 SizedBox(width: DEVICE_WIDTH * 0.04),
                 Expanded(
                   child: Btn(
-                    onNext: () => Get.toNamed('/steps'),
+                    onNext: () => Get.toNamed(routeSteps),
                     text: 'save'.tr,
                     color: Color(AppColors.colorLineAndText),
                   ),

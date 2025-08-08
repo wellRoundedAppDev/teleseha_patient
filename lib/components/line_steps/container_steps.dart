@@ -8,9 +8,13 @@ class ContainerSteps extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(color: Colors.blue.withValues(alpha: MyAlpha)),
-      width: DEVICE_WIDTH * 0.09,
-      height: DEVICE_HEIGHT * 0.004,
+      decoration: BoxDecoration(
+        color: Colors.blue.withValues(alpha: MyAlpha),
+        // borderRadius: borderRadius.circular(20),
+        borderRadius: BorderRadius.circular(DEVICE_HEIGHT * 0.01),
+      ),
+      width: DEVICE_WIDTH * 0.07,
+      height: DEVICE_HEIGHT * 0.006,
     );
   }
 }

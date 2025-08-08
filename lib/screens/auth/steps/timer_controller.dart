@@ -5,6 +5,7 @@ class TimerController extends GetxController {
   int secondsRemaining = 70;
   TextEditingController otpController = TextEditingController();
   Timer? _timer;
+  bool isOtpInvalid = false;
 
   @override
   void onInit() {
@@ -58,5 +59,19 @@ class TimerController extends GetxController {
 
   void printOtp() {
     print("📥 OTP Entered: ${otpController.text}");
+  }
+
+  void markOtpInvalid() {
+    isOtpInvalid = true;
+    update();
+  }
+
+  void clearOtpError() {
+    isOtpInvalid = false;
+    update();
+  }
+
+  bool checkOtpIsValid() {
+    return otpController.text.length == 6;
   }
 }

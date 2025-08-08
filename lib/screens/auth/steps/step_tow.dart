@@ -52,7 +52,7 @@ class StepTow extends StatelessWidget {
             },
           ),
         ),
-        SizedBox(height: DEVICE_HEIGHT * 0.02),
+        SizedBox(height: DEVICE_HEIGHT * 0.03),
         Text(
           'numberPhone'.tr,
           style: TextStyle(

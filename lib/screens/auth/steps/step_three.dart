@@ -25,7 +25,7 @@ class StepThree extends StatelessWidget {
               color: Color(AppColors.colorTextBlue),
             ),
           ),
-          SizedBox(height: DEVICE_HEIGHT * 0.03),
+          SizedBox(height: DEVICE_HEIGHT * 0.04),
           Text.rich(
             TextSpan(
               children: [
@@ -43,45 +43,74 @@ class StepThree extends StatelessWidget {
                   style: TextStyle(
                     fontFamily: 'Cairo',
                     fontSize: 14,
-                    fontWeight: FontWeight.w400,
+                    fontWeight: FontWeight.bold,
                     color: Color(AppColors.colorLineAndText),
                   ),
                 ),
               ],
             ),
           ),
-          SizedBox(height: DEVICE_HEIGHT * 0.03),
-          Directionality(
-            textDirection: TextDirection.ltr,
-            child: Pinput(
-              controller: timerController.otpController,
-              validator: (value) {
-                if (value == '') {
-                  return 'الرجاء التحقق من الرمز';
-                }
-                return null;
-              },
-              length: 6,
-              defaultPinTheme: defaultPinTheme.copyDecorationWith(
-                border: Border.all(color: const Color(AppColors.colorWhite)),
-                color: const Color.fromARGB(54, 218, 218, 218),
-              ),
-              submittedPinTheme: defaultPinTheme.copyDecorationWith(
-                border: Border.all(
-                  color: const Color(AppColors.colorLineAndText),
-                ),
-                color: Colors.white,
-              ),
-              pinAnimationType: PinAnimationType.slide,
-              onChanged: (String value) {
-                timerController.otpController.text = value;
-              },
-              onCompleted: (String pin) {
-                timerController.otpController.text = pin;
-              },
-            ),
+          SizedBox(height: DEVICE_HEIGHT * 0.02),
+          GetBuilder<TimerController>(
+            builder: (controller) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (controller.isOtpInvalid)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: Text(
+                        'vaild_code'.tr,
+                        style: TextStyle(
+                          color: Color(AppColors.colorError),
+                          fontSize: 11,
+                          fontFamily: 'Cairo',
+                          fontWeight: FontWeight.w700,
+                        ),
+                        textAlign: TextAlign.right,
+                      ),
+                    ),
+                  Directionality(
+                    textDirection: TextDirection.ltr,
+                    child: Pinput(
+                      controller: controller.otpController,
+                      validator: (value) {
+                        if (value == '') {
+                          return 'الرجاء التحقق من الرمز';
+                        }
+                        return null;
+                      },
+                      length: 6,
+                      defaultPinTheme: defaultPinTheme.copyDecorationWith(
+                        border: Border.all(
+                          color: controller.isOtpInvalid
+                              ? Color(AppColors.colorError)
+                              : const Color(AppColors.colorWhite),
+                        ),
+                        color: const Color(AppColors.colorwhiteSelectedType),
+                      ),
+                      submittedPinTheme: defaultPinTheme.copyDecorationWith(
+                        border: Border.all(
+                          color: controller.isOtpInvalid
+                              ? Color(AppColors.colorError)
+                              : const Color(AppColors.colorLineAndText),
+                        ),
+                        color: Colors.white,
+                      ),
+                      pinAnimationType: PinAnimationType.slide,
+                      onChanged: (String value) {
+                        controller.clearOtpError();
+                      },
+                      onCompleted: (String pin) {
+                        controller.otpController.text = pin;
+                      },
+                    ),
+                  ),
+                ],
+              );
+            },
           ),
-          SizedBox(height: DEVICE_HEIGHT * 0.03),
+          SizedBox(height: DEVICE_HEIGHT * 0.02),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -107,7 +136,9 @@ class StepThree extends StatelessWidget {
                           fontFamily: 'Cairo',
                           fontSize: 11,
                           fontWeight: FontWeight.w700,
-                          color: Color(AppColors.colorTextBlue),
+                          color: Color(
+                            AppColors.colorTextBlue,
+                          ).withValues(alpha: 60),
                         ),
                       ),
                     ],
@@ -137,13 +168,21 @@ class StepThree extends StatelessWidget {
 
 final PinTheme defaultPinTheme = PinTheme(
   width: DEVICE_WIDTH * 0.85,
-  height: DEVICE_HEIGHT * 0.065,
+  height: DEVICE_HEIGHT * 0.05,
   textStyle: Theme.of(
     Get.context!,
   ).textTheme.bodyMedium!.copyWith(fontSize: 15),
   decoration: BoxDecoration(
-    color: const Color(AppColors.grey),
-    borderRadius: BorderRadius.circular(DEVICE_WIDTH * 0.01),
-    border: Border.all(color: const Color(AppColors.grey)),
+    color: const Color(AppColors.colorWhite),
+    borderRadius: BorderRadius.circular(DEVICE_WIDTH * 0.02),
+    border: Border.all(color: const Color(AppColors.colorLineAndText)),
+    boxShadow: [
+      BoxShadow(
+        color: Colors.black.withOpacity(0.1),
+        spreadRadius: 1,
+        blurRadius: 5,
+        offset: Offset(0, 2),
+      ),
+    ],
   ),
 );

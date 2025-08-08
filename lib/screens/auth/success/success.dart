@@ -12,7 +12,7 @@ class Success extends StatelessWidget {
         child: Column(
           children: [
             Logo(),
-            SizedBox(height: DEVICE_HEIGHT * 0.1),
+            SizedBox(height: DEVICE_HEIGHT * 0.07),
             SvgPicture.asset(
               successMark,
               width: DEVICE_WIDTH * 0.15,

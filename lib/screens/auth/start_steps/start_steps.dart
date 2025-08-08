@@ -65,11 +65,19 @@ class _StartStepsState extends State<StartSteps> {
         ),
       ),
       body: Container(
-        margin: EdgeInsets.symmetric(vertical: DEVICE_HEIGHT * 0.1),
+        margin: EdgeInsets.symmetric(
+          vertical: selectedSteps != 3
+              ? DEVICE_HEIGHT * 0.03
+              : DEVICE_HEIGHT * 0.01,
+        ),
         child: Column(
           children: [
             Logo(),
-            SizedBox(height: DEVICE_HEIGHT * 0.06),
+            SizedBox(
+              height: selectedSteps != 3
+                  ? DEVICE_HEIGHT * 0.06
+                  : DEVICE_HEIGHT * 0.04,
+            ),
             Form(
               key: form_key,
               child: Column(
@@ -79,15 +87,15 @@ class _StartStepsState extends State<StartSteps> {
                       : selectedSteps == 2
                       ? StepTow()
                       : StepThree(),
-                  SizedBox(height: DEVICE_HEIGHT * 0.07),
+                  SizedBox(height: DEVICE_HEIGHT * 0.08),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      ContainerSteps(MyAlpha: selectedSteps == 3 ? 1 : 6),
-                      SizedBox(width: DEVICE_HEIGHT * 0.02),
-                      ContainerSteps(MyAlpha: selectedSteps == 2 ? 1 : 6),
-                      SizedBox(width: DEVICE_HEIGHT * 0.02),
-                      ContainerSteps(MyAlpha: selectedSteps == 1 ? 1 : 6),
+                      ContainerSteps(MyAlpha: selectedSteps == 3 ? 1 : 6.5),
+                      SizedBox(width: DEVICE_HEIGHT * 0.01),
+                      ContainerSteps(MyAlpha: selectedSteps == 2 ? 1 : 6.5),
+                      SizedBox(width: DEVICE_HEIGHT * 0.01),
+                      ContainerSteps(MyAlpha: selectedSteps == 1 ? 1 : 6.5),
                     ],
                   ),
                   SizedBox(height: DEVICE_HEIGHT * 0.03),
@@ -100,10 +108,15 @@ class _StartStepsState extends State<StartSteps> {
                         onNext: () {
                           setState(() {
                             if (selectedSteps == 3) {
-                              print(
-                                "OTP Entered: ${timerController.otpController.text}",
-                              );
-                              Get.toNamed('/success');
+                              if (!timerController.checkOtpIsValid()) {
+                                timerController.markOtpInvalid();
+                                print(
+                                  "OTP Entered: ${timerController.otpController.text}",
+                                );
+                              } else {
+                                timerController.clearOtpError();
+                                Get.toNamed('/success');
+                              }
                             } else {
                               selectedSteps++;
                             }

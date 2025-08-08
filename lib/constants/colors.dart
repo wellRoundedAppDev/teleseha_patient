@@ -13,4 +13,7 @@ class AppColors {
   static const int colorNumber = 0xFF1E1E1E;
   static const int colorSuccessLine = 0xFF2E7D32;
   static const int colorThinks = 0xFF7A7A7A;
+  static const int colorBackgroundScreen = 0xffF9FAFB;
+  static const int colorwhiteSelectedType = 0xffFFFFFF;
+  static const int colorError = 0xffD32F2F;
 }

@@ -22,17 +22,17 @@ class StepOne extends StatelessWidget {
             SizedBox(height: DEVICE_HEIGHT * 0.02),
             Container(
               width: DEVICE_WIDTH * 0.40,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: const Color.fromARGB(88, 189, 189, 189),
-                    blurRadius: 5,
-                    offset: Offset(0, 0),
-                  ),
-                ],
-              ),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: const Color.fromARGB(88, 189, 189, 189),
+                      blurRadius: 5,
+                      offset: Offset(0, 0),
+                    ),
+                  ],
+                ),
               child: GetBuilder<PassTypeAndAge>(
                 builder: (controller) {
                   return TextFormField(
@@ -93,8 +93,8 @@ class StepOne extends StatelessWidget {
                           child: Container(
                             decoration: BoxDecoration(
                               color: controller.selected == item['gender']
-                                  ? Colors.blue
-                                  : Colors.white,
+                                  ? Color(AppColors.colorLineAndText)
+                                  : Color(AppColors.colorwhiteSelectedType),
                               borderRadius: BorderRadius.circular(20),
                               boxShadow: [
                                 BoxShadow(
@@ -119,9 +119,11 @@ class StepOne extends StatelessWidget {
                                   item['gender'] ?? '',
                                   style: TextStyle(
                                     color: controller.selected == item['gender']
-                                        ? Color(AppColors.colorWhite)
-                                        : Color(AppColors.colorLineAndText),
-                                    fontWeight: FontWeight.bold,
+                                        ? Color(
+                                            AppColors.colorwhiteSelectedType,
+                                          )
+                                        : Color(AppColors.colorselectDropDown),
+                                    fontWeight: FontWeight.w700,
                                     fontFamily: 'Cairo',
                                     fontSize: 16,
                                   ),
@@ -130,7 +132,7 @@ class StepOne extends StatelessWidget {
                                 SvgPicture.asset(
                                   item['icon'] ?? '',
                                   color: controller.selected == item['gender']
-                                      ? Color(AppColors.colorWhite)
+                                      ? Color(AppColors.colorwhiteSelectedType)
                                       : Color(AppColors.colorselectDropDown),
                                 ),
                               ],
