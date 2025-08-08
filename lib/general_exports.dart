@@ -5,3 +5,4 @@ export 'api/index.dart';
 export 'constants/index.dart';
 export 'screens/index.dart';
 export 'utils/index.dart';
+export 'components/index.dart';

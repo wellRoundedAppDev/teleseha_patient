@@ -1,9 +1,17 @@
 import '../../general_exports.dart';
 
-class Auth extends StatelessWidget {
-  Auth({super.key});
+class Auth extends StatefulWidget {
+  const Auth({super.key});
 
+  @override
+  State<Auth> createState() => _AuthState();
+}
+
+class _AuthState extends State<Auth> {
   PassTypeAndAge change_active = Get.put(PassTypeAndAge());
+
+  GlobalKey<FormState> form_key = GlobalKey<FormState>();
+  int selectedSteps = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -13,26 +21,38 @@ class Auth extends StatelessWidget {
         child: Directionality(
           textDirection: TextDirection.ltr,
           child: AppBar(
-            // leading: InkWell(
-            //   focusColor: Colors.transparent,
-            //   hoverColor: Colors.transparent,
-            //   splashColor: Colors.transparent,
-            //   onTap: () => Get.back(),
-            //   child: Center(
-            //     child: SvgPicture.asset(
-            //       iconBack,
-            //       width: DEVICE_WIDTH * 0.04,
-            //       height: DEVICE_HEIGHT * 0.02,
-            //     ),
-            //   ),
-            // ),
+            leading: selectedSteps != 1
+                ? InkWell(
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    onTap: () {
+                      setState(() {
+                        selectedSteps--;
+                      });
+                    },
+                    child: Center(
+                      child: SvgPicture.asset(
+                        iconBack,
+                        width: DEVICE_WIDTH * 0.04,
+                        height: DEVICE_HEIGHT * 0.02,
+                      ),
+                    ),
+                  )
+                : Text(''),
             title: SizedBox(
               width: DEVICE_WIDTH * 0.425,
               height: DEVICE_HEIGHT * 0.0108,
               child: LinearProgressIndicator(
-                value: 0.3,
+                value: selectedSteps == 1
+                    ? 0.3
+                    : selectedSteps == 2
+                    ? 0.7
+                    : 1,
                 borderRadius: BorderRadius.circular(15),
-                backgroundColor: Color(AppColors.backgroundColorLine),
+                backgroundColor: selectedSteps == 1 || selectedSteps == 2
+                    ? Color(AppColors.backgroundColorLine)
+                    : Colors.green,
                 valueColor: AlwaysStoppedAnimation<Color>(
                   Color(AppColors.colorLineAndText).withValues(alpha: 0.2),
                 ),
@@ -43,6 +63,7 @@ class Auth extends StatelessWidget {
         ),
       ),
       body: Form(
+        key: form_key,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -50,12 +71,45 @@ class Auth extends StatelessWidget {
             SizedBox(height: DEVICE_HEIGHT * 0.04),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [Text("tesst"), Text("tesst"), Text("tesst")],
+              children: [
+                ContainerSteps(MyAlpha: selectedSteps == 3 ? 1 : 5),
+                SizedBox(width: DEVICE_HEIGHT * 0.02),
+                ContainerSteps(MyAlpha: selectedSteps == 2 ? 1 : 5),
+                SizedBox(width: DEVICE_HEIGHT * 0.02),
+                ContainerSteps(MyAlpha: selectedSteps == 1 ? 1 : 5),
+              ],
             ),
-            SizedBox(height: DEVICE_HEIGHT * 0.01),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [Text("tesst"), Text("tesst"), Text("tesst")],
+            SizedBox(height: DEVICE_HEIGHT * 0.03),
+            // GetBuilder<PassTypeAndAge>(
+            //   builder: (controller) {
+            //     return controller.viewVaildType ? Text('error') : Text('');
+            //   },
+            // ),
+            SizedBox(height: DEVICE_HEIGHT * 0.03),
+            GetBuilder<PassTypeAndAge>(
+              builder: (controller) {
+                return Container(
+                  width: DEVICE_WIDTH * 0.9,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      padding: EdgeInsets.symmetric(
+                        vertical: DEVICE_HEIGHT * 0.02,
+                      ),
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        controller.checkVaildType;
+                        selectedSteps++;
+                      });
+                    },
+                    child: Text(
+                      'next'.tr,
+                      style: TextStyle(color: Color(AppColors.colorWhite)),
+                    ),
+                  ),
+                );
+              },
             ),
           ],
         ),

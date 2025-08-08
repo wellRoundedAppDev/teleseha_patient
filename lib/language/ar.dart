@@ -4,4 +4,5 @@ const Map<String, String> ar = {
   'type': 'النوع',
   'male': 'ذكر',
   'female': 'انثى',
+  'next': 'التالي',
 };

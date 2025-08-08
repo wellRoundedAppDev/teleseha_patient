@@ -1,5 +1,4 @@
 class AppColors {
-  static const int transparent = 0x00FFFFFF;
   static const int grey = 0xFFD2D2D2;
   static const int backgroundColorLine = 0xffEFF0F6;
   static const int colorLineAndText = 0xFF007BBD;
