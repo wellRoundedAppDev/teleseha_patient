@@ -45,7 +45,7 @@ class StepOne extends StatelessWidget {
                         horizontal: 10,
                         vertical: 20,
                       ),
-                      hintText: 'enterAge'.tr,
+                      hintText: 'enter_age'.tr,
                       hintStyle: TextStyle(
                         fontFamily: 'Cairo',
                         fontSize: 14,

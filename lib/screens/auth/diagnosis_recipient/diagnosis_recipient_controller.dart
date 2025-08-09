@@ -5,8 +5,8 @@ class DiagnsisRecipientController extends GetxController {
   bool showError = false;
 
   List<Map<String, String>> typeDiagnosis = [
-    {'about': 'aboutChildren'.tr, 'icon': aboutChildren},
-    {'about': 'aboutMy'.tr, 'icon': aboutMy},
+    {'about': 'about_children'.tr, 'icon': aboutChildren},
+    {'about': 'about_my'.tr, 'icon': aboutMy},
   ];
 
   changeType(String type) {

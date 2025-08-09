@@ -16,6 +16,9 @@ class StartStepsController extends GetxController {
   bool viewVaildNumber = false;
   bool viewOtpInvalid = false;
 
+  int secondsRemaining = 70;
+  Timer? timer;
+
   List<Map<String, String>> type = [
     {'gender': 'female'.tr, 'icon': iconFemale},
     {'gender': 'male'.tr, 'icon': iconMale},
@@ -71,30 +74,29 @@ class StartStepsController extends GetxController {
       viewVaildType = false;
     }
 
+    if (isValid) {
+      if (selectedSteps == 2) {
+        consoleLog(
+          "type: ${selected}, age: ${TextfieldAge.text}, name: ${TextfieldName.text}, , number: ${TextfieldNumber.text}",
+        );
+      }
+    }
     update();
     return isValid;
   }
 
   // This is the otp timer logic
-  checkOtp() {
+  // create request post and data user and save storage to data user
+  void checkOtp() {
     if (selectedSteps == 3) {
       if (!checkOtpIsValid()) {
         markOtpInvalid();
-        print("OTP Entered: ${otpController.text}");
       } else {
         clearOtpError();
-        Get.toNamed('/success');
+        consoleLog("OTP Entered: ${otpController.text}");
+        Get.toNamed(routeSuccess);
       }
     }
-  }
-
-  int secondsRemaining = 70;
-  Timer? timer;
-
-  @override
-  void onInit() {
-    super.onInit();
-    otpController = TextEditingController();
   }
 
   void startTimerManually() {
@@ -109,7 +111,7 @@ class StartStepsController extends GetxController {
     secondsRemaining = 70;
     update();
     startCountdown();
-    print("تمت إعادة إرسال الكود");
+    consoleLog("تمت إعادة إرسال الكود");
   }
 
   void startCountdown() {
@@ -125,7 +127,7 @@ class StartStepsController extends GetxController {
   }
 
   void onTimeFinished() {
-    print("انتهى الوقت");
+    consoleLog("انتهى الوقت");
   }
 
   String get formattedTime {
@@ -141,8 +143,8 @@ class StartStepsController extends GetxController {
     otpController.dispose();
   }
 
-  void printOtp() {
-    print("📥 OTP Entered: ${otpController.text}");
+  void consoleLogOtp() {
+    consoleLog("📥 OTP Entered: ${otpController.text}");
   }
 
   void markOtpInvalid() {

@@ -1,7 +1,7 @@
-import '../../general_exports.dart';
+import '../../../general_exports.dart';
 
-class Fanger extends StatelessWidget {
-  const Fanger({super.key});
+class FootPrint extends StatelessWidget {
+  const FootPrint({super.key});
 
   @override
   Widget build(BuildContext context) {

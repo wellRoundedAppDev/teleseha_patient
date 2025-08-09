@@ -31,6 +31,9 @@ class ApiRequest {
   final dynamic body;
   final dynamic queryParameters;
   dynamic response;
+  // String authorization() => myAppController.userData != null
+  //     ? 'Bearer ${myAppController.userData[keyToken]}'
+  //     : '';
 
   Future<Dio> _dio() async {
     final Map<String, dynamic> defaultQueryParams =
@@ -41,6 +44,7 @@ class ApiRequest {
     return Dio(
       BaseOptions(
         headers: <String, dynamic>{
+          // 'Authorization': authorization(),
           'Content-Type': '*/*',
           'Accept': '*/*',
           //  'sharedKey': sharedKey,

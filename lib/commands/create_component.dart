@@ -1,14 +1,16 @@
-// ignore_for_file: avoid_print, leading_newlines_in_multiline_strings
+// ignore_for_file: avoid_consoleLog, leading_newlines_in_multiline_strings
 
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:patient/general_exports.dart';
+
 void main() async {
   // You can write the name of the component like this TextInput or text_input
-  print('Enter component name (text_input):');
+  consoleLog('Enter component name (text_input):');
   String? componentName = stdin.readLineSync(encoding: utf8);
   if (componentName == null) {
-    print("The name can't be null");
+    consoleLog("The name can't be null");
     main();
   } else {
     final Directory projectDirectory = Directory.current;
@@ -20,7 +22,8 @@ void main() async {
         .map((String e) => e[0].toUpperCase() + e.substring(1))
         .join();
     final String indexContent = '''export '$componentName.dart';\n''';
-    final String componentContent = '''import '../../general_exports.dart';
+    final String componentContent =
+        '''import '../../general_exports.dart';
 
 class $className extends StatelessWidget {
   const $className({
@@ -37,20 +40,21 @@ class $className extends StatelessWidget {
     await Directory('$componentsDirectory$componentName').create();
 
     // Create Index file
-    final File indexFile =
-        await File('$componentsDirectory$componentName/index.dart').create();
+    final File indexFile = await File(
+      '$componentsDirectory$componentName/index.dart',
+    ).create();
     await indexFile.writeAsString(indexContent);
     // Create component file
-    final File componentFile =
-        await File('$componentsDirectory$componentName/$componentName.dart')
-            .create();
+    final File componentFile = await File(
+      '$componentsDirectory$componentName/$componentName.dart',
+    ).create();
     await componentFile.writeAsString(componentContent);
     // Update Components index
     final File componentsIndexFile = File('$componentsDirectory/index.dart');
 
     // Append the new component export line and format the file alphabetically
-    final String componentsIndexString =
-        await componentsIndexFile.readAsString();
+    final String componentsIndexString = await componentsIndexFile
+        .readAsString();
     final List<String> componentsIndexList = componentsIndexString.split('\n');
     componentsIndexList.add("export '$componentName/index.dart';");
 
@@ -69,6 +73,6 @@ class $className extends StatelessWidget {
 
     await componentsIndexFile.writeAsString('$componentsIndexStringSorted\n');
 
-    print('$componentName component created successfully :)');
+    consoleLog('$componentName component created successfully :)');
   }
 }

@@ -94,7 +94,7 @@ class TypeChildren extends StatelessWidget {
                                         horizontal: 10,
                                         vertical: 20,
                                       ),
-                                      hintText: 'enterAge'.tr,
+                                      hintText: 'enter_age'.tr,
                                       hintStyle: TextStyle(
                                         fontFamily: 'Cairo',
                                         fontSize: 14,
@@ -272,7 +272,7 @@ class TypeChildren extends StatelessWidget {
                                     horizontal: 10,
                                     vertical: 20,
                                   ),
-                                  hintText: 'namefield'.tr,
+                                  hintText: 'name_field'.tr,
                                   hintStyle: TextStyle(
                                     fontFamily: 'Cairo',
                                     fontSize: 14,
@@ -327,7 +327,7 @@ class TypeChildren extends StatelessWidget {
                                 color: Color(AppColors.colorLineAndText),
                                 onPressed: () {
                                   if (controller.checkVaildTypeChildren()) {
-                                    Get.toNamed(routeSuccess);
+                                    // Get.toNamed(home);
                                   }
                                 },
                               ),

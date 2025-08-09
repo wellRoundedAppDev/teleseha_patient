@@ -24,13 +24,12 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         // initialRoute: routeSplash,
         initialRoute: routeAuth,
+        // initialRoute: Get.find<MyAppController>().userData == null
+        //     ? routeStartSteps
+        //     : routeHome,
         getPages: appRoutes,
         builder: (BuildContext context, Widget? child) {
-          return Stack(
-            children: <Widget>[
-              FlutterSmartDialog(child: child),
-            ],
-          );
+          return Stack(children: <Widget>[FlutterSmartDialog(child: child)]);
         },
       ),
     );

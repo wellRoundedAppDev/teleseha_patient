@@ -1,39 +1,35 @@
-import 'dart:async';
 import '../../general_exports.dart';
 
 class MyAppController extends GetxController {
   dynamic userData;
+  LocalStorage localStorage = LocalStorage();
   String? versionName;
   String? buildNumber;
   bool isInternetConnect = true;
   bool shouldShowNoInternetDialog = true;
-  dynamic response;
-  AuthType authType = AuthType.signIn;
-  Timer? otpTimer;
-  bool isCompanySelected = true;
-  Function()? successAction;
 
-  @override
-  Future<void> onInit() async {
-    super.onInit();
-    consoleLog(userData, key: 'userData');
-  }
+  // check user if user success open otp else open reigster
+  // @override
+  // Future<void> onInit() async {
+  //   super.onInit();
+  //   userData = await localStorage.getFromStorage(key: storeLocationPermission);
 
-  void onUserAuthenticated(dynamic userDataValue) {
-    userData = userDataValue;
-    consoleLog('onUserAuthenticated$userData');
-    update();
-  }
+  //   consoleLog(userData, key: 'userData');
+
+  //   final String? languageCode = await localStorage.getFromStorage(
+  //     key: storeLocationPermission,
+  //   );
+  // }
 
   void onSignOut() {
     userData = null;
     update();
   }
 
-  void openSignUpSheet({Function()? action}) {
-    authType = AuthType.signUp;
-    if (Get.isBottomSheetOpen!) {
-      Get.back();
-    }
+  void onUserAuthenticated(dynamic userDataValue) {
+    // localStorage.saveToStorage(key: storeUser, value: userDataValue);
+    userData = userDataValue;
+    consoleLog('onUserAuthenticated$userData');
+    update();
   }
 }

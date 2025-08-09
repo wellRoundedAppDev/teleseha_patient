@@ -18,7 +18,7 @@ class DiagnosisRecipient extends StatelessWidget {
                 Logo(),
                 SizedBox(height: DEVICE_HEIGHT * 0.1),
                 Text(
-                  'howDiagnosis'.tr,
+                  'how_diagnosis'.tr,
                   style: TextStyle(
                     fontFamily: 'Cairo',
                     fontSize: 22,

@@ -1,7 +1,7 @@
 import '../../../general_exports.dart';
 
-class Success extends StatelessWidget {
-  const Success({super.key});
+class CreateAccountSuccess extends StatelessWidget {
+  const CreateAccountSuccess({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class Success extends StatelessWidget {
             ),
             SizedBox(height: DEVICE_HEIGHT * 0.04),
             Text(
-              'thinksCreateAccount'.tr,
+              'thinks_create_account'.tr,
               style: TextStyle(
                 fontFamily: 'Cairo',
                 fontSize: 16,

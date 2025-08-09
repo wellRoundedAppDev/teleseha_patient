@@ -31,7 +31,7 @@ class StepThree extends StatelessWidget {
                 TextSpan(
                   children: [
                     TextSpan(
-                      text: 'inputConfirm'.tr + ' ',
+                      text: 'input_confirm'.tr + ' ',
                       style: TextStyle(
                         fontFamily: 'Cairo',
                         fontSize: 14,
@@ -122,7 +122,7 @@ class StepThree extends StatelessWidget {
                             ),
                           ),
                           TextSpan(
-                            text: 'againResend'.tr,
+                            text: 'again_resend'.tr,
                             style: TextStyle(
                               fontFamily: 'Cairo',
                               fontSize: 11,

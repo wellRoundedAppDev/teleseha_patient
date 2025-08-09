@@ -35,7 +35,7 @@ class StepTow extends StatelessWidget {
                     horizontal: 10,
                     vertical: 20,
                   ),
-                  hintText: 'namefield'.tr,
+                  hintText: 'name_field'.tr,
                   hintStyle: TextStyle(
                     fontFamily: 'Cairo',
                     fontSize: 14,
@@ -57,7 +57,7 @@ class StepTow extends StatelessWidget {
                   )
                 : Text(''),
             Text(
-              'numberPhone'.tr,
+              'number_phone'.tr,
               style: TextStyle(
                 color: Color(AppColors.colorLabel),
                 fontWeight: FontWeight.w400,
@@ -82,7 +82,7 @@ class StepTow extends StatelessWidget {
                     horizontal: 10,
                     vertical: 20,
                   ),
-                  hintText: 'numberPhoneField'.tr,
+                  hintText: 'number_phone_field'.tr,
                   hintStyle: TextStyle(
                     fontFamily: 'Cairo',
                     fontSize: 14,

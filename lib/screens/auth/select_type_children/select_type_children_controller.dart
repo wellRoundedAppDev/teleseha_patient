@@ -11,8 +11,8 @@ class TypeController extends GetxController {
   bool viewVaildTypeChildren = false;
 
   List<Map<String, String>> TypeChildren = [
-    {'gender': 'typeChildrenfmale'.tr, 'icon': iconFemale},
-    {'gender': 'typeChildrenMale'.tr, 'icon': iconMale},
+    {'gender': 'type_children_fmale'.tr, 'icon': iconFemale},
+    {'gender': 'type_children_male'.tr, 'icon': iconMale},
   ];
 
   changeTypeChildren(type) {
