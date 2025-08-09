@@ -57,10 +57,10 @@ class StepOne extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: DEVICE_HEIGHT * 0.02),
+                SizedBox(height: DEVICE_HEIGHT * 0.01),
                 controller.viewVaildAge
                     ? Text(
-                        'error',
+                        'الرجاء ادخال العمر',
                         style: TextStyle(
                           color: Color(AppColors.colorError),
                           fontSize: 16,
@@ -68,7 +68,7 @@ class StepOne extends StatelessWidget {
                           fontWeight: FontWeight.w700,
                         ),
                       )
-                    : Container(),
+                    : Text(''),
               ],
             ),
             SizedBox(width: DEVICE_WIDTH * 0.04),
@@ -153,7 +153,7 @@ class StepOne extends StatelessWidget {
                         'الرجاء اختيار النوع',
                         style: TextStyle(color: Color(AppColors.colorError)),
                       )
-                    : Container(),
+                    : Text(''),
               ],
             ),
           ],

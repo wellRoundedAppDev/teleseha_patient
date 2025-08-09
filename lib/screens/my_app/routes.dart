@@ -10,4 +10,8 @@ List<GetPage<dynamic>> appRoutes = <GetPage<dynamic>>[
     name: routeDiagnosis,
     page: () => DiagnosisRecipient(),
   ),
+  GetPage<TypeChildren>(
+    name: routeTypeChildren,
+    page: () => TypeChildren(),
+  ),
 ];

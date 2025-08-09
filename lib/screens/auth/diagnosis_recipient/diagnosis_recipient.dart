@@ -6,30 +6,28 @@ class DiagnosisRecipient extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DiagnsisRecipientController diagnsis_recipient = Get.put(
-      DiagnsisRecipientController(),
-    );
-    return Scaffold(
-      body: Container(
-        width: DEVICE_WIDTH,
-        margin: EdgeInsets.symmetric(vertical: DEVICE_HEIGHT * 0.11),
-        child: Column(
-          children: [
-            Logo(),
-            SizedBox(height: DEVICE_HEIGHT * 0.1),
-            Text(
-              'howDiagnosis'.tr,
-              style: TextStyle(
-                fontFamily: 'Cairo',
-                fontSize: 22,
-                fontWeight: FontWeight.w700,
-                color: Color(AppColors.colorTextBlue),
-              ),
-            ),
-            SizedBox(height: DEVICE_HEIGHT * 0.04),
-            GetBuilder<DiagnsisRecipientController>(
-              builder: (controller) {
-                return Row(
+    return GetBuilder<DiagnsisRecipientController>(
+      init: DiagnsisRecipientController(),
+      builder: (controller) {
+        return Scaffold(
+          body: Container(
+            width: DEVICE_WIDTH,
+            margin: EdgeInsets.symmetric(vertical: DEVICE_HEIGHT * 0.11),
+            child: Column(
+              children: [
+                Logo(),
+                SizedBox(height: DEVICE_HEIGHT * 0.1),
+                Text(
+                  'howDiagnosis'.tr,
+                  style: TextStyle(
+                    fontFamily: 'Cairo',
+                    fontSize: 22,
+                    fontWeight: FontWeight.w700,
+                    color: Color(AppColors.colorTextBlue),
+                  ),
+                ),
+                SizedBox(height: DEVICE_HEIGHT * 0.04),
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(controller.typeDiagnosis.length, (
                     index,
@@ -101,14 +99,35 @@ class DiagnosisRecipient extends StatelessWidget {
                       ],
                     );
                   }),
-                );
-              },
+                ),
+                SizedBox(height: DEVICE_HEIGHT * 0.04),
+                controller.showError
+                    ? Text(
+                        'الرجاء ادخال النوع',
+                        style: TextStyle(
+                          color: Color(AppColors.colorError),
+                          fontSize: 16,
+                          fontFamily: 'Cairo',
+                          fontWeight: FontWeight.w700,
+                        ),
+                      )
+                    : SizedBox.shrink(),
+
+                SizedBox(height: DEVICE_HEIGHT * 0.04),
+                Btn(
+                  text: 'next'.tr,
+                  color: Color(AppColors.colorLineAndText),
+                  onPressed: () {
+                    if (controller.checkVaild()) {
+                      Get.toNamed(routeTypeChildren);
+                    }
+                  },
+                ),
+              ],
             ),
-            SizedBox(height: DEVICE_HEIGHT * 0.04),
-            Btn(),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

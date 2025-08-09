@@ -6,3 +6,4 @@ export 'start_steps/index.dart';
 export 'package:patient/components/logo/logo.dart';
 export 'success/success.dart';
 export 'diagnosis_recipient/Diagnosis_recipient.dart';
+export 'check_type_children/index.dart';

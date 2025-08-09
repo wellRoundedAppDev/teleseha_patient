@@ -24,5 +24,7 @@ const Map<String, String> ar = {
   'howDiagnosis': 'لمن تحتاج التشخيص الطبي',
   'aboutMy': 'لنفسي',
   'aboutChildren': ' لطفلي',
-  'vaild_code': 'الرمز غير صحيح',  
+  'vaild_code': 'الرمز غير صحيح',
+  'typeChildrenMale': 'طفل',
+  'typeChildrenfmale': 'طفله',
 };

@@ -3,4 +3,5 @@
 const String routeAuth = '/auth';
 const String routeSteps = '/steps';
 const String routeSuccess = '/success';
-const String routeDiagnosis = '/diagnosisRecipient';
+const String routeDiagnosis = '/diagnosis-recipient';
+const String routeTypeChildren = '/type-children';

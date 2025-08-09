@@ -4,59 +4,58 @@ import '../../../general_exports.dart';
 
 class StepThree extends StatelessWidget {
   const StepThree({super.key});
-
-  MyAppController get myAppController => Get.find<MyAppController>();
-  TimerController get timerController => Get.find<TimerController>();
-
   @override
   Widget build(BuildContext context) {
-    timerController.startTimerManually();
-    return Container(
-      width: DEVICE_WIDTH * 0.8,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            'confirm'.tr,
-            style: TextStyle(
-              fontFamily: 'Cairo',
-              fontSize: 24,
-              fontWeight: FontWeight.w700,
-              color: Color(AppColors.colorTextBlue),
-            ),
-          ),
-          SizedBox(height: DEVICE_HEIGHT * 0.04),
-          Text.rich(
-            TextSpan(
-              children: [
-                TextSpan(
-                  text: 'inputConfirm'.tr + ' ',
-                  style: TextStyle(
-                    fontFamily: 'Cairo',
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: Color(AppColors.colorInputConfirm),
-                  ),
+    return GetBuilder<StartStepsController>(
+      init: StartStepsController(),
+      builder: (controller) {
+        controller.secondsRemaining == 70 && controller.timer == null
+            ? controller.startCountdown()
+            : null;
+        return Container(
+          width: DEVICE_WIDTH * 0.8,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                'confirm'.tr,
+                style: TextStyle(
+                  fontFamily: 'Cairo',
+                  fontSize: 24,
+                  fontWeight: FontWeight.w700,
+                  color: Color(AppColors.colorTextBlue),
                 ),
+              ),
+              SizedBox(height: DEVICE_HEIGHT * 0.04),
+              Text.rich(
                 TextSpan(
-                  text: '0123456890',
-                  style: TextStyle(
-                    fontFamily: 'Cairo',
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: Color(AppColors.colorLineAndText),
-                  ),
+                  children: [
+                    TextSpan(
+                      text: 'inputConfirm'.tr + ' ',
+                      style: TextStyle(
+                        fontFamily: 'Cairo',
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: Color(AppColors.colorInputConfirm),
+                      ),
+                    ),
+                    TextSpan(
+                      text: '0123456890',
+                      style: TextStyle(
+                        fontFamily: 'Cairo',
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Color(AppColors.colorLineAndText),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-          SizedBox(height: DEVICE_HEIGHT * 0.02),
-          GetBuilder<TimerController>(
-            builder: (controller) {
-              return Column(
+              ),
+              SizedBox(height: DEVICE_HEIGHT * 0.02),
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if (controller.isOtpInvalid)
+                  if (controller.viewOtpInvalid)
                     Padding(
                       padding: const EdgeInsets.only(bottom: 8.0),
                       child: Text(
@@ -74,16 +73,10 @@ class StepThree extends StatelessWidget {
                     textDirection: TextDirection.ltr,
                     child: Pinput(
                       controller: controller.otpController,
-                      validator: (value) {
-                        if (value == '') {
-                          return 'الرجاء التحقق من الرمز';
-                        }
-                        return null;
-                      },
                       length: 6,
                       defaultPinTheme: defaultPinTheme.copyDecorationWith(
                         border: Border.all(
-                          color: controller.isOtpInvalid
+                          color: controller.viewOtpInvalid
                               ? Color(AppColors.colorError)
                               : const Color(AppColors.colorWhite),
                         ),
@@ -91,7 +84,7 @@ class StepThree extends StatelessWidget {
                       ),
                       submittedPinTheme: defaultPinTheme.copyDecorationWith(
                         border: Border.all(
-                          color: controller.isOtpInvalid
+                          color: controller.viewOtpInvalid
                               ? Color(AppColors.colorError)
                               : const Color(AppColors.colorLineAndText),
                         ),
@@ -107,47 +100,43 @@ class StepThree extends StatelessWidget {
                     ),
                   ),
                 ],
-              );
-            },
-          ),
-          SizedBox(height: DEVICE_HEIGHT * 0.02),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  timerController.restartTimer();
-                },
-                child: Text.rich(
-                  TextSpan(
-                    children: [
-                      TextSpan(
-                        text: 'resend'.tr + ' ',
-                        style: TextStyle(
-                          fontFamily: 'Cairo',
-                          fontSize: 11,
-                          fontWeight: FontWeight.w700,
-                          color: Color(AppColors.colorReset),
-                        ),
-                      ),
-                      TextSpan(
-                        text: 'againResend'.tr,
-                        style: TextStyle(
-                          fontFamily: 'Cairo',
-                          fontSize: 11,
-                          fontWeight: FontWeight.w700,
-                          color: Color(
-                            AppColors.colorTextBlue,
-                          ).withValues(alpha: 60),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
               ),
-              GetBuilder<TimerController>(
-                builder: (controller) {
-                  return Text(
+              SizedBox(height: DEVICE_HEIGHT * 0.02),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      controller.restartTimer();
+                    },
+                    child: Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: 'resend'.tr + ' ',
+                            style: TextStyle(
+                              fontFamily: 'Cairo',
+                              fontSize: 11,
+                              fontWeight: FontWeight.w700,
+                              color: Color(AppColors.colorReset),
+                            ),
+                          ),
+                          TextSpan(
+                            text: 'againResend'.tr,
+                            style: TextStyle(
+                              fontFamily: 'Cairo',
+                              fontSize: 11,
+                              fontWeight: FontWeight.w700,
+                              color: Color(
+                                AppColors.colorTextBlue,
+                              ).withValues(alpha: 60),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Text(
                     controller.formattedTime,
                     style: TextStyle(
                       fontFamily: 'Cairo',
@@ -155,13 +144,13 @@ class StepThree extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                       color: Color(AppColors.colorNumber),
                     ),
-                  );
-                },
+                  ),
+                ],
               ),
             ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
