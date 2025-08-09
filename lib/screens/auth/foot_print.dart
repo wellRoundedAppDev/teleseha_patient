@@ -56,19 +56,22 @@ class Fanger extends StatelessWidget {
             SizedBox(height: DEVICE_HEIGHT * 0.04),
             Row(
               children: [
-                // Expanded(
-                //   child: Btn(
-                //     text: 'again'.tr,
-                //     color: Color(AppColors.colorTextBlueBlur),
-                //   ),
-                // ),
-                // SizedBox(width: DEVICE_WIDTH * 0.04),
-                // Expanded(
-                //   child: Btn(
-                //     text: 'save'.tr,
-                //     color: Color(AppColors.colorLineAndText),
-                //   ),
-                // ),
+                Expanded(
+                  child: Btn(
+                    text: 'again'.tr,
+                    color: Color(AppColors.colorTextBlueBlur),
+                  ),
+                ),
+                SizedBox(width: DEVICE_WIDTH * 0.04),
+                Expanded(
+                  child: Btn(
+                    text: 'save'.tr,
+                    color: Color(AppColors.colorLineAndText),
+                    onPressed: () {
+                      Get.toNamed(routeSteps);
+                    },
+                  ),
+                ),
               ],
             ),
           ],
