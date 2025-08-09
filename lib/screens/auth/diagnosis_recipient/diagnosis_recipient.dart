@@ -118,9 +118,11 @@ class DiagnosisRecipient extends StatelessWidget {
                   text: 'next'.tr,
                   color: Color(AppColors.colorLineAndText),
                   onPressed: () {
-                    if (controller.checkVaild()) {
-                      Get.toNamed(routeTypeChildren);
-                    }
+                    controller.checkVaild()
+                        ? controller.selected == 'about_my'.tr
+                              ? Get.toNamed(routeAuth)
+                              : Get.toNamed(routeSelectTypeChildren)
+                        : '';
                   },
                 ),
               ],

@@ -6,12 +6,12 @@ List<GetPage<dynamic>> appRoutes = <GetPage<dynamic>>[
   GetPage<FootPrint>(name: routeAuth, page: () => FootPrint()),
   GetPage<StartSteps>(name: routeSteps, page: () => StartSteps()),
   GetPage<CreateAccountSuccess>(
-    name: routeSuccess,
+    name: routeCreateAccountSuccess,
     page: () => CreateAccountSuccess(),
   ),
   GetPage<DiagnosisRecipient>(
     name: routeDiagnosis,
     page: () => DiagnosisRecipient(),
   ),
-  GetPage<TypeChildren>(name: routeTypeChildren, page: () => TypeChildren()),
+  GetPage<TypeChildren>(name: routeSelectTypeChildren, page: () => TypeChildren()),
 ];

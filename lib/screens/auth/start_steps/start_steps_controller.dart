@@ -94,7 +94,7 @@ class StartStepsController extends GetxController {
       } else {
         clearOtpError();
         consoleLog("OTP Entered: ${otpController.text}");
-        Get.toNamed(routeSuccess);
+        Get.toNamed(routeCreateAccountSuccess);
       }
     }
   }
