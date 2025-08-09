@@ -1,20 +1,11 @@
 import '../../general_exports.dart';
 
 class StepsBtn extends StatelessWidget {
-  final GlobalKey<FormState>? formKey;
-  final bool Function()? checkVaildType;
-  final VoidCallback? onNext;
   final String? text;
   final Color? color;
+  final Function? onPressed;
 
-  const StepsBtn({
-    super.key,
-    this.formKey,
-    this.checkVaildType,
-    this.onNext,
-    this.text,
-    this.color,
-  });
+  const StepsBtn({super.key, this.onPressed, this.text, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +17,7 @@ class StepsBtn extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: DEVICE_HEIGHT * 0.02),
         ),
         onPressed: () {
-          final isFormValid = formKey?.currentState?.validate() ?? true;
-          final isCustomValid = checkVaildType?.call() ?? true;
-          if (isFormValid && isCustomValid) {
-            onNext?.call();
-          }
+          onPressed?.call();
         },
         child: Text(
           text ?? '',

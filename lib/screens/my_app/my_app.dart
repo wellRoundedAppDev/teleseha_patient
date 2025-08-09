@@ -29,29 +29,6 @@ class MyApp extends StatelessWidget {
           return Stack(
             children: <Widget>[
               FlutterSmartDialog(child: child),
-              GetBuilder<MyAppController>(
-                builder: (MyAppController controller) {
-                  return AnimatedPositioned(
-                    duration: const Duration(milliseconds: 300),
-                    top:
-                        DEVICE_HEIGHT *
-                        ((!controller.isInternetConnect &&
-                                controller.shouldShowNoInternetDialog)
-                            ? 0.08
-                            : 0.0),
-                    left: DEVICE_WIDTH * 0.05,
-                    right: DEVICE_WIDTH * 0.05,
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 300),
-                      height:
-                          (!controller.isInternetConnect &&
-                              controller.shouldShowNoInternetDialog)
-                          ? DEVICE_HEIGHT * 0.2
-                          : 0.0,
-                    ),
-                  );
-                },
-              ),
             ],
           );
         },

@@ -3,46 +3,41 @@ import '../../../general_exports.dart';
 class StepOne extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+    return GetBuilder<StartStepsController>(
+      init: StartStepsController(),
+      builder: (controller) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              'age'.tr,
-              style: TextStyle(
-                color: Color(AppColors.colorLineAndText),
-                fontWeight: FontWeight.w400,
-                fontFamily: 'Cairo',
-                fontStyle: FontStyle.normal,
-              ),
-            ),
-            SizedBox(height: DEVICE_HEIGHT * 0.02),
-            Container(
-              width: DEVICE_WIDTH * 0.40,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: const Color.fromARGB(88, 189, 189, 189),
-                      blurRadius: 5,
-                      offset: Offset(0, 0),
-                    ),
-                  ],
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'age'.tr,
+                  style: TextStyle(
+                    color: Color(AppColors.colorLineAndText),
+                    fontWeight: FontWeight.w400,
+                    fontFamily: 'Cairo',
+                    fontStyle: FontStyle.normal,
+                  ),
                 ),
-              child: GetBuilder<PassTypeAndAge>(
-                builder: (controller) {
-                  return TextFormField(
+                SizedBox(height: DEVICE_HEIGHT * 0.02),
+                Container(
+                  width: DEVICE_WIDTH * 0.40,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color.fromARGB(88, 189, 189, 189),
+                        blurRadius: 5,
+                        offset: Offset(0, 0),
+                      ),
+                    ],
+                  ),
+                  child: TextFormField(
                     keyboardType: TextInputType.number,
-                    validator: (value) {
-                      if (value == '') {
-                        return 'الرجاء ادخال العمر';
-                      }
-                      return null;
-                    },
                     controller: controller.TextfieldAge,
                     decoration: InputDecoration(
                       border: InputBorder.none,
@@ -60,29 +55,37 @@ class StepOne extends StatelessWidget {
                         ).withValues(alpha: 20),
                       ),
                     ),
-                  );
-                },
-              ),
+                  ),
+                ),
+                SizedBox(height: DEVICE_HEIGHT * 0.02),
+                controller.viewVaildAge
+                    ? Text(
+                        'error',
+                        style: TextStyle(
+                          color: Color(AppColors.colorError),
+                          fontSize: 16,
+                          fontFamily: 'Cairo',
+                          fontWeight: FontWeight.w700,
+                        ),
+                      )
+                    : Container(),
+              ],
             ),
-          ],
-        ),
-        SizedBox(width: DEVICE_WIDTH * 0.04),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'type'.tr,
-              style: TextStyle(
-                color: Color(AppColors.colorLineAndText),
-                fontWeight: FontWeight.w400,
-                fontFamily: 'Cairo',
-                fontStyle: FontStyle.normal,
-              ),
-            ),
-            SizedBox(height: DEVICE_HEIGHT * 0.02),
-            GetBuilder<PassTypeAndAge>(
-              builder: (controller) {
-                return Row(
+            SizedBox(width: DEVICE_WIDTH * 0.04),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'type'.tr,
+                  style: TextStyle(
+                    color: Color(AppColors.colorLineAndText),
+                    fontWeight: FontWeight.w400,
+                    fontFamily: 'Cairo',
+                    fontStyle: FontStyle.normal,
+                  ),
+                ),
+                SizedBox(height: DEVICE_HEIGHT * 0.02),
+                Row(
                   children: controller.type.map<Widget>((item) {
                     return Row(
                       children: [
@@ -143,23 +146,19 @@ class StepOne extends StatelessWidget {
                       ],
                     );
                   }).toList(),
-                );
-              },
-            ),
-            SizedBox(height: DEVICE_HEIGHT * 0.01),
-            GetBuilder<PassTypeAndAge>(
-              builder: (controller) {
-                return controller.viewVaildType
+                ),
+                SizedBox(height: DEVICE_HEIGHT * 0.01),
+                controller.viewVaildType
                     ? Text(
                         'الرجاء اختيار النوع',
-                        style: TextStyle(color: Colors.red),
+                        style: TextStyle(color: Color(AppColors.colorError)),
                       )
-                    : Container();
-              },
+                    : Container(),
+              ],
             ),
           ],
-        ),
-      ],
+        );
+      },
     );
   }
 }
