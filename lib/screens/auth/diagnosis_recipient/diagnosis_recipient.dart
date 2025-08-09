@@ -105,12 +105,7 @@ class DiagnosisRecipient extends StatelessWidget {
               },
             ),
             SizedBox(height: DEVICE_HEIGHT * 0.04),
-            Btn(
-              text: 'next'.tr,
-              onNext: () {
-                Get.toNamed('/diagnosisRecipient');
-              },
-            ),
+            Btn(),
           ],
         ),
       ),

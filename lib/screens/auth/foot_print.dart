@@ -18,7 +18,7 @@ class Fanger extends StatelessWidget {
             Logo(),
             SizedBox(height: DEVICE_HEIGHT * 0.04),
             Text(
-              'titleFootprint'.tr,
+              'title_foot_print'.tr,
               style: TextStyle(
                 color: Color(AppColors.colorTextBlue),
                 fontWeight: FontWeight.w700,
@@ -28,7 +28,7 @@ class Fanger extends StatelessWidget {
             ),
             SizedBox(height: DEVICE_HEIGHT * 0.04),
             Text(
-              'textFootprint'.tr,
+              'text_foot_print'.tr,
               style: TextStyle(
                 color: Color(AppColors.colorselectDropDown),
                 fontWeight: FontWeight.w500,
@@ -45,7 +45,7 @@ class Fanger extends StatelessWidget {
             ),
             SizedBox(height: DEVICE_HEIGHT * 0.04),
             Text(
-              'putYourFinger'.tr,
+              'put_your_finger'.tr,
               style: TextStyle(
                 color: Color(AppColors.colorLineAndText),
                 fontWeight: FontWeight.w500,
@@ -56,21 +56,19 @@ class Fanger extends StatelessWidget {
             SizedBox(height: DEVICE_HEIGHT * 0.04),
             Row(
               children: [
-                Expanded(
-                  child: Btn(
-                    onNext: () {},
-                    text: 'again'.tr,
-                    color: Color(AppColors.colorTextBlueBlur),
-                  ),
-                ),
-                SizedBox(width: DEVICE_WIDTH * 0.04),
-                Expanded(
-                  child: Btn(
-                    onNext: () => Get.toNamed(routeSteps),
-                    text: 'save'.tr,
-                    color: Color(AppColors.colorLineAndText),
-                  ),
-                ),
+                // Expanded(
+                //   child: Btn(
+                //     text: 'again'.tr,
+                //     color: Color(AppColors.colorTextBlueBlur),
+                //   ),
+                // ),
+                // SizedBox(width: DEVICE_WIDTH * 0.04),
+                // Expanded(
+                //   child: Btn(
+                //     text: 'save'.tr,
+                //     color: Color(AppColors.colorLineAndText),
+                //   ),
+                // ),
               ],
             ),
           ],

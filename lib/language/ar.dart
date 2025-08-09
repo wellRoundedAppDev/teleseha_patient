@@ -5,10 +5,10 @@ const Map<String, String> ar = {
   'male': 'ذكر',
   'female': 'انثى',
   'next': 'التالي',
-  'titleFootprint': 'سجل بصمة اصبعك للحماية',
-  'textFootprint':
+  'title_foot_print': 'سجل بصمة اصبعك للحماية',
+  'text_foot_print':
       'سيتم استخدام بصمة الاصبع لتأمين حسابك وتسريع تسجيل الدخول لاحقاً',
-  'putYourFinger': 'ضع اصبعك علي المستشعر',
+  'put_your_finger': 'ضع اصبعك علي المستشعر',
   'save': 'حفظ',
   'again': 'إعادة المحاولة',
   'name': 'الاسم',

@@ -40,12 +40,12 @@ class Success extends StatelessWidget {
               ),
             ),
             SizedBox(height: DEVICE_HEIGHT * 0.04),
-            Btn(
-              text: 'next'.tr,
-              onNext: () {
-                Get.toNamed(routeDiagnosis);
-              },
-            ),
+            // Btn(
+            //   text: 'next'.tr,
+            //   onNext: () {
+            //     Get.toNamed(routeDiagnosis);
+            //   },
+            // ),
           ],
         ),
       ),

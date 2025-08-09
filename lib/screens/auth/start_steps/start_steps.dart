@@ -1,3 +1,67 @@
+// import '../../../general_exports.dart';
+
+// class StartSteps extends StatelessWidget {
+//   const StartSteps({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return GetBuilder<StartStepsController>(
+//       init: StartStepsController(),
+//       builder: (controller) {
+//         return Scaffold(
+//           appBar: PreferredSize(
+//             preferredSize: Size.fromHeight(kToolbarHeight),
+//             child: Directionality(
+//               textDirection: TextDirection.ltr,
+//               child: AppBar(
+//                 leading: controller.selectedSteps != 1
+//                     ? InkWell(
+//                         focusColor: Colors.transparent,
+//                         hoverColor: Colors.transparent,
+//                         splashColor: Colors.transparent,
+//                         onTap: () {
+//                           controller.selectedSteps--;
+//                         },
+//                         child: Center(
+//                           child: SvgPicture.asset(
+//                             iconBack,
+//                             width: DEVICE_WIDTH * 0.04,
+//                             height: DEVICE_HEIGHT * 0.02,
+//                           ),
+//                         ),
+//                       )
+//                     : Text(''),
+//                 title: SizedBox(
+//                   width: DEVICE_WIDTH * 0.425,
+//                   height: DEVICE_HEIGHT * 0.0108,
+//                   child: LinearProgressIndicator(
+//                     value: controller.selectedSteps == 1
+//                         ? 0.3
+//                         : controller.selectedSteps == 2
+//                         ? 0.7
+//                         : 1,
+//                     borderRadius: BorderRadius.circular(15),
+//                     backgroundColor:
+//                         controller.selectedSteps == 1 ||
+//                             controller.selectedSteps == 2
+//                         ? Color(AppColors.backgroundColorLine)
+//                         : Color(AppColors.colorSuccessLine),
+//                     valueColor: AlwaysStoppedAnimation<Color>(
+//                       Color(AppColors.colorLineAndText).withValues(alpha: 0.2),
+//                     ),
+//                   ),
+//                 ),
+//                 centerTitle: true,
+//               ),
+//             ),
+//           ),
+//         );
+//       },
+//     );
+//   }
+// }
+
+// -------------------------------------------------------
 import '../../../general_exports.dart';
 
 class StartSteps extends StatefulWidget {
@@ -101,28 +165,29 @@ class _StartStepsState extends State<StartSteps> {
                   SizedBox(height: DEVICE_HEIGHT * 0.03),
                   GetBuilder<PassTypeAndAge>(
                     builder: (controller) {
-                      return Btn(
-                        formKey: form_key,
-                        text: selectedSteps == 3 ? 'confirm'.tr : 'next'.tr,
-                        checkVaildType: controller.checkVaildType,
-                        onNext: () {
-                          setState(() {
-                            if (selectedSteps == 3) {
-                              if (!timerController.checkOtpIsValid()) {
-                                timerController.markOtpInvalid();
-                                print(
-                                  "OTP Entered: ${timerController.otpController.text}",
-                                );
-                              } else {
-                                timerController.clearOtpError();
-                                Get.toNamed('/success');
-                              }
-                            } else {
-                              selectedSteps++;
-                            }
-                          });
-                        },
-                      );
+                      return Text('test');
+                      // return Btn(
+                      //   formKey: form_key,
+                      //   text: selectedSteps == 3 ? 'confirm'.tr : 'next'.tr,
+                      //   checkVaildType: controller.checkVaildType,
+                      //   onNext: () {
+                      //     setState(() {
+                      //       if (selectedSteps == 3) {
+                      //         if (!timerController.checkOtpIsValid()) {
+                      //           timerController.markOtpInvalid();
+                      //           print(
+                      //             "OTP Entered: ${timerController.otpController.text}",
+                      //           );
+                      //         } else {
+                      //           timerController.clearOtpError();
+                      //           Get.toNamed('/success');
+                      //         }
+                      //       } else {
+                      //         selectedSteps++;
+                      //       }
+                      //     });
+                      //   },
+                      // );
                     },
                   ),
                 ],
