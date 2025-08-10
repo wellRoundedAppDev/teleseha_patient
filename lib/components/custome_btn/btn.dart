@@ -4,18 +4,21 @@ class Btn extends StatelessWidget {
   final String? text;
   final Color? color;
   final Function? onPressed;
+  final ButtonStyle? style;
 
-  const Btn({this.text, this.color, this.onPressed});
+  const Btn({this.text, this.color, this.onPressed, this.style});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: DEVICE_WIDTH * 0.9,
       child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: color ?? Color(AppColors.colorLineAndText),
-          padding: EdgeInsets.symmetric(vertical: DEVICE_HEIGHT * 0.02),
-        ),
+        style:
+            style ??
+            ElevatedButton.styleFrom(
+              backgroundColor: color ?? Color(AppColors.colorLineAndText),
+              padding: EdgeInsets.symmetric(vertical: DEVICE_HEIGHT * 0.02),
+            ),
         onPressed: () {
           onPressed?.call();
         },

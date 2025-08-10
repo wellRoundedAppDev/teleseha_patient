@@ -1,4 +1,4 @@
-export 'foot_print/foot_print.dart';
+export 'finger_print/finger_print.dart';
 export 'package:flutter_svg/flutter_svg.dart';
 export 'steps/index.dart';
 export 'start_steps/index.dart';
@@ -6,4 +6,4 @@ export 'package:patient/components/logo/logo.dart';
 export 'create_account_success/create_account_success.dart';
 export 'diagnosis_recipient/Diagnosis_recipient.dart';
 export 'select_type_children/index.dart';
-export 'foot_print/index.dart';
+export 'finger_print/index.dart';

@@ -34,12 +34,13 @@ class DiagnosisRecipient extends StatelessWidget {
                   ) {
                     final item = controller.typeDiagnosis[index];
                     final isLast = index == controller.typeDiagnosis.length - 1;
-                    final isActive = controller.selected == item['about'];
+                    final isActive =
+                        controller.isMyChildrenSelected == item[code];
                     return Row(
                       children: [
                         GestureDetector(
                           onTap: () {
-                            controller.changeType(item['about']!);
+                            controller.changeTypeDiagnosis(item[code]!);
                           },
                           child: Container(
                             padding: EdgeInsets.all(10),
@@ -73,7 +74,7 @@ class DiagnosisRecipient extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 SvgPicture.asset(
-                                  item['icon']!,
+                                  item[icon]!,
                                   width: DEVICE_WIDTH * 0.05,
                                   height: DEVICE_HEIGHT * 0.05,
                                   fit: BoxFit.cover,
@@ -81,12 +82,14 @@ class DiagnosisRecipient extends StatelessWidget {
                                 ),
                                 SizedBox(height: DEVICE_HEIGHT * 0.02),
                                 Text(
-                                  item['about']!,
+                                  item[about]!,
                                   style: TextStyle(
                                     fontFamily: 'Cairo',
                                     fontSize: 16,
                                     fontWeight: FontWeight.w600,
-                                    color: isActive
+                                    color:
+                                        controller.isMyChildrenSelected ==
+                                            item[code]
                                         ? Colors.white
                                         : Colors.black,
                                   ),
@@ -101,28 +104,13 @@ class DiagnosisRecipient extends StatelessWidget {
                   }),
                 ),
                 SizedBox(height: DEVICE_HEIGHT * 0.04),
-                controller.showError
-                    ? Text(
-                        'الرجاء ادخال النوع',
-                        style: TextStyle(
-                          color: Color(AppColors.colorError),
-                          fontSize: 16,
-                          fontFamily: 'Cairo',
-                          fontWeight: FontWeight.w700,
-                        ),
-                      )
-                    : SizedBox.shrink(),
-
-                SizedBox(height: DEVICE_HEIGHT * 0.04),
                 Btn(
                   text: 'next'.tr,
                   color: Color(AppColors.colorLineAndText),
                   onPressed: () {
-                    controller.checkVaild()
-                        ? controller.selected == 'about_my'.tr
-                              ? Get.toNamed(routeAuth)
-                              : Get.toNamed(routeSelectTypeChildren)
-                        : '';
+                    controller.isMyChildrenSelected == 'aboutMe'
+                        ? Get.toNamed(routeAuth)
+                        : Get.toNamed(routeSelectTypeChildren);
                   },
                 ),
               ],

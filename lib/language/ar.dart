@@ -22,7 +22,7 @@ const Map<String, String> ar = {
   'success': 'تم انشاء حسابك بنجاح!',
   'thinks_create_account': 'شكرًا لإنشاء حسابك!',
   'how_diagnosis': 'لمن تحتاج التشخيص الطبي',
-  'about_my': 'لنفسي',
+  'about_me': 'لنفسي',
   'about_children': ' لطفلي',
   'vaild_code': 'الرمز غير صحيح',
   'type_children_male': 'طفل',

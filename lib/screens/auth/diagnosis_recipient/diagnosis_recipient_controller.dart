@@ -1,26 +1,15 @@
 import 'package:patient/general_exports.dart';
 
 class DiagnsisRecipientController extends GetxController {
-  String? selected;
-  bool showError = false;
+  String? isMyChildrenSelected = 'aboutMe';
 
   List<Map<String, String>> typeDiagnosis = [
-    {'about': 'about_children'.tr, 'icon': aboutChildren},
-    {'about': 'about_my'.tr, 'icon': aboutMy},
+    {about: 'about_children'.tr, icon: aboutChildren, code: 'aboutChildren'},
+    {about: 'about_me'.tr, icon: aboutMy, code: 'aboutMe'},
   ];
 
-  changeType(String type) {
-    selected = type;
-    showError = false;
+  changeTypeDiagnosis(String typeCode) {
+    isMyChildrenSelected = typeCode;
     update();
-  }
-
-  bool checkVaild() {
-    bool isValid = selected != null;
-    if (!isValid) {
-      showError = true;
-      update();
-    }
-    return isValid;
   }
 }

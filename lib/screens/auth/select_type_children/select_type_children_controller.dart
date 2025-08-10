@@ -1,22 +1,25 @@
 import 'package:patient/general_exports.dart';
 
 class TypeController extends GetxController {
-  int selectedSteps = 3;
-  String? selectedTypChildren;
+  String? selectedTypChildren = 'children_male';
   TextEditingController TextfieldAgeChildren = TextEditingController();
   TextEditingController TextfieldNameChildren = TextEditingController();
 
-  bool viewAgeChildrenInvalid = false;
-  bool viewNameChildrenInvalid = false;
+  bool isAgeChildrenInvalid = false;
+  bool isNameChildrenInvalid = false;
   bool viewVaildTypeChildren = false;
 
-  List<Map<String, String>> TypeChildren = [
-    {'gender': 'type_children_fmale'.tr, 'icon': iconFemale},
-    {'gender': 'type_children_male'.tr, 'icon': iconMale},
+  List<Map<String, String>> TypeChildrenGender = [
+    {
+      gender: 'type_children_fmale'.tr,
+      icon: iconFemale,
+      code: 'children_female',
+    },
+    {gender: 'type_children_male'.tr, icon: iconMale, code: 'children_male'},
   ];
 
-  changeTypeChildren(type) {
-    selectedTypChildren = type;
+  void changeTypeChildrenGender(String typeCodeChildrenGender) {
+    selectedTypChildren = typeCodeChildrenGender;
     viewVaildTypeChildren = false;
     update();
   }
@@ -24,24 +27,17 @@ class TypeController extends GetxController {
   bool checkVaildTypeChildren() {
     bool isValid = true;
     if (TextfieldAgeChildren.text.isEmpty) {
-      viewAgeChildrenInvalid = true;
+      isAgeChildrenInvalid = true;
       isValid = false;
     } else {
-      viewAgeChildrenInvalid = false;
+      isAgeChildrenInvalid = false;
     }
 
     if (TextfieldNameChildren.text.isEmpty) {
-      viewNameChildrenInvalid = true;
+      isNameChildrenInvalid = true;
       isValid = false;
     } else {
-      viewNameChildrenInvalid = false;
-    }
-
-    if (selectedTypChildren == null) {
-      viewVaildTypeChildren = true;
-      isValid = false;
-    } else {
-      viewVaildTypeChildren = false;
+      isNameChildrenInvalid = false;
     }
 
     update();

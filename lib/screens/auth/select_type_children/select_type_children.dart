@@ -1,5 +1,3 @@
-import 'package:patient/components/steps_btn/steps_btn.dart';
-
 import '../../../general_exports.dart';
 
 class TypeChildren extends StatelessWidget {
@@ -16,32 +14,26 @@ class TypeChildren extends StatelessWidget {
             child: Directionality(
               textDirection: TextDirection.ltr,
               child: AppBar(
-                leading: controller.selectedSteps != 1
-                    ? InkWell(
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        splashColor: Colors.transparent,
-                        onTap: () {
-                          Get.back();
-                        },
-                        child: Center(
-                          child: SvgPicture.asset(
-                            iconBack,
-                            width: DEVICE_WIDTH * 0.04,
-                            height: DEVICE_HEIGHT * 0.02,
-                          ),
-                        ),
-                      )
-                    : Text(''),
+                leading: InkWell(
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: Center(
+                    child: SvgPicture.asset(
+                      iconBack,
+                      width: DEVICE_WIDTH * 0.04,
+                      height: DEVICE_HEIGHT * 0.02,
+                    ),
+                  ),
+                ),
               ),
             ),
           ),
           body: Container(
-            margin: EdgeInsets.symmetric(
-              vertical: controller.selectedSteps != 3
-                  ? DEVICE_HEIGHT * 0.03
-                  : DEVICE_HEIGHT * 0.01,
-            ),
+            margin: EdgeInsets.symmetric(vertical: DEVICE_HEIGHT * 0.01),
             child: SingleChildScrollView(
               child: Column(
                 children: [
@@ -107,7 +99,7 @@ class TypeChildren extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(height: DEVICE_HEIGHT * 0.01),
-                                controller.viewAgeChildrenInvalid
+                                controller.isAgeChildrenInvalid
                                     ? Text(
                                         'الرجاء ادخال العمر',
                                         style: TextStyle(
@@ -135,15 +127,15 @@ class TypeChildren extends StatelessWidget {
                                 ),
                                 SizedBox(height: DEVICE_HEIGHT * 0.02),
                                 Row(
-                                  children: controller.TypeChildren.map<Widget>((
+                                  children: controller.TypeChildrenGender.map<Widget>((
                                     item,
                                   ) {
                                     return Row(
                                       children: [
                                         InkWell(
                                           onTap: () {
-                                            controller.changeTypeChildren(
-                                              item['gender'],
+                                            controller.changeTypeChildrenGender(
+                                              item[code]!,
                                             );
                                           },
                                           child: Container(
@@ -151,7 +143,7 @@ class TypeChildren extends StatelessWidget {
                                               color:
                                                   controller
                                                           .selectedTypChildren ==
-                                                      item['gender']
+                                                      item[code]
                                                   ? Color(
                                                       AppColors
                                                           .colorLineAndText,
@@ -182,12 +174,12 @@ class TypeChildren extends StatelessWidget {
                                             child: Row(
                                               children: [
                                                 Text(
-                                                  item['gender'] ?? '',
+                                                  item[gender] ?? '',
                                                   style: TextStyle(
                                                     color:
                                                         controller
                                                                 .selectedTypChildren ==
-                                                            item['gender']
+                                                            item[code]
                                                         ? Color(
                                                             AppColors
                                                                 .colorwhiteSelectedType,
@@ -205,11 +197,11 @@ class TypeChildren extends StatelessWidget {
                                                   width: DEVICE_WIDTH * 0.04,
                                                 ),
                                                 SvgPicture.asset(
-                                                  item['icon'] ?? '',
+                                                  item[icon] ?? '',
                                                   color:
                                                       controller
                                                               .selectedTypChildren ==
-                                                          item['gender']
+                                                          item[code]
                                                       ? Color(
                                                           AppColors
                                                               .colorwhiteSelectedType,
@@ -229,14 +221,7 @@ class TypeChildren extends StatelessWidget {
                                   }).toList(),
                                 ),
                                 SizedBox(height: DEVICE_HEIGHT * 0.01),
-                                controller.viewVaildTypeChildren
-                                    ? Text(
-                                        'الرجاء اختيار النوع',
-                                        style: TextStyle(
-                                          color: Color(AppColors.colorError),
-                                        ),
-                                      )
-                                    : Text(''),
+                                Text(''),
                               ],
                             ),
                           ],
@@ -284,7 +269,7 @@ class TypeChildren extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            controller.viewNameChildrenInvalid
+                            controller.isNameChildrenInvalid
                                 ? Text(
                                     'الرجاء ادخال الاسم',
                                     style: TextStyle(
@@ -301,36 +286,23 @@ class TypeChildren extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            ContainerSteps(
-                              MyAlpha: controller.selectedSteps == 3 ? 1 : 6.5,
-                            ),
+                            ContainerSteps(MyAlpha: 6.5),
                             SizedBox(width: DEVICE_HEIGHT * 0.01),
-                            ContainerSteps(
-                              MyAlpha: controller.selectedSteps == 2 ? 1 : 6.5,
-                            ),
+                            ContainerSteps(MyAlpha: 6.5),
                             SizedBox(width: DEVICE_HEIGHT * 0.01),
-                            ContainerSteps(
-                              MyAlpha: controller.selectedSteps == 1 ? 1 : 6.5,
-                            ),
+                            ContainerSteps(MyAlpha: 1),
                           ],
                         ),
                         SizedBox(height: DEVICE_HEIGHT * 0.03),
-                        controller.selectedSteps != 3
-                            ? StepsBtn(
-                                onPressed: () {},
-                                text: controller.selectedSteps == 3
-                                    ? 'confirm'.tr
-                                    : 'next'.tr,
-                              )
-                            : Btn(
-                                text: 'next'.tr,
-                                color: Color(AppColors.colorLineAndText),
-                                onPressed: () {
-                                  if (controller.checkVaildTypeChildren()) {
-                                    // Get.toNamed(home);
-                                  }
-                                },
-                              ),
+                        Btn(
+                          text: 'next'.tr,
+                          color: Color(AppColors.colorLineAndText),
+                          onPressed: () {
+                            if (controller.checkVaildTypeChildren()) {
+                              // Get.toNamed(home);
+                            }
+                          },
+                        ),
                       ],
                     ),
                   ),

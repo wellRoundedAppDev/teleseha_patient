@@ -58,7 +58,7 @@ class StepOne extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: DEVICE_HEIGHT * 0.01),
-                controller.viewVaildAge
+                controller.isVaildAge
                     ? Text(
                         'الرجاء ادخال العمر',
                         style: TextStyle(
@@ -86,16 +86,16 @@ class StepOne extends StatelessWidget {
                 ),
                 SizedBox(height: DEVICE_HEIGHT * 0.02),
                 Row(
-                  children: controller.type.map<Widget>((item) {
+                  children: controller.typeGenrate.map<Widget>((item) {
                     return Row(
                       children: [
                         InkWell(
                           onTap: () {
-                            controller.changeType(item['gender']);
+                            controller.changeTypeGenrate(item[code]!);
                           },
                           child: Container(
                             decoration: BoxDecoration(
-                              color: controller.selected == item['gender']
+                              color: controller.selectedMaleCode == item[code]
                                   ? Color(AppColors.colorLineAndText)
                                   : Color(AppColors.colorwhiteSelectedType),
                               borderRadius: BorderRadius.circular(20),
@@ -119,9 +119,11 @@ class StepOne extends StatelessWidget {
                             child: Row(
                               children: [
                                 Text(
-                                  item['gender'] ?? '',
+                                  item[gender] ?? '',
                                   style: TextStyle(
-                                    color: controller.selected == item['gender']
+                                    color:
+                                        controller.selectedMaleCode ==
+                                            item[code]
                                         ? Color(
                                             AppColors.colorwhiteSelectedType,
                                           )
@@ -133,8 +135,9 @@ class StepOne extends StatelessWidget {
                                 ),
                                 SizedBox(width: DEVICE_WIDTH * 0.04),
                                 SvgPicture.asset(
-                                  item['icon'] ?? '',
-                                  color: controller.selected == item['gender']
+                                  item[icon] ?? '',
+                                  color:
+                                      controller.selectedMaleCode == item[code]
                                       ? Color(AppColors.colorwhiteSelectedType)
                                       : Color(AppColors.colorselectDropDown),
                                 ),
@@ -148,12 +151,7 @@ class StepOne extends StatelessWidget {
                   }).toList(),
                 ),
                 SizedBox(height: DEVICE_HEIGHT * 0.01),
-                controller.viewVaildType
-                    ? Text(
-                        'الرجاء اختيار النوع',
-                        style: TextStyle(color: Color(AppColors.colorError)),
-                      )
-                    : Text(''),
+                Text(''),
               ],
             ),
           ],

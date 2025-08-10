@@ -45,7 +45,7 @@ class StepTow extends StatelessWidget {
                 ),
               ),
             ),
-            controller.viewVaildName
+            controller.isVaildName
                 ? Text(
                     'الرجاء ادخال الاسم',
                     style: TextStyle(
@@ -93,7 +93,7 @@ class StepTow extends StatelessWidget {
               ),
             ),
             SizedBox(height: DEVICE_HEIGHT * 0.02),
-            controller.viewVaildNumber
+            controller.isVaildNumber
                 ? Text(
                     'الرجاء ادخال الهاتف',
                     style: TextStyle(

@@ -7,7 +7,6 @@ class StartSteps extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    GlobalKey<FormState> form_key = GlobalKey<FormState>();
     return GetBuilder<StartStepsController>(
       init: StartStepsController(),
       builder: (controller) {
@@ -17,7 +16,7 @@ class StartSteps extends StatelessWidget {
             child: Directionality(
               textDirection: TextDirection.ltr,
               child: AppBar(
-                leading: controller.selectedSteps != 1
+                leading: controller.currentSteps != 1
                     ? InkWell(
                         focusColor: Colors.transparent,
                         hoverColor: Colors.transparent,
@@ -38,15 +37,15 @@ class StartSteps extends StatelessWidget {
                   width: DEVICE_WIDTH * 0.425,
                   height: DEVICE_HEIGHT * 0.0108,
                   child: LinearProgressIndicator(
-                    value: controller.selectedSteps == 1
+                    value: controller.currentSteps == 1
                         ? 0.3
-                        : controller.selectedSteps == 2
+                        : controller.currentSteps == 2
                         ? 0.7
                         : 1,
                     borderRadius: BorderRadius.circular(15),
                     backgroundColor:
-                        controller.selectedSteps == 1 ||
-                            controller.selectedSteps == 2
+                        controller.currentSteps == 1 ||
+                            controller.currentSteps == 2
                         ? Color(AppColors.backgroundColorLine)
                         : Color(AppColors.colorSuccessLine),
                     valueColor: AlwaysStoppedAnimation<Color>(
@@ -60,7 +59,7 @@ class StartSteps extends StatelessWidget {
           ),
           body: Container(
             margin: EdgeInsets.symmetric(
-              vertical: controller.selectedSteps != 3
+              vertical: controller.currentSteps != 3
                   ? DEVICE_HEIGHT * 0.03
                   : DEVICE_HEIGHT * 0.01,
             ),
@@ -69,17 +68,16 @@ class StartSteps extends StatelessWidget {
                 children: [
                   Logo(),
                   SizedBox(
-                    height: controller.selectedSteps != 3
+                    height: controller.currentSteps != 3
                         ? DEVICE_HEIGHT * 0.06
                         : DEVICE_HEIGHT * 0.04,
                   ),
                   Form(
-                    key: form_key,
                     child: Column(
                       children: [
-                        controller.selectedSteps == 1
+                        controller.currentSteps == 1
                             ? StepOne()
-                            : controller.selectedSteps == 2
+                            : controller.currentSteps == 2
                             ? StepTow()
                             : StepThree(),
                         SizedBox(height: DEVICE_HEIGHT * 0.03),
@@ -87,27 +85,27 @@ class StartSteps extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             ContainerSteps(
-                              MyAlpha: controller.selectedSteps == 3 ? 1 : 6.5,
+                              MyAlpha: controller.currentSteps == 3 ? 1 : 6.5,
                             ),
                             SizedBox(width: DEVICE_HEIGHT * 0.01),
                             ContainerSteps(
-                              MyAlpha: controller.selectedSteps == 2 ? 1 : 6.5,
+                              MyAlpha: controller.currentSteps == 2 ? 1 : 6.5,
                             ),
                             SizedBox(width: DEVICE_HEIGHT * 0.01),
                             ContainerSteps(
-                              MyAlpha: controller.selectedSteps == 1 ? 1 : 6.5,
+                              MyAlpha: controller.currentSteps == 1 ? 1 : 6.5,
                             ),
                           ],
                         ),
                         SizedBox(height: DEVICE_HEIGHT * 0.03),
-                        controller.selectedSteps != 3
+                        controller.currentSteps != 3
                             ? StepsBtn(
                                 onPressed: () {
-                                  controller.checkAllVailds()
-                                      ? controller.selectedSteps++
+                                  controller.checkAllVaildsStepsOneAndTow()
+                                      ? controller.currentSteps++
                                       : '';
                                 },
-                                text: controller.selectedSteps == 3
+                                text: controller.currentSteps == 3
                                     ? 'confirm'.tr
                                     : 'next'.tr,
                               )

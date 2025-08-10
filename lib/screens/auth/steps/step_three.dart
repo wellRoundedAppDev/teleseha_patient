@@ -55,7 +55,7 @@ class StepThree extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if (controller.viewOtpInvalid)
+                  if (controller.isOtpInvalid)
                     Padding(
                       padding: const EdgeInsets.only(bottom: 8.0),
                       child: Text(
@@ -76,7 +76,7 @@ class StepThree extends StatelessWidget {
                       length: 6,
                       defaultPinTheme: defaultPinTheme.copyDecorationWith(
                         border: Border.all(
-                          color: controller.viewOtpInvalid
+                          color: controller.isOtpInvalid
                               ? Color(AppColors.colorError)
                               : const Color(AppColors.colorWhite),
                         ),
@@ -84,7 +84,7 @@ class StepThree extends StatelessWidget {
                       ),
                       submittedPinTheme: defaultPinTheme.copyDecorationWith(
                         border: Border.all(
-                          color: controller.viewOtpInvalid
+                          color: controller.isOtpInvalid
                               ? Color(AppColors.colorError)
                               : const Color(AppColors.colorLineAndText),
                         ),

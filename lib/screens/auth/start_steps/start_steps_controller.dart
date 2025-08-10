@@ -3,81 +3,72 @@ import 'dart:async';
 import '../../../general_exports.dart';
 
 class StartStepsController extends GetxController {
-  int selectedSteps = 1;
-  String? selected;
+  int currentSteps = 1;
+  String? selectedMaleCode = 'male';
   TextEditingController TextfieldAge = TextEditingController();
   TextEditingController TextfieldName = TextEditingController();
   TextEditingController TextfieldNumber = TextEditingController();
   TextEditingController otpController = TextEditingController();
 
-  bool viewVaildType = false;
-  bool viewVaildAge = false;
-  bool viewVaildName = false;
-  bool viewVaildNumber = false;
-  bool viewOtpInvalid = false;
+  bool isVaildAge = false;
+  bool isVaildName = false;
+  bool isVaildNumber = false;
+  bool isOtpInvalid = false;
 
   int secondsRemaining = 70;
   Timer? timer;
 
-  List<Map<String, String>> type = [
-    {'gender': 'female'.tr, 'icon': iconFemale},
-    {'gender': 'male'.tr, 'icon': iconMale},
+  List<Map<String, String>> typeGenrate = [
+    {gender: 'female'.tr, icon: iconFemale, code: 'female'},
+    {gender: 'male'.tr, icon: iconMale, code: 'male'},
   ];
 
-  minuseSelectedSteps() {
-    selectedSteps--;
+  void minuseSelectedSteps() {
+    currentSteps--;
     update();
   }
 
-  changeType(type) {
-    selected = type;
-    viewVaildType = false;
+  void changeTypeGenrate(String typeCode) {
+    selectedMaleCode = typeCode;
     update();
   }
 
-  bool checkAllVailds() {
+  bool checkAllVaildsStepsOneAndTow() {
     bool isValid = true;
 
-    if (selectedSteps == 1) {
+    if (currentSteps == 1) {
       if (TextfieldAge.text.isEmpty) {
-        viewVaildAge = true;
+        isVaildAge = true;
         isValid = false;
       } else {
-        viewVaildAge = false;
+        isVaildAge = false;
       }
     }
 
-    if (selectedSteps == 2) {
+    if (currentSteps == 2) {
       if (TextfieldName.text.isEmpty && TextfieldNumber.text.isEmpty) {
         isValid = false;
       }
 
       if (TextfieldName.text.isEmpty) {
-        viewVaildName = true;
+        isVaildName = true;
         isValid = false;
       } else {
-        viewVaildName = false;
+        isVaildName = false;
       }
 
       if (TextfieldNumber.text.isEmpty) {
-        viewVaildNumber = true;
+        isVaildNumber = true;
         isValid = false;
       } else {
-        viewVaildNumber = false;
+        isVaildNumber = false;
       }
     }
 
-    if (selected == null) {
-      viewVaildType = true;
-      isValid = false;
-    } else {
-      viewVaildType = false;
-    }
-
     if (isValid) {
-      if (selectedSteps == 2) {
+      if (currentSteps == 2) {
         consoleLog(
-          "type: ${selected}, age: ${TextfieldAge.text}, name: ${TextfieldName.text}, , number: ${TextfieldNumber.text}",
+          "age: ${TextfieldAge.text}, name: ${TextfieldName.text}, , number: ${TextfieldNumber.text}",
         );
       }
     }
@@ -88,7 +79,7 @@ class StartStepsController extends GetxController {
   // This is the otp timer logic
   // create request post and data user and save storage to data user
   void checkOtp() {
-    if (selectedSteps == 3) {
+    if (currentSteps == 3) {
       if (!checkOtpIsValid()) {
         markOtpInvalid();
       } else {
@@ -148,12 +139,12 @@ class StartStepsController extends GetxController {
   }
 
   void markOtpInvalid() {
-    viewOtpInvalid = true;
+    isOtpInvalid = true;
     update();
   }
 
   void clearOtpError() {
-    viewOtpInvalid = false;
+    isOtpInvalid = false;
     update();
   }
 
