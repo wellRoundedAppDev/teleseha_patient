@@ -110,7 +110,7 @@ class StartSteps extends StatelessWidget {
                         controller.currentSteps != 4
                             ? StepsBtn(
                                 onPressed: () {
-                                  controller.checkAllVaildsStepsOneAndTow()
+                                  controller.checkAllVaildsSteps()
                                       ? controller.currentSteps++
                                       : '';
                                 },
