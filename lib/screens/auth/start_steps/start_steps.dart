@@ -1,5 +1,3 @@
-import 'package:patient/components/steps_btn/steps_btn.dart';
-
 import '../../../general_exports.dart';
 
 class StartSteps extends StatelessWidget {
@@ -40,12 +38,15 @@ class StartSteps extends StatelessWidget {
                     value: controller.currentSteps == 1
                         ? 0.3
                         : controller.currentSteps == 2
-                        ? 0.7
+                        ? 0.6
+                        : controller.currentSteps == 3
+                        ? 0.8
                         : 1,
                     borderRadius: BorderRadius.circular(15),
                     backgroundColor:
                         controller.currentSteps == 1 ||
-                            controller.currentSteps == 2
+                            controller.currentSteps == 2 ||
+                            controller.currentSteps == 3
                         ? Color(AppColors.backgroundColorLine)
                         : Color(AppColors.colorSuccessLine),
                     valueColor: AlwaysStoppedAnimation<Color>(
@@ -59,16 +60,18 @@ class StartSteps extends StatelessWidget {
           ),
           body: Container(
             margin: EdgeInsets.symmetric(
-              vertical: controller.currentSteps != 3
+              vertical: controller.currentSteps != 4
                   ? DEVICE_HEIGHT * 0.03
                   : DEVICE_HEIGHT * 0.01,
             ),
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Logo(),
+                  controller.currentSteps == 3 ? Container() : Logo(),
                   SizedBox(
-                    height: controller.currentSteps != 3
+                    height: controller.currentSteps == 3
+                        ? DEVICE_HEIGHT * 0.01
+                        : controller.currentSteps != 4
                         ? DEVICE_HEIGHT * 0.06
                         : DEVICE_HEIGHT * 0.04,
                   ),
@@ -79,11 +82,17 @@ class StartSteps extends StatelessWidget {
                             ? StepOne()
                             : controller.currentSteps == 2
                             ? StepTow()
-                            : StepThree(),
+                            : controller.currentSteps == 3
+                            ? StepThree()
+                            : StepFour(),
                         SizedBox(height: DEVICE_HEIGHT * 0.03),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            ContainerSteps(
+                              MyAlpha: controller.currentSteps == 4 ? 1 : 6.5,
+                            ),
+                            SizedBox(width: DEVICE_HEIGHT * 0.01),
                             ContainerSteps(
                               MyAlpha: controller.currentSteps == 3 ? 1 : 6.5,
                             ),
@@ -98,14 +107,14 @@ class StartSteps extends StatelessWidget {
                           ],
                         ),
                         SizedBox(height: DEVICE_HEIGHT * 0.03),
-                        controller.currentSteps != 3
+                        controller.currentSteps != 4
                             ? StepsBtn(
                                 onPressed: () {
                                   controller.checkAllVaildsStepsOneAndTow()
                                       ? controller.currentSteps++
                                       : '';
                                 },
-                                text: controller.currentSteps == 3
+                                text: controller.currentSteps == 4
                                     ? 'confirm'.tr
                                     : 'next'.tr,
                               )

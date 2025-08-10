@@ -1,9 +1,9 @@
 import 'package:pinput/pinput.dart';
 
-import '../../../general_exports.dart';
+import '../../../../general_exports.dart';
 
-class StepThree extends StatelessWidget {
-  const StepThree({super.key});
+class StepFour extends StatelessWidget {
+  const StepFour({super.key});
   @override
   Widget build(BuildContext context) {
     return GetBuilder<StartStepsController>(

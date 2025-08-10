@@ -27,4 +27,5 @@ const Map<String, String> ar = {
   'vaild_code': 'الرمز غير صحيح',
   'type_children_male': 'طفل',
   'type_children_fmale': 'طفله',
+  'medical_history': 'التاريخ الطبي',
 };

@@ -1,4 +1,4 @@
-import '../../../general_exports.dart';
+import '../../../../general_exports.dart';
 
 class StepTow extends StatelessWidget {
   @override
@@ -34,6 +34,17 @@ class StepTow extends StatelessWidget {
                   contentPadding: EdgeInsets.symmetric(
                     horizontal: 10,
                     vertical: 20,
+                  ),
+                  suffixIcon: SizedBox(
+                    width: DEVICE_WIDTH * 0.1,
+                    child: Center(
+                      child: SvgPicture.asset(
+                        iconUserName,
+                        width: DEVICE_WIDTH * 0.02,
+                        height: DEVICE_HEIGHT * 0.02,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
                   ),
                   hintText: 'name_field'.tr,
                   hintStyle: TextStyle(
@@ -81,6 +92,17 @@ class StepTow extends StatelessWidget {
                   contentPadding: EdgeInsets.symmetric(
                     horizontal: 10,
                     vertical: 20,
+                  ),
+                  suffixIcon: SizedBox(
+                    width: DEVICE_WIDTH * 0.1,
+                    child: Center(
+                      child: SvgPicture.asset(
+                        iconNumber,
+                        width: DEVICE_WIDTH * 0.02,
+                        height: DEVICE_HEIGHT * 0.02,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
                   ),
                   hintText: 'number_phone_field'.tr,
                   hintStyle: TextStyle(
