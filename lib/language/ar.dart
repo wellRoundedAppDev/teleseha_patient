@@ -31,6 +31,7 @@ const Map<String, String> ar = {
   'type_children_male': 'طفل',
   'type_children_fmale': 'طفله',
   'medical_history': 'التاريخ الطبي',
+  'medical_history_about_children': 'التاريخ الطبي للطفل',
   'chronic_diseases': 'الأمراض المزمنة',
   'create_chronic_diseases': ' أضف الامراض المزمنه لديك',
   'is_vaild_diseases': 'الرجاء ادخل الأمراض المزمنة',
@@ -43,4 +44,9 @@ const Map<String, String> ar = {
   'allergies': 'الحساسية',
   'create_allergies': 'أضف الحساسية لديك',
   'is_vaild_allergies': 'الرجاء ادخل الحساسية',
+  'check_skep': 'يرجي التخطي من أعلي اذا لم يحتوي هاتفك علي بصمة',
+  'please_auth_finger_print': 'يرجى المصادقة لرؤية محتوى الصفحة الخاصة',
+  'error_auth_finger_print': 'حدث خطأ ما، يرجى المحاولة مرة أخرى',
+  'password': 'الرقم السري',
+  'skep': 'تخطي'
 };

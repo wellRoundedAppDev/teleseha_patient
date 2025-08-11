@@ -1,4 +1,3 @@
-import 'package:patient/screens/auth/diagnosis_recipient/diagnosis_recipient_controller.dart';
 import '../../../general_exports.dart';
 
 class DiagnosisRecipient extends StatelessWidget {
@@ -109,7 +108,7 @@ class DiagnosisRecipient extends StatelessWidget {
                   color: Color(AppColors.colorLineAndText),
                   onPressed: () {
                     controller.isMyChildrenSelected == 'aboutMe'
-                        ? Get.toNamed(routeAuth)
+                        ? Get.toNamed(routeFormDiagnosis)
                         : Get.toNamed(routeSelectTypeChildren);
                   },
                 ),

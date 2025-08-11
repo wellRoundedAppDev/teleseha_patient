@@ -4,11 +4,16 @@ import '../../../general_exports.dart';
 
 class StartStepsController extends GetxController {
   int currentSteps = 1;
+  int numberOfAllSteps = 4;
+  bool use_biometric = false;
   String? selectedMaleCode = 'male';
   TextEditingController TextfieldAge = TextEditingController();
   TextEditingController TextfieldName = TextEditingController();
   TextEditingController TextfieldNumber = TextEditingController();
+  TextEditingController TextfieldPassword = TextEditingController();
   TextEditingController otpController = TextEditingController();
+
+  final LocalAuthentication auth = LocalAuthentication();
 
   // TextEditingController TextfieldChronicDiseases = TextEditingController();
   // TextEditingController TextfieldSurgicalOperations = TextEditingController();
@@ -19,6 +24,7 @@ class StartStepsController extends GetxController {
   bool isVaildAge = false;
   bool isVaildName = false;
   bool isVaildNumber = false;
+  bool isVaildPassword = false;
   bool isOtpInvalid = false;
 
   // bool isVaildChronicDiseases = false;
@@ -44,24 +50,43 @@ class StartStepsController extends GetxController {
     update();
   }
 
+  Future<void> checkBiometrics() async {
+    final bool canAuthenticateWithBiometrics = await auth.isDeviceSupported();
+    if (!canAuthenticateWithBiometrics) {
+      Fluttertoast.showToast(msg: 'Devices is not supoprt biometrics');
+      return;
+    }
+
+    final List<BiometricType> availableBiometrics = await auth
+        .getAvailableBiometrics();
+
+    if (availableBiometrics.isEmpty) {
+      Fluttertoast.showToast(
+        msg:
+            'Biometrics is empty, please set up Biometrics in devices settings',
+      );
+      return;
+    }
+
+    try {
+      final bool didAuthenticate = await auth.authenticate(
+        localizedReason: 'please_auth_finger_print'.tr,
+      );
+      if (didAuthenticate) {
+        use_biometric = true;
+        currentSteps++;
+        update();
+      }
+    } catch (e) {
+      Fluttertoast.showToast(msg: 'error_auth_finger_print'.tr);
+    }
+  }
+
   bool checkAllVaildsSteps() {
     bool isValid = true;
 
-    if (currentSteps == 1) {
-      isValid = true;
-    }
-
     if (currentSteps == 2) {
-      if (TextfieldAge.text.isEmpty) {
-        isVaildAge = true;
-        isValid = false;
-      } else {
-        isVaildAge = false;
-      }
-    }
-
-    if (currentSteps == 3) {
-      if (TextfieldName.text.isEmpty && TextfieldNumber.text.isEmpty) {
+      if (TextfieldName.text.isEmpty && TextfieldAge.text.isEmpty) {
         isValid = false;
       }
 
@@ -72,40 +97,33 @@ class StartStepsController extends GetxController {
         isVaildName = false;
       }
 
+      if (TextfieldAge.text.isEmpty) {
+        isVaildAge = true;
+        isValid = false;
+      } else {
+        isVaildAge = false;
+      }
+    }
+
+    if (currentSteps == 3) {
+      if (TextfieldNumber.text.isEmpty && TextfieldPassword.text.isEmpty) {
+        isValid = false;
+      }
+
       if (TextfieldNumber.text.isEmpty) {
+        isVaildPassword = true;
+        isValid = false;
+      } else {
+        isVaildPassword = false;
+      }
+
+      if (TextfieldPassword.text.isEmpty) {
         isVaildNumber = true;
         isValid = false;
       } else {
         isVaildNumber = false;
       }
     }
-
-    // if (currentSteps == 4) {
-    //   if (TextfieldChronicDiseases.text.isEmpty) {
-    //     isVaildChronicDiseases = true;
-    //     isValid = false;
-    //   } else {
-    //     isVaildChronicDiseases = false;
-    //   }
-    //   if (TextfieldSurgicalOperations.text.isEmpty) {
-    //     isVaildSurgicalOperations = true;
-    //     isValid = false;
-    //   } else {
-    //     isVaildSurgicalOperations = false;
-    //   }
-    //   if (TextfieldContinuousMedications.text.isEmpty) {
-    //     isVaildContinuousMedications = true;
-    //     isValid = false;
-    //   } else {
-    //     isVaildContinuousMedications = false;
-    //   }
-    //   if (TextfieldAllergies.text.isEmpty) {
-    //     isVaildAllergies = true;
-    //     isValid = false;
-    //   } else {
-    //     isVaildAllergies = false;
-    //   }
-    // }
 
     if (currentSteps == 4) {
       if (!checkOtpIsValid()) {
@@ -114,13 +132,48 @@ class StartStepsController extends GetxController {
       } else {
         Get.toNamed(routeCreateAccountSuccess);
         clearOtpError();
-        consoleLog("OTP Entered: ${otpController.text}");
+        consoleLog('OTP Entered: ${otpController.text}');
       }
     }
 
     update();
     return isValid;
   }
+
+  // bool dedical_history() {
+  //   bool isValid = true;
+
+  //   if (TextfieldChronicDiseases.text.isEmpty) {
+  //     isVaildChronicDiseases = true;
+  //     isValid = false;
+  //   } else {
+  //     isVaildChronicDiseases = false;
+  //   }
+
+  //   if (TextfieldSurgicalOperations.text.isEmpty) {
+  //     isVaildSurgicalOperations = true;
+  //     isValid = false;
+  //   } else {
+  //     isVaildSurgicalOperations = false;
+  //   }
+
+  //   if (TextfieldContinuousMedications.text.isEmpty) {
+  //     isVaildContinuousMedications = true;
+  //     isValid = false;
+  //   } else {
+  //     isVaildContinuousMedications = false;
+  //   }
+
+  //   if (TextfieldAllergies.text.isEmpty) {
+  //     isVaildAllergies = true;
+  //     isValid = false;
+  //   } else {
+  //     isVaildAllergies = false;
+  //   }
+
+  //   update();
+  //   return isValid;
+  // }
 
   // This is the otp timer logic
   // create request post and data user and save storage to data user
@@ -137,7 +190,7 @@ class StartStepsController extends GetxController {
     secondsRemaining = 70;
     update();
     startCountdown();
-    consoleLog("تمت إعادة إرسال الكود");
+    consoleLog('تمت إعادة إرسال الكود');
   }
 
   void startCountdown() {
@@ -153,7 +206,7 @@ class StartStepsController extends GetxController {
   }
 
   void onTimeFinished() {
-    consoleLog("انتهى الوقت");
+    consoleLog('انتهى الوقت');
   }
 
   String get formattedTime {
@@ -170,7 +223,7 @@ class StartStepsController extends GetxController {
   }
 
   void consoleLogOtp() {
-    consoleLog("📥 OTP Entered: ${otpController.text}");
+    consoleLog('📥 OTP Entered: ${otpController.text}');
   }
 
   void markOtpInvalid() {

@@ -16,4 +16,5 @@ class AppColors {
   static const int colorBackgroundScreen = 0xffF9FAFB;
   static const int colorwhiteSelectedType = 0xffFFFFFF;
   static const int colorError = 0xffD32F2F;
+  static const int colorTextSkep = 0xff666666;
 }

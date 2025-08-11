@@ -14,6 +14,7 @@ class CusomeForm extends StatelessWidget {
     this.icon = true,
     this.name_icon_field,
     this.between_field_bottom = 0.02,
+    this.fontSize = 18,
   });
 
   final String? title;
@@ -27,6 +28,7 @@ class CusomeForm extends StatelessWidget {
   final bool icon;
   final String? name_icon_field;
   final double between_field_bottom;
+  final double fontSize;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,7 @@ class CusomeForm extends StatelessWidget {
             color: Color(colorLabel),
             fontWeight: FontWeight.w400,
             fontFamily: 'Cairo',
-            fontSize: 18,
+            fontSize: fontSize,
           ),
         ),
         SizedBox(height: DEVICE_HEIGHT * 0.02),

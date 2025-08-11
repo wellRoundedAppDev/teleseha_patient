@@ -11,17 +11,6 @@ class StepThree extends StatelessWidget {
           children: [
             SizedBox(height: DEVICE_HEIGHT * 0.02),
             CusomeForm(
-              title: 'name'.tr,
-              hintText: 'name_field'.tr,
-              controller: controller.TextfieldName,
-              isVaild: controller.isVaildName,
-              textIsVaild: 'is_vaild_name_field'.tr,
-              key: null,
-              colorLabel: AppColors.colorLabel,
-              text_input_type: TextInputType.text,
-              name_icon_field: iconUserName,
-            ),
-            CusomeForm(
               title: 'number_phone'.tr,
               hintText: 'number_phone_field'.tr,
               controller: controller.TextfieldNumber,
@@ -31,6 +20,19 @@ class StepThree extends StatelessWidget {
               colorLabel: AppColors.colorLabel,
               text_input_type: TextInputType.number,
               name_icon_field: iconNumber,
+              fontSize: 16,
+            ),
+            CusomeForm(
+              title: 'password'.tr,
+              hintText: 'number_phone_field'.tr,              
+              controller: controller.TextfieldPassword,
+              isVaild: controller.isVaildPassword,
+              textIsVaild: 'is_vaild_number'.tr,
+              key: null,
+              colorLabel: AppColors.colorLabel,
+              text_input_type: TextInputType.visiblePassword,
+              icon: false,
+              fontSize: 16,
             ),
           ],
         );

@@ -31,6 +31,25 @@ class StartSteps extends StatelessWidget {
                         ),
                       )
                     : Text(''),
+                actions: [
+                  controller.currentSteps == 1
+                      ? TextButton(
+                          onPressed: () {
+                            controller.currentSteps++;
+                            controller.update();
+                          },
+                          child: Text(
+                            'skep'.tr,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        )
+                      : Text(''),
+                ],
+                backgroundColor: Colors.transparent,
                 title: SizedBox(
                   width: DEVICE_WIDTH * 0.425,
                   height: DEVICE_HEIGHT * 0.0108,
@@ -70,7 +89,9 @@ class StartSteps extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  controller.currentSteps == 4 ? Container() : Logo(),
+                  controller.currentSteps == controller.numberOfAllSteps
+                      ? Container()
+                      : Logo(),
                   SizedBox(
                     height: controller.currentSteps != 3
                         ? DEVICE_HEIGHT * 0.06
@@ -85,32 +106,31 @@ class StartSteps extends StatelessWidget {
                             ? StepTow()
                             : controller.currentSteps == 3
                             ? StepThree()
-                            : controller.currentSteps == 4
+                            : controller.currentSteps ==
+                                  controller.numberOfAllSteps
                             ? StepFour()
                             : Text(''),
                         controller.currentSteps == 1 ||
-                                controller.currentSteps == 4
+                                controller.currentSteps ==
+                                    controller.numberOfAllSteps
                             ? SizedBox(height: DEVICE_HEIGHT * 0.05)
                             : SizedBox(height: DEVICE_HEIGHT * 0.02),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            ContainerSteps(
-                              MyAlpha: controller.currentSteps == 4 ? 250 : 80,
-                            ),
-                            SizedBox(width: DEVICE_HEIGHT * 0.01),
-                            ContainerSteps(
-                              MyAlpha: controller.currentSteps == 3 ? 250 : 80,
-                            ),
-                            SizedBox(width: DEVICE_HEIGHT * 0.01),
-                            ContainerSteps(
-                              MyAlpha: controller.currentSteps == 2 ? 250 : 80,
-                            ),
-                            SizedBox(width: DEVICE_HEIGHT * 0.01),
-                            ContainerSteps(
-                              MyAlpha: controller.currentSteps == 1 ? 250 : 80,
-                            ),
-                          ],
+                          children: List.generate(4, (index) {
+                            int stepNumber = 4 - index;
+                            return Row(
+                              children: [
+                                ContainerSteps(
+                                  MyAlpha: controller.currentSteps == stepNumber
+                                      ? 250
+                                      : 80,
+                                ),
+                                if (index != 3)
+                                  SizedBox(width: DEVICE_HEIGHT * 0.01),
+                              ],
+                            );
+                          }),
                         ),
                         SizedBox(height: DEVICE_HEIGHT * 0.03),
                         controller.currentSteps == 1
@@ -131,9 +151,7 @@ class StartSteps extends StatelessWidget {
                                       Expanded(
                                         child: StepsBtn(
                                           onPressed: () {
-                                            controller.checkAllVaildsSteps()
-                                                ? controller.currentSteps++
-                                                : '';
+                                            controller.checkBiometrics();
                                           },
                                           text: 'save'.tr,
                                         ),
@@ -144,16 +162,34 @@ class StartSteps extends StatelessWidget {
                               )
                             : StepsBtn(
                                 onPressed: () {
-                                  controller.currentSteps == 4
+                                  controller.currentSteps ==
+                                          controller.numberOfAllSteps
                                       ? controller.checkAllVaildsSteps()
                                       : controller.checkAllVaildsSteps()
                                       ? controller.currentSteps++
                                       : '';
                                 },
-                                text: controller.currentSteps == 4
+                                text:
+                                    controller.currentSteps ==
+                                        controller.numberOfAllSteps
                                     ? 'confirm'.tr
                                     : 'next'.tr,
                               ),
+                        SizedBox(height: DEVICE_HEIGHT * 0.03),
+                        controller.currentSteps == 1
+                            ? Container(
+                                alignment: Alignment.topRight,
+                                child: Text(
+                                  'check_skep'.tr,
+                                  style: TextStyle(
+                                    color: Color(AppColors.colorTextSkep),
+                                    fontWeight: FontWeight.w700,
+                                    fontFamily: 'Cairo',
+                                    fontSize: 11,
+                                  ),
+                                ),
+                              )
+                            : Text(''),
                       ],
                     ),
                   ),

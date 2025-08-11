@@ -14,6 +14,7 @@ class TypeChildren extends StatelessWidget {
             child: Directionality(
               textDirection: TextDirection.ltr,
               child: AppBar(
+                backgroundColor: Colors.transparent,
                 leading: InkWell(
                   focusColor: Colors.transparent,
                   hoverColor: Colors.transparent,
@@ -59,6 +60,7 @@ class TypeChildren extends StatelessWidget {
                               colorLabel: AppColors.colorLineAndText,
                               text_input_type: TextInputType.number,
                               icon: false,
+                              between_field_bottom: 0.01,
                             ),
                           ),
                           SizedBox(width: DEVICE_WIDTH * 0.02),
@@ -183,14 +185,14 @@ class TypeChildren extends StatelessWidget {
                         key: null,
                         colorLabel: AppColors.colorLineAndText,
                         text_input_type: TextInputType.text,
-                        icon: false,
+                        name_icon_field: iconNameChildren,
                       ),
                       Btn(
                         text: 'next'.tr,
                         color: Color(AppColors.colorLineAndText),
                         onPressed: () {
                           if (controller.checkVaildTypeChildren()) {
-                            // Get.toNamed(home);
+                            Get.toNamed(routeFormDiagnosis);
                           }
                         },
                       ),
