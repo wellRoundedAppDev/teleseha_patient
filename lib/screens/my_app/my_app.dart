@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         translations: Translation(),
         debugShowCheckedModeBanner: false,
         // initialRoute: routeSplash,
-        initialRoute: routeAuth,
+        initialRoute: routeSteps,
         // initialRoute: Get.find<MyAppController>().userData == null
         //     ? routeStartSteps
         //     : routeHome,

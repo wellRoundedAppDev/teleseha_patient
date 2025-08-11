@@ -22,7 +22,7 @@ class StepsBtn extends StatelessWidget {
         child: Text(
           text ?? '',
           style: TextStyle(
-            color: Color(AppColors.colorWhite),
+            color: Color(AppColors.colorwhiteSelectedType),
             fontSize: 18,
             fontFamily: 'Cairo',
             fontWeight: FontWeight.w600,

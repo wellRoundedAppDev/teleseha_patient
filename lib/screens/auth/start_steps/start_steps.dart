@@ -40,7 +40,7 @@ class StartSteps extends StatelessWidget {
                         : controller.currentSteps == 2
                         ? 0.6
                         : controller.currentSteps == 3
-                        ? 0.8
+                        ? 8
                         : 1,
                     borderRadius: BorderRadius.circular(15),
                     backgroundColor:
@@ -60,18 +60,19 @@ class StartSteps extends StatelessWidget {
           ),
           body: Container(
             margin: EdgeInsets.symmetric(
-              vertical: controller.currentSteps != 4
+              vertical: controller.currentSteps != 3
                   ? DEVICE_HEIGHT * 0.03
                   : DEVICE_HEIGHT * 0.01,
+              horizontal: controller.currentSteps == 1
+                  ? DEVICE_HEIGHT * 0.02
+                  : 0,
             ),
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  controller.currentSteps == 3 ? Container() : Logo(),
+                  controller.currentSteps == 4 ? Container() : Logo(),
                   SizedBox(
-                    height: controller.currentSteps == 3
-                        ? DEVICE_HEIGHT * 0.01
-                        : controller.currentSteps != 4
+                    height: controller.currentSteps != 3
                         ? DEVICE_HEIGHT * 0.06
                         : DEVICE_HEIGHT * 0.04,
                   ),
@@ -84,46 +85,71 @@ class StartSteps extends StatelessWidget {
                             ? StepTow()
                             : controller.currentSteps == 3
                             ? StepThree()
-                            : StepFour(),
+                            : controller.currentSteps == 4
+                            ? StepFour()
+                            : Text(''),
                         SizedBox(height: DEVICE_HEIGHT * 0.03),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             ContainerSteps(
-                              MyAlpha: controller.currentSteps == 4 ? 1 : 6.5,
+                              MyAlpha: controller.currentSteps == 4 ? 250 : 80,
                             ),
                             SizedBox(width: DEVICE_HEIGHT * 0.01),
                             ContainerSteps(
-                              MyAlpha: controller.currentSteps == 3 ? 1 : 6.5,
+                              MyAlpha: controller.currentSteps == 3 ? 250 : 80,
                             ),
                             SizedBox(width: DEVICE_HEIGHT * 0.01),
                             ContainerSteps(
-                              MyAlpha: controller.currentSteps == 2 ? 1 : 6.5,
+                              MyAlpha: controller.currentSteps == 2 ? 250 : 80,
                             ),
                             SizedBox(width: DEVICE_HEIGHT * 0.01),
                             ContainerSteps(
-                              MyAlpha: controller.currentSteps == 1 ? 1 : 6.5,
+                              MyAlpha: controller.currentSteps == 1 ? 250 : 80,
                             ),
                           ],
                         ),
                         SizedBox(height: DEVICE_HEIGHT * 0.03),
-                        controller.currentSteps != 4
-                            ? StepsBtn(
+                        controller.currentSteps == 1
+                            ? Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: StepsBtn(
+                                          onPressed: () {},
+                                          text: 'again'.tr,
+                                          color: Color(
+                                            AppColors.colorTextBlueBlur,
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(width: DEVICE_WIDTH * 0.04),
+                                      Expanded(
+                                        child: StepsBtn(
+                                          onPressed: () {
+                                            controller.checkAllVaildsSteps()
+                                                ? controller.currentSteps++
+                                                : '';
+                                          },
+                                          text: 'save'.tr,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              )
+                            : StepsBtn(
                                 onPressed: () {
-                                  controller.checkAllVaildsSteps()
+                                  controller.currentSteps == 4
+                                      ? controller.checkAllVaildsSteps()
+                                      : controller.checkAllVaildsSteps()
                                       ? controller.currentSteps++
                                       : '';
                                 },
                                 text: controller.currentSteps == 4
                                     ? 'confirm'.tr
                                     : 'next'.tr,
-                              )
-                            : Btn(
-                                text: 'next'.tr,
-                                color: Color(AppColors.colorLineAndText),
-                                onPressed: () {
-                                  controller.checkOtp();
-                                },
                               ),
                       ],
                     ),

@@ -3,7 +3,6 @@
 import '../../general_exports.dart';
 
 List<GetPage<dynamic>> appRoutes = <GetPage<dynamic>>[
-  GetPage<FootPrint>(name: routeAuth, page: () => FootPrint()),
   GetPage<StartSteps>(name: routeSteps, page: () => StartSteps()),
   GetPage<CreateAccountSuccess>(
     name: routeCreateAccountSuccess,
@@ -13,5 +12,8 @@ List<GetPage<dynamic>> appRoutes = <GetPage<dynamic>>[
     name: routeDiagnosis,
     page: () => DiagnosisRecipient(),
   ),
-  GetPage<TypeChildren>(name: routeSelectTypeChildren, page: () => TypeChildren()),
+  GetPage<TypeChildren>(
+    name: routeSelectTypeChildren,
+    page: () => TypeChildren(),
+  ),
 ];

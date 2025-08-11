@@ -283,17 +283,6 @@ class TypeChildren extends StatelessWidget {
                           ],
                         ),
                         SizedBox(height: DEVICE_HEIGHT * 0.03),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            ContainerSteps(MyAlpha: 6.5),
-                            SizedBox(width: DEVICE_HEIGHT * 0.01),
-                            ContainerSteps(MyAlpha: 6.5),
-                            SizedBox(width: DEVICE_HEIGHT * 0.01),
-                            ContainerSteps(MyAlpha: 1),
-                          ],
-                        ),
-                        SizedBox(height: DEVICE_HEIGHT * 0.03),
                         Btn(
                           text: 'next'.tr,
                           color: Color(AppColors.colorLineAndText),

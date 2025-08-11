@@ -10,21 +10,21 @@ class StartStepsController extends GetxController {
   TextEditingController TextfieldNumber = TextEditingController();
   TextEditingController otpController = TextEditingController();
 
-  TextEditingController TextfieldChronicDiseases = TextEditingController();
-  TextEditingController TextfieldSurgicalOperations = TextEditingController();
-  TextEditingController TextfieldContinuousMedications =
-      TextEditingController();
-  TextEditingController TextfieldAllergies = TextEditingController();
+  // TextEditingController TextfieldChronicDiseases = TextEditingController();
+  // TextEditingController TextfieldSurgicalOperations = TextEditingController();
+  // TextEditingController TextfieldContinuousMedications =
+  //     TextEditingController();
+  // TextEditingController TextfieldAllergies = TextEditingController();
 
   bool isVaildAge = false;
   bool isVaildName = false;
   bool isVaildNumber = false;
   bool isOtpInvalid = false;
 
-  bool isVaildChronicDiseases = false;
-  bool isVaildSurgicalOperations = false;
-  bool isVaildContinuousMedications = false;
-  bool isVaildAllergies = false;
+  // bool isVaildChronicDiseases = false;
+  // bool isVaildSurgicalOperations = false;
+  // bool isVaildContinuousMedications = false;
+  // bool isVaildAllergies = false;
 
   int secondsRemaining = 70;
   Timer? timer;
@@ -48,6 +48,10 @@ class StartStepsController extends GetxController {
     bool isValid = true;
 
     if (currentSteps == 1) {
+      isValid = true;
+    }
+
+    if (currentSteps == 2) {
       if (TextfieldAge.text.isEmpty) {
         isVaildAge = true;
         isValid = false;
@@ -56,7 +60,7 @@ class StartStepsController extends GetxController {
       }
     }
 
-    if (currentSteps == 2) {
+    if (currentSteps == 3) {
       if (TextfieldName.text.isEmpty && TextfieldNumber.text.isEmpty) {
         isValid = false;
       }
@@ -76,57 +80,50 @@ class StartStepsController extends GetxController {
       }
     }
 
-    if (currentSteps == 3) {
-      if (TextfieldChronicDiseases.text.isEmpty) {
-        isVaildChronicDiseases = true;
+    // if (currentSteps == 4) {
+    //   if (TextfieldChronicDiseases.text.isEmpty) {
+    //     isVaildChronicDiseases = true;
+    //     isValid = false;
+    //   } else {
+    //     isVaildChronicDiseases = false;
+    //   }
+    //   if (TextfieldSurgicalOperations.text.isEmpty) {
+    //     isVaildSurgicalOperations = true;
+    //     isValid = false;
+    //   } else {
+    //     isVaildSurgicalOperations = false;
+    //   }
+    //   if (TextfieldContinuousMedications.text.isEmpty) {
+    //     isVaildContinuousMedications = true;
+    //     isValid = false;
+    //   } else {
+    //     isVaildContinuousMedications = false;
+    //   }
+    //   if (TextfieldAllergies.text.isEmpty) {
+    //     isVaildAllergies = true;
+    //     isValid = false;
+    //   } else {
+    //     isVaildAllergies = false;
+    //   }
+    // }
+
+    if (currentSteps == 4) {
+      if (!checkOtpIsValid()) {
         isValid = false;
+        markOtpInvalid();
       } else {
-        isVaildChronicDiseases = false;
-      }
-      if (TextfieldSurgicalOperations.text.isEmpty) {
-        isVaildSurgicalOperations = true;
-        isValid = false;
-      } else {
-        isVaildSurgicalOperations = false;
-      }
-      if (TextfieldContinuousMedications.text.isEmpty) {
-        isVaildContinuousMedications = true;
-        isValid = false;
-      } else {
-        isVaildContinuousMedications = false;
-      }
-      if (TextfieldAllergies.text.isEmpty) {
-        isVaildAllergies = true;
-        isValid = false;
-      } else {
-        isVaildAllergies = false;
+        Get.toNamed(routeCreateAccountSuccess);
+        clearOtpError();
+        consoleLog("OTP Entered: ${otpController.text}");
       }
     }
 
-    if (isValid) {
-      if (currentSteps == 3) {
-        consoleLog(
-          "age: ${TextfieldAge.text}, name: ${TextfieldName.text}, , number: ${TextfieldNumber.text}",
-        );
-      }
-    }
     update();
     return isValid;
   }
 
   // This is the otp timer logic
   // create request post and data user and save storage to data user
-  void checkOtp() {
-    if (currentSteps == 4) {
-      if (!checkOtpIsValid()) {
-        markOtpInvalid();
-      } else {
-        clearOtpError();
-        consoleLog("OTP Entered: ${otpController.text}");
-        Get.toNamed(routeCreateAccountSuccess);
-      }
-    }
-  }
 
   void startTimerManually() {
     timer?.cancel();

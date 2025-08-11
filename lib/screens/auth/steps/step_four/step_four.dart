@@ -7,7 +7,6 @@ class StepFour extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<StartStepsController>(
-      init: StartStepsController(),
       builder: (controller) {
         controller.secondsRemaining == 70 && controller.timer == null
             ? controller.startCountdown()
@@ -78,15 +77,15 @@ class StepFour extends StatelessWidget {
                         border: Border.all(
                           color: controller.isOtpInvalid
                               ? Color(AppColors.colorError)
-                              : const Color(AppColors.colorWhite),
+                              : Color(AppColors.colorWhite),
                         ),
-                        color: const Color(AppColors.colorwhiteSelectedType),
+                        color: Color(AppColors.colorwhiteSelectedType),
                       ),
                       submittedPinTheme: defaultPinTheme.copyDecorationWith(
                         border: Border.all(
                           color: controller.isOtpInvalid
                               ? Color(AppColors.colorError)
-                              : const Color(AppColors.colorLineAndText),
+                              : Color(AppColors.colorSuccessLine),
                         ),
                         color: Colors.white,
                       ),

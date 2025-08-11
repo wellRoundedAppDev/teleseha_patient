@@ -3,3 +3,4 @@ export 'custome_btn/index.dart';
 export 'logo/index.dart';
 export 'steps_btn/index.dart';
 export 'form_steps/index.dart';
+export 'is_vailds/index.dart';

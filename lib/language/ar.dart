@@ -1,6 +1,7 @@
 const Map<String, String> ar = {
   'age': 'العمر',
   'enter_age': 'أدخل العمر',
+  'is_vaild_enter_age': 'الرجاء ادخال العمر',
   'type': 'النوع',
   'male': 'ذكر',
   'female': 'انثى',
@@ -13,8 +14,10 @@ const Map<String, String> ar = {
   'again': 'إعادة المحاولة',
   'name': 'الاسم',
   'name_field': 'عبدالرحمن عبالله محمد',
+  'is_vaild_name_field': 'الرجاء ادخال الاسم',
   'number_phone': 'رقم الهاتف',
   'number_phone_field': '0123456789',
+  'is_vaild_number': 'الرجاء ادخال الرقم',
   'confirm': 'تأكيد الحساب',
   'input_confirm': 'أدخل كود التحقق المكون من  6 ارقام الذي ارسلناه للرقم',
   'resend': 'لم يصلك الرمز؟',
