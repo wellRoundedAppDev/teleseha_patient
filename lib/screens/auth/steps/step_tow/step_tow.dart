@@ -7,60 +7,22 @@ class StepTow extends StatelessWidget {
       builder: (controller) {
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'age'.tr,
-                  style: TextStyle(
-                    color: Color(AppColors.colorLineAndText),
-                    fontWeight: FontWeight.w400,
-                    fontFamily: 'Cairo',
-                    fontStyle: FontStyle.normal,
-                  ),
-                ),
-                SizedBox(height: DEVICE_HEIGHT * 0.02),
-                Container(
-                  width: DEVICE_WIDTH * 0.40,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                        color: const Color.fromARGB(88, 189, 189, 189),
-                        blurRadius: 5,
-                        offset: Offset(0, 0),
-                      ),
-                    ],
-                  ),
-                  child: TextFormField(
-                    keyboardType: TextInputType.number,
-                    controller: controller.TextfieldAge,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      contentPadding: EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 20,
-                      ),
-                      hintText: 'enter_age'.tr,
-                      hintStyle: TextStyle(
-                        fontFamily: 'Cairo',
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: Color(
-                          AppColors.colorHintText,
-                        ).withValues(alpha: 20),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: DEVICE_HEIGHT * 0.01),
-                controller.isVaildAge
-                    ? IsVailds(is_vaild_text: 'is_vaild_enter_age'.tr)
-                    : Text(''),
-              ],
+            Container(
+              margin: EdgeInsets.only(top: 2),
+              child: CusomeForm(
+                title: 'age'.tr,
+                hintText: 'enter_age'.tr,
+                controller: controller.TextfieldAge,
+                isVaild: controller.isVaildAge,
+                textIsVaild: 'is_vaild_enter_age'.tr,
+                key: null,
+                width_container: 0.40,
+                colorLabel: AppColors.colorLineAndText,
+                text_input_type: TextInputType.number,
+                icon: false,
+              ),
             ),
             SizedBox(width: DEVICE_WIDTH * 0.04),
             Column(
@@ -72,6 +34,7 @@ class StepTow extends StatelessWidget {
                     color: Color(AppColors.colorLineAndText),
                     fontWeight: FontWeight.w400,
                     fontFamily: 'Cairo',
+                    fontSize: 18,
                     fontStyle: FontStyle.normal,
                   ),
                 ),
@@ -141,8 +104,8 @@ class StepTow extends StatelessWidget {
                     );
                   }).toList(),
                 ),
-                SizedBox(height: DEVICE_HEIGHT * 0.01),
-                Text(''),
+                SizedBox(height: DEVICE_HEIGHT * 0.02),
+                IsVailds(is_vaild_text: ''.tr),
               ],
             ),
           ],

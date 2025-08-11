@@ -28,7 +28,7 @@ class Btn extends StatelessWidget {
             color: Color(AppColors.colorWhite),
             fontSize: 18,
             fontFamily: 'Cairo',
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w700,
           ),
         ),
       ),

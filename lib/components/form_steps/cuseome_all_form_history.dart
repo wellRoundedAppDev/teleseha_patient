@@ -27,6 +27,8 @@ class CusomeAllFormHistory extends StatelessWidget {
             //   isVaild: controller.isVaildChronicDiseases,
             //   textIsVaild: 'is_vaild_diseases'.tr,
             //   key: null,
+            // AppColors.colorLabel
+            // width_container: 0.85
             // ),
             // CusomeForm(
             //   title: 'surgical_operations'.tr,

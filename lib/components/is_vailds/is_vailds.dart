@@ -11,7 +11,7 @@ class IsVailds extends StatelessWidget {
       is_vaild_text!,
       style: TextStyle(
         color: Color(AppColors.colorError),
-        fontSize: 12,
+        fontSize: 11,
         fontFamily: 'Cairo',
         fontWeight: FontWeight.w700,
       ),

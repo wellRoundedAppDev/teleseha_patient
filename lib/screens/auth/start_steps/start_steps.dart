@@ -36,11 +36,11 @@ class StartSteps extends StatelessWidget {
                   height: DEVICE_HEIGHT * 0.0108,
                   child: LinearProgressIndicator(
                     value: controller.currentSteps == 1
-                        ? 0.3
+                        ? 0.2
                         : controller.currentSteps == 2
-                        ? 0.6
+                        ? 0.4
                         : controller.currentSteps == 3
-                        ? 8
+                        ? 0.8
                         : 1,
                     borderRadius: BorderRadius.circular(15),
                     backgroundColor:
@@ -88,7 +88,10 @@ class StartSteps extends StatelessWidget {
                             : controller.currentSteps == 4
                             ? StepFour()
                             : Text(''),
-                        SizedBox(height: DEVICE_HEIGHT * 0.03),
+                        controller.currentSteps == 1 ||
+                                controller.currentSteps == 4
+                            ? SizedBox(height: DEVICE_HEIGHT * 0.05)
+                            : SizedBox(height: DEVICE_HEIGHT * 0.02),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

@@ -25,7 +25,7 @@ class StepsBtn extends StatelessWidget {
             color: Color(AppColors.colorwhiteSelectedType),
             fontSize: 18,
             fontFamily: 'Cairo',
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w700,
           ),
         ),
       ),
