@@ -1,6 +1,6 @@
 const Map<String, String> ar = {
-  'age': 'العمر',
-  'enter_age': 'أدخل العمر',
+  'date_age': 'التاريخ',
+  'enter_date_age': 'أدخل التاريخ',
   'is_vaild_enter_age': 'الرجاء ادخال العمر',
   'type': 'النوع',
   'male': 'ذكر',

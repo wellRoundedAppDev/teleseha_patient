@@ -1,50 +1,40 @@
 import '../../../../general_exports.dart';
 
 class StepOne extends StatelessWidget {
-  const StepOne({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text(
-          'title_foot_print'.tr,
-          style: TextStyle(
-            color: Color(AppColors.colorTextBlue),
-            fontWeight: FontWeight.w700,
-            fontFamily: 'Cairo',
-            fontSize: 20,
+    return GetBuilder<StartStepsController>(
+      builder: (controller) {
+        return Container(
+          margin: EdgeInsets.only(top: DEVICE_HEIGHT * 0.12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CusomeInput(
+                title: 'name'.tr,
+                hint: 'name_field'.tr,
+                controller: controller.textfieldName,
+                showVaildMessage: controller.isVaildName,
+                textIsVaild: 'is_vaild_name_field'.tr,
+                width_container: 0.90,
+                colorLabel: AppColors.colorLineAndText,
+                text_input_type: TextInputType.text,
+                icon: false,
+              ),
+              // CusomeInput(
+              //   title: 'number_phone'.tr,
+              //   hint: 'number_phone_field'.tr,
+              //   controller: controller.TextfieldName,
+              //   colorLabel: AppColors.colorLabel,
+              //   text_input_type: TextInputType.number,
+              //   name_icon_field: iconNumber,
+              //   fontSize: 16,
+              // ),
+            ],
           ),
-        ),
-        SizedBox(height: DEVICE_HEIGHT * 0.04),
-        Text(
-          'text_foot_print'.tr,
-          style: TextStyle(
-            color: Color(AppColors.colorselectDropDown),
-            fontWeight: FontWeight.w500,
-            fontFamily: 'Cairo',
-            fontSize: 14,
-          ),
-        ),
-        SizedBox(height: DEVICE_HEIGHT * 0.04),
-        SvgPicture.asset(
-          footPrint,
-          width: DEVICE_WIDTH * 0.15,
-          height: DEVICE_HEIGHT * 0.15,
-          fit: BoxFit.cover,
-        ),
-        SizedBox(height: DEVICE_HEIGHT * 0.04),
-        Text(
-          'put_your_finger'.tr,
-          style: TextStyle(
-            color: Color(AppColors.colorLineAndText),
-            fontWeight: FontWeight.w500,
-            fontFamily: 'Cairo',
-            fontSize: 21,
-          ),
-        ),
-      ],
+        );
+      },
     );
   }
 }

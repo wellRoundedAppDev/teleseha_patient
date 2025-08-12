@@ -1,13 +1,12 @@
 import '../../general_exports.dart';
 
-class CusomeForm extends StatelessWidget {
-  const CusomeForm({
-    required super.key,
-    required this.title,
-    required this.hintText,
+class CusomeInput extends StatelessWidget {
+  const CusomeInput({
+    this.title,
+    this.hint,
     required this.controller,
-    required this.isVaild,
-    required this.textIsVaild,
+    this.showVaildMessage,
+    this.textIsVaild,
     this.width_container = 0.85,
     required this.colorLabel,
     required this.text_input_type,
@@ -15,12 +14,16 @@ class CusomeForm extends StatelessWidget {
     this.name_icon_field,
     this.between_field_bottom = 0.02,
     this.fontSize = 18,
+    this.readOnly = false,
+    this.onTap,
+    this.validator,
   });
 
   final String? title;
-  final String? hintText;
+  final String? hint;
+  final String? Function(String?)? validator;
   final TextEditingController? controller;
-  final bool isVaild;
+  final bool? showVaildMessage;
   final String? textIsVaild;
   final double width_container;
   final int colorLabel;
@@ -29,6 +32,8 @@ class CusomeForm extends StatelessWidget {
   final String? name_icon_field;
   final double between_field_bottom;
   final double fontSize;
+  final bool readOnly;
+  final Function? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +58,11 @@ class CusomeForm extends StatelessWidget {
             border: Border.all(color: Color(AppColors.colorWhite)),
           ),
           child: TextFormField(
+            validator: validator,
+            onTap: () {
+              onTap?.call();
+            },
+            readOnly: readOnly,
             keyboardType: text_input_type,
             controller: controller,
             decoration: InputDecoration(
@@ -74,7 +84,7 @@ class CusomeForm extends StatelessWidget {
                 horizontal: 10,
                 vertical: 20,
               ),
-              hintText: hintText ?? '',
+              hintText: hint,
               hintStyle: TextStyle(
                 fontFamily: 'Cairo',
                 fontSize: 14,
@@ -84,10 +94,10 @@ class CusomeForm extends StatelessWidget {
             ),
           ),
         ),
-        isVaild
+        showVaildMessage!
             ? SizedBox(height: DEVICE_HEIGHT * 0.01)
             : SizedBox(height: DEVICE_HEIGHT * 0),
-        isVaild
+        showVaildMessage!
             ? Text(
                 textIsVaild!,
                 style: TextStyle(

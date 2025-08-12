@@ -1,144 +1,176 @@
+import 'package:pinput/pinput.dart';
+
 import '../../../../general_exports.dart';
 
 class StepTow extends StatelessWidget {
+  const StepTow({super.key});
   @override
   Widget build(BuildContext context) {
     return GetBuilder<StartStepsController>(
       builder: (controller) {
-        return Column(
-          children: [
-            Container(
-              margin: EdgeInsets.only(left: DEVICE_WIDTH * 0.03),
-              child: CusomeForm(
-                title: 'name'.tr,
-                hintText: 'name_field'.tr,
-                controller: controller.TextfieldName,
-                isVaild: controller.isVaildName,
-                textIsVaild: 'is_vaild_name_field'.tr,
-                key: null,
-                width_container: 0.90,
-                colorLabel: AppColors.colorLineAndText,
-                text_input_type: TextInputType.text,
-                icon: false,
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(top: 2),
-                  child: CusomeForm(
-                    title: 'age'.tr,
-                    hintText: 'enter_age'.tr,
-                    controller: controller.TextfieldAge,
-                    isVaild: controller.isVaildAge,
-                    textIsVaild: 'is_vaild_enter_age'.tr,
-                    key: null,
-                    width_container: 0.40,
-                    colorLabel: AppColors.colorLineAndText,
-                    text_input_type: TextInputType.number,
-                    icon: false,
-                  ),
+        controller.secondsRemaining == 70 && controller.timer == null
+            ? controller.startCountdown()
+            : null;
+        return Container(
+          width: DEVICE_WIDTH * 0.8,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                'confirm'.tr,
+                style: TextStyle(
+                  fontFamily: 'Cairo',
+                  fontSize: 24,
+                  fontWeight: FontWeight.w700,
+                  color: Color(AppColors.colorTextBlue),
                 ),
-                SizedBox(width: DEVICE_WIDTH * 0.04),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+              ),
+              SizedBox(height: DEVICE_HEIGHT * 0.04),
+              Text.rich(
+                TextSpan(
                   children: [
-                    Text(
-                      'type'.tr,
+                    TextSpan(
+                      text: 'input_confirm'.tr + ' ',
                       style: TextStyle(
-                        color: Color(AppColors.colorLineAndText),
-                        fontWeight: FontWeight.w400,
                         fontFamily: 'Cairo',
-                        fontSize: 20,
-                        fontStyle: FontStyle.normal,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: Color(AppColors.colorInputConfirm),
                       ),
                     ),
-                    SizedBox(height: DEVICE_HEIGHT * 0.02),
-                    Row(
-                      children: controller.typeGenrate.map<Widget>((item) {
-                        return Row(
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                controller.changeTypeGenrate(item[code]!);
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color:
-                                      controller.selectedMaleCode == item[code]
-                                      ? Color(AppColors.colorLineAndText)
-                                      : Color(AppColors.colorwhiteSelectedType),
-                                  borderRadius: BorderRadius.circular(20),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: const Color.fromARGB(
-                                        88,
-                                        189,
-                                        189,
-                                        189,
-                                      ),
-                                      blurRadius: 5,
-                                      offset: Offset(0, 0),
-                                    ),
-                                  ],
-                                ),
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 10,
-                                  vertical: 20,
-                                ),
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      item[gender] ?? '',
-                                      style: TextStyle(
-                                        color:
-                                            controller.selectedMaleCode ==
-                                                item[code]
-                                            ? Color(
-                                                AppColors
-                                                    .colorwhiteSelectedType,
-                                              )
-                                            : Color(
-                                                AppColors.colorselectDropDown,
-                                              ),
-                                        fontWeight: FontWeight.w700,
-                                        fontFamily: 'Cairo',
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                    SizedBox(width: DEVICE_WIDTH * 0.04),
-                                    SvgPicture.asset(
-                                      item[icon] ?? '',
-                                      color:
-                                          controller.selectedMaleCode ==
-                                              item[code]
-                                          ? Color(
-                                              AppColors.colorwhiteSelectedType,
-                                            )
-                                          : Color(
-                                              AppColors.colorselectDropDown,
-                                            ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            SizedBox(width: DEVICE_WIDTH * 0.04),
-                          ],
-                        );
-                      }).toList(),
+                    TextSpan(
+                      text: '0123456890',
+                      style: TextStyle(
+                        fontFamily: 'Cairo',
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Color(AppColors.colorLineAndText),
+                      ),
                     ),
-                    SizedBox(height: DEVICE_HEIGHT * 0.02),
-                    IsVailds(is_vaild_text: ''.tr),
                   ],
                 ),
-              ],
-            ),
-          ],
+              ),
+              SizedBox(height: DEVICE_HEIGHT * 0.02),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (controller.isOtpInvalid)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: Text(
+                        'vaild_code'.tr,
+                        style: TextStyle(
+                          color: Color(AppColors.colorError),
+                          fontSize: 11,
+                          fontFamily: 'Cairo',
+                          fontWeight: FontWeight.w700,
+                        ),
+                        textAlign: TextAlign.right,
+                      ),
+                    ),
+                  Directionality(
+                    textDirection: TextDirection.ltr,
+                    child: Pinput(
+                      controller: controller.otpController,
+                      length: 6,
+                      defaultPinTheme: defaultPinTheme.copyDecorationWith(
+                        border: Border.all(
+                          color: controller.isOtpInvalid
+                              ? Color(AppColors.colorError)
+                              : Color(AppColors.colorWhite),
+                        ),
+                        color: Color(AppColors.colorwhiteSelectedType),
+                      ),
+                      submittedPinTheme: defaultPinTheme.copyDecorationWith(
+                        border: Border.all(
+                          color: controller.isOtpInvalid
+                              ? Color(AppColors.colorError)
+                              : Color(AppColors.colorSuccessLine),
+                        ),
+                        color: Colors.white,
+                      ),
+                      pinAnimationType: PinAnimationType.slide,
+                      onChanged: (String value) {
+                        controller.clearOtpError();
+                      },
+                      onCompleted: (String pin) {
+                        controller.otpController.text = pin;
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: DEVICE_HEIGHT * 0.02),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      controller.restartTimer();
+                    },
+                    child: Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: 'resend'.tr + ' ',
+                            style: TextStyle(
+                              fontFamily: 'Cairo',
+                              fontSize: 11,
+                              fontWeight: FontWeight.w700,
+                              color: Color(AppColors.colorReset),
+                            ),
+                          ),
+                          TextSpan(
+                            text: 'again_resend'.tr,
+                            style: TextStyle(
+                              fontFamily: 'Cairo',
+                              fontSize: 11,
+                              fontWeight: FontWeight.w700,
+                              color: Color(
+                                AppColors.colorTextBlue,
+                              ).withValues(alpha: 60),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Text(
+                    controller.formattedTime,
+                    style: TextStyle(
+                      fontFamily: 'Cairo',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: Color(AppColors.colorNumber),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         );
       },
     );
   }
 }
+
+final PinTheme defaultPinTheme = PinTheme(
+  width: DEVICE_WIDTH * 0.85,
+  height: DEVICE_HEIGHT * 0.05,
+  textStyle: Theme.of(
+    Get.context!,
+  ).textTheme.bodyMedium!.copyWith(fontSize: 15),
+  decoration: BoxDecoration(
+    color: const Color(AppColors.colorWhite),
+    borderRadius: BorderRadius.circular(DEVICE_WIDTH * 0.02),
+    border: Border.all(color: const Color(AppColors.colorLineAndText)),
+    boxShadow: [
+      BoxShadow(
+        color: Colors.black.withOpacity(0.1),
+        spreadRadius: 1,
+        blurRadius: 5,
+        offset: Offset(0, 2),
+      ),
+    ],
+  ),
+);
