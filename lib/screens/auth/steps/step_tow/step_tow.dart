@@ -54,7 +54,7 @@ class StepTow extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if (controller.isOtpInvalid)
+                  if (controller.showOtpError)
                     Padding(
                       padding: const EdgeInsets.only(bottom: 8.0),
                       child: Text(
@@ -75,7 +75,7 @@ class StepTow extends StatelessWidget {
                       length: 6,
                       defaultPinTheme: defaultPinTheme.copyDecorationWith(
                         border: Border.all(
-                          color: controller.isOtpInvalid
+                          color: controller.showOtpError
                               ? Color(AppColors.colorError)
                               : Color(AppColors.colorWhite),
                         ),
@@ -83,7 +83,7 @@ class StepTow extends StatelessWidget {
                       ),
                       submittedPinTheme: defaultPinTheme.copyDecorationWith(
                         border: Border.all(
-                          color: controller.isOtpInvalid
+                          color: controller.showOtpError
                               ? Color(AppColors.colorError)
                               : Color(AppColors.colorSuccessLine),
                         ),

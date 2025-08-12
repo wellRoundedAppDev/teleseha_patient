@@ -38,17 +38,12 @@ class StartSteps extends StatelessWidget {
                   height: DEVICE_HEIGHT * 0.0108,
                   child: LinearProgressIndicator(
                     value: controller.currentStep == 1
-                        ? 0.2
-                        : controller.currentStep == 2
                         ? 0.4
-                        : controller.currentStep == 3
+                        : controller.currentStep == 2
                         ? 0.8
                         : 1,
                     borderRadius: BorderRadius.circular(15),
-                    backgroundColor:
-                        controller.currentStep == 1 ||
-                            controller.currentStep == 2 ||
-                            controller.currentStep == 3
+                    backgroundColor: controller.currentStep != 3
                         ? Color(AppColors.backgroundColorLine)
                         : Color(AppColors.colorSuccessLine),
                     valueColor: AlwaysStoppedAnimation<Color>(
@@ -70,9 +65,7 @@ class StartSteps extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  controller.currentStep == controller.numberOfStep
-                      ? Container()
-                      : Logo(),
+                  Logo(),
                   SizedBox(height: DEVICE_HEIGHT * 0.04),
                   Column(
                     children: [
@@ -83,7 +76,7 @@ class StartSteps extends StatelessWidget {
                           : controller.currentStep == 3
                           ? StepThree()
                           : Text(''),
-                      SizedBox(height: DEVICE_HEIGHT * 0.015),
+                      SizedBox(height: DEVICE_HEIGHT * 0.025),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: List.generate(3, (index) {
@@ -101,17 +94,18 @@ class StartSteps extends StatelessWidget {
                           );
                         }),
                       ),
-                      SizedBox(height: DEVICE_HEIGHT * 0.03),
+                      SizedBox(height: DEVICE_HEIGHT * 0.035),
                       StepsBtn(
                         onPressed: () {
-                          if (controller.checkVaildsSteps()) {
-                            if (controller.currentStep ==
-                                controller.numberOfStep) {
-                              Get.toNamed(routeCreateAccountSuccess);
-                            } else {
-                              controller.currentStep++;
-                            }
-                          }
+                          controller.onNextButtonPress();
+                          // if (controller.checkVaildsSteps()) {
+                          //   if (controller.currentStep ==
+                          //       controller.numberOfStep) {
+                          //     Get.toNamed(routeCreateAccountSuccess);
+                          //   } else {
+                          //     controller.currentStep++;
+                          //   }
+                          // }
                         },
                         text: 'next'.tr,
                       ),
