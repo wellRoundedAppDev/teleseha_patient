@@ -1,4 +1,5 @@
 import '../../../general_exports.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class StartSteps extends StatelessWidget {
   const StartSteps({super.key});
@@ -90,7 +91,7 @@ class StartSteps extends StatelessWidget {
                           return Row(
                             children: [
                               ContainerSteps(
-                                MyAlpha: controller.currentStep == stepNumber
+                                myAlpha: controller.currentStep == stepNumber
                                     ? 250
                                     : 80,
                               ),

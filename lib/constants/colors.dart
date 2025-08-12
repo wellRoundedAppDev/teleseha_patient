@@ -1,5 +1,5 @@
 class AppColors {
-  static const int grey = 0xFFD2D2D2;
+  static const int colorGrey = 0xFFD2D2D2;
   static const int backgroundColorLine = 0xffEFF0F6;
   static const int colorLineAndText = 0xFF007BBD;
   static const int colorWhite = 0xffDADADA;

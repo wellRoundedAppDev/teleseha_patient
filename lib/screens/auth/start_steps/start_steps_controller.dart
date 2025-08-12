@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../general_exports.dart';
 
@@ -10,19 +11,11 @@ class StartStepsController extends GetxController {
 
   Rx<DateTime> selectedDate = DateTime.now().obs;
   TextEditingController dateController = TextEditingController();
-  // TextEditingController TextfieldAge = TextEditingController();
   TextEditingController textFieldName = TextEditingController();
   TextEditingController textFieldPhoneNumber = TextEditingController();
-  TextEditingController TextfieldPassword = TextEditingController();
   TextEditingController otpController = TextEditingController();
 
   final LocalAuthentication auth = LocalAuthentication();
-
-  // TextEditingController TextfieldChronicDiseases = TextEditingController();
-  // TextEditingController TextfieldSurgicalOperations = TextEditingController();
-  // TextEditingController TextfieldContinuousMedications =
-  //     TextEditingController();
-  // TextEditingController TextfieldAllergies = TextEditingController();
 
   bool isVaildAge = false;
   bool showNameError = false;
@@ -30,11 +23,6 @@ class StartStepsController extends GetxController {
   bool showdateControllerError = false;
   bool isVaildPassword = false;
   bool isOtpInvalid = false;
-
-  // bool isVaildChronicDiseases = false;
-  // bool isVaildSurgicalOperations = false;
-  // bool isVaildContinuousMedications = false;
-  // bool isVaildAllergies = false;
 
   int secondsRemaining = 70;
   Timer? timer;
@@ -58,7 +46,7 @@ class StartStepsController extends GetxController {
   Future<void> checkBiometrics() async {
     final bool canAuthenticateWithBiometrics = await auth.isDeviceSupported();
     if (!canAuthenticateWithBiometrics) {
-      // Fluttertoast.showToast(msg: 'Devices is not supoprt biometrics');
+      Fluttertoast.showToast(msg: 'not_support'.tr);
       return;
     }
 
@@ -66,10 +54,7 @@ class StartStepsController extends GetxController {
         .getAvailableBiometrics();
 
     if (availableBiometrics.isEmpty) {
-      // Fluttertoast.showToast(
-      //   msg:
-      //       'Biometrics is empty, please set up Biometrics in devices settings',
-      // );
+      Fluttertoast.showToast(msg: 'piometrics_empty'.tr);
       return;
     }
 
@@ -79,11 +64,11 @@ class StartStepsController extends GetxController {
       );
       if (didAuthenticate) {
         useBiometric = true;
-        currentStep++;
+        Get.toNamed(routeSteps);
         update();
       }
     } catch (e) {
-      // Fluttertoast.showToast(msg: 'error_auth_finger_print'.tr);
+      Fluttertoast.showToast(msg: 'error_auth_finger_print'.tr);
     }
   }
 
@@ -154,84 +139,6 @@ class StartStepsController extends GetxController {
     update();
     return isValid;
   }
-
-  // bool dedical_history() {
-  //   bool isValid = true;
-
-  //   if (TextfieldChronicDiseases.text.isEmpty) {
-  //     isVaildChronicDiseases = true;
-  //     isValid = false;
-  //   } else {
-  //     isVaildChronicDiseases = false;
-  //   }
-
-  //   if (TextfieldSurgicalOperations.text.isEmpty) {
-  //     isVaildSurgicalOperations = true;
-  //     isValid = false;
-  //   } else {
-  //     isVaildSurgicalOperations = false;
-  //   }
-
-  //   if (TextfieldContinuousMedications.text.isEmpty) {
-  //     isVaildContinuousMedications = true;
-  //     isValid = false;
-  //   } else {
-  //     isVaildContinuousMedications = false;
-  //   }
-
-  //   if (TextfieldAllergies.text.isEmpty) {
-  //     isVaildAllergies = true;
-  //     isValid = false;
-  //   } else {
-  //     isVaildAllergies = false;
-  //   }
-
-  //   update();
-  //   return isValid;
-  // }
-
-  //   bool canGoToStepTwo() {
-  //     return isPasswordValid;
-  //   }
-
-  //   bool canGoToStepThree() {
-  //     isValidName = textfieldName.text.isNotEmpty;
-  //     isValidDateOfBirth = TextfieldAge.text.isNotEmpty;
-  //     update();
-  //     return isValidName && isValidDateOfBirth;
-  //   }
-
-  //   void onNextButtonPress() {
-  //     // last page
-  //     if (currentStep == numberOfAllSteps) {
-  //        Get.toNamed(routeCreateAccountSuccess);
-  //         clearOtpError();
-  //         consoleLog('OTP Entered: ${otpController.text}');
-  //     } else {
-  //       if (currentStep == 1) {
-  //         // Backend checked if password is correct or not
-  //         if (passwordChecked) {
-  //           if (canGoToStepTwo()) {
-  //             ++currentStep;
-  //             update();
-  //           } else {
-  //            // showMessage(description: 'password_not_correct'.tr);
-  //           }
-  //         } else {
-  //           // Do api call to check password
-  //         }
-  //       } else if (currentStep == 2) {
-  //         if (Get.find<MyAppController>().userData == null) {
-  //           // Open register screen
-  //         } else {
-  //           // open otp screen
-  //         }
-  //       }
-  //     }
-  //   }
-
-  // This is the otp timer logic
-  // create request post and data user and save storage to data user
 
   void startTimerManually() {
     timer?.cancel();

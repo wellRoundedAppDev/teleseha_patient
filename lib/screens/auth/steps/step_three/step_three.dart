@@ -1,4 +1,5 @@
 import '../../../../general_exports.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class StepThree extends StatelessWidget {
   @override
@@ -16,10 +17,9 @@ class StepThree extends StatelessWidget {
                 controller: controller.textFieldName,
                 showVaildMessage: controller.showNameError,
                 textIsVaild: 'is_vaild_name_field'.tr,
-                width_container: 0.90,
+                widthContainer: 0.90,
                 colorLabel: AppColors.colorLineAndText,
-                text_input_type: TextInputType.text,
-                icon: false,
+                keyboardType: TextInputType.text,
               ),
             ),
             Row(
@@ -38,10 +38,10 @@ class StepThree extends StatelessWidget {
                     controller: controller.dateController,
                     showVaildMessage: controller.showdateControllerError,
                     textIsVaild: 'is_vaild_enter_age'.tr,
-                    width_container: 0.40,
+                    widthContainer: 0.40,
                     colorLabel: AppColors.colorLineAndText,
-                    text_input_type: TextInputType.text,
-                    name_icon_field: iconDate,
+                    keyboardType: TextInputType.text,
+                    suffixIconPath: iconDate,
                   ),
                 ),
                 SizedBox(width: DEVICE_WIDTH * 0.04),

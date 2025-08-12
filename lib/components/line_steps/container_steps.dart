@@ -1,15 +1,15 @@
 import '../../general_exports.dart';
 
 class ContainerSteps extends StatelessWidget {
-  ContainerSteps({super.key, required this.MyAlpha});
+  ContainerSteps({super.key, this.myAlpha});
 
-  final int MyAlpha;
+  final int? myAlpha;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Color(AppColors.colorLineAndText).withAlpha(MyAlpha),
+        color: Color(AppColors.colorLineAndText).withAlpha(myAlpha!),
         borderRadius: BorderRadius.circular(DEVICE_HEIGHT * 0.01),
       ),
       width: DEVICE_WIDTH * 0.07,

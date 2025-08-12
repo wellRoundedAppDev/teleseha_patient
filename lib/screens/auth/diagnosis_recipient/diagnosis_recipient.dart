@@ -1,4 +1,5 @@
 import '../../../general_exports.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class DiagnosisRecipient extends StatelessWidget {
   const DiagnosisRecipient({super.key});
@@ -65,7 +66,7 @@ class DiagnosisRecipient extends StatelessWidget {
                               border: Border.all(
                                 color: isActive
                                     ? Colors.transparent
-                                    : Color(AppColors.grey),
+                                    : Color(AppColors.colorGrey),
                                 width: 2,
                               ),
                             ),

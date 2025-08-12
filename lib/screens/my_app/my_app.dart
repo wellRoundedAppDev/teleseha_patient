@@ -1,5 +1,6 @@
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
-
+import 'package:patient/language/translation.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import '../../general_exports.dart';
 
 class MyApp extends StatelessWidget {
@@ -23,7 +24,8 @@ class MyApp extends StatelessWidget {
         translations: Translation(),
         debugShowCheckedModeBanner: false,
         // initialRoute: routeSplash,
-        initialRoute: routeSteps,
+        // initialRoute: routeSteps,
+        initialRoute: routeFingerPrint,
         // initialRoute: Get.find<MyAppController>().userData == null
         //     ? routeStartSteps
         //     : routeHome,

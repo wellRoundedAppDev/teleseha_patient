@@ -1,4 +1,5 @@
 import '../../../../general_exports.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class MedicalHistory extends StatelessWidget {
   const MedicalHistory({super.key});
@@ -66,10 +67,8 @@ class MedicalHistory extends StatelessWidget {
                     textIsVaild: 'is_vaild_diseases'.tr,
                     key: null,
                     colorLabel: AppColors.colorLabel,
-                    text_input_type: TextInputType.number,
-                    icon: false,
+                    keyboardType: TextInputType.number,
                     fontSize: 16,
-                    between_field_bottom: 0.01,
                   ),
                   CustomeInput(
                     title: 'surgical_operations'.tr,
@@ -79,8 +78,7 @@ class MedicalHistory extends StatelessWidget {
                     textIsVaild: 'is_vaild_surgical_operations'.tr,
                     key: null,
                     colorLabel: AppColors.colorLabel,
-                    text_input_type: TextInputType.number,
-                    icon: false,
+                    keyboardType: TextInputType.number,
                     fontSize: 16,
                   ),
                   CustomeInput(
@@ -91,8 +89,7 @@ class MedicalHistory extends StatelessWidget {
                     textIsVaild: 'is_vaild_continuous_medications'.tr,
                     key: null,
                     colorLabel: AppColors.colorLabel,
-                    text_input_type: TextInputType.number,
-                    icon: false,
+                    keyboardType: TextInputType.number,
                     fontSize: 16,
                   ),
                   CustomeInput(
@@ -103,8 +100,7 @@ class MedicalHistory extends StatelessWidget {
                     textIsVaild: 'is_vaild_allergies'.tr,
                     key: null,
                     colorLabel: AppColors.colorLabel,
-                    text_input_type: TextInputType.number,
-                    icon: false,
+                    keyboardType: TextInputType.number,
                     fontSize: 16,
                   ),
                   Btn(

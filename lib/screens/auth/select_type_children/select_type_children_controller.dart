@@ -1,4 +1,4 @@
-import 'package:patient/general_exports.dart';
+import '../../../general_exports.dart';
 
 class TypeController extends GetxController {
   String? selectedTypChildren = 'children_male';
@@ -9,7 +9,6 @@ class TypeController extends GetxController {
 
   bool showdateControllerError = false;
   bool showNameError = false;
-  bool viewVaildTypeChildren = false;
 
   void pickDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -43,7 +42,6 @@ class TypeController extends GetxController {
 
   void changeTypeChildrenGender(String typeCodeChildrenGender) {
     selectedTypChildren = typeCodeChildrenGender;
-    viewVaildTypeChildren = false;
     update();
   }
 

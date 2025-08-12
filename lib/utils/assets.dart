@@ -1,7 +1,6 @@
 const String iconsPath = 'assets/icons/';
 
 // ICONS
-
 const String iconLogo = '${iconsPath}logo.svg';
 const String iconBack = '${iconsPath}back.svg';
 const String iconBottom = '${iconsPath}bottom.svg';

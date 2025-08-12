@@ -1,4 +1,5 @@
 import '../../../general_exports.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CreateAccountSuccess extends StatelessWidget {
   const CreateAccountSuccess({super.key});

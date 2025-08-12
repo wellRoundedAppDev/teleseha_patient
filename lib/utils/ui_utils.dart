@@ -12,10 +12,7 @@ void hideKeyboard() {
 
 Future<void> openUrl(String url) async {
   if (await canLaunchUrl(Uri.parse(url))) {
-    await launchUrl(
-      Uri.parse(url),
-      mode: LaunchMode.externalApplication,
-    );
+    await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
   } else {
     throw 'Could not launch $url';
   }
@@ -175,11 +172,7 @@ Future<void> openUrl(String url) async {
 //       ),
 //     );
 
-void showToast({
-  String message = '',
-}) {
-
-}
+void showToast({String message = ''}) {}
 
 // String propertyCodeSuffix(dynamic item) => item.containsKey(keyBuildingNo)
 //     ? (item?[keyBuildingNo] ?? '')
@@ -231,27 +224,26 @@ String getStringJoinedByDash(List<dynamic> items, String key) {
 List<dynamic> getListFromKey(List<dynamic> list, String key) =>
     list.map((dynamic item) => item[key]).toList();
 
-TextStyle textPrimaryStyle() =>
-    Theme.of(Get.context!).textTheme.bodySmall!.copyWith(
-          color: const Color(
-            AppColors.grey,
-          ),
-        );
+TextStyle textPrimaryStyle() => Theme.of(
+  Get.context!,
+).textTheme.bodySmall!.copyWith(color: const Color(AppColors.colorGrey));
 
 TextStyle textPrimaryBoldStyle() =>
     Theme.of(Get.context!).textTheme.bodyMedium!.copyWith(
-          color: const Color(AppColors.grey),
-          fontWeight: FontWeight.bold,
-        );
+      color: const Color(AppColors.colorGrey),
+      fontWeight: FontWeight.bold,
+    );
 
 Future<Uint8List> getMarkerImage(String path, int width) async {
   final ByteData data = await rootBundle.load(path);
-  final ui.Codec codec = await ui
-      .instantiateImageCodec(data.buffer.asUint8List(), targetHeight: width);
+  final ui.Codec codec = await ui.instantiateImageCodec(
+    data.buffer.asUint8List(),
+    targetHeight: width,
+  );
   final ui.FrameInfo fi = await codec.getNextFrame();
-  return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!
-      .buffer
-      .asUint8List();
+  return (await fi.image.toByteData(
+    format: ui.ImageByteFormat.png,
+  ))!.buffer.asUint8List();
 }
 
 // bool shouldShowTimer(dynamic item) =>

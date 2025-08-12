@@ -1,4 +1,5 @@
 import '../../../../general_exports.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class TypeChildren extends StatelessWidget {
   @override
@@ -57,10 +58,10 @@ class TypeChildren extends StatelessWidget {
                           controller: controller.dateController,
                           showVaildMessage: controller.showdateControllerError,
                           textIsVaild: 'is_vaild_enter_age'.tr,
-                          width_container: 0.35,
+                          widthContainer: 0.35,
                           colorLabel: AppColors.colorLineAndText,
-                          text_input_type: TextInputType.text,
-                          name_icon_field: iconDate,
+                          keyboardType: TextInputType.text,
+                          suffixIconPath: iconDate,
                         ),
                       ),
                       SizedBox(width: DEVICE_WIDTH * 0.04),
@@ -179,10 +180,9 @@ class TypeChildren extends StatelessWidget {
                       controller: controller.textFieldName,
                       showVaildMessage: controller.showNameError,
                       textIsVaild: 'is_vaild_name_field'.tr,
-                      width_container: 0.90,
+                      widthContainer: 0.90,
                       colorLabel: AppColors.colorLineAndText,
-                      text_input_type: TextInputType.text,
-                      icon: false,
+                      keyboardType: TextInputType.text,
                     ),
                   ),
                   SizedBox(height: DEVICE_HEIGHT * 0.02),

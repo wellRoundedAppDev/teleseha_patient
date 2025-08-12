@@ -1,19 +1,20 @@
 import '../../general_exports.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomeInput extends StatelessWidget {
   const CustomeInput({
     super.key,
     this.title,
     this.hint,
-    required this.controller,
+    this.controller,
     this.showVaildMessage,
     this.textIsVaild,
-    this.width_container = 0.85,
-    required this.colorLabel,
-    required this.text_input_type,
-    this.icon = true,
-    this.name_icon_field,
-    this.between_field_bottom = 0.02,
+    this.widthContainer = 0.85,
+    this.colorLabel,
+    this.keyboardType,
+    this.icon,
+    this.suffixIconPath,
+    this.bottomSpacing = 0.02,
     this.fontSize = 18,
     this.readOnly = false,
     this.onTap,
@@ -24,12 +25,12 @@ class CustomeInput extends StatelessWidget {
   final TextEditingController? controller;
   final bool? showVaildMessage;
   final String? textIsVaild;
-  final double width_container;
-  final int colorLabel;
-  final TextInputType text_input_type;
-  final bool icon;
-  final String? name_icon_field;
-  final double between_field_bottom;
+  final double widthContainer;
+  final int? colorLabel;
+  final TextInputType? keyboardType;
+  final String? icon;
+  final String? suffixIconPath;
+  final double bottomSpacing;
   final double fontSize;
   final bool readOnly;
   final Function? onTap;
@@ -42,7 +43,7 @@ class CustomeInput extends StatelessWidget {
         Text(
           title!,
           style: TextStyle(
-            color: Color(colorLabel),
+            color: Color(colorLabel!),
             fontWeight: FontWeight.w400,
             fontFamily: 'Cairo',
             fontSize: fontSize,
@@ -50,7 +51,7 @@ class CustomeInput extends StatelessWidget {
         ),
         SizedBox(height: DEVICE_HEIGHT * 0.02),
         Container(
-          width: DEVICE_WIDTH * width_container,
+          width: DEVICE_WIDTH * widthContainer,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
@@ -61,22 +62,22 @@ class CustomeInput extends StatelessWidget {
               onTap?.call();
             },
             readOnly: readOnly,
-            keyboardType: text_input_type,
+            keyboardType: keyboardType,
             controller: controller,
             decoration: InputDecoration(
-              suffixIcon: icon
+              suffixIcon: suffixIconPath != null
                   ? SizedBox(
                       width: DEVICE_WIDTH * 0.1,
                       child: Center(
                         child: SvgPicture.asset(
-                          name_icon_field!,
+                          suffixIconPath!,
                           width: DEVICE_WIDTH * 0.02,
                           height: DEVICE_HEIGHT * 0.02,
                           fit: BoxFit.contain,
                         ),
                       ),
                     )
-                  : Text(''),
+                  : null,
               border: InputBorder.none,
               contentPadding: EdgeInsets.symmetric(
                 horizontal: 10,
@@ -114,7 +115,7 @@ class CustomeInput extends StatelessWidget {
                   fontWeight: FontWeight.w700,
                 ),
               ),
-        SizedBox(height: DEVICE_HEIGHT * between_field_bottom),
+        SizedBox(height: DEVICE_HEIGHT * bottomSpacing),
       ],
     );
   }
