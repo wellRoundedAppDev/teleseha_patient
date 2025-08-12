@@ -1,7 +1,8 @@
 import '../../general_exports.dart';
 
-class CusomeInput extends StatelessWidget {
-  const CusomeInput({
+class CustomeInput extends StatelessWidget {
+  const CustomeInput({
+    super.key,
     this.title,
     this.hint,
     required this.controller,
@@ -16,12 +17,10 @@ class CusomeInput extends StatelessWidget {
     this.fontSize = 18,
     this.readOnly = false,
     this.onTap,
-    this.validator,
   });
 
   final String? title;
   final String? hint;
-  final String? Function(String?)? validator;
   final TextEditingController? controller;
   final bool? showVaildMessage;
   final String? textIsVaild;
@@ -58,7 +57,6 @@ class CusomeInput extends StatelessWidget {
             border: Border.all(color: Color(AppColors.colorWhite)),
           ),
           child: TextFormField(
-            validator: validator,
             onTap: () {
               onTap?.call();
             },
@@ -95,7 +93,7 @@ class CusomeInput extends StatelessWidget {
           ),
         ),
         showVaildMessage!
-            ? SizedBox(height: DEVICE_HEIGHT * 0.01)
+            ? SizedBox(height: DEVICE_HEIGHT * 0.018)
             : SizedBox(height: DEVICE_HEIGHT * 0),
         showVaildMessage!
             ? Text(

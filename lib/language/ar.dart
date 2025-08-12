@@ -1,7 +1,7 @@
 const Map<String, String> ar = {
-  'date_age': 'التاريخ',
-  'enter_date_age': 'أدخل التاريخ',
-  'is_vaild_enter_age': 'الرجاء ادخال العمر',
+  'date_age': 'تاريخ الميلاد',
+  'enter_date_age': '08/27',
+  'is_vaild_enter_age': 'الرجاء ادخال تاريخ الميلاد',
   'type': 'النوع',
   'male': 'ذكر',
   'female': 'انثى',
@@ -48,5 +48,5 @@ const Map<String, String> ar = {
   'please_auth_finger_print': 'يرجى المصادقة لرؤية محتوى الصفحة الخاصة',
   'error_auth_finger_print': 'حدث خطأ ما، يرجى المحاولة مرة أخرى',
   'password': 'الرقم السري',
-  'skep': 'تخطي'
+  'skep': 'تخطي',
 };

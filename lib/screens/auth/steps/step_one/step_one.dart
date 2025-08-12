@@ -11,26 +11,17 @@ class StepOne extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CusomeInput(
-                title: 'name'.tr,
-                hint: 'name_field'.tr,
-                controller: controller.textfieldName,
-                showVaildMessage: controller.isVaildName,
-                textIsVaild: 'is_vaild_name_field'.tr,
+              CustomeInput(
+                title: 'number_phone'.tr,
+                hint: 'number_phone_field'.tr,
+                controller: controller.textFieldPhoneNumber,
+                showVaildMessage: controller.showPhoneNumberError,
+                textIsVaild: 'is_vaild_number'.tr,
                 width_container: 0.90,
                 colorLabel: AppColors.colorLineAndText,
                 text_input_type: TextInputType.text,
-                icon: false,
+                name_icon_field: iconNumber,
               ),
-              // CusomeInput(
-              //   title: 'number_phone'.tr,
-              //   hint: 'number_phone_field'.tr,
-              //   controller: controller.TextfieldName,
-              //   colorLabel: AppColors.colorLabel,
-              //   text_input_type: TextInputType.number,
-              //   name_icon_field: iconNumber,
-              //   fontSize: 16,
-              // ),
             ],
           ),
         );

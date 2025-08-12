@@ -5,4 +5,5 @@ export 'package:patient/components/logo/logo.dart';
 export 'create_account_success/index.dart';
 export 'diagnosis_recipient/index.dart';
 export 'select_type_children/index.dart';
-export 'fomr_diagnosis/index.dart';
+export 'form_diagnosis/index.dart';
+export '../../components/finger_print/index.dart';

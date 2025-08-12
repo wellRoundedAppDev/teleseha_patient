@@ -61,9 +61,7 @@ class StartSteps extends StatelessWidget {
           ),
           body: Container(
             margin: EdgeInsets.symmetric(
-              vertical: controller.currentStep != 3
-                  ? DEVICE_HEIGHT * 0.03
-                  : DEVICE_HEIGHT * 0.01,
+              vertical: DEVICE_HEIGHT * 0.03,
               horizontal: controller.currentStep == 1
                   ? DEVICE_HEIGHT * 0.02
                   : 0,
@@ -74,30 +72,21 @@ class StartSteps extends StatelessWidget {
                   controller.currentStep == controller.numberOfStep
                       ? Container()
                       : Logo(),
-                  SizedBox(
-                    height: controller.currentStep != 3
-                        ? DEVICE_HEIGHT * 0.06
-                        : DEVICE_HEIGHT * 0.04,
-                  ),
+                  SizedBox(height: DEVICE_HEIGHT * 0.04),
                   Column(
                     children: [
                       controller.currentStep == 1
                           ? StepOne()
                           : controller.currentStep == 2
                           ? StepTow()
-                          // : controller.currentStep== 3
-                          // ? StepThree()
-                          // : controller.currentStep ==
-                          //       controller.numberOfStep
-                          // ? StepFour()
+                          : controller.currentStep == 3
+                          ? StepThree()
                           : Text(''),
-                      controller.currentStep == controller.numberOfStep
-                          ? SizedBox(height: DEVICE_HEIGHT * 0.05)
-                          : SizedBox(height: DEVICE_HEIGHT * 0.02),
+                      SizedBox(height: DEVICE_HEIGHT * 0.015),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: List.generate(4, (index) {
-                          int stepNumber = 4 - index;
+                        children: List.generate(3, (index) {
+                          int stepNumber = 3 - index;
                           return Row(
                             children: [
                               ContainerSteps(
@@ -114,13 +103,16 @@ class StartSteps extends StatelessWidget {
                       SizedBox(height: DEVICE_HEIGHT * 0.03),
                       StepsBtn(
                         onPressed: () {
-                          controller.checkVaildsSteps()
-                              ? controller.currentStep++
-                              : '';
+                          if (controller.checkVaildsSteps()) {
+                            if (controller.currentStep ==
+                                controller.numberOfStep) {
+                              Get.toNamed(routeCreateAccountSuccess);
+                            } else {
+                              controller.currentStep++;
+                            }
+                          }
                         },
-                        text: controller.currentStep == controller.numberOfStep
-                            ? 'confirm'.tr
-                            : 'next'.tr,
+                        text: 'next'.tr,
                       ),
                     ],
                   ),

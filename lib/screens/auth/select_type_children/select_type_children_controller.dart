@@ -2,12 +2,35 @@ import 'package:patient/general_exports.dart';
 
 class TypeController extends GetxController {
   String? selectedTypChildren = 'children_male';
-  TextEditingController TextfieldAgeChildren = TextEditingController();
-  TextEditingController TextfieldNameChildren = TextEditingController();
 
-  bool isAgeChildrenInvalid = false;
-  bool isNameChildrenInvalid = false;
+  TextEditingController dateController = TextEditingController();
+  TextEditingController textFieldName = TextEditingController();
+  Rx<DateTime> selectedDate = DateTime.now().obs;
+
+  bool showdateControllerError = false;
+  bool showNameError = false;
   bool viewVaildTypeChildren = false;
+
+  void pickDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate.value,
+      firstDate: DateTime(2000),
+      lastDate: DateTime.now(),
+    );
+
+    if (picked != null) {
+      selectedDate.value = picked;
+      final formattedDate =
+          '${picked.day.toString().padLeft(2, '0')}-'
+          '${picked.month.toString().padLeft(2, '0')}-'
+          '${picked.year}';
+      dateController.text = formattedDate;
+      update();
+    } else {
+      print('❌ Date picker dismissed');
+    }
+  }
 
   List<Map<String, String>> TypeChildrenGender = [
     {
@@ -26,18 +49,18 @@ class TypeController extends GetxController {
 
   bool checkVaildTypeChildren() {
     bool isValid = true;
-    if (TextfieldAgeChildren.text.isEmpty) {
-      isAgeChildrenInvalid = true;
+    if (textFieldName.text.isEmpty) {
+      showNameError = true;
       isValid = false;
     } else {
-      isAgeChildrenInvalid = false;
+      showNameError = false;
     }
 
-    if (TextfieldNameChildren.text.isEmpty) {
-      isNameChildrenInvalid = true;
+    if (dateController.text.isEmpty) {
+      showdateControllerError = true;
       isValid = false;
     } else {
-      isNameChildrenInvalid = false;
+      showdateControllerError = false;
     }
 
     update();

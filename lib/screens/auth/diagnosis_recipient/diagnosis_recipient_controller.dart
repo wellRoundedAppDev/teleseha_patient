@@ -3,16 +3,16 @@ import 'package:patient/general_exports.dart';
 class DiagnsisRecipientController extends GetxController {
   String? isMyChildrenSelected = 'aboutMe';
 
-  TextEditingController TextfieldChronicDiseases = TextEditingController();
-  TextEditingController TextfieldSurgicalOperations = TextEditingController();
-  TextEditingController TextfieldContinuousMedications =
+  TextEditingController textfieldChronicDiseases = TextEditingController();
+  TextEditingController textfieldSurgicalOperations = TextEditingController();
+  TextEditingController textfieldContinuousMedications =
       TextEditingController();
-  TextEditingController TextfieldAllergies = TextEditingController();
+  TextEditingController textfieldAllergies = TextEditingController();
 
-  bool isVaildChronicDiseases = false;
-  bool isVaildSurgicalOperations = false;
-  bool isVaildContinuousMedications = false;
-  bool isVaildAllergies = false;
+  bool showChronicDiseases = false;
+  bool showSurgicalOperations = false;
+  bool showContinuousMedications = false;
+  bool showAllergies = false;
 
   List<Map<String, String>> typeDiagnosis = [
     {
@@ -31,32 +31,32 @@ class DiagnsisRecipientController extends GetxController {
   bool dedical_history() {
     bool isValid = true;
 
-    if (TextfieldChronicDiseases.text.isEmpty) {
-      isVaildChronicDiseases = true;
+    if (textfieldChronicDiseases.text.isEmpty) {
+      showChronicDiseases = true;
       isValid = false;
     } else {
-      isVaildChronicDiseases = false;
+      showChronicDiseases = false;
     }
 
-    if (TextfieldSurgicalOperations.text.isEmpty) {
-      isVaildSurgicalOperations = true;
+    if (textfieldSurgicalOperations.text.isEmpty) {
+      showSurgicalOperations = true;
       isValid = false;
     } else {
-      isVaildSurgicalOperations = false;
+      showSurgicalOperations = false;
     }
 
-    if (TextfieldContinuousMedications.text.isEmpty) {
-      isVaildContinuousMedications = true;
+    if (textfieldContinuousMedications.text.isEmpty) {
+      showContinuousMedications = true;
       isValid = false;
     } else {
-      isVaildContinuousMedications = false;
+      showContinuousMedications = false;
     }
 
-    if (TextfieldAllergies.text.isEmpty) {
-      isVaildAllergies = true;
+    if (textfieldAllergies.text.isEmpty) {
+      showAllergies = true;
       isValid = false;
     } else {
-      isVaildAllergies = false;
+      showAllergies = false;
     }
 
     update();
@@ -64,15 +64,15 @@ class DiagnsisRecipientController extends GetxController {
   }
 
   void clearAllFields() {
-    TextfieldChronicDiseases.clear();
-    TextfieldSurgicalOperations.clear();
-    TextfieldContinuousMedications.clear();
-    TextfieldAllergies.clear();
+    textfieldChronicDiseases.clear();
+    textfieldSurgicalOperations.clear();
+    textfieldContinuousMedications.clear();
+    textfieldAllergies.clear();
 
-    isVaildChronicDiseases = false;
-    isVaildSurgicalOperations = false;
-    isVaildContinuousMedications = false;
-    isVaildAllergies = false;
+    showChronicDiseases = false;
+    showSurgicalOperations = false;
+    showContinuousMedications = false;
+    showAllergies = false;
 
     update(); // عشان تحدث الـ UI
   }

@@ -4,15 +4,15 @@ import '../../../general_exports.dart';
 
 class StartStepsController extends GetxController {
   int currentStep = 1;
-  int numberOfStep = 4;
-  bool use_biometric = false;
+  int numberOfStep = 3;
+  bool useBiometric = false;
   String? selectedMaleCode = 'male';
 
   Rx<DateTime> selectedDate = DateTime.now().obs;
   TextEditingController dateController = TextEditingController();
   // TextEditingController TextfieldAge = TextEditingController();
-  TextEditingController textfieldName = TextEditingController();
-  TextEditingController TextfieldNumber = TextEditingController();
+  TextEditingController textFieldName = TextEditingController();
+  TextEditingController textFieldPhoneNumber = TextEditingController();
   TextEditingController TextfieldPassword = TextEditingController();
   TextEditingController otpController = TextEditingController();
 
@@ -25,8 +25,9 @@ class StartStepsController extends GetxController {
   // TextEditingController TextfieldAllergies = TextEditingController();
 
   bool isVaildAge = false;
-  bool isVaildName = false;
-  bool isVaildNumber = false;
+  bool showNameError = false;
+  bool showPhoneNumberError = false;
+  bool showdateControllerError = false;
   bool isVaildPassword = false;
   bool isOtpInvalid = false;
 
@@ -45,7 +46,7 @@ class StartStepsController extends GetxController {
 
   void minuseSelectedSteps() {
     currentStep--;
-    textfieldName.clear();
+    textFieldName.clear();
     update();
   }
 
@@ -77,7 +78,7 @@ class StartStepsController extends GetxController {
         localizedReason: 'please_auth_finger_print'.tr,
       );
       if (didAuthenticate) {
-        use_biometric = true;
+        useBiometric = true;
         currentStep++;
         update();
       }
@@ -111,11 +112,11 @@ class StartStepsController extends GetxController {
     bool isValid = true;
 
     if (currentStep == 1) {
-      if (textfieldName.text.isEmpty) {
-        isVaildName = true;
+      if (textFieldPhoneNumber.text.isEmpty) {
+        showPhoneNumberError = true;
         isValid = false;
       } else {
-        isVaildName = false;
+        showPhoneNumberError = false;
       }
     }
 
@@ -124,29 +125,29 @@ class StartStepsController extends GetxController {
         isValid = false;
         markOtpInvalid();
       } else {
-        Get.toNamed(routeCreateAccountSuccess);
+        // Get.toNamed(routeCreateAccountSuccess);
         clearOtpError();
         consoleLog('OTP Entered: ${otpController.text}');
       }
     }
 
     if (currentStep == 3) {
-      if (TextfieldNumber.text.isEmpty && TextfieldPassword.text.isEmpty) {
+      if (dateController.text.isEmpty && textFieldName.text.isEmpty) {
         isValid = false;
       }
 
-      if (TextfieldNumber.text.isEmpty) {
-        isVaildPassword = true;
+      if (dateController.text.isEmpty) {
+        showdateControllerError = true;
         isValid = false;
       } else {
-        isVaildPassword = false;
+        showdateControllerError = false;
       }
 
-      if (TextfieldPassword.text.isEmpty) {
-        isVaildNumber = true;
+      if (textFieldName.text.isEmpty) {
+        showNameError = true;
         isValid = false;
       } else {
-        isVaildNumber = false;
+        showNameError = false;
       }
     }
 
@@ -302,7 +303,7 @@ class StartStepsController extends GetxController {
 // // class StartStepsController extends GetxController {
 // //   int currentStep = 1;
 // //   int numberOfAllSteps = 4;
-// //   bool use_biometric = false;
+// //   bool useBiometric = false;
 // //   String? selectedMaleCode = 'male';
 
 // //   Rx<DateTime> selectedDate = DateTime.now().obs;
@@ -373,7 +374,7 @@ class StartStepsController extends GetxController {
 // //         localizedReason: 'please_auth_finger_print'.tr,
 // //       );
 // //       if (didAuthenticate) {
-// //         use_biometric = true;
+// //         useBiometric = true;
 // //         currentStep++;
 // //         update();
 // //       }

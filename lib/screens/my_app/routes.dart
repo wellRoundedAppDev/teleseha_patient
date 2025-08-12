@@ -16,5 +16,9 @@ List<GetPage<dynamic>> appRoutes = <GetPage<dynamic>>[
     name: routeSelectTypeChildren,
     page: () => TypeChildren(),
   ),
-  GetPage<FormDiagnosis>(name: routeFormDiagnosis, page: () => FormDiagnosis()),
+  GetPage<MedicalHistory>(
+    name: routeFormDiagnosis,
+    page: () => MedicalHistory(),
+  ),
+  // GetPage<FingerPrint>(name: routeFingerPrint, page: () => FingerPrint()),
 ];

@@ -14,3 +14,4 @@ const String iconAboutChildren = '${iconsPath}aboutChildren.svg';
 const String iconUserName = '${iconsPath}userName.svg';
 const String iconNumber = '${iconsPath}number.svg';
 const String iconNameChildren = '${iconsPath}nameChildren.svg';
+const String iconDate = '${iconsPath}iconDate.svg';
