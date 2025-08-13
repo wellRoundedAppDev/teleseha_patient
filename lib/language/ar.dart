@@ -54,4 +54,6 @@ const Map<String, String> ar = <String, String>{
       'البيانات الحيوية فارغة، يرجى إعداد البيانات الحيوية في إعدادات الأجهزة',
   'say_welcome': 'مرحبا',
   'name_user': 'عبدالرحمن',
+  'search_doc_or_spoliate': 'ابحث عن طبيب او تخصص',
+  'login': 'تسجيل الدخول',
 };

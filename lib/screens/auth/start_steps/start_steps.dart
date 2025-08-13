@@ -69,7 +69,7 @@ class StartSteps extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   const Logo(),
-                  SizedBox(height: DEVICE_HEIGHT * 0.04),
+                  SizedBox(height: DEVICE_HEIGHT * 0.03),
                   Column(
                     children: <Widget>[
                       if (controller.currentStep == 1)

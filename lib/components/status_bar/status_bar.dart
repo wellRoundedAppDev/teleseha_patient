@@ -79,26 +79,58 @@ class StatusBar extends StatelessWidget {
                     Expanded(
                       flex: 5,
                       child: Container(
-                        child: Text(
-                          "${'say_welcome'.tr}!",
-                          style: const TextStyle(
-                            fontFamily: 'Cairo',
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700,
-                            color: Color(AppColors.colorWhiteSelectedType),
+                        decoration: BoxDecoration(
+                          color: const Color(AppColors.colorWhiteSelectedType),
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                            color: const Color(AppColors.colorWhite),
+                          ),
+                        ),
+                        child: TextField(
+                          // onTap: () {
+                          //   onTap?.call();
+                          // },
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                            suffixIcon: SizedBox(
+                              width: DEVICE_WIDTH * 0.1,
+                              child: Center(
+                                child: SvgPicture.asset(
+                                  iconSearch,
+                                  width: DEVICE_WIDTH * 0.02,
+                                  height: DEVICE_HEIGHT * 0.02,
+                                ),
+                              ),
+                            ),
+                            border: InputBorder.none,
+                            contentPadding: EdgeInsets.symmetric(
+                              horizontal: DEVICE_WIDTH * 0.040,
+                              vertical: DEVICE_HEIGHT * 0.018,
+                            ),
+                            hintText: 'search_doc_or_spoliate'.tr,
+                            hintStyle: TextStyle(
+                              fontFamily: 'Cairo',
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: const Color(
+                                AppColors.colorHintText,
+                              ).withValues(alpha: 20),
+                            ),
                           ),
                         ),
                       ),
                     ),
+                    SizedBox(width: DEVICE_WIDTH * 0.03),
                     Expanded(
-                      child: Text(
-                        "${'say_welcome'.tr}!",
-                        style: const TextStyle(
-                          fontFamily: 'Cairo',
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700,
-                          color: Color(AppColors.colorWhiteSelectedType),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: const Color(AppColors.colorWhiteSelectedType),
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                            color: const Color(AppColors.colorWhite),
+                          ),
                         ),
+                        child: const Text('test'),
                       ),
                     ),
                   ],

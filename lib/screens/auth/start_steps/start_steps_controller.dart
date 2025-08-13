@@ -94,8 +94,16 @@ class StartStepsController extends GetxController {
   // create request number one or can go to step tow
   bool canGoToStepTwo() {
     showPhoneNumberError = textFieldPhoneNumber.text.isEmpty;
+    if (textFieldPhoneNumber.text == '222') {
+      // go to page sign in
+      // Get.toNamed(routePatternLock);
+      return !showPhoneNumberError;
+    } else {
+      // go to page register
+      // Get.toNamed(routePatternLock);
+    }
     update();
-    return !showPhoneNumberError;
+    return showPhoneNumberError;
   }
 
   bool canGoToStepThree() {
@@ -121,8 +129,8 @@ class StartStepsController extends GetxController {
     if (currentStep == 1) {
       // here save response true or false
       if (canGoToStepTwo()) {
-        ++currentStep;
         consoleLog(textFieldPhoneNumber.text);
+        ++currentStep;
         update();
       }
     }

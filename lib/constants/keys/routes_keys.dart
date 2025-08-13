@@ -1,5 +1,6 @@
 const String routeFingerPrint = '/finger-print';
 const String routeSteps = '/steps';
+const String routePatternLock = '/pattern-lock';
 const String routeCreateAccountSuccess = '/success';
 const String routeDiagnosis = '/diagnosis-recipient';
 const String routeSelectTypeChildren = '/type-children';
