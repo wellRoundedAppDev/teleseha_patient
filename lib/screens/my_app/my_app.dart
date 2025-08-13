@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         ],
         translations: Translation(),
         debugShowCheckedModeBanner: false,
-        initialRoute: routeSteps,
+        initialRoute: routeFingerPrint,
         // initialRoute: routeSteps,
         // initialRoute: Get.find<MyAppController>().userData == null
         //     ? routeStartSteps

@@ -1,13 +1,9 @@
 import 'dart:async';
-
-import 'package:fluttertoast/fluttertoast.dart';
-
 import '../../../general_exports.dart';
 
 class StartStepsController extends GetxController {
   int currentStep = 1;
-  int numberOfStep = 3;
-  bool useBiometric = false;
+  int numberOfStep = 3;  
   String? selectedMaleCode = 'male';
 
   TextEditingController textFieldPhoneNumber = TextEditingController();
@@ -15,8 +11,6 @@ class StartStepsController extends GetxController {
   DateTime selectedDate = DateTime.now();
   TextEditingController dateController = TextEditingController();
   TextEditingController textFieldName = TextEditingController();
-
-  final LocalAuthentication auth = LocalAuthentication();
 
   bool showPhoneNumberError = false;
   bool showOtpError = false;
@@ -39,35 +33,6 @@ class StartStepsController extends GetxController {
   void changeTypeGenerate(String typeCode) {
     selectedMaleCode = typeCode;
     update();
-  }
-
-  Future<void> checkBiometrics() async {
-    final bool canAuthenticateWithBiometrics = await auth.isDeviceSupported();
-    if (!canAuthenticateWithBiometrics) {
-      Fluttertoast.showToast(msg: 'not_support'.tr);
-      return;
-    }
-
-    final List<BiometricType> availableBiometrics = await auth
-        .getAvailableBiometrics();
-
-    if (availableBiometrics.isEmpty) {
-      Fluttertoast.showToast(msg: 'piometrics_empty'.tr);
-      return;
-    }
-
-    try {
-      final bool didAuthenticate = await auth.authenticate(
-        localizedReason: 'please_auth_finger_print'.tr,
-      );
-      if (didAuthenticate) {
-        useBiometric = true;
-        Get.toNamed(routeSteps);
-        update();
-      }
-    } catch (e) {
-      Fluttertoast.showToast(msg: 'error_auth_finger_print'.tr);
-    }
   }
 
   Future<void> pickDate(BuildContext context) async {

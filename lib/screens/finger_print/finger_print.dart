@@ -7,52 +7,32 @@ class FingerPrint extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<StartStepsController>(
-      init: StartStepsController(),
-      builder: (StartStepsController controller) {
+    return GetBuilder<FingerPrintController>(
+      init: FingerPrintController(),
+      builder: (FingerPrintController controller) {
         return Scaffold(
           appBar: PreferredSize(
             preferredSize: const Size.fromHeight(kToolbarHeight),
             child: Directionality(
               textDirection: TextDirection.ltr,
               child: AppBar(
-                leading: controller.currentStep != 1
-                    ? InkWell(
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        splashColor: Colors.transparent,
-                        onTap: () {
-                          controller.minusSelectedSteps();
-                        },
-                        child: Center(
-                          child: SvgPicture.asset(
-                            iconBack,
-                            width: DEVICE_WIDTH * 0.04,
-                            height: DEVICE_HEIGHT * 0.02,
-                          ),
-                        ),
-                      )
-                    : const SizedBox(),
                 backgroundColor: Colors.transparent,
                 actions: <Widget>[
-                  if (controller.currentStep != controller.numberOfStep)
-                    TextButton(
-                      onPressed: () {
-                        Get.toNamed(routeSteps);
-                      },
-                      child: Text(
-                        'skep'.tr,
-                        style: const TextStyle(
-                          color: Color(AppColors.colorReset),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 11,
-                          fontFamily: 'Cairo',
-                        ),
+                  TextButton(
+                    onPressed: () {
+                      // check userdata about check route steps
+                      controller.checkUserAndNavigate();
+                    },
+                    child: Text(
+                      'skep'.tr,
+                      style: const TextStyle(
+                        color: Color(AppColors.colorReset),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 11,
+                        fontFamily: 'Cairo',
                       ),
-                    )
-                  else
-                    const SizedBox(),
-                  SizedBox(width: DEVICE_WIDTH * 0.02),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -105,7 +85,7 @@ class FingerPrint extends StatelessWidget {
                   SizedBox(height: DEVICE_HEIGHT * 0.04),
                   StepsBtn(
                     onPressed: () {
-                      controller.checkBiometrics();
+                      controller.startBiometricAuth();
                     },
                     text: 'save'.tr,
                   ),

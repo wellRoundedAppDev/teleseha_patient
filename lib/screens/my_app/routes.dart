@@ -3,11 +3,11 @@
 import '../../general_exports.dart';
 
 List<GetPage<dynamic>> appRoutes = <GetPage<dynamic>>[
+  GetPage<FingerPrint>(name: routeFingerPrint, page: () => const FingerPrint()),
   GetPage<PatternLockPage>(
     name: routePatternLock,
     page: () => const PatternLockPage(),
   ),
-  // GetPage<FingerPrint>(name: routeFingerPrint, page: () => FingerPrint()),
   GetPage<StartSteps>(name: routeSteps, page: () => const StartSteps()),
   GetPage<CreateAccountSuccess>(
     name: routeCreateAccountSuccess,
