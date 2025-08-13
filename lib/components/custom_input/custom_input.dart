@@ -1,14 +1,15 @@
-import '../../general_exports.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class CustomeInput extends StatelessWidget {
-  const CustomeInput({
+import '../../general_exports.dart';
+
+class CustomInput extends StatelessWidget {
+  const CustomInput({
     super.key,
     this.title,
     this.hint,
     this.controller,
-    this.showVaildMessage,
-    this.textIsVaild,
+    this.showValidMessage,
+    this.textIsValid,
     this.widthContainer = 0.85,
     this.colorLabel,
     this.keyboardType,
@@ -23,8 +24,8 @@ class CustomeInput extends StatelessWidget {
   final String? title;
   final String? hint;
   final TextEditingController? controller;
-  final bool? showVaildMessage;
-  final String? textIsVaild;
+  final bool? showValidMessage;
+  final String? textIsValid;
   final double widthContainer;
   final int? colorLabel;
   final TextInputType? keyboardType;
@@ -39,7 +40,7 @@ class CustomeInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+      children: <Widget>[
         Text(
           title!,
           style: TextStyle(
@@ -55,7 +56,7 @@ class CustomeInput extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: Color(AppColors.colorWhite)),
+            border: Border.all(color: const Color(AppColors.colorWhite)),
           ),
           child: TextFormField(
             onTap: () {
@@ -73,13 +74,12 @@ class CustomeInput extends StatelessWidget {
                           suffixIconPath!,
                           width: DEVICE_WIDTH * 0.02,
                           height: DEVICE_HEIGHT * 0.02,
-                          fit: BoxFit.contain,
                         ),
                       ),
                     )
                   : null,
               border: InputBorder.none,
-              contentPadding: EdgeInsets.symmetric(
+              contentPadding: const EdgeInsets.symmetric(
                 horizontal: 10,
                 vertical: 20,
               ),
@@ -88,33 +88,37 @@ class CustomeInput extends StatelessWidget {
                 fontFamily: 'Cairo',
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
-                color: Color(AppColors.colorHintText).withValues(alpha: 20),
+                color: const Color(
+                  AppColors.colorHintText,
+                ).withValues(alpha: 20),
               ),
             ),
           ),
         ),
-        showVaildMessage!
-            ? SizedBox(height: DEVICE_HEIGHT * 0.018)
-            : SizedBox(height: DEVICE_HEIGHT * 0),
-        showVaildMessage!
-            ? Text(
-                textIsVaild!,
-                style: TextStyle(
-                  color: Color(AppColors.colorError),
-                  fontSize: 11,
-                  fontFamily: 'Cairo',
-                  fontWeight: FontWeight.w700,
-                ),
-              )
-            : Text(
-                '',
-                style: TextStyle(
-                  color: Color(AppColors.colorError),
-                  fontSize: 11,
-                  fontFamily: 'Cairo',
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+        if (showValidMessage!)
+          SizedBox(height: DEVICE_HEIGHT * 0.018)
+        else
+          SizedBox(height: DEVICE_HEIGHT * 0),
+        if (showValidMessage!)
+          Text(
+            textIsValid!,
+            style: const TextStyle(
+              color: Color(AppColors.colorError),
+              fontSize: 11,
+              fontFamily: 'Cairo',
+              fontWeight: FontWeight.w700,
+            ),
+          )
+        else
+          const Text(
+            '',
+            style: TextStyle(
+              color: Color(AppColors.colorError),
+              fontSize: 11,
+              fontFamily: 'Cairo',
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         SizedBox(height: DEVICE_HEIGHT * bottomSpacing),
       ],
     );

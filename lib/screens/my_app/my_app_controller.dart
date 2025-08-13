@@ -8,7 +8,6 @@ class MyAppController extends GetxController {
   bool isInternetConnect = true;
   bool shouldShowNoInternetDialog = true;
 
-  // check user if user success open otp else open reigster
   // @override
   // Future<void> onInit() async {
   //   super.onInit();

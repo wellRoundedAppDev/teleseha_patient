@@ -1,6 +1,6 @@
-import 'package:patient/general_exports.dart';
+import '../../../general_exports.dart';
 
-class DiagnsisRecipientController extends GetxController {
+class DiagnosisRecipientController extends GetxController {
   String? isMyChildrenSelected = 'aboutMe';
 
   TextEditingController textfieldChronicDiseases = TextEditingController();
@@ -14,21 +14,21 @@ class DiagnsisRecipientController extends GetxController {
   bool showContinuousMedications = false;
   bool showAllergies = false;
 
-  List<Map<String, String>> typeDiagnosis = [
-    {
+  List<Map<String, String>> typeDiagnosis = <Map<String, String>>[
+    <String, String>{
       about: 'about_children'.tr,
       icon: iconAboutChildren,
       code: 'aboutChildren',
     },
-    {about: 'about_me'.tr, icon: iconAboutMy, code: 'aboutMe'},
+    <String, String>{ about: 'about_me'.tr, icon: iconAboutMy, code: 'aboutMe'},
   ];
 
-  changeTypeDiagnosis(String typeCode) {
+  void changeTypeDiagnosis(String typeCode) {
     isMyChildrenSelected = typeCode;
     update();
   }
 
-  bool dedical_history() {
+  bool dedicalHistory() {
     bool isValid = true;
 
     if (textfieldChronicDiseases.text.isEmpty) {
@@ -74,6 +74,6 @@ class DiagnsisRecipientController extends GetxController {
     showContinuousMedications = false;
     showAllergies = false;
 
-    update(); // عشان تحدث الـ UI
+    update();
   }
 }

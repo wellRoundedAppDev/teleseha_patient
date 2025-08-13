@@ -10,15 +10,16 @@ class StepTow extends StatelessWidget {
       builder: (controller) {
         controller.secondsRemaining == 70 && controller.timer == null
             ? controller.startCountdown()
+            // ignore: unnecessary_statements
             : null;
-        return Container(
+        return SizedBox(
           width: DEVICE_WIDTH * 0.8,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Text(
                 'confirm'.tr,
-                style: TextStyle(
+                style: const TextStyle(
                   fontFamily: 'Cairo',
                   fontSize: 24,
                   fontWeight: FontWeight.w700,
@@ -30,15 +31,15 @@ class StepTow extends StatelessWidget {
                 TextSpan(
                   children: [
                     TextSpan(
-                      text: 'input_confirm'.tr + ' ',
-                      style: TextStyle(
+                      text: '${'input_confirm'.tr} ',
+                      style: const TextStyle(
                         fontFamily: 'Cairo',
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                         color: Color(AppColors.colorInputConfirm),
                       ),
                     ),
-                    TextSpan(
+                    const TextSpan(
                       text: '0123456890',
                       style: TextStyle(
                         fontFamily: 'Cairo',
@@ -58,8 +59,8 @@ class StepTow extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 8.0),
                       child: Text(
-                        'vaild_code'.tr,
-                        style: TextStyle(
+                        'valid_code'.tr,
+                        style: const TextStyle(
                           color: Color(AppColors.colorError),
                           fontSize: 11,
                           fontFamily: 'Cairo',
@@ -76,16 +77,16 @@ class StepTow extends StatelessWidget {
                       defaultPinTheme: defaultPinTheme.copyDecorationWith(
                         border: Border.all(
                           color: controller.showOtpError
-                              ? Color(AppColors.colorError)
-                              : Color(AppColors.colorWhite),
+                              ? const Color(AppColors.colorError)
+                              : const Color(AppColors.colorWhite),
                         ),
-                        color: Color(AppColors.colorwhiteSelectedType),
+                        color: const Color(AppColors.colorWhiteSelectedType),
                       ),
                       submittedPinTheme: defaultPinTheme.copyDecorationWith(
                         border: Border.all(
                           color: controller.showOtpError
-                              ? Color(AppColors.colorError)
-                              : Color(AppColors.colorSuccessLine),
+                              ? const Color(AppColors.colorError)
+                              : const Color(AppColors.colorSuccessLine),
                         ),
                         color: Colors.white,
                       ),
@@ -112,8 +113,8 @@ class StepTow extends StatelessWidget {
                       TextSpan(
                         children: [
                           TextSpan(
-                            text: 'resend'.tr + ' ',
-                            style: TextStyle(
+                            text: '${'resend'.tr} ',
+                            style: const TextStyle(
                               fontFamily: 'Cairo',
                               fontSize: 11,
                               fontWeight: FontWeight.w700,
@@ -126,7 +127,7 @@ class StepTow extends StatelessWidget {
                               fontFamily: 'Cairo',
                               fontSize: 11,
                               fontWeight: FontWeight.w700,
-                              color: Color(
+                              color: const Color(
                                 AppColors.colorTextBlue,
                               ).withValues(alpha: 60),
                             ),
@@ -137,7 +138,7 @@ class StepTow extends StatelessWidget {
                   ),
                   Text(
                     controller.formattedTime,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: 'Cairo',
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
@@ -169,7 +170,7 @@ final PinTheme defaultPinTheme = PinTheme(
         color: Colors.black.withOpacity(0.1),
         spreadRadius: 1,
         blurRadius: 5,
-        offset: Offset(0, 2),
+        offset: const Offset(0, 2),
       ),
     ],
   ),

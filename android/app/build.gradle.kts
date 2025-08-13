@@ -7,13 +7,13 @@ plugins {
 
 android {
     namespace = "com.example.patient"
-    compileSdk = 34
+    compileSdk = 35
     ndkVersion = "27.0.12077973"
 
     defaultConfig {
         applicationId = "com.example.patient"
         minSdk = 23
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
     }
@@ -36,6 +36,5 @@ android {
 }
 
 dependencies {
-    implementation(platform("com.google.firebase:firebase-bom:34.0.0"))
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
 }

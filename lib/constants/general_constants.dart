@@ -11,11 +11,13 @@ const String sharedKey = '';
 int? unReadNotifications = 0;
 
 // **** MediaQuery ****
+// ignore: deprecated_member_use
 double pixelRatio = window.devicePixelRatio;
 
 // ----------------------------------------
 
 /// Size in physical pixels
+// ignore: deprecated_member_use
 Size physicalScreenSize = window.physicalSize;
 double physicalWidth = physicalScreenSize.width;
 double physicalHeight = physicalScreenSize.height;

@@ -3,22 +3,23 @@
 import '../../general_exports.dart';
 
 List<GetPage<dynamic>> appRoutes = <GetPage<dynamic>>[
-  GetPage<FingerPrint>(name: routeFingerPrint, page: () => FingerPrint()),
-  GetPage<StartSteps>(name: routeSteps, page: () => StartSteps()),
+  GetPage<FingerPrint>(name: routeFingerPrint, page: () => const FingerPrint()),
+  GetPage<StartSteps>(name: routeSteps, page: () => const StartSteps()),
   GetPage<CreateAccountSuccess>(
     name: routeCreateAccountSuccess,
-    page: () => CreateAccountSuccess(),
+    page: () => const CreateAccountSuccess(),
   ),
   GetPage<DiagnosisRecipient>(
     name: routeDiagnosis,
-    page: () => DiagnosisRecipient(),
+    page: () => const DiagnosisRecipient(),
   ),
   GetPage<TypeChildren>(
     name: routeSelectTypeChildren,
-    page: () => TypeChildren(),
+    page: () => const TypeChildren(),
   ),
   GetPage<MedicalHistory>(
     name: routeFormDiagnosis,
-    page: () => MedicalHistory(),
+    page: () => const MedicalHistory(),
   ),
+  GetPage<Home>(name: routeHome, page: () => const Home()),
 ];

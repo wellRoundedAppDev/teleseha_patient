@@ -4,7 +4,7 @@ class AppColors {
   static const int colorLineAndText = 0xFF007BBD;
   static const int colorWhite = 0xffDADADA;
   static const int colorHintText = 0xff9E9E9EB2;
-  static const int colorselectDropDown = 0xff333333;
+  static const int colorSelectDropDown = 0xff333333;
   static const int colorTextBlue = 0xff003B73;
   static const int colorTextBlueBlur = 0xFF6EC1E4;
   static const int colorLabel = 0xFF6B7280;
@@ -14,7 +14,9 @@ class AppColors {
   static const int colorSuccessLine = 0xFF2E7D32;
   static const int colorThinks = 0xFF7A7A7A;
   static const int colorBackgroundScreen = 0xffF9FAFB;
-  static const int colorwhiteSelectedType = 0xffFFFFFF;
+  static const int colorWhiteSelectedType = 0xffFFFFFF;
   static const int colorError = 0xffD32F2F;
   static const int colorTextSkep = 0xff666666;
+  static const int colorPointerNotification = 0xffFF6C52;
+  static const int colorPointerborder = 0xffF4F6F5;
 }

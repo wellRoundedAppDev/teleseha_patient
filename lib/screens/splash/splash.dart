@@ -5,8 +5,8 @@ class Splash extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Text("test"),
+    return const Scaffold(
+      body: Text('ss'),
       // body: GetBuilder<SplashController>(
       //   init: SplashController(),
       //   builder: (SplashController controller) {

@@ -1,11 +1,11 @@
 import '../../general_exports.dart';
 
 class StepsBtn extends StatelessWidget {
+  const StepsBtn({super.key, this.onPressed, this.text, this.color});
+
   final String? text;
   final Color? color;
   final Function? onPressed;
-
-  const StepsBtn({super.key, this.onPressed, this.text, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +21,8 @@ class StepsBtn extends StatelessWidget {
         },
         child: Text(
           text ?? '',
-          style: TextStyle(
-            color: Color(AppColors.colorwhiteSelectedType),
+          style: const TextStyle(
+            color: Color(AppColors.colorWhiteSelectedType),
             fontSize: 18,
             fontFamily: 'Cairo',
             fontWeight: FontWeight.w700,

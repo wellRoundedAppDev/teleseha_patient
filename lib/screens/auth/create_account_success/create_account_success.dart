@@ -1,5 +1,5 @@
-import '../../../general_exports.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../../general_exports.dart';
 
 class CreateAccountSuccess extends StatelessWidget {
   const CreateAccountSuccess({super.key});
@@ -12,7 +12,7 @@ class CreateAccountSuccess extends StatelessWidget {
         margin: EdgeInsets.symmetric(vertical: DEVICE_HEIGHT * 0.11),
         child: Column(
           children: [
-            Logo(),
+            const Logo(),
             SizedBox(height: DEVICE_HEIGHT * 0.07),
             SvgPicture.asset(
               successMark,
@@ -23,7 +23,7 @@ class CreateAccountSuccess extends StatelessWidget {
             SizedBox(height: DEVICE_HEIGHT * 0.04),
             Text(
               'success'.tr,
-              style: TextStyle(
+              style: const TextStyle(
                 fontFamily: 'Cairo',
                 fontSize: 22,
                 fontWeight: FontWeight.w700,
@@ -33,7 +33,7 @@ class CreateAccountSuccess extends StatelessWidget {
             SizedBox(height: DEVICE_HEIGHT * 0.04),
             Text(
               'thinks_create_account'.tr,
-              style: TextStyle(
+              style: const TextStyle(
                 fontFamily: 'Cairo',
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
@@ -43,7 +43,7 @@ class CreateAccountSuccess extends StatelessWidget {
             SizedBox(height: DEVICE_HEIGHT * 0.04),
             Btn(
               text: 'next'.tr,
-              color: Color(AppColors.colorLineAndText),
+              color: const Color(AppColors.colorLineAndText),
               onPressed: () {
                 Get.toNamed(routeDiagnosis);
               },

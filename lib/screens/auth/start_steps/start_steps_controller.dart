@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../general_exports.dart';
@@ -11,7 +12,7 @@ class StartStepsController extends GetxController {
 
   TextEditingController textFieldPhoneNumber = TextEditingController();
   TextEditingController otpController = TextEditingController();
-  Rx<DateTime> selectedDate = DateTime.now().obs;
+  DateTime selectedDate = DateTime.now();
   TextEditingController dateController = TextEditingController();
   TextEditingController textFieldName = TextEditingController();
 
@@ -25,18 +26,17 @@ class StartStepsController extends GetxController {
   int secondsRemaining = 70;
   Timer? timer;
 
-  List<Map<String, String>> typeGenrate = [
-    {gender: 'female'.tr, icon: iconFemale, code: 'female'},
-    {gender: 'male'.tr, icon: iconMale, code: 'male'},
+  List<Map<String, String>> typeGenerate = <Map<String, String>>[
+    <String, String>{gender: 'female'.tr, icon: iconFemale, code: 'female'},
+    <String, String>{gender: 'male'.tr, icon: iconMale, code: 'male'},
   ];
 
-  void minuseSelectedSteps() {
+  void minusSelectedSteps() {
     currentStep--;
-    textFieldName.clear();
     update();
   }
 
-  void changeTypeGenrate(String typeCode) {
+  void changeTypeGenerate(String typeCode) {
     selectedMaleCode = typeCode;
     update();
   }
@@ -70,24 +70,24 @@ class StartStepsController extends GetxController {
     }
   }
 
-  void pickDate(BuildContext context) async {
+  Future<void> pickDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: selectedDate.value,
+      initialDate: selectedDate,
       firstDate: DateTime(2000),
       lastDate: DateTime.now(),
     );
 
     if (picked != null) {
-      selectedDate.value = picked;
-      final formattedDate =
+      selectedDate = picked;
+      final String formattedDate =
           '${picked.day.toString().padLeft(2, '0')}-'
           '${picked.month.toString().padLeft(2, '0')}-'
           '${picked.year}';
       dateController.text = formattedDate;
       update();
     } else {
-      print('❌ Date picker dismissed');
+      consoleLog('❌ Date picker dismissed');
     }
   }
 
@@ -99,7 +99,7 @@ class StartStepsController extends GetxController {
   }
 
   bool canGoToStepThree() {
-    if (!checkOtpIsValid()) {
+    if (!isValidOtpIsValid()) {
       timer?.cancel();
       markOtpInvalid();
       return false;
@@ -123,13 +123,7 @@ class StartStepsController extends GetxController {
       if (canGoToStepTwo()) {
         ++currentStep;
         consoleLog(textFieldPhoneNumber.text);
-        textFieldPhoneNumber.clear();
         update();
-
-        // if (currentStep == 2) {
-        //   startTimerManually();
-        //   clearOtpError();
-        // }
       }
     }
     // post otp
@@ -139,7 +133,6 @@ class StartStepsController extends GetxController {
       if (canGoToStepThree()) {
         ++currentStep;
         consoleLog(otpController.text);
-        otpController.clear();
         clearOtpError();
         update();
       } else {
@@ -152,8 +145,11 @@ class StartStepsController extends GetxController {
       if (canGoToCreateSuccessPage()) {
         Get.toNamed(routeCreateAccountSuccess);
         consoleLog(
-          '${textFieldName.text}, ${dateController.text}, ${selectedMaleCode}',
+          '${textFieldName.text}, ${dateController.text}, $selectedMaleCode',
         );
+
+        textFieldPhoneNumber.clear();
+        otpController.clear();
         textFieldName.clear();
         dateController.clear();
         update();
@@ -177,7 +173,7 @@ class StartStepsController extends GetxController {
   }
 
   void startCountdown() {
-    timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       if (secondsRemaining > 0) {
         secondsRemaining--;
         update();
@@ -193,8 +189,8 @@ class StartStepsController extends GetxController {
   }
 
   String get formattedTime {
-    final minutes = secondsRemaining ~/ 60;
-    final secs = secondsRemaining % 60;
+    final int minutes = secondsRemaining ~/ 60;
+    final int secs = secondsRemaining % 60;
     return '[$minutes:${secs.toString().padLeft(2, '0')}]';
   }
 
@@ -219,7 +215,7 @@ class StartStepsController extends GetxController {
     update();
   }
 
-  bool checkOtpIsValid() {
+  bool isValidOtpIsValid() {
     return otpController.text.length == 6;
   }
 }

@@ -1,5 +1,6 @@
-import '../../../general_exports.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../../general_exports.dart';
 
 class StartSteps extends StatelessWidget {
   const StartSteps({super.key});
@@ -8,10 +9,10 @@ class StartSteps extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<StartStepsController>(
       init: StartStepsController(),
-      builder: (controller) {
+      builder: (StartStepsController controller) {
         return Scaffold(
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(kToolbarHeight),
+            preferredSize: const Size.fromHeight(kToolbarHeight),
             child: Directionality(
               textDirection: TextDirection.ltr,
               child: AppBar(
@@ -21,7 +22,7 @@ class StartSteps extends StatelessWidget {
                         hoverColor: Colors.transparent,
                         splashColor: Colors.transparent,
                         onTap: () {
-                          controller.minuseSelectedSteps();
+                          controller.minusSelectedSteps();
                         },
                         child: Center(
                           child: SvgPicture.asset(
@@ -31,7 +32,7 @@ class StartSteps extends StatelessWidget {
                           ),
                         ),
                       )
-                    : Text(''),
+                    : const SizedBox(),
                 backgroundColor: Colors.transparent,
                 title: SizedBox(
                   width: DEVICE_WIDTH * 0.425,
@@ -44,10 +45,12 @@ class StartSteps extends StatelessWidget {
                         : 1,
                     borderRadius: BorderRadius.circular(15),
                     backgroundColor: controller.currentStep != 3
-                        ? Color(AppColors.backgroundColorLine)
-                        : Color(AppColors.colorSuccessLine),
+                        ? const Color(AppColors.backgroundColorLine)
+                        : const Color(AppColors.colorSuccessLine),
                     valueColor: AlwaysStoppedAnimation<Color>(
-                      Color(AppColors.colorLineAndText).withValues(alpha: 0.2),
+                      const Color(
+                        AppColors.colorLineAndText,
+                      ).withValues(alpha: 0.2),
                     ),
                   ),
                 ),
@@ -64,27 +67,28 @@ class StartSteps extends StatelessWidget {
             ),
             child: SingleChildScrollView(
               child: Column(
-                children: [
-                  Logo(),
+                children: <Widget>[
+                  const Logo(),
                   SizedBox(height: DEVICE_HEIGHT * 0.04),
                   Column(
-                    children: [
-                      controller.currentStep == 1
-                          ? StepOne()
-                          : controller.currentStep == 2
-                          ? StepTow()
-                          : controller.currentStep == 3
-                          ? StepThree()
-                          : Text(''),
+                    children: <Widget>[
+                      if (controller.currentStep == 1)
+                        const StepOne()
+                      else
+                        controller.currentStep == 2
+                            ? const StepTow()
+                            : controller.currentStep == 3
+                            ? const StepThree()
+                            : const SizedBox(),
                       SizedBox(height: DEVICE_HEIGHT * 0.025),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: List.generate(3, (index) {
-                          int stepNumber = 3 - index;
+                        children: List.generate(3, (int index) {
+                          final int stepNumber = 3 - index;
                           return Row(
-                            children: [
+                            children: <Widget>[
                               ContainerSteps(
-                                myAlpha: controller.currentStep == stepNumber
+                                alpha: controller.currentStep == stepNumber
                                     ? 250
                                     : 80,
                               ),
@@ -98,14 +102,6 @@ class StartSteps extends StatelessWidget {
                       StepsBtn(
                         onPressed: () {
                           controller.onNextButtonPress();
-                          // if (controller.checkVaildsSteps()) {
-                          //   if (controller.currentStep ==
-                          //       controller.numberOfStep) {
-                          //     Get.toNamed(routeCreateAccountSuccess);
-                          //   } else {
-                          //     controller.currentStep++;
-                          //   }
-                          // }
                         },
                         text: 'next'.tr,
                       ),

@@ -1,22 +1,22 @@
 import '../../general_exports.dart';
 
 class Btn extends StatelessWidget {
+  const Btn({super.key, this.text, this.color, this.onPressed, this.style});
+
   final String? text;
   final Color? color;
   final Function? onPressed;
   final ButtonStyle? style;
 
-  const Btn({this.text, this.color, this.onPressed, this.style});
-
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: DEVICE_WIDTH * 0.9,
       child: ElevatedButton(
         style:
             style ??
             ElevatedButton.styleFrom(
-              backgroundColor: color ?? Color(AppColors.colorLineAndText),
+              backgroundColor: color ?? const Color(AppColors.colorLineAndText),
               padding: EdgeInsets.symmetric(vertical: DEVICE_HEIGHT * 0.02),
             ),
         onPressed: () {
@@ -24,8 +24,8 @@ class Btn extends StatelessWidget {
         },
         child: Text(
           text ?? '',
-          style: TextStyle(
-            color: Color(AppColors.colorwhiteSelectedType),
+          style: const TextStyle(
+            color: Color(AppColors.colorWhiteSelectedType),
             fontSize: 17,
             fontFamily: 'Cairo',
             fontWeight: FontWeight.w700,

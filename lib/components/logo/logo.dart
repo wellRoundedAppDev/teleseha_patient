@@ -1,5 +1,5 @@
-import '../../general_exports.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../general_exports.dart';
 
 class Logo extends StatelessWidget {
   const Logo({super.key});

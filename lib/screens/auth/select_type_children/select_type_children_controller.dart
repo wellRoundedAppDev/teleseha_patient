@@ -20,7 +20,7 @@ class TypeController extends GetxController {
 
     if (picked != null) {
       selectedDate.value = picked;
-      final formattedDate =
+      final String formattedDate =
           '${picked.day.toString().padLeft(2, '0')}-'
           '${picked.month.toString().padLeft(2, '0')}-'
           '${picked.year}';
@@ -31,13 +31,17 @@ class TypeController extends GetxController {
     }
   }
 
-  List<Map<String, String>> TypeChildrenGender = [
-    {
-      gender: 'type_children_fmale'.tr,
+  List<Map<String, String>> typeChildrenGender = <Map<String, String>>[
+    <String, String>{
+      gender: 'type_children_female'.tr,
       icon: iconFemale,
       code: 'children_female',
     },
-    {gender: 'type_children_male'.tr, icon: iconMale, code: 'children_male'},
+    <String, String>{
+      gender: 'type_children_male'.tr,
+      icon: iconMale,
+      code: 'children_male',
+    },
   ];
 
   void changeTypeChildrenGender(String typeCodeChildrenGender) {
@@ -45,7 +49,7 @@ class TypeController extends GetxController {
     update();
   }
 
-  bool checkVaildTypeChildren() {
+  bool checkValidTypeChildren() {
     bool isValid = true;
     if (textFieldName.text.isEmpty) {
       showNameError = true;

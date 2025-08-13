@@ -1,5 +1,6 @@
-import '../../../general_exports.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../../general_exports.dart';
 
 class FingerPrint extends StatelessWidget {
   const FingerPrint({super.key});
@@ -8,10 +9,10 @@ class FingerPrint extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<StartStepsController>(
       init: StartStepsController(),
-      builder: (controller) {
+      builder: (StartStepsController controller) {
         return Scaffold(
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(kToolbarHeight),
+            preferredSize: const Size.fromHeight(kToolbarHeight),
             child: Directionality(
               textDirection: TextDirection.ltr,
               child: AppBar(
@@ -21,7 +22,7 @@ class FingerPrint extends StatelessWidget {
                         hoverColor: Colors.transparent,
                         splashColor: Colors.transparent,
                         onTap: () {
-                          controller.minuseSelectedSteps();
+                          controller.minusSelectedSteps();
                         },
                         child: Center(
                           child: SvgPicture.asset(
@@ -31,25 +32,26 @@ class FingerPrint extends StatelessWidget {
                           ),
                         ),
                       )
-                    : Text(''),
+                    : const SizedBox(),
                 backgroundColor: Colors.transparent,
-                actions: [
-                  controller.currentStep != controller.numberOfStep
-                      ? TextButton(
-                          onPressed: () {
-                            Get.toNamed(routeSteps);
-                          },
-                          child: Text(
-                            'skep'.tr,
-                            style: TextStyle(
-                              color: Color(AppColors.colorReset),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 11,
-                              fontFamily: 'Cairo',
-                            ),
-                          ),
-                        )
-                      : SizedBox(),
+                actions: <Widget>[
+                  if (controller.currentStep != controller.numberOfStep)
+                    TextButton(
+                      onPressed: () {
+                        Get.toNamed(routeSteps);
+                      },
+                      child: Text(
+                        'skep'.tr,
+                        style: const TextStyle(
+                          color: Color(AppColors.colorReset),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 11,
+                          fontFamily: 'Cairo',
+                        ),
+                      ),
+                    )
+                  else
+                    const SizedBox(),
                   SizedBox(width: DEVICE_WIDTH * 0.02),
                 ],
               ),
@@ -63,10 +65,10 @@ class FingerPrint extends StatelessWidget {
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                children: <Widget>[
                   Text(
                     'title_foot_print'.tr,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Color(AppColors.colorTextBlue),
                       fontWeight: FontWeight.w700,
                       fontFamily: 'Cairo',
@@ -76,8 +78,8 @@ class FingerPrint extends StatelessWidget {
                   SizedBox(height: DEVICE_HEIGHT * 0.04),
                   Text(
                     'text_foot_print'.tr,
-                    style: TextStyle(
-                      color: Color(AppColors.colorselectDropDown),
+                    style: const TextStyle(
+                      color: Color(AppColors.colorSelectDropDown),
                       fontWeight: FontWeight.w500,
                       fontFamily: 'Cairo',
                       fontSize: 14,
@@ -93,7 +95,7 @@ class FingerPrint extends StatelessWidget {
                   SizedBox(height: DEVICE_HEIGHT * 0.04),
                   Text(
                     'put_your_finger'.tr,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Color(AppColors.colorLineAndText),
                       fontWeight: FontWeight.w500,
                       fontFamily: 'Cairo',

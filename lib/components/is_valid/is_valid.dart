@@ -1,15 +1,15 @@
 import '../../general_exports.dart';
 
-class IsVailds extends StatelessWidget {
-  IsVailds({super.key, this.is_vaild_text});
+class IsValid extends StatelessWidget {
+  IsValid({super.key, this.isValidText});
 
-  String? is_vaild_text;
+  String? isValidText;
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      is_vaild_text!,
-      style: TextStyle(
+      isValidText!,
+      style: const TextStyle(
         color: Color(AppColors.colorError),
         fontSize: 11,
         fontFamily: 'Cairo',

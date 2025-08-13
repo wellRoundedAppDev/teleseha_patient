@@ -1,10 +1,12 @@
-import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
-import 'package:patient/language/translation.dart';
+// ignore: depend_on_referenced_packages
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+
 import '../../general_exports.dart';
+import '../../language/translation.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,20 +14,20 @@ class MyApp extends StatelessWidget {
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: GetMaterialApp(
         theme: ThemeData(
-          scaffoldBackgroundColor: Color(AppColors.colorBackgroundScreen),
+          scaffoldBackgroundColor: const Color(AppColors.colorBackgroundScreen),
         ),
-        locale: Locale('ar'),
-        supportedLocales: [Locale('ar')],
-        localizationsDelegates: [
+        locale: const Locale('ar'),
+        supportedLocales: <Locale>[const Locale('ar')],
+        // ignore: always_specify_types
+        localizationsDelegates: <LocalizationsDelegate>[
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
         translations: Translation(),
         debugShowCheckedModeBanner: false,
-        // initialRoute: routeSplash,
-        // initialRoute: routeSteps,
         initialRoute: routeFingerPrint,
+        // initialRoute: routeHome,
         // initialRoute: Get.find<MyAppController>().userData == null
         //     ? routeStartSteps
         //     : routeHome,

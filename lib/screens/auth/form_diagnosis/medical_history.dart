@@ -1,16 +1,17 @@
-import '../../../../general_exports.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../../../general_exports.dart';
 
 class MedicalHistory extends StatelessWidget {
   const MedicalHistory({super.key});
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<DiagnsisRecipientController>(
-      init: DiagnsisRecipientController(),
-      builder: (controller) {
+    return GetBuilder<DiagnosisRecipientController>(
+      init: DiagnosisRecipientController(),
+      builder: (DiagnosisRecipientController controller) {
         return Scaffold(
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(kToolbarHeight),
+            preferredSize: const Size.fromHeight(kToolbarHeight),
             child: Directionality(
               textDirection: TextDirection.ltr,
               child: AppBar(
@@ -35,81 +36,79 @@ class MedicalHistory extends StatelessWidget {
             ),
           ),
           body: SingleChildScrollView(
-            child: Container(
+            child: SizedBox(
               width: DEVICE_WIDTH,
               child: Column(
-                children: [
-                  controller.isMyChildrenSelected == 'aboutMe'
-                      ? Text(
-                          'medical_history'.tr,
-                          style: TextStyle(
-                            fontFamily: 'Cairo',
-                            fontSize: 24,
-                            fontWeight: FontWeight.w700,
-                            color: Color(AppColors.colorTextBlue),
-                          ),
-                        )
-                      : Text(
-                          'medical_history_about_children'.tr,
-                          style: TextStyle(
-                            fontFamily: 'Cairo',
-                            fontSize: 24,
-                            fontWeight: FontWeight.w700,
-                            color: Color(AppColors.colorTextBlue),
-                          ),
-                        ),
+                children: <Widget>[
+                  if (controller.isMyChildrenSelected == 'aboutMe')
+                    Text(
+                      'medical_history'.tr,
+                      style: const TextStyle(
+                        fontFamily: 'Cairo',
+                        fontSize: 24,
+                        fontWeight: FontWeight.w700,
+                        color: Color(AppColors.colorTextBlue),
+                      ),
+                    )
+                  else
+                    Text(
+                      'medical_history_about_children'.tr,
+                      style: const TextStyle(
+                        fontFamily: 'Cairo',
+                        fontSize: 24,
+                        fontWeight: FontWeight.w700,
+                        color: Color(AppColors.colorTextBlue),
+                      ),
+                    ),
                   SizedBox(height: DEVICE_HEIGHT * 0.05),
-                  CustomeInput(
+                  CustomInput(
                     title: 'chronic_diseases'.tr,
                     hint: 'create_chronic_diseases'.tr,
                     controller: controller.textfieldChronicDiseases,
-                    showVaildMessage: controller.showChronicDiseases,
-                    textIsVaild: 'is_vaild_diseases'.tr,
-                    key: null,
+                    showValidMessage: controller.showChronicDiseases,
+                    textIsValid: 'is_valid_diseases'.tr,
                     colorLabel: AppColors.colorLabel,
                     keyboardType: TextInputType.number,
                     fontSize: 16,
                   ),
-                  CustomeInput(
+                  CustomInput(
                     title: 'surgical_operations'.tr,
                     hint: 'create_surgical_operations'.tr,
                     controller: controller.textfieldSurgicalOperations,
-                    showVaildMessage: controller.showSurgicalOperations,
-                    textIsVaild: 'is_vaild_surgical_operations'.tr,
-                    key: null,
+                    showValidMessage: controller.showSurgicalOperations,
+                    textIsValid: 'is_valid_surgical_operations'.tr,
                     colorLabel: AppColors.colorLabel,
                     keyboardType: TextInputType.number,
                     fontSize: 16,
                   ),
-                  CustomeInput(
+                  CustomInput(
                     title: 'continuous_medications'.tr,
                     hint: 'create_continuous_medications'.tr,
                     controller: controller.textfieldContinuousMedications,
-                    showVaildMessage: controller.showContinuousMedications,
-                    textIsVaild: 'is_vaild_continuous_medications'.tr,
-                    key: null,
+                    showValidMessage: controller.showContinuousMedications,
+                    textIsValid: 'is_valid_continuous_medications'.tr,
                     colorLabel: AppColors.colorLabel,
                     keyboardType: TextInputType.number,
                     fontSize: 16,
                   ),
-                  CustomeInput(
+                  CustomInput(
                     title: 'allergies'.tr,
                     hint: 'create_allergies'.tr,
                     controller: controller.textfieldAllergies,
-                    showVaildMessage: controller.showAllergies,
-                    textIsVaild: 'is_vaild_allergies'.tr,
-                    key: null,
+                    showValidMessage: controller.showAllergies,
+                    textIsValid: 'is_valid_allergies'.tr,
                     colorLabel: AppColors.colorLabel,
                     keyboardType: TextInputType.number,
                     fontSize: 16,
                   ),
+                  SizedBox(height: DEVICE_HEIGHT * 0.02),
                   Btn(
                     text: 'next'.tr,
-                    color: Color(AppColors.colorLineAndText),
+                    color: const Color(AppColors.colorLineAndText),
                     onPressed: () {
-                      controller.dedical_history()
-                          ? Get.toNamed(routeAuth)
-                          : '';
+                      controller.dedicalHistory()
+                          ? Get.toNamed(routeHome)
+                          : const SizedBox();
                     },
                   ),
                 ],
