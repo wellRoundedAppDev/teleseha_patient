@@ -19,26 +19,28 @@ class StatusBar extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        SvgPicture.asset(
-                          iconUser,
-                          width: DEVICE_WIDTH * 0.034,
-                          height: DEVICE_HEIGHT * 0.034,
-                          fit: BoxFit.cover,
-                        ),
-                        SizedBox(height: DEVICE_HEIGHT * 0.01),
-                        Text(
-                          "${'say_welcome'.tr} ${controller.testUserData}!",
-                          style: const TextStyle(
-                            fontFamily: 'Cairo',
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700,
-                            color: Color(AppColors.colorWhiteSelectedType),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          SvgPicture.asset(
+                            iconUser,
+                            width: DEVICE_WIDTH * 0.034,
+                            height: DEVICE_HEIGHT * 0.034,
+                            fit: BoxFit.cover,
                           ),
-                        ),
-                      ],
+                          SizedBox(height: DEVICE_HEIGHT * 0.01),
+                          Text(
+                            "${'say_welcome'.tr} ${controller.testUserData}!",
+                            style: const TextStyle(
+                              fontFamily: 'Cairo',
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700,
+                              color: Color(AppColors.colorWhiteSelectedType),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                     Stack(
                       clipBehavior: Clip.none,
@@ -68,6 +70,36 @@ class StatusBar extends StatelessWidget {
                           ),
                         ),
                       ],
+                    ),
+                  ],
+                ),
+                SizedBox(height: DEVICE_HEIGHT * 0.02),
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      flex: 5,
+                      child: Container(
+                        child: Text(
+                          "${'say_welcome'.tr}!",
+                          style: const TextStyle(
+                            fontFamily: 'Cairo',
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                            color: Color(AppColors.colorWhiteSelectedType),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        "${'say_welcome'.tr}!",
+                        style: const TextStyle(
+                          fontFamily: 'Cairo',
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                          color: Color(AppColors.colorWhiteSelectedType),
+                        ),
+                      ),
                     ),
                   ],
                 ),
