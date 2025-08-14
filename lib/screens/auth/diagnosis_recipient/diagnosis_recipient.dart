@@ -15,19 +15,16 @@ class DiagnosisRecipient extends StatelessWidget {
             width: DEVICE_WIDTH,
             margin: EdgeInsets.symmetric(vertical: DEVICE_HEIGHT * 0.11),
             child: Column(
-              children: [
+              children: <Widget>[
                 const Logo(),
-                SizedBox(height: DEVICE_HEIGHT * 0.1),
-                Text(
-                  'how_diagnosis'.tr,
-                  style: const TextStyle(
-                    fontFamily: 'Cairo',
-                    fontSize: 22,
-                    fontWeight: FontWeight.w700,
-                    color: Color(AppColors.colorTextBlue),
-                  ),
+                SizedBox(height: DEVICE_HEIGHT * 0.05),
+                CustomText(
+                  text: 'how_diagnosis'.tr,
+                  fontSize: 22,
+                  type: CustomTextType.title,
+                  color: const Color(AppColors.colorTextBlue),
                 ),
-                SizedBox(height: DEVICE_HEIGHT * 0.04),
+                SizedBox(height: DEVICE_HEIGHT * 0.08),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   // ignore: always_specify_types
@@ -41,7 +38,7 @@ class DiagnosisRecipient extends StatelessWidget {
                     final bool isActive =
                         controller.isMyChildrenSelected == item[code];
                     return Row(
-                      children: [
+                      children: <Widget>[
                         GestureDetector(
                           onTap: () {
                             controller.changeTypeDiagnosis(item[code]!);
@@ -55,14 +52,9 @@ class DiagnosisRecipient extends StatelessWidget {
                                   ? const Color(AppColors.colorLineAndText)
                                   : Colors.white,
                               borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
+                              boxShadow: <BoxShadow>[
                                 const BoxShadow(
-                                  color: Color.fromARGB(
-                                    88,
-                                    189,
-                                    189,
-                                    189,
-                                  ),
+                                  color: Color.fromARGB(88, 189, 189, 189),
                                   blurRadius: 5,
                                 ),
                               ],
@@ -75,7 +67,7 @@ class DiagnosisRecipient extends StatelessWidget {
                             ),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
+                              children: <Widget>[
                                 SvgPicture.asset(
                                   item[icon]!,
                                   width: DEVICE_WIDTH * 0.05,
@@ -84,18 +76,15 @@ class DiagnosisRecipient extends StatelessWidget {
                                   color: isActive ? Colors.white : Colors.black,
                                 ),
                                 SizedBox(height: DEVICE_HEIGHT * 0.02),
-                                Text(
-                                  item[about]!,
-                                  style: TextStyle(
-                                    fontFamily: 'Cairo',
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                    color:
-                                        controller.isMyChildrenSelected ==
-                                            item[code]
-                                        ? Colors.white
-                                        : Colors.black,
-                                  ),
+                                CustomText(
+                                  text: item[about]!,
+                                  fontSize: 16,
+                                  type: CustomTextType.button,
+                                  color:
+                                      controller.isMyChildrenSelected ==
+                                          item[code]
+                                      ? Colors.white
+                                      : Colors.black,
                                 ),
                               ],
                             ),
@@ -111,9 +100,7 @@ class DiagnosisRecipient extends StatelessWidget {
                   text: 'next'.tr,
                   color: const Color(AppColors.colorLineAndText),
                   onPressed: () {
-                    controller.isMyChildrenSelected == 'aboutMe'
-                        ? Get.toNamed(routeFormDiagnosis)
-                        : Get.toNamed(routeSelectTypeChildren);
+                    controller.howDiagnosis();
                   },
                 ),
               ],

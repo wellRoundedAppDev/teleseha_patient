@@ -15,17 +15,22 @@ class DiagnosisRecipientController extends GetxController {
   bool showAllergies = false;
 
   List<Map<String, String>> typeDiagnosis = <Map<String, String>>[
-    <String, String>{
-      about: 'about_children'.tr,
-      icon: iconAboutChildren,
-      code: 'aboutChildren',
-    },
-    <String, String>{ about: 'about_me'.tr, icon: iconAboutMy, code: 'aboutMe'},
+    <String, String>{about: 'other'.tr, icon: iconOther, code: 'other'},
+    <String, String>{about: 'about_me'.tr, icon: iconAboutMy, code: 'aboutMe'},
   ];
 
   void changeTypeDiagnosis(String typeCode) {
     isMyChildrenSelected = typeCode;
     update();
+  }
+
+  void howDiagnosis() {
+    consoleLog('Current diagnosis type: $isMyChildrenSelected');
+    if (isMyChildrenSelected == 'aboutMe') {
+      Get.toNamed(routeFormDiagnosis);
+    } else {
+      Get.toNamed(routeSelectTypeChildren);
+    }
   }
 
   bool dedicalHistory() {

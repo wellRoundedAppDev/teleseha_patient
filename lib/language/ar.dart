@@ -26,7 +26,7 @@ const Map<String, String> ar = <String, String>{
   'thinks_create_account': 'شكرًا لإنشاء حسابك!',
   'how_diagnosis': 'لمن تحتاج التشخيص الطبي',
   'about_me': 'لنفسي',
-  'about_children': ' لطفلي',
+  'other': 'لغيري',
   'valid_code': 'الرمز غير صحيح',
   'type_children_male': 'طفل',
   'type_children_female': 'طفله',

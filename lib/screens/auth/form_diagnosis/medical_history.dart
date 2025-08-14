@@ -41,24 +41,18 @@ class MedicalHistory extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   if (controller.isMyChildrenSelected == 'aboutMe')
-                    Text(
-                      'medical_history'.tr,
-                      style: const TextStyle(
-                        fontFamily: 'Cairo',
-                        fontSize: 24,
-                        fontWeight: FontWeight.w700,
-                        color: Color(AppColors.colorTextBlue),
-                      ),
+                    CustomText(
+                      text: 'medical_history'.tr,
+                      fontSize: 24,
+                      type: CustomTextType.title,
+                      color: const Color(AppColors.colorTextBlue),
                     )
                   else
-                    Text(
-                      'medical_history_about_children'.tr,
-                      style: const TextStyle(
-                        fontFamily: 'Cairo',
-                        fontSize: 24,
-                        fontWeight: FontWeight.w700,
-                        color: Color(AppColors.colorTextBlue),
-                      ),
+                    CustomText(
+                      text: 'medical_history_about_children'.tr,
+                      fontSize: 24,
+                      type: CustomTextType.title,
+                      color: const Color(AppColors.colorTextBlue),
                     ),
                   SizedBox(height: DEVICE_HEIGHT * 0.05),
                   CustomInput(
@@ -101,7 +95,7 @@ class MedicalHistory extends StatelessWidget {
                     keyboardType: TextInputType.number,
                     fontSize: 16,
                   ),
-                  SizedBox(height: DEVICE_HEIGHT * 0.02),
+                  SizedBox(height: DEVICE_HEIGHT * 0.01),
                   Btn(
                     text: 'next'.tr,
                     color: const Color(AppColors.colorLineAndText),
