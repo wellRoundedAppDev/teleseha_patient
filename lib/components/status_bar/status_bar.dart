@@ -30,13 +30,13 @@ class StatusBar extends StatelessWidget {
                             fit: BoxFit.cover,
                           ),
                           SizedBox(height: DEVICE_HEIGHT * 0.01),
-                          Text(
-                            "${'say_welcome'.tr} ${controller.testUserData}!",
-                            style: const TextStyle(
-                              fontFamily: 'Cairo',
-                              fontSize: 20,
-                              fontWeight: FontWeight.w700,
-                              color: Color(AppColors.colorWhiteSelectedType),
+                          CustomText(
+                            text:
+                                '${'say_welcome'.tr} ${controller.testUserData}!',
+                            fontSize: 20,
+                            type: CustomTextType.title,
+                            color: const Color(
+                              AppColors.colorWhiteSelectedType,
                             ),
                           ),
                         ],
@@ -74,66 +74,12 @@ class StatusBar extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: DEVICE_HEIGHT * 0.02),
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      flex: 5,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: const Color(AppColors.colorWhiteSelectedType),
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(
-                            color: const Color(AppColors.colorWhite),
-                          ),
-                        ),
-                        child: TextField(
-                          // onTap: () {
-                          //   onTap?.call();
-                          // },
-                          keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                            suffixIcon: SizedBox(
-                              width: DEVICE_WIDTH * 0.1,
-                              child: Center(
-                                child: SvgPicture.asset(
-                                  iconSearch,
-                                  width: DEVICE_WIDTH * 0.02,
-                                  height: DEVICE_HEIGHT * 0.02,
-                                ),
-                              ),
-                            ),
-                            border: InputBorder.none,
-                            contentPadding: EdgeInsets.symmetric(
-                              horizontal: DEVICE_WIDTH * 0.040,
-                              vertical: DEVICE_HEIGHT * 0.018,
-                            ),
-                            hintText: 'search_doc_or_spoliate'.tr,
-                            hintStyle: TextStyle(
-                              fontFamily: 'Cairo',
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: const Color(
-                                AppColors.colorHintText,
-                              ).withValues(alpha: 20),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: DEVICE_WIDTH * 0.03),
-                    Expanded(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: const Color(AppColors.colorWhiteSelectedType),
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(
-                            color: const Color(AppColors.colorWhite),
-                          ),
-                        ),
-                        child: const Text('test'),
-                      ),
-                    ),
-                  ],
+                Container(
+                  padding: EdgeInsets.all(DEVICE_HEIGHT * 0.03),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(DEVICE_HEIGHT * 0.024),
+                  ),
                 ),
               ],
             ),

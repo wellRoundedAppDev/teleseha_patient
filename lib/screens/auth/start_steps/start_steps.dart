@@ -111,11 +111,16 @@ class StartSteps extends StatelessWidget {
                         }),
                       ),
                       SizedBox(height: DEVICE_HEIGHT * 0.035),
-                      StepsBtn(
-                        onPressed: () {
-                          controller.onNextButtonPress();
-                        },
-                        text: 'next'.tr,
+                      Container(
+                        margin: EdgeInsets.symmetric(
+                          horizontal: DEVICE_WIDTH * 0.02,
+                        ),
+                        child: StepsBtn(
+                          onPressed: () {
+                            controller.onNextButtonPress();
+                          },
+                          text: 'next'.tr,
+                        ),
                       ),
                     ],
                   ),

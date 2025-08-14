@@ -13,7 +13,7 @@ class StepThree extends StatelessWidget {
         return Column(
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(left: DEVICE_WIDTH * 0.03),
+              margin: EdgeInsets.symmetric(horizontal: DEVICE_WIDTH * 0.06),
               child: CustomInput(
                 title: 'name'.tr,
                 hint: 'name_field'.tr,
@@ -30,7 +30,7 @@ class StepThree extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Container(
-                  margin: const EdgeInsets.only(top: 2),
+                  margin: const EdgeInsets.only(top: 2, right: 15),
                   child: CustomInput(
                     onTap: () {
                       controller.pickDate(context);
@@ -41,7 +41,7 @@ class StepThree extends StatelessWidget {
                     controller: controller.dateController,
                     showValidMessage: controller.showdateControllerError,
                     textIsValid: 'is_valid_enter_age'.tr,
-                    widthContainer: 0.40,
+                    widthContainer: 0.35,
                     colorLabel: AppColors.colorLineAndText,
                     keyboardType: TextInputType.text,
                     suffixIconPath: iconDate,
