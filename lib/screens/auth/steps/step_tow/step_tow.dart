@@ -8,7 +8,6 @@ class StepTow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<StartStepsController>(
-      init: StartStepsController(),
       builder: (StartStepsController controller) {
         return Directionality(
           textDirection: TextDirection.ltr,
@@ -63,9 +62,11 @@ class StepTow extends StatelessWidget {
                       state: controller.state,
                       value: controller.patterns,
                       onStart: () {
-                        controller.state = PatternState.active;
-                        controller.patterns = <int>[];
-                        controller.update();
+                        if (controller.state != PatternState.active) {
+                          controller.patterns = <int>[];
+                          controller.state = PatternState.active;
+                          controller.update();
+                        }
                       },
                       onUpdate: (List<int> value) {
                         controller.patterns = value;

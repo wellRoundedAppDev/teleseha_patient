@@ -27,7 +27,6 @@ class StartStepsController extends GetxController {
   final List<int> passPattern = <int>[0, 1, 2, 3, 4];
   List<int> patterns = <int>[];
   PatternState state = PatternState.normal;
-  int _patternAttemptId = 0;
 
   List<Map<String, String>> typeGenerate = <Map<String, String>>[
     <String, String>{gender: 'female'.tr, icon: iconFemale, code: 'female'},
@@ -73,30 +72,9 @@ class StartStepsController extends GetxController {
   }
 
   void canGoToStepThree() {
-    final int currentAttempt = ++_patternAttemptId;
-
-    if (listEquals(passPattern, patterns)) {
-      state = PatternState.success;
-      update();
-
-      Future.delayed(const Duration(seconds: 2), () {
-        if (currentAttempt == _patternAttemptId) {
-          ++currentStep;
-          update();
-        }
-      });
-    } else {
-      state = PatternState.error;
-      update();
-
-      Future.delayed(const Duration(seconds: 2), () {
-        if (currentAttempt == _patternAttemptId) {
-          state = PatternState.normal;
-          patterns = <int>[];
-          update();
-        }
-      });
-    }
+    consoleLog('User pattern input: $patterns');
+    ++currentStep;
+    update();
   }
 
   // bool canGoToStepThree() {
@@ -125,9 +103,7 @@ class StartStepsController extends GetxController {
         ++currentStep;
         update();
       }
-    }
-
-    if (currentStep == 2) {
+    } else if (currentStep == 2) {
       canGoToStepThree();
     }
 
