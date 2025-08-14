@@ -1,4 +1,3 @@
-// import 'package:flutter/foundation.dart';
 import 'package:pattern_dots/pattern_dots.dart';
 
 import '../../../general_exports.dart';

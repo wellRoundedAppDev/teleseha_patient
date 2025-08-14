@@ -1,151 +1,83 @@
-import 'package:pinput/pinput.dart';
+import 'package:pattern_dots/pattern_dots.dart';
 
 import '../../../../general_exports.dart';
 
 class StepTow extends StatelessWidget {
   const StepTow({super.key});
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<StartStepsController>(
-      builder: (controller) {
-        controller.secondsRemaining == 70 && controller.timer == null
-            ? controller.startCountdown()
-            // ignore: unnecessary_statements
-            : null;
-        return SizedBox(
-          width: DEVICE_WIDTH * 0.8,
+      init: StartStepsController(),
+      builder: (StartStepsController controller) {
+        return Directionality(
+          textDirection: TextDirection.ltr,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Text(
-                'confirm'.tr,
-                style: const TextStyle(
-                  fontFamily: 'Cairo',
-                  fontSize: 24,
-                  fontWeight: FontWeight.w700,
-                  color: Color(AppColors.colorTextBlue),
-                ),
+              SizedBox(height: DEVICE_HEIGHT * 0.03),
+              CustomText(
+                text: 'create_pattern'.tr,
+                fontSize: 24,
+                type: CustomTextType.title,
+                color: const Color(AppColors.colorTextBlue),
               ),
-              SizedBox(height: DEVICE_HEIGHT * 0.04),
-              Text.rich(
-                TextSpan(
-                  children: [
-                    TextSpan(
-                      text: '${'input_confirm'.tr} ',
-                      style: const TextStyle(
-                        fontFamily: 'Cairo',
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: Color(AppColors.colorInputConfirm),
-                      ),
-                    ),
-                    const TextSpan(
-                      text: '0123456890',
-                      style: TextStyle(
-                        fontFamily: 'Cairo',
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: Color(AppColors.colorLineAndText),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: DEVICE_HEIGHT * 0.02),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (controller.showOtpError)
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: Text(
-                        'valid_code'.tr,
-                        style: const TextStyle(
-                          color: Color(AppColors.colorError),
-                          fontSize: 11,
-                          fontFamily: 'Cairo',
-                          fontWeight: FontWeight.w700,
+              SizedBox(height: DEVICE_HEIGHT * 0.1),
+              Center(
+                child: PatternStyle(
+                  data: PatternStyleData(
+                    tapRange: 9,
+                    linePaint: (PatternState state) => Paint()
+                      ..strokeWidth = 2
+                      ..color = switch (state) {
+                        PatternState.normal => Colors.grey,
+                        PatternState.active => Colors.blue,
+                        PatternState.success => Colors.green,
+                        PatternState.error => Colors.red,
+                      }
+                      ..style = PaintingStyle.stroke,
+                    dotBuilder: (PatternState state) {
+                      final Color color = switch (state) {
+                        PatternState.normal => const Color(
+                          AppColors.colorPointer,
                         ),
-                        textAlign: TextAlign.right,
-                      ),
-                    ),
-                  Directionality(
-                    textDirection: TextDirection.ltr,
-                    child: Pinput(
-                      controller: controller.otpController,
-                      length: 6,
-                      defaultPinTheme: defaultPinTheme.copyDecorationWith(
-                        border: Border.all(
-                          color: controller.showOtpError
-                              ? const Color(AppColors.colorError)
-                              : const Color(AppColors.colorWhite),
+                        PatternState.active => Colors.blue,
+                        PatternState.success => Colors.green,
+                        PatternState.error => Colors.red,
+                      };
+                      return Container(
+                        width: 16,
+                        height: 16,
+                        decoration: ShapeDecoration(
+                          shape: const CircleBorder(),
+                          color: color,
                         ),
-                        color: const Color(AppColors.colorWhiteSelectedType),
-                      ),
-                      submittedPinTheme: defaultPinTheme.copyDecorationWith(
-                        border: Border.all(
-                          color: controller.showOtpError
-                              ? const Color(AppColors.colorError)
-                              : const Color(AppColors.colorSuccessLine),
-                        ),
-                        color: Colors.white,
-                      ),
-                      pinAnimationType: PinAnimationType.slide,
-                      onChanged: (String value) {
-                        controller.clearOtpError();
-                      },
-                      onCompleted: (String pin) {
-                        controller.otpController.text = pin;
-                      },
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: DEVICE_HEIGHT * 0.02),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      controller.restartTimer();
+                      );
                     },
-                    child: Text.rich(
-                      TextSpan(
-                        children: [
-                          TextSpan(
-                            text: '${'resend'.tr} ',
-                            style: const TextStyle(
-                              fontFamily: 'Cairo',
-                              fontSize: 11,
-                              fontWeight: FontWeight.w700,
-                              color: Color(AppColors.colorReset),
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'again_resend'.tr,
-                            style: TextStyle(
-                              fontFamily: 'Cairo',
-                              fontSize: 11,
-                              fontWeight: FontWeight.w700,
-                              color: const Color(
-                                AppColors.colorTextBlue,
-                              ).withValues(alpha: 60),
-                            ),
-                          ),
-                        ],
-                      ),
+                    dotPainter:
+                        (PatternState state, Canvas canvas, Offset center) {},
+                  ),
+                  child: SizedBox(
+                    width: DEVICE_WIDTH * 0.72,
+                    height: DEVICE_HEIGHT * 0.25,
+                    child: PatternView(
+                      state: controller.state,
+                      value: controller.patterns,
+                      onStart: () {
+                        controller.state = PatternState.active;
+                        controller.patterns = <int>[];
+                        controller.update();
+                      },
+                      onUpdate: (List<int> value) {
+                        controller.patterns = value;
+                        controller.update();
+                      },
+                      onEnd: (List<int> value) {
+                        controller.patterns = value;
+                        controller.canGoToStepThree();
+                      },
                     ),
                   ),
-                  Text(
-                    controller.formattedTime,
-                    style: const TextStyle(
-                      fontFamily: 'Cairo',
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      color: Color(AppColors.colorNumber),
-                    ),
-                  ),
-                ],
+                ),
               ),
             ],
           ),
@@ -154,24 +86,3 @@ class StepTow extends StatelessWidget {
     );
   }
 }
-
-final PinTheme defaultPinTheme = PinTheme(
-  width: DEVICE_WIDTH * 0.85,
-  height: DEVICE_HEIGHT * 0.05,
-  textStyle: Theme.of(
-    Get.context!,
-  ).textTheme.bodyMedium!.copyWith(fontSize: 15),
-  decoration: BoxDecoration(
-    color: const Color(AppColors.colorWhite),
-    borderRadius: BorderRadius.circular(DEVICE_WIDTH * 0.02),
-    border: Border.all(color: const Color(AppColors.colorLineAndText)),
-    boxShadow: [
-      BoxShadow(
-        color: Colors.black.withOpacity(0.1),
-        spreadRadius: 1,
-        blurRadius: 5,
-        offset: const Offset(0, 2),
-      ),
-    ],
-  ),
-);

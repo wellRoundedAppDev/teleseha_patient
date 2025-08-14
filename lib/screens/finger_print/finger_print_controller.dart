@@ -5,10 +5,14 @@ import '../../../general_exports.dart';
 class FingerPrintController extends GetxController {
   final LocalAuthentication auth = LocalAuthentication();
 
-  Future<void> checkUserAndNavigate() async {
+  checkUserAndNavigate() {
     final bool userData = false;
     // ignore: dead_code
-    userData ? Get.toNamed(routeHome) : Get.toNamed(routeSteps);
+    if (userData) {
+      Get.toNamed(routeHome);
+    } else {
+      Get.toNamed(routeLogin);
+    }
   }
 
   Future<void> startBiometricAuth() async {
@@ -27,13 +31,12 @@ class FingerPrintController extends GetxController {
     }
 
     try {
-      final bool didAuthenticate = await auth.authenticate(
+      final bool isAuthenticated = await auth.authenticate(
         localizedReason: 'please_auth_finger_print'.tr,
       );
-      if (didAuthenticate) {
+      if (isAuthenticated) {
         // check userdata about check route steps
         checkUserAndNavigate();
-        update();
       }
     } catch (e) {
       Fluttertoast.showToast(msg: 'error_auth_finger_print'.tr);

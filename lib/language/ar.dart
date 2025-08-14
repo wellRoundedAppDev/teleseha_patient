@@ -56,4 +56,7 @@ const Map<String, String> ar = <String, String>{
   'name_user': 'عبدالرحمن',
   'search_doc_or_spoliate': 'ابحث عن طبيب او تخصص',
   'login': 'تسجيل الدخول',
+  'not_have_account': 'ليس لديك حساب؟',
+  'create_account': 'إنشاء حساب',
+  'create_pattern': 'إنشاء نمط',
 };

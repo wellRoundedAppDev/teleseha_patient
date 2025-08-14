@@ -60,7 +60,7 @@ class StartSteps extends StatelessWidget {
           ),
           body: Container(
             margin: EdgeInsets.symmetric(
-              vertical: DEVICE_HEIGHT * 0.03,
+              vertical: DEVICE_HEIGHT * 0.02,
               horizontal: controller.currentStep == 1
                   ? DEVICE_HEIGHT * 0.02
                   : 0,
@@ -69,7 +69,10 @@ class StartSteps extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   const Logo(),
-                  SizedBox(height: DEVICE_HEIGHT * 0.03),
+                  if (controller.currentStep == 1)
+                    SizedBox(height: DEVICE_HEIGHT * 0.03)
+                  else
+                    SizedBox(height: DEVICE_HEIGHT * 0.01),
                   Column(
                     children: <Widget>[
                       if (controller.currentStep == 1)
@@ -77,8 +80,8 @@ class StartSteps extends StatelessWidget {
                       else
                         controller.currentStep == 2
                             ? const StepTow()
-                            : controller.currentStep == 3
-                            ? const StepThree()
+                            // : controller.currentStep == 3
+                            // ? const StepThree()
                             : const SizedBox(),
                       SizedBox(height: DEVICE_HEIGHT * 0.025),
                       Row(

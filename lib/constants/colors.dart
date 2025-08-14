@@ -19,4 +19,5 @@ class AppColors {
   static const int colorTextSkep = 0xff666666;
   static const int colorPointerNotification = 0xffFF6C52;
   static const int colorPointerborder = 0xffF4F6F5;
+  static const int colorPointer = 0xff4F007BBD;
 }

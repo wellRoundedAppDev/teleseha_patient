@@ -1,9 +1,13 @@
 import 'dart:async';
+
+import 'package:flutter/foundation.dart';
+import 'package:pattern_dots/pattern_dots.dart';
+
 import '../../../general_exports.dart';
 
 class StartStepsController extends GetxController {
   int currentStep = 1;
-  int numberOfStep = 3;  
+  int numberOfStep = 3;
   String? selectedMaleCode = 'male';
 
   TextEditingController textFieldPhoneNumber = TextEditingController();
@@ -19,6 +23,11 @@ class StartStepsController extends GetxController {
 
   int secondsRemaining = 70;
   Timer? timer;
+
+  final List<int> passPattern = <int>[0, 1, 2, 3, 4];
+  List<int> patterns = <int>[];
+  PatternState state = PatternState.normal;
+  int _patternAttemptId = 0;
 
   List<Map<String, String>> typeGenerate = <Map<String, String>>[
     <String, String>{gender: 'female'.tr, icon: iconFemale, code: 'female'},
@@ -59,75 +68,97 @@ class StartStepsController extends GetxController {
   // create request number one or can go to step tow
   bool canGoToStepTwo() {
     showPhoneNumberError = textFieldPhoneNumber.text.isEmpty;
-    if (textFieldPhoneNumber.text == '222') {
-      // go to page sign in
-      // Get.toNamed(routePatternLock);
-      return !showPhoneNumberError;
-    } else {
-      // go to page register
-      // Get.toNamed(routePatternLock);
-    }
     update();
-    return showPhoneNumberError;
+    return !showPhoneNumberError;
   }
 
-  bool canGoToStepThree() {
-    if (!isValidOtpIsValid()) {
-      timer?.cancel();
-      markOtpInvalid();
-      return false;
+  void canGoToStepThree() {
+    final int currentAttempt = ++_patternAttemptId;
+
+    if (listEquals(passPattern, patterns)) {
+      state = PatternState.success;
+      update();
+
+      Future.delayed(const Duration(seconds: 2), () {
+        if (currentAttempt == _patternAttemptId) {
+          ++currentStep;
+          update();
+        }
+      });
     } else {
-      clearOtpError();
-      consoleLog('OTP Entered: ${otpController.text}');
-      return true;
+      state = PatternState.error;
+      update();
+
+      Future.delayed(const Duration(seconds: 2), () {
+        if (currentAttempt == _patternAttemptId) {
+          state = PatternState.normal;
+          patterns = <int>[];
+          update();
+        }
+      });
     }
   }
 
-  bool canGoToCreateSuccessPage() {
-    showNameError = textFieldName.text.isEmpty;
-    showdateControllerError = dateController.text.isEmpty;
-    update();
-    return !showNameError && !showdateControllerError;
-  }
+  // bool canGoToStepThree() {
+  //   if (!isValidOtpIsValid()) {
+  //     timer?.cancel();
+  //     markOtpInvalid();
+  //     return false;
+  //   } else {
+  //     clearOtpError();
+  //     consoleLog('OTP Entered: ${otpController.text}');
+  //     return true;
+  //   }
+  // }
+
+  // bool canGoToCreateSuccessPage() {
+  //   showNameError = textFieldName.text.isEmpty;
+  //   showdateControllerError = dateController.text.isEmpty;
+  //   update();
+  //   return !showNameError && !showdateControllerError;
+  // }
 
   void onNextButtonPress() {
     if (currentStep == 1) {
-      // here save response true or false
       if (canGoToStepTwo()) {
         consoleLog(textFieldPhoneNumber.text);
         ++currentStep;
         update();
       }
     }
-    // post otp
-    // get response userdata if true open homepage if false open register
-    // save userdata in localstorage
-    else if (currentStep == 2) {
-      if (canGoToStepThree()) {
-        ++currentStep;
-        consoleLog(otpController.text);
-        clearOtpError();
-        update();
-      } else {
-        markOtpInvalid();
-        update();
-      }
-    }
-    // check userdata if response true open create account success else print error
-    else if (currentStep == 3) {
-      if (canGoToCreateSuccessPage()) {
-        Get.toNamed(routeCreateAccountSuccess);
-        consoleLog(
-          '${textFieldName.text}, ${dateController.text}, $selectedMaleCode',
-        );
 
-        textFieldPhoneNumber.clear();
-        otpController.clear();
-        textFieldName.clear();
-        dateController.clear();
-        update();
-      }
+    if (currentStep == 2) {
+      canGoToStepThree();
     }
+
+    // check userdata if response true open create account success else print error
+    // else if (currentStep == 3) {
+    //   if (canGoToCreateSuccessPage()) {
+    //     Get.toNamed(routeCreateAccountSuccess);
+    //     consoleLog(
+    //       '${textFieldName.text}, ${dateController.text}, $selectedMaleCode',
+    //     );
+
+    //     textFieldPhoneNumber.clear();
+    //     otpController.clear();
+    //     textFieldName.clear();
+    //     dateController.clear();
+    //     update();
+    //   }
+    // }
+    // // post otp
+    // // save userdata in localstorage
+    // else if (currentStep == 4) {
+    //   if (canGoToStepThree()) {
+    //     ++currentStep;
+    //     consoleLog(otpController.text);
+    //     clearOtpError();
+    //     update();
+    //   } else {
+    //     markOtpInvalid();
+    //     update();
+    //   }
+    // }
   }
 
   void startTimerManually() {

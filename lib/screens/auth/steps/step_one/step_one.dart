@@ -9,16 +9,13 @@ class StepOne extends StatelessWidget {
       builder: (StartStepsController controller) {
         return Column(
           children: <Widget>[
-            Text(
-              'login'.tr,
-              style: const TextStyle(
-                fontFamily: 'Cairo',
-                fontSize: 22,
-                fontWeight: FontWeight.w700,
-                color: Color(AppColors.colorTextBlue),
-              ),
+            CustomText(
+              text: 'create_account'.tr,
+              fontSize: 24,
+              type: CustomTextType.title,
+              color: const Color(AppColors.colorTextBlue),
             ),
-            SizedBox(height: DEVICE_HEIGHT * 0.1),
+            SizedBox(height: DEVICE_HEIGHT * 0.05),
             CustomInput(
               title: 'number_phone'.tr,
               hint: 'number_phone_field'.tr,

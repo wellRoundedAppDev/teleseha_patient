@@ -4,6 +4,7 @@ import '../../general_exports.dart';
 
 List<GetPage<dynamic>> appRoutes = <GetPage<dynamic>>[
   GetPage<FingerPrint>(name: routeFingerPrint, page: () => const FingerPrint()),
+  GetPage<Login>(name: routeLogin, page: () => const Login()),
   GetPage<PatternLockPage>(
     name: routePatternLock,
     page: () => const PatternLockPage(),

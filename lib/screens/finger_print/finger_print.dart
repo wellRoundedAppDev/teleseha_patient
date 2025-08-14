@@ -20,17 +20,12 @@ class FingerPrint extends StatelessWidget {
                 actions: <Widget>[
                   TextButton(
                     onPressed: () {
-                      // check userdata about check route steps
                       controller.checkUserAndNavigate();
                     },
-                    child: Text(
-                      'skep'.tr,
-                      style: const TextStyle(
-                        color: Color(AppColors.colorReset),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 11,
-                        fontFamily: 'Cairo',
-                      ),
+                    child: CustomText(
+                      text: 'skep'.tr,
+                      type: CustomTextType.button,
+                      color: const Color(AppColors.colorReset),
                     ),
                   ),
                 ],
@@ -46,24 +41,15 @@ class FingerPrint extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text(
-                    'title_foot_print'.tr,
-                    style: const TextStyle(
-                      color: Color(AppColors.colorTextBlue),
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'Cairo',
-                      fontSize: 20,
-                    ),
+                  CustomText(
+                    text: 'title_foot_print'.tr,
+                    type: CustomTextType.title,
+                    color: const Color(AppColors.colorTextBlue),
                   ),
                   SizedBox(height: DEVICE_HEIGHT * 0.04),
-                  Text(
-                    'text_foot_print'.tr,
-                    style: const TextStyle(
-                      color: Color(AppColors.colorSelectDropDown),
-                      fontWeight: FontWeight.w500,
-                      fontFamily: 'Cairo',
-                      fontSize: 14,
-                    ),
+                  CustomText(
+                    text: 'text_foot_print'.tr,
+                    color: const Color(AppColors.colorSelectDropDown),
                   ),
                   SizedBox(height: DEVICE_HEIGHT * 0.04),
                   SvgPicture.asset(
@@ -73,14 +59,10 @@ class FingerPrint extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                   SizedBox(height: DEVICE_HEIGHT * 0.04),
-                  Text(
-                    'put_your_finger'.tr,
-                    style: const TextStyle(
-                      color: Color(AppColors.colorLineAndText),
-                      fontWeight: FontWeight.w500,
-                      fontFamily: 'Cairo',
-                      fontSize: 21,
-                    ),
+                  CustomText(
+                    text: 'put_your_finger'.tr,
+                    fontSize: 21,
+                    color: const Color(AppColors.colorLineAndText),
                   ),
                   SizedBox(height: DEVICE_HEIGHT * 0.04),
                   StepsBtn(

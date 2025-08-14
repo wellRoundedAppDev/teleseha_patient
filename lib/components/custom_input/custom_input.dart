@@ -41,14 +41,11 @@ class CustomInput extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
-          title!,
-          style: TextStyle(
-            color: Color(colorLabel!),
-            fontWeight: FontWeight.w400,
-            fontFamily: 'Cairo',
-            fontSize: fontSize,
-          ),
+        CustomText(
+          text: title,
+          type: CustomTextType.inputTitle,
+          fontSize: fontSize,
+          color: Color(colorLabel!),
         ),
         SizedBox(height: DEVICE_HEIGHT * 0.02),
         Container(
@@ -100,24 +97,18 @@ class CustomInput extends StatelessWidget {
         else
           SizedBox(height: DEVICE_HEIGHT * 0),
         if (showValidMessage!)
-          Text(
-            textIsValid!,
-            style: const TextStyle(
-              color: Color(AppColors.colorError),
-              fontSize: 11,
-              fontFamily: 'Cairo',
-              fontWeight: FontWeight.w700,
-            ),
+          CustomText(
+            text: textIsValid!,
+            type: CustomTextType.title,
+            fontSize: 11,
+            color: const Color(AppColors.colorError),
           )
         else
-          const Text(
-            '',
-            style: TextStyle(
-              color: Color(AppColors.colorError),
-              fontSize: 11,
-              fontFamily: 'Cairo',
-              fontWeight: FontWeight.w700,
-            ),
+          const CustomText(
+            text: '',
+            type: CustomTextType.title,
+            fontSize: 11,
+            color: Color(AppColors.colorError),
           ),
         SizedBox(height: DEVICE_HEIGHT * bottomSpacing),
       ],
