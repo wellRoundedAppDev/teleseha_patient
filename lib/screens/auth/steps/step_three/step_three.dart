@@ -51,15 +51,11 @@ class StepThree extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
-                      'type'.tr,
-                      style: const TextStyle(
-                        color: Color(AppColors.colorLineAndText),
-                        fontWeight: FontWeight.w400,
-                        fontFamily: 'Cairo',
-                        fontSize: 20,
-                        fontStyle: FontStyle.normal,
-                      ),
+                    CustomText(
+                      text: 'type'.tr,
+                      type: CustomTextType.title,
+                      fontWeight: FontWeight.w400,
+                      color: const Color(AppColors.colorLineAndText),
                     ),
                     SizedBox(height: DEVICE_HEIGHT * 0.02),
                     Row(

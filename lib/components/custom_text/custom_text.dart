@@ -10,6 +10,7 @@ class CustomText extends StatelessWidget {
     this.color,
     this.textAlign,
     this.fontSize,
+    this.fontWeight = FontWeight.w700,
   });
 
   final String? text;
@@ -17,6 +18,7 @@ class CustomText extends StatelessWidget {
   final Color? color;
   final TextAlign? textAlign;
   final double? fontSize;
+  final FontWeight? fontWeight;
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +26,9 @@ class CustomText extends StatelessWidget {
 
     switch (type) {
       case CustomTextType.title:
-        baseStyle = const TextStyle(
+        baseStyle = TextStyle(
           fontSize: 20,
-          fontWeight: FontWeight.w700,
+          fontWeight: fontWeight,
           fontFamily: 'Cairo',
         );
         break;

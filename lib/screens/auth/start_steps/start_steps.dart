@@ -39,12 +39,15 @@ class StartSteps extends StatelessWidget {
                   height: DEVICE_HEIGHT * 0.0108,
                   child: LinearProgressIndicator(
                     value: controller.currentStep == 1
-                        ? 0.4
+                        ? 0.2
                         : controller.currentStep == 2
-                        ? 0.8
+                        ? 0.4
+                        : controller.currentStep == 3
+                        ? 0.6
                         : 1,
                     borderRadius: BorderRadius.circular(15),
-                    backgroundColor: controller.currentStep != 3
+                    backgroundColor:
+                        controller.currentStep != controller.numberOfStep
                         ? const Color(AppColors.backgroundColorLine)
                         : const Color(AppColors.colorSuccessLine),
                     valueColor: AlwaysStoppedAnimation<Color>(
@@ -69,7 +72,8 @@ class StartSteps extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   const Logo(),
-                  if (controller.currentStep == 1)
+                  if (controller.currentStep == 1 ||
+                      controller.currentStep == controller.numberOfStep)
                     SizedBox(height: DEVICE_HEIGHT * 0.03)
                   else
                     SizedBox(height: DEVICE_HEIGHT * 0.01),
@@ -80,14 +84,19 @@ class StartSteps extends StatelessWidget {
                       else
                         controller.currentStep == 2
                             ? const StepTow()
-                            // : controller.currentStep == 3
-                            // ? const StepThree()
+                            : controller.currentStep == 3
+                            ? const StepThree()
+                            : controller.currentStep == controller.numberOfStep
+                            ? const StepFour()
                             : const SizedBox(),
                       SizedBox(height: DEVICE_HEIGHT * 0.025),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: List.generate(3, (int index) {
-                          final int stepNumber = 3 - index;
+                        children: List.generate(controller.numberOfStep, (
+                          int index,
+                        ) {
+                          final int stepNumber =
+                              controller.numberOfStep - index;
                           return Row(
                             children: <Widget>[
                               ContainerSteps(

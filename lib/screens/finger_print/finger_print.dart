@@ -44,7 +44,7 @@ class FingerPrint extends StatelessWidget {
                   CustomText(
                     text: 'title_foot_print'.tr,
                     type: CustomTextType.title,
-                    color: const Color(AppColors.colorTextBlue),
+                    color: const Color(AppColors.colorTextBlue),                    
                   ),
                   SizedBox(height: DEVICE_HEIGHT * 0.04),
                   CustomText(

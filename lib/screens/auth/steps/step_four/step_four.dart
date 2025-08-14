@@ -7,7 +7,7 @@ class StepFour extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<StartStepsController>(
-      builder: (controller) {
+      builder: (StartStepsController controller) {
         controller.secondsRemaining == 70 && controller.timer == null
             ? controller.startCountdown()
             // ignore: unnecessary_statements
@@ -15,21 +15,17 @@ class StepFour extends StatelessWidget {
         return SizedBox(
           width: DEVICE_WIDTH * 0.8,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Text(
-                'confirm'.tr,
-                style: const TextStyle(
-                  fontFamily: 'Cairo',
-                  fontSize: 24,
-                  fontWeight: FontWeight.w700,
-                  color: Color(AppColors.colorTextBlue),
-                ),
+              CustomText(
+                text: 'confirm'.tr,
+                type: CustomTextType.title,
+                fontSize: 24,
+                color: const Color(AppColors.colorTextBlue),
               ),
               SizedBox(height: DEVICE_HEIGHT * 0.04),
               Text.rich(
                 TextSpan(
-                  children: [
+                  children: <InlineSpan>[
                     TextSpan(
                       text: '${'input_confirm'.tr} ',
                       style: const TextStyle(
@@ -54,7 +50,7 @@ class StepFour extends StatelessWidget {
               SizedBox(height: DEVICE_HEIGHT * 0.02),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+                children: <Widget>[
                   if (controller.showOtpError)
                     Padding(
                       padding: const EdgeInsets.only(bottom: 8.0),
@@ -104,14 +100,14 @@ class StepFour extends StatelessWidget {
               SizedBox(height: DEVICE_HEIGHT * 0.02),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children: <Widget>[
                   GestureDetector(
                     onTap: () {
                       controller.restartTimer();
                     },
                     child: Text.rich(
                       TextSpan(
-                        children: [
+                        children: <InlineSpan>[
                           TextSpan(
                             text: '${'resend'.tr} ',
                             style: const TextStyle(
@@ -165,7 +161,7 @@ final PinTheme defaultPinTheme = PinTheme(
     color: const Color(AppColors.colorWhite),
     borderRadius: BorderRadius.circular(DEVICE_WIDTH * 0.02),
     border: Border.all(color: const Color(AppColors.colorLineAndText)),
-    boxShadow: [
+    boxShadow: <BoxShadow>[
       BoxShadow(
         color: Colors.black.withOpacity(0.1),
         spreadRadius: 1,

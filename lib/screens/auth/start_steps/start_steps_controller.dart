@@ -1,13 +1,12 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
 import 'package:pattern_dots/pattern_dots.dart';
 
 import '../../../general_exports.dart';
 
 class StartStepsController extends GetxController {
   int currentStep = 1;
-  int numberOfStep = 3;
+  int numberOfStep = 4;
   String? selectedMaleCode = 'male';
 
   TextEditingController textFieldPhoneNumber = TextEditingController();
@@ -67,6 +66,7 @@ class StartStepsController extends GetxController {
   // create request number one or can go to step tow
   bool canGoToStepTwo() {
     showPhoneNumberError = textFieldPhoneNumber.text.isEmpty;
+    consoleLog(textFieldPhoneNumber.text);
     update();
     return !showPhoneNumberError;
   }
@@ -77,24 +77,25 @@ class StartStepsController extends GetxController {
     update();
   }
 
-  // bool canGoToStepThree() {
-  //   if (!isValidOtpIsValid()) {
-  //     timer?.cancel();
-  //     markOtpInvalid();
-  //     return false;
-  //   } else {
-  //     clearOtpError();
-  //     consoleLog('OTP Entered: ${otpController.text}');
-  //     return true;
-  //   }
-  // }
+  bool canGoToStepFour() {
+    showNameError = textFieldName.text.isEmpty;
+    showdateControllerError = dateController.text.isEmpty;
+    consoleLog(textFieldName.text + dateController.text);
+    update();
+    return !showNameError && !showdateControllerError;
+  }
 
-  // bool canGoToCreateSuccessPage() {
-  //   showNameError = textFieldName.text.isEmpty;
-  //   showdateControllerError = dateController.text.isEmpty;
-  //   update();
-  //   return !showNameError && !showdateControllerError;
-  // }
+  bool canGoToCreateSuccessPage() {
+    if (!isValidOtpIsValid()) {
+      timer?.cancel();
+      markOtpInvalid();
+      return false;
+    } else {
+      clearOtpError();
+      consoleLog('OTP Entered: ${otpController.text}');
+      return true;
+    }
+  }
 
   void onNextButtonPress() {
     if (currentStep == 1) {
@@ -105,36 +106,31 @@ class StartStepsController extends GetxController {
       }
     } else if (currentStep == 2) {
       canGoToStepThree();
+    } else if (currentStep == 3) {
+      if (canGoToStepFour()) {
+        ++currentStep;
+        consoleLog(otpController.text);
+        clearOtpError();
+        update();
+      } else {
+        markOtpInvalid();
+        update();
+      }
+    } else if (currentStep == numberOfStep) {
+      if (canGoToCreateSuccessPage()) {
+        Get.toNamed(routeCreateAccountSuccess);
+        consoleLog(
+          '${textFieldName.text}, ${dateController.text}, $selectedMaleCode',
+        );
+
+        textFieldPhoneNumber.clear();
+        otpController.clear();
+        textFieldName.clear();
+        dateController.clear();
+        update();
+      }
     }
-
-    // check userdata if response true open create account success else print error
-    // else if (currentStep == 3) {
-    //   if (canGoToCreateSuccessPage()) {
-    //     Get.toNamed(routeCreateAccountSuccess);
-    //     consoleLog(
-    //       '${textFieldName.text}, ${dateController.text}, $selectedMaleCode',
-    //     );
-
-    //     textFieldPhoneNumber.clear();
-    //     otpController.clear();
-    //     textFieldName.clear();
-    //     dateController.clear();
-    //     update();
-    //   }
-    // }
-    // // post otp
-    // // save userdata in localstorage
-    // else if (currentStep == 4) {
-    //   if (canGoToStepThree()) {
-    //     ++currentStep;
-    //     consoleLog(otpController.text);
-    //     clearOtpError();
-    //     update();
-    //   } else {
-    //     markOtpInvalid();
-    //     update();
-    //   }
-    // }
+    // save userdata in localstorage
   }
 
   void startTimerManually() {
