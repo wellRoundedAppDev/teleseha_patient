@@ -74,35 +74,42 @@ class LoginAboutHow extends StatelessWidget {
                       itemCount: controller.usersIntegrate.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Container(
-                          margin: EdgeInsets.fromLTRB(
-                            DEVICE_HEIGHT * 0.04,
-                            0,
-                            DEVICE_HEIGHT * 0.04,
-                            DEVICE_HEIGHT * 0.023,
-                          ),
-                          padding: EdgeInsets.symmetric(
-                            horizontal: DEVICE_HEIGHT * 0.025,
-                            vertical: DEVICE_WIDTH * 0.035,
+                          margin: const EdgeInsets.fromLTRB(25, 0, 25, 25),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 22,
                           ),
                           decoration: BoxDecoration(
+                            color: Colors.white,
                             borderRadius: BorderRadius.circular(
                               DEVICE_HEIGHT * 0.025,
                             ),
-                            color: const Color(AppColors.colorLineAndText),
+                            boxShadow: <BoxShadow>[
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.06),
+                                spreadRadius: 1,
+                                blurRadius: 6,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               SizedBox(
-                                width: DEVICE_WIDTH * 0.23,
-                                height: DEVICE_HEIGHT * 0.03,
+                                width: 86,
+                                height: 30,
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
+                                    backgroundColor: const Color(
+                                      AppColors.colorLineAndText,
+                                    ),
                                     padding: const EdgeInsets.symmetric(
-                                      horizontal: 10,
+                                      horizontal: 5,
+                                      vertical: 5,
                                     ),
                                     shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(14),
+                                      borderRadius: BorderRadius.circular(20),
                                     ),
                                     textStyle: const TextStyle(
                                       fontSize: 10,
@@ -110,7 +117,14 @@ class LoginAboutHow extends StatelessWidget {
                                     ),
                                   ),
                                   onPressed: () {},
-                                  child: Text('login'.tr),
+                                  child: Text(
+                                    'login'.tr,
+                                    style: const TextStyle(
+                                      color: Color(
+                                        AppColors.colorBackgroundScreen,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                               SizedBox(width: DEVICE_WIDTH * 0.02),
@@ -121,7 +135,7 @@ class LoginAboutHow extends StatelessWidget {
                                     fontSize: 15,
                                     type: CustomTextType.title,
                                     color: const Color(
-                                      AppColors.colorWhiteSelectedType,
+                                      AppColors.colorSelectDropDown,
                                     ),
                                   ),
                                   SizedBox(width: DEVICE_WIDTH * 0.03),
