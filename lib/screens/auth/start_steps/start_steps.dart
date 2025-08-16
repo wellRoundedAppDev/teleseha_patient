@@ -82,14 +82,13 @@ class StartSteps extends StatelessWidget {
                       if (controller.currentStep == 1)
                         const StepOne()
                       else
-                        controller.currentStep == 2
-                            ? const StepTow()
-                            : controller.currentStep == 3
-                            ? const StepThree()
-                            : controller.currentStep == controller.numberOfStep
-                            ? const StepFour()
-                            : const SizedBox(),
-                      SizedBox(height: DEVICE_HEIGHT * 0.025),
+                        // controller.currentStep == 2     ?
+                        //     // ? controller.currentStep == 3
+                        //     // ? const StepThree()
+                        //     // // : controller.currentStep == controller.numberOfStep
+                        //     // // ? const StepFour()
+                        //     : const SizedBox(),
+                        SizedBox(height: DEVICE_HEIGHT * 0.025),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: List.generate(controller.numberOfStep, (

@@ -3,7 +3,7 @@ export 'create_account_success/index.dart';
 export 'diagnosis_recipient/index.dart';
 export 'form_diagnosis/index.dart';
 export 'login/index.dart';
-export 'login/pattern_lock/index.dart';
+export '../../components/pattern_lock/index.dart';
 export 'select_type_children/index.dart';
 export 'start_steps/index.dart';
 export 'steps/index.dart';

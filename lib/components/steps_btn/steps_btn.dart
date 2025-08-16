@@ -9,12 +9,12 @@ class StepsBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: DEVICE_WIDTH * 0.9,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: color ?? Color(AppColors.colorLineAndText),
-          padding: EdgeInsets.symmetric(vertical: DEVICE_HEIGHT * 0.02),
+          backgroundColor: color ?? const Color(AppColors.colorLineAndText),
+          padding: EdgeInsets.symmetric(vertical: DEVICE_HEIGHT * 0.023),
         ),
         onPressed: () {
           onPressed?.call();
@@ -23,7 +23,7 @@ class StepsBtn extends StatelessWidget {
           text ?? '',
           style: const TextStyle(
             color: Color(AppColors.colorWhiteSelectedType),
-            fontSize: 18,
+            fontSize: 20,
             fontFamily: 'Cairo',
             fontWeight: FontWeight.w700,
           ),

@@ -62,4 +62,6 @@ const Map<String, String> ar = <String, String>{
   'create_pattern': 'إنشاء نمط',
   'create_input_pattern': 'ادخال نمط التسجيل',
   'create_account_me': 'تسجيل الدخول الى',
+  'are_you_forget_pass': 'هل نسيت النمط؟',
+  'create_new_pattern': 'إنشاء نمط جديد',
 };

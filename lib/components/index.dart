@@ -1,9 +1,11 @@
 export 'content_area/index.dart';
 export 'custom_btn/index.dart';
 export 'custom_input/index.dart';
+export 'custom_otp/index.dart';
 export 'custom_text/index.dart';
 export 'is_valid/index.dart';
 export 'line_steps/index.dart';
 export 'logo/index.dart';
+export 'pattern_lock/index.dart';
 export 'status_bar/index.dart';
 export 'steps_btn/index.dart';

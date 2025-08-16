@@ -9,6 +9,7 @@ import 'general_exports.dart';
 
 Future<void> main() async {
   await GetStorage.init();
+  Get.put(StartStepsController());
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations(<DeviceOrientation>[
     DeviceOrientation.portraitUp,

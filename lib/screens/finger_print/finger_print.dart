@@ -25,6 +25,7 @@ class FingerPrint extends StatelessWidget {
                     child: CustomText(
                       text: 'skep'.tr,
                       type: CustomTextType.button,
+                      fontSize: 12,
                       color: const Color(AppColors.colorReset),
                     ),
                   ),
@@ -44,7 +45,7 @@ class FingerPrint extends StatelessWidget {
                   CustomText(
                     text: 'title_foot_print'.tr,
                     type: CustomTextType.title,
-                    color: const Color(AppColors.colorTextBlue),                    
+                    color: const Color(AppColors.colorTextBlue),
                   ),
                   SizedBox(height: DEVICE_HEIGHT * 0.04),
                   CustomText(
@@ -54,8 +55,8 @@ class FingerPrint extends StatelessWidget {
                   SizedBox(height: DEVICE_HEIGHT * 0.04),
                   SvgPicture.asset(
                     footPrint,
-                    width: DEVICE_WIDTH * 0.15,
-                    height: DEVICE_HEIGHT * 0.15,
+                    width: DEVICE_WIDTH * 0.17,
+                    height: DEVICE_HEIGHT * 0.17,
                     fit: BoxFit.cover,
                   ),
                   SizedBox(height: DEVICE_HEIGHT * 0.04),

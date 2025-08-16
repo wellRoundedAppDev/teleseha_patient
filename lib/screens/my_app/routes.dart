@@ -5,12 +5,8 @@ import '../../general_exports.dart';
 List<GetPage<dynamic>> appRoutes = <GetPage<dynamic>>[
   GetPage<FingerPrint>(name: routeFingerPrint, page: () => const FingerPrint()),
   GetPage<Login>(name: routeLogin, page: () => const Login()),
-  GetPage<LoginAboutHow>(
-    name: routeLoginAboutHow,
-    page: () => const LoginAboutHow(),
-  ),
   GetPage<FingerPrint>(name: routeFingerPrint, page: () => const FingerPrint()),
-  GetPage<PatternLock>(name: routePatternLock, page: () => const PatternLock()),
+  GetPage<PatternLock>(name: routePatternLock, page: () => PatternLock()),
   GetPage<StartSteps>(name: routeSteps, page: () => const StartSteps()),
   GetPage<CreateAccountSuccess>(
     name: routeCreateAccountSuccess,

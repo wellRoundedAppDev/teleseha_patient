@@ -47,7 +47,7 @@ class CustomInput extends StatelessWidget {
           fontSize: fontSize,
           color: Color(colorLabel!),
         ),
-        SizedBox(height: DEVICE_HEIGHT * 0.02),
+        SizedBox(height: DEVICE_HEIGHT * 0.021),
         Container(
           width: DEVICE_WIDTH * widthContainer,
           decoration: BoxDecoration(
@@ -93,7 +93,7 @@ class CustomInput extends StatelessWidget {
           ),
         ),
         if (showValidMessage!)
-          SizedBox(height: DEVICE_HEIGHT * 0.018)
+          SizedBox(height: DEVICE_HEIGHT * 0.0115)
         else
           SizedBox(height: DEVICE_HEIGHT * 0),
         if (showValidMessage!)

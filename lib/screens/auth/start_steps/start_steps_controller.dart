@@ -8,6 +8,8 @@ class StartStepsController extends GetxController {
   int currentStep = 1;
   int numberOfStep = 4;
   String? selectedMaleCode = 'male';
+  String? argumentValue;
+  bool? checkSignInOrSignUp;
 
   TextEditingController textFieldPhoneNumber = TextEditingController();
   TextEditingController otpController = TextEditingController();
@@ -31,6 +33,12 @@ class StartStepsController extends GetxController {
     <String, String>{gender: 'female'.tr, icon: iconFemale, code: 'female'},
     <String, String>{gender: 'male'.tr, icon: iconMale, code: 'male'},
   ];
+
+  @override
+  void onInit() {
+    super.onInit();
+    startTimerManually();
+  }
 
   void minusSelectedSteps() {
     currentStep--;
@@ -85,7 +93,7 @@ class StartStepsController extends GetxController {
     return !showNameError && !showdateControllerError;
   }
 
-  bool canGoToCreateSuccessPage() {
+  bool checkOtp() {
     if (!isValidOtpIsValid()) {
       timer?.cancel();
       markOtpInvalid();
@@ -97,6 +105,24 @@ class StartStepsController extends GetxController {
     }
   }
 
+  void setArgument(String? value) {
+    argumentValue = value;
+    if (checkOtp()) {
+      if (value == '/pattern-lock') {
+        Get.toNamed(routePatternLock);
+        checkSignInOrSignUp = true;
+      } else {
+        Get.toNamed(routeCreateAccountSuccess);
+        checkSignInOrSignUp = false;
+      }
+    }
+    textFieldPhoneNumber.clear();
+    otpController.clear();
+    textFieldName.clear();
+    dateController.clear();
+    update();
+  }
+
   void onNextButtonPress() {
     if (currentStep == 1) {
       if (canGoToStepTwo()) {
@@ -104,32 +130,37 @@ class StartStepsController extends GetxController {
         ++currentStep;
         update();
       }
-    } else if (currentStep == 2) {
-      canGoToStepThree();
-    } else if (currentStep == 3) {
-      if (canGoToStepFour()) {
-        ++currentStep;
-        consoleLog(otpController.text);
-        clearOtpError();
-        update();
-      } else {
-        markOtpInvalid();
-        update();
-      }
-    } else if (currentStep == numberOfStep) {
-      if (canGoToCreateSuccessPage()) {
-        Get.toNamed(routeCreateAccountSuccess);
-        consoleLog(
-          '${textFieldName.text}, ${dateController.text}, $selectedMaleCode',
-        );
-
-        textFieldPhoneNumber.clear();
-        otpController.clear();
-        textFieldName.clear();
-        dateController.clear();
-        update();
-      }
     }
+    // else if (currentStep == 2) {
+    // canGoToStepThree();
+    // } else if (currentStep == 3) {
+    //   if (canGoToStepFour()) {
+    //     ++currentStep;
+    //     consoleLog(otpController.text);
+    //     clearOtpError();
+    //     update();
+    //   } else {
+    //     markOtpInvalid();
+    //     update();
+    //   }
+    // }
+    // post request otp
+    // check if otp in register open create account success
+    // if otp in error pattern open new pattern
+    // else if (currentStep == numberOfStep) {
+    //   if (canGoToCreateSuccessPage()) {
+    //     Get.toNamed(routeCreateAccountSuccess);
+    //     consoleLog(
+    //       '${textFieldName.text}, ${dateController.text}, $selectedMaleCode',
+    //     );
+
+    //     textFieldPhoneNumber.clear();
+    //     otpController.clear();
+    //     textFieldName.clear();
+    //     dateController.clear();
+    //     update();
+    //   }
+    // }
     // save userdata in localstorage
   }
 
