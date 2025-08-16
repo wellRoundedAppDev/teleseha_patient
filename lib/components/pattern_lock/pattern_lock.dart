@@ -12,6 +12,8 @@ class PatternLock extends StatelessWidget {
     return GetBuilder<LoginController>(
       init: LoginController(),
       builder: (LoginController controller) {
+        // final bool isSignIn = Get.arguments?['isSignIn'] ?? true;
+
         return Directionality(
           textDirection: TextDirection.ltr,
           child: Scaffold(
@@ -36,25 +38,25 @@ class PatternLock extends StatelessWidget {
                     ),
                   ),
                   backgroundColor: Colors.transparent,
-                  title: controller.checkFunctionRegiserOrSignIn()
-                      ? SizedBox(
-                          width: DEVICE_WIDTH * 0.425,
-                          height: DEVICE_HEIGHT * 0.0108,
-                          child: LinearProgressIndicator(
-                            value: controller.argumentValue,
-                            borderRadius: BorderRadius.circular(15),
-                            backgroundColor: const Color(
-                              AppColors.backgroundColorLine,
-                            ),
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                              const Color(
-                                AppColors.colorLineAndText,
-                              ).withValues(alpha: 0.2),
-                            ),
-                          ),
-                        )
-                      : const SizedBox(),
-                  centerTitle: true,
+                  // title: isSignIn
+                  //     ? SizedBox(
+                  //         width: DEVICE_WIDTH * 0.425,
+                  //         height: DEVICE_HEIGHT * 0.0108,
+                  //         child: LinearProgressIndicator(
+                  //           value: controller.argumentValue,
+                  //           borderRadius: BorderRadius.circular(15),
+                  //           backgroundColor: const Color(
+                  //             AppColors.backgroundColorLine,
+                  //           ),
+                  //           valueColor: AlwaysStoppedAnimation<Color>(
+                  //             const Color(
+                  //               AppColors.colorLineAndText,
+                  //             ).withValues(alpha: 0.2),
+                  //           ),
+                  //         ),
+                  //       )
+                  //     : const SizedBox(),
+                  // centerTitle: true,
                 ),
               ),
             ),
@@ -77,6 +79,7 @@ class PatternLock extends StatelessWidget {
                     SizedBox(height: DEVICE_HEIGHT * 0.13),
                     Column(
                       children: <Widget>[
+                        // Text('$isSignIn'),
                         Center(
                           child: PatternStyle(
                             data: PatternStyleData(
@@ -111,49 +114,50 @@ class PatternLock extends StatelessWidget {
                               },
                               dotPainter: (_, __, ___) {},
                             ),
-                            child: controller.checkFunctionRegiserOrSignIn()
-                                ? SizedBox(
-                                    width: 270,
-                                    height: 200,
-                                    child: PatternView(
-                                      state: controller.state,
-                                      value: controller.inputPattern,
-                                      onStart: controller.startPattern,
-                                      onUpdate: controller.updatePattern,
-                                      onEnd: (List<int> pattern) {
-                                        controller.updatePattern(pattern);
-                                        controller.validatePattern();
-                                      },
-                                    ),
-                                  )
-                                : SizedBox(
-                                    width: DEVICE_WIDTH * 0.72,
-                                    height: DEVICE_HEIGHT * 0.25,
-                                    child: PatternView(
-                                      state: controller.state,
-                                      value: controller.inputPattern,
-                                      onStart: () {
-                                        if (controller.state !=
-                                            PatternState.active) {
-                                          controller.inputPattern = <int>[];
-                                          controller.state =
-                                              PatternState.active;
-                                          controller.update();
-                                        }
-                                      },
-                                      onUpdate: (List<int> value) {
-                                        controller.inputPattern = value;
-                                        controller.update();
-                                      },
-                                      onEnd: (List<int> value) {
-                                        controller.inputPattern = value;
-                                        controller.inputPatternWhenClick();
-                                      },
-                                    ),
-                                  ),
+                            child: SizedBox(
+                              width: 270,
+                              height: 200,
+                              child: PatternView(
+                                state: controller.state,
+                                value: controller.inputPattern,
+                                onStart: controller.startPattern,
+                                onUpdate: controller.updatePattern,
+                                onEnd: (List<int> pattern) {
+                                  controller.updatePattern(pattern);
+                                  controller.validatePattern();
+                                },
+                              ),
+                            ),
+                            // child: isSignIn
+                            //     ? SizedBox(
+                            //         width: 270,
+                            //         height: 200,
+                            //         child: PatternView(
+                            //           state: controller.state,
+                            //           value: controller.inputPattern,
+                            //           onStart: controller.startPattern,
+                            //           onUpdate: controller.updatePattern,
+                            //           onEnd: (List<int> pattern) {
+                            //             controller.updatePattern(pattern);
+                            //             controller.validatePattern();
+                            //           },
+                            //         ),
+                            //       )
+                            //     : SizedBox(
+                            //         width: DEVICE_WIDTH * 0.72,
+                            //         height: DEVICE_HEIGHT * 0.25,
+                            //         child: PatternView(
+                            //           state: controller.state,
+                            //           value: controller.inputPattern,
+                            //           onStart: () {},
+                            //           onUpdate: (_) {},
+                            //           onEnd: (_) {},
+                            //         ),
+                            //       ),
                           ),
                         ),
                         SizedBox(height: DEVICE_HEIGHT * 0.053),
+                        // if (isSignIn)
                         if (controller.showForgetPatter)
                           Text.rich(
                             TextSpan(
@@ -178,10 +182,11 @@ class PatternLock extends StatelessWidget {
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
                                       Get.to(
-                                        CustomOtp(
-                                          goToRoutePatternOrSuccess:
-                                              routePatternLock,
-                                        ),
+                                        CustomOtp(),
+                                        // CustomOtp(
+                                        //   goToRoutePatternOrSuccess:
+                                        //       routePatternLock,
+                                        // ),
                                       );
                                       controller.showForgetPatter = false;
                                     },
@@ -191,13 +196,14 @@ class PatternLock extends StatelessWidget {
                           )
                         else
                           const SizedBox(),
-                        if (!controller.checkFunctionRegiserOrSignIn())
-                          StepsBtn(
-                            onPressed: () {
-                              // controller.onNextButtonPress();
-                            },
-                            text: 'next'.tr,
-                          ),
+                        // if (!controller.checkFunctionRegiserOrSignIn())
+                        //   StepsBtn(
+                        //     onPressed: () {
+                        //       controller.state = PatternState.active;
+                        //       controller.update();
+                        //     },
+                        //     text: 'next'.tr,
+                        //   ),
                       ],
                     ),
                   ],

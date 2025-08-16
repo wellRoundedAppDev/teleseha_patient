@@ -8,9 +8,10 @@ class StartStepsController extends GetxController {
   int currentStep = 1;
   int numberOfStep = 4;
   String? selectedMaleCode = 'male';
-  String? argumentValue;
+  // String? argumentValue;
   bool isCountdownRunning = false;
-  bool? checkSignInOrSignUp;
+  bool? checkSignInOrSignUp = false;
+  final bool isSignIn = false;
 
   TextEditingController textFieldPhoneNumber = TextEditingController();
   TextEditingController otpController = TextEditingController();
@@ -93,28 +94,27 @@ class StartStepsController extends GetxController {
     }
   }
 
-  void setArgument(String? value) {
-    if (checkOtp()) {
-      argumentValue = value;
-      if (value == '/pattern-lock') {
-        Get.toNamed(routePatternLock);
-        checkSignInOrSignUp = true;
-      } else {
-        Get.toNamed(routeCreateAccountSuccess);
-        checkSignInOrSignUp = false;
-      }
-    }
+  // void setArgument(String? value) {
+  //   if (checkOtp()) {
+  //     argumentValue = value;
+  //     update();
+  //   }
+  // }
+
+  void resetSignInOrRegister() {
+    checkSignInOrSignUp = null;
+    // argumentValue = null;
     update();
   }
 
   void onNextButtonPress() {
-    if (currentStep == 1) {
-      if (canGoToStepTwo()) {
-        consoleLog(textFieldPhoneNumber.text);
-        ++currentStep;
-        update();
-      }
-    }
+    // if (currentStep == 1) {
+    //   if (canGoToStepTwo()) {
+    //     consoleLog(textFieldPhoneNumber.text);
+    //     ++currentStep;
+    //     update();
+    //   }
+    // }
     // else if (currentStep == 2) {
     // canGoToStepThree();
     // } else if (currentStep == 3) {

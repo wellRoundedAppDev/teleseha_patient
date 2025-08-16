@@ -115,12 +115,12 @@ class LoginController extends GetxController {
     consoleLog('true');
   }
 
-  bool checkFunctionRegiserOrSignIn() {
-    final String? argument = startStepsController.argumentValue;
-    if (argument != '/pattern-lock') {
-      return startStepsController.checkSignInOrSignUp = true;
-    } else {
-      return startStepsController.checkSignInOrSignUp = false;
-    }
-  }
+  // bool checkFunctionRegiserOrSignIn() {
+  //   final String? argument = startStepsController.argumentValue;
+  //   if (argument != '/pattern-lock') {
+  //     return startStepsController.checkSignInOrSignUp = true;
+  //   } else {
+  //     return startStepsController.checkSignInOrSignUp = false;
+  //   }
+  // }
 }

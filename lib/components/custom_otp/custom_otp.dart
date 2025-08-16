@@ -198,7 +198,17 @@ class CustomOtp extends StatelessWidget {
                           SizedBox(height: DEVICE_HEIGHT * 0.079),
                           StepsBtn(
                             onPressed: () {
-                              controller.setArgument(goToRoutePatternOrSuccess);
+                              if (controller.checkOtp()) {
+                                // final bool isSignIn = false;
+                                // controller.argumentValue =
+                                //     goToRoutePatternOrSuccess;
+                                Get.to(
+                                  const PatternLock(),
+                                  // arguments: <String, bool>{
+                                  // 'isSignIn': isSignIn,
+                                  // },
+                                );
+                              }
                             },
                             text: 'next'.tr,
                           ),
