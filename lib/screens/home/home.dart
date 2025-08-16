@@ -11,7 +11,7 @@ class Home extends StatelessWidget {
         init: HomeController(),
         builder: (HomeController controller) {
           return Column(
-            children: [
+            children: <Widget>[
               const StatusBar(),
               SizedBox(height: DEVICE_HEIGHT * 0.025),
               const ContentArea(),

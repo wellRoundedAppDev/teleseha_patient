@@ -23,6 +23,7 @@ double physicalWidth = physicalScreenSize.width;
 double physicalHeight = physicalScreenSize.height;
 
 /// Size in logical pixels
+// ignore: deprecated_member_use
 Size logicalScreenSize = window.physicalSize / pixelRatio;
 
 ///  ignore: duplicate_ignore, non_constant_identifier_names

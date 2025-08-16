@@ -1,11 +1,13 @@
 import 'dart:async';
+
 import 'package:fluttertoast/fluttertoast.dart';
+
 import '../../../general_exports.dart';
 
 class FingerPrintController extends GetxController {
   final LocalAuthentication auth = LocalAuthentication();
 
-  checkUserAndNavigate() {
+  void checkUserAndNavigate() {
     final bool userData = false;
     // ignore: dead_code
     if (userData) {

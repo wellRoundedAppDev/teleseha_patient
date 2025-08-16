@@ -1,4 +1,5 @@
 import 'package:flutter_svg/flutter_svg.dart';
+
 import '../../../general_exports.dart';
 
 class CreateAccountSuccess extends StatelessWidget {
@@ -11,7 +12,7 @@ class CreateAccountSuccess extends StatelessWidget {
         width: DEVICE_WIDTH,
         margin: EdgeInsets.symmetric(vertical: DEVICE_HEIGHT * 0.11),
         child: Column(
-          children: [
+          children: <Widget>[
             const Logo(),
             SizedBox(height: DEVICE_HEIGHT * 0.07),
             SvgPicture.asset(

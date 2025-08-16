@@ -34,7 +34,7 @@ void showMessage({
           ? const Color(0xffFFF4EC) // warning
           : type == MessageTypes.info
           ? const Color(0xffEEF2FA) // info
-          : Colors.white.withOpacity(0.8)); // basic
+          : Colors.white.withValues(alpha: 0.8)); // basic
 
   Get.snackbar(
     '',

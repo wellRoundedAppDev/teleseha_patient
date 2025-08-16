@@ -1,7 +1,7 @@
 import '../../general_exports.dart';
 
 class Splash extends StatelessWidget {
-  const Splash({Key? key}) : super(key: key);
+  const Splash({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -21,10 +21,10 @@ class LoginController extends GetxController {
     }
     showPhoneNumberError = false;
     update();
-    // check request if textfieldphonenumber true open routepatternlock else open routesteps
+    // check request if textfield phone number true open route pattern lock else open route steps
     if (textFieldPhoneNumber.text == '222') {
       argumentValue = 0.6;
-      Get.to(PatternLock());
+      Get.to(const PatternLock());
       update();
     } else {
       Get.toNamed(routeSteps);
@@ -87,6 +87,7 @@ class LoginController extends GetxController {
 
       showForgetPatter = true;
 
+      // ignore: always_specify_types
       Future.delayed(const Duration(seconds: 2), () {
         if (currentAttempt == attemptId) {
           resetPattern();

@@ -9,6 +9,7 @@ class StartStepsController extends GetxController {
   int numberOfStep = 4;
   String? selectedMaleCode = 'male';
   String? argumentValue;
+  bool isCountdownRunning = false;
   bool? checkSignInOrSignUp;
 
   TextEditingController textFieldPhoneNumber = TextEditingController();
@@ -33,12 +34,6 @@ class StartStepsController extends GetxController {
     <String, String>{gender: 'female'.tr, icon: iconFemale, code: 'female'},
     <String, String>{gender: 'male'.tr, icon: iconMale, code: 'male'},
   ];
-
-  @override
-  void onInit() {
-    super.onInit();
-    startTimerManually();
-  }
 
   void minusSelectedSteps() {
     currentStep--;
@@ -79,12 +74,6 @@ class StartStepsController extends GetxController {
     return !showPhoneNumberError;
   }
 
-  void canGoToStepThree() {
-    consoleLog('User pattern input: $patterns');
-    ++currentStep;
-    update();
-  }
-
   bool canGoToStepFour() {
     showNameError = textFieldName.text.isEmpty;
     showdateControllerError = dateController.text.isEmpty;
@@ -95,7 +84,6 @@ class StartStepsController extends GetxController {
 
   bool checkOtp() {
     if (!isValidOtpIsValid()) {
-      timer?.cancel();
       markOtpInvalid();
       return false;
     } else {
@@ -106,8 +94,8 @@ class StartStepsController extends GetxController {
   }
 
   void setArgument(String? value) {
-    argumentValue = value;
     if (checkOtp()) {
+      argumentValue = value;
       if (value == '/pattern-lock') {
         Get.toNamed(routePatternLock);
         checkSignInOrSignUp = true;
@@ -116,10 +104,6 @@ class StartStepsController extends GetxController {
         checkSignInOrSignUp = false;
       }
     }
-    textFieldPhoneNumber.clear();
-    otpController.clear();
-    textFieldName.clear();
-    dateController.clear();
     update();
   }
 
@@ -172,14 +156,18 @@ class StartStepsController extends GetxController {
   }
 
   void restartTimer() {
-    timer?.cancel();
-    secondsRemaining = 70;
-    update();
-    startCountdown();
-    consoleLog('تمت إعادة إرسال الكود');
+    if (!isCountdownRunning) {
+      secondsRemaining = 70;
+      update();
+      startCountdown();
+    }
   }
 
   void startCountdown() {
+    if (isCountdownRunning) {
+      return;
+    }
+    isCountdownRunning = true;
     timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       if (secondsRemaining > 0) {
         secondsRemaining--;
@@ -192,7 +180,7 @@ class StartStepsController extends GetxController {
   }
 
   void onTimeFinished() {
-    consoleLog('انتهى الوقت');
+    isCountdownRunning = false;
   }
 
   String get formattedTime {

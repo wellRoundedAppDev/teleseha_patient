@@ -73,6 +73,7 @@ class DiagnosisRecipient extends StatelessWidget {
                                   width: DEVICE_WIDTH * 0.05,
                                   height: DEVICE_HEIGHT * 0.05,
                                   fit: BoxFit.cover,
+                                  // ignore: deprecated_member_use
                                   color: isActive ? Colors.white : Colors.black,
                                 ),
                                 SizedBox(height: DEVICE_HEIGHT * 0.02),

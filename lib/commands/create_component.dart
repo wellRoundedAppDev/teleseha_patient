@@ -2,8 +2,8 @@
 
 import 'dart:convert';
 import 'dart:io';
+import '../general_exports.dart';
 
-import 'package:patient/general_exports.dart';
 
 void main() async {
   // You can write the name of the component like this TextInput or text_input

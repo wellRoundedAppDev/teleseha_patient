@@ -10,7 +10,7 @@ class TypeController extends GetxController {
   bool showdateControllerError = false;
   bool showNameError = false;
 
-  void pickDate(BuildContext context) async {
+  Future<void> pickDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: selectedDate.value,
@@ -27,7 +27,7 @@ class TypeController extends GetxController {
       dateController.text = formattedDate;
       update();
     } else {
-      print('❌ Date picker dismissed');
+      consoleLog('❌ Date picker dismissed');
     }
   }
 

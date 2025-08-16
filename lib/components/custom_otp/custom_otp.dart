@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pinput/pinput.dart';
 
@@ -11,8 +12,12 @@ class CustomOtp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<StartStepsController>(
-      init: StartStepsController(),
       builder: (StartStepsController controller) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (!controller.isCountdownRunning) {
+            controller.startCountdown();
+          }
+        });
         return Scaffold(
           appBar: PreferredSize(
             preferredSize: const Size.fromHeight(kToolbarHeight),
@@ -149,35 +154,34 @@ class CustomOtp extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              GestureDetector(
-                                onTap: () {
-                                  controller.restartTimer();
-                                },
-                                child: Text.rich(
-                                  TextSpan(
-                                    children: <InlineSpan>[
-                                      TextSpan(
-                                        text: '${'resend'.tr} ',
-                                        style: const TextStyle(
-                                          fontFamily: 'Cairo',
-                                          fontSize: 11,
-                                          fontWeight: FontWeight.w700,
-                                          color: Color(AppColors.colorReset),
-                                        ),
+                              Text.rich(
+                                TextSpan(
+                                  children: <InlineSpan>[
+                                    TextSpan(
+                                      text: '${'resend'.tr} ',
+                                      style: const TextStyle(
+                                        fontFamily: 'Cairo',
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w700,
+                                        color: Color(AppColors.colorReset),
                                       ),
-                                      TextSpan(
-                                        text: 'again_resend'.tr,
-                                        style: TextStyle(
-                                          fontFamily: 'Cairo',
-                                          fontSize: 11,
-                                          fontWeight: FontWeight.w700,
-                                          color: const Color(
-                                            AppColors.colorLineAndText,
-                                          ).withValues(alpha: 60),
-                                        ),
+                                    ),
+                                    TextSpan(
+                                      text: 'again_resend'.tr,
+                                      style: TextStyle(
+                                        fontFamily: 'Cairo',
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w700,
+                                        color: const Color(
+                                          AppColors.colorLineAndText,
+                                        ).withValues(alpha: 60),
                                       ),
-                                    ],
-                                  ),
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = () {
+                                          controller.restartTimer();
+                                        },
+                                    ),
+                                  ],
                                 ),
                               ),
                               Text(
@@ -224,7 +228,7 @@ final PinTheme defaultPinTheme = PinTheme(
     border: Border.all(color: const Color(AppColors.colorLineAndText)),
     boxShadow: <BoxShadow>[
       BoxShadow(
-        color: Colors.black.withOpacity(0.1),
+        color: Colors.black.withValues(alpha: 0.1),
         spreadRadius: 1,
         blurRadius: 5,
         offset: const Offset(0, 2),

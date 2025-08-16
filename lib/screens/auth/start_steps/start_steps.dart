@@ -91,6 +91,7 @@ class StartSteps extends StatelessWidget {
                         SizedBox(height: DEVICE_HEIGHT * 0.025),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
+                        // ignore: always_specify_types
                         children: List.generate(controller.numberOfStep, (
                           int index,
                         ) {
