@@ -37,7 +37,7 @@ class Login extends StatelessWidget {
           body: Container(
             margin: EdgeInsets.symmetric(
               vertical: DEVICE_HEIGHT * 0.035,
-              horizontal: DEVICE_HEIGHT * 0.02,
+              horizontal: DEVICE_HEIGHT * 0.03,
             ),
             child: SingleChildScrollView(
               child: Column(

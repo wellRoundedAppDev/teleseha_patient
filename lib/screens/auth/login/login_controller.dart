@@ -5,32 +5,12 @@ import '../../../general_exports.dart';
 
 class LoginController extends GetxController {
   final TextEditingController textFieldPhoneNumber = TextEditingController();
+  List<int> tempSavedPattern = <int>[];
 
-  final StartStepsController startStepsController = Get.put(
-    StartStepsController(),
-  );
+  String pageResolution = 'signIn';
 
   bool showPhoneNumberError = false;
   double argumentValue = 0.0;
-
-  bool handleLogin() {
-    if (textFieldPhoneNumber.text.isEmpty) {
-      showPhoneNumberError = true;
-      update();
-      return false;
-    }
-    showPhoneNumberError = false;
-    update();
-    // check request if textfield phone number true open route pattern lock else open route steps
-    if (textFieldPhoneNumber.text == '222') {
-      argumentValue = 0.6;
-      Get.to(const PatternLock());
-      update();
-    } else {
-      Get.toNamed(routeSteps);
-    }
-    return true;
-  }
 
   // check pass about data if true open the user and open response users and loop to users and view to list view
   final List<int> passPattern = <int>[0, 1, 2, 3, 4];
@@ -53,6 +33,38 @@ class LoginController extends GetxController {
     <String, dynamic>{'id': 10, 'icon': iconUser, 'name': 'name_user'.tr},
     <String, dynamic>{'id': 11, 'icon': iconUser, 'name': 'name_user_tow'.tr},
   ];
+
+  // final StartStepsController startStepsController = Get.put(
+  //   StartStepsController(),
+  // );
+
+  void updatePageResolution(String newResolution) {
+    pageResolution = newResolution;
+    update();
+  }
+
+  bool handleLogin() {
+    if (textFieldPhoneNumber.text.isEmpty) {
+      showPhoneNumberError = true;
+      update();
+      return false;
+    }
+    showPhoneNumberError = false;
+    update();
+    // check request if textfield phone number true open route pattern lock else open route steps
+    if (textFieldPhoneNumber.text == '222') {
+      argumentValue = 0.6;
+      pageResolution = 'signIn';
+      Get.to(() => PatternLock());
+      update();
+      textFieldPhoneNumber.clear();
+    } else {
+      updatePageResolution('signUp');
+      Get.toNamed(routeSteps);
+      textFieldPhoneNumber.clear();
+    }
+    return true;
+  }
 
   void resetPattern() {
     inputPattern.clear();
@@ -80,7 +92,7 @@ class LoginController extends GetxController {
         backgroundColor: const Color(AppColors.colorSuccessLine),
         colorText: const Color(0xFFFFFFFF),
       );
-      Get.toNamed(routeLoginAboutHow);
+      resetPattern();
     } else {
       state = PatternState.error;
       update();
@@ -96,6 +108,47 @@ class LoginController extends GetxController {
     }
   }
 
+  // create verification for existingUser about user
+  void createVerificationForExistingUser() {
+    if (pageResolution == 'update') {
+      if (inputPattern.isNotEmpty) {
+        tempSavedPattern = <int>[...inputPattern];
+        resetPattern();
+        updatePageResolution('verifyPattern');
+        state = PatternState.success;
+        update();
+      } else {
+        Get.snackbar(
+          'error'.tr,
+          'error_pattern'.tr,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+      }
+    } else if (pageResolution == 'verifyPattern') {
+      if (listEquals(tempSavedPattern, inputPattern)) {
+        state = PatternState.success;
+        update();
+        consoleLog(tempSavedPattern);
+        pageResolution = 'signIn';
+        resetPattern();
+        tempSavedPattern.clear();
+        Get.toNamed(routeLoginAboutHow);
+      } else {
+        state = PatternState.error;
+        update();
+        Get.snackbar(
+          'error'.tr,
+          'error_pattern'.tr,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+        resetPattern();
+        updatePageResolution('update');
+      }
+    }
+  }
+
   void startPattern() {
     if (state == PatternState.error || state == PatternState.success) {
       resetPattern();
@@ -103,16 +156,6 @@ class LoginController extends GetxController {
       state = PatternState.active;
       update();
     }
-  }
-
-  void inputPatternWhenClick() {
-    consoleLog('User pattern input: $inputPattern');
-    update();
-  }
-
-  // create verification for existingUser about user
-  void createVerificationForExistingUser() {
-    consoleLog('true');
   }
 
   // bool checkFunctionRegiserOrSignIn() {

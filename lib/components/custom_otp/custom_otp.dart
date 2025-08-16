@@ -5,19 +5,15 @@ import 'package:pinput/pinput.dart';
 import '../../../general_exports.dart';
 
 class CustomOtp extends StatelessWidget {
-  CustomOtp({super.key, this.goToRoutePatternOrSuccess});
+  CustomOtp({super.key});
 
-  String? goToRoutePatternOrSuccess;
+  LoginController login = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<StartStepsController>(
+      init: StartStepsController(),
       builder: (StartStepsController controller) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          if (!controller.isCountdownRunning) {
-            controller.startCountdown();
-          }
-        });
         return Scaffold(
           appBar: PreferredSize(
             preferredSize: const Size.fromHeight(kToolbarHeight),
@@ -29,6 +25,7 @@ class CustomOtp extends StatelessWidget {
                   hoverColor: Colors.transparent,
                   splashColor: Colors.transparent,
                   onTap: () {
+                    login.updatePageResolution('signIn');
                     Get.back();
                   },
                   child: Center(
@@ -45,10 +42,10 @@ class CustomOtp extends StatelessWidget {
           ),
           body: SingleChildScrollView(
             child: Container(
-              margin: EdgeInsets.symmetric(horizontal: DEVICE_HEIGHT * 0.02),
+              margin: EdgeInsets.symmetric(horizontal: DEVICE_HEIGHT * 0.03),
               child: Center(
                 child: Column(
-                  children: <Widget>[
+                  children: <Widget>[                    
                     const Logo(),
                     SizedBox(height: DEVICE_HEIGHT * 0.014),
                     SizedBox(
@@ -198,19 +195,9 @@ class CustomOtp extends StatelessWidget {
                           SizedBox(height: DEVICE_HEIGHT * 0.079),
                           StepsBtn(
                             onPressed: () {
-                              if (controller.checkOtp()) {
-                                // final bool isSignIn = false;
-                                // controller.argumentValue =
-                                //     goToRoutePatternOrSuccess;
-                                Get.to(
-                                  const PatternLock(),
-                                  // arguments: <String, bool>{
-                                  // 'isSignIn': isSignIn,
-                                  // },
-                                );
-                              }
+                              controller.checkOtpToNextPage();
                             },
-                            text: 'next'.tr,
+                            text: 'confirm_otp'.tr,
                           ),
                         ],
                       ),

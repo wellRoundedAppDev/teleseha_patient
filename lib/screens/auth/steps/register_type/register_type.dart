@@ -2,8 +2,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../general_exports.dart';
 
-class StepThree extends StatelessWidget {
-  const StepThree({super.key});
+// ignore: camel_case_types
+class RegisterType extends StatelessWidget {
+  const RegisterType({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class StepThree extends StatelessWidget {
         return Column(
           children: <Widget>[
             Container(
-              margin: EdgeInsets.symmetric(horizontal: DEVICE_WIDTH * 0.06),
+              margin: EdgeInsets.symmetric(horizontal: DEVICE_WIDTH * 0.035),
               child: CustomInput(
                 title: 'name'.tr,
                 hint: 'name_field'.tr,
@@ -21,16 +22,19 @@ class StepThree extends StatelessWidget {
                 showValidMessage: controller.showNameError,
                 textIsValid: 'is_valid_name_field'.tr,
                 widthContainer: 0.90,
+                fontSize: 20,
                 colorLabel: AppColors.colorLineAndText,
                 keyboardType: TextInputType.text,
+                bottomSpacing: DEVICE_HEIGHT * 0.0,
               ),
             ),
+            SizedBox(height: DEVICE_HEIGHT * 0.022),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Container(
-                  margin: const EdgeInsets.only(top: 2, right: 15),
+                  margin: const EdgeInsets.only(top: 1, right: 15),
                   child: CustomInput(
                     onTap: () {
                       controller.pickDate(context);
@@ -42,6 +46,8 @@ class StepThree extends StatelessWidget {
                     showValidMessage: controller.showdateControllerError,
                     textIsValid: 'is_valid_enter_age'.tr,
                     widthContainer: 0.35,
+                    fontSize: 20,
+                    sizespace: 0.019,
                     colorLabel: AppColors.colorLineAndText,
                     keyboardType: TextInputType.text,
                     suffixIconPath: iconDate,
@@ -57,7 +63,7 @@ class StepThree extends StatelessWidget {
                       fontWeight: FontWeight.w400,
                       color: const Color(AppColors.colorLineAndText),
                     ),
-                    SizedBox(height: DEVICE_HEIGHT * 0.02),
+                    SizedBox(height: DEVICE_HEIGHT * 0.019),
                     Row(
                       children: controller.typeGenerate.map<Widget>((
                         Map<String, String> item,
@@ -86,7 +92,7 @@ class StepThree extends StatelessWidget {
                                 ),
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 10,
-                                  vertical: 20,
+                                  vertical: 18,
                                 ),
                                 child: Row(
                                   children: <Widget>[

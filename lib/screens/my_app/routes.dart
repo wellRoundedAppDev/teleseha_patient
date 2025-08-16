@@ -6,8 +6,11 @@ List<GetPage<dynamic>> appRoutes = <GetPage<dynamic>>[
   GetPage<FingerPrint>(name: routeFingerPrint, page: () => const FingerPrint()),
   GetPage<Login>(name: routeLogin, page: () => const Login()),
   GetPage<FingerPrint>(name: routeFingerPrint, page: () => const FingerPrint()),
-  GetPage<PatternLock>(name: routePatternLock, page: () => PatternLock()),
-  GetPage<StartSteps>(name: routeSteps, page: () => const StartSteps()),
+  GetPage<LoginAboutHow>(
+    name: routeLoginAboutHow,
+    page: () => const LoginAboutHow(),
+  ),
+  GetPage<StartSteps>(name: routeSteps, page: () => StartSteps()),
   GetPage<CreateAccountSuccess>(
     name: routeCreateAccountSuccess,
     page: () => const CreateAccountSuccess(),
@@ -15,10 +18,6 @@ List<GetPage<dynamic>> appRoutes = <GetPage<dynamic>>[
   GetPage<DiagnosisRecipient>(
     name: routeDiagnosis,
     page: () => const DiagnosisRecipient(),
-  ),
-  GetPage<TypeChildren>(
-    name: routeSelectTypeChildren,
-    page: () => const TypeChildren(),
   ),
   GetPage<MedicalHistory>(
     name: routeFormDiagnosis,

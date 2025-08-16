@@ -37,7 +37,7 @@ class FingerPrint extends StatelessWidget {
             child: Container(
               margin: EdgeInsets.symmetric(
                 vertical: DEVICE_HEIGHT * 0.03,
-                horizontal: DEVICE_HEIGHT * 0.02,
+                horizontal: DEVICE_HEIGHT * 0.03,
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

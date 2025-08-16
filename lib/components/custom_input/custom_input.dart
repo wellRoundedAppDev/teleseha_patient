@@ -19,6 +19,7 @@ class CustomInput extends StatelessWidget {
     this.fontSize = 18,
     this.readOnly = false,
     this.onTap,
+    this.sizespace = 0.021,
   });
 
   final String? title;
@@ -35,6 +36,7 @@ class CustomInput extends StatelessWidget {
   final double fontSize;
   final bool readOnly;
   final Function? onTap;
+  final double? sizespace;
 
   @override
   Widget build(BuildContext context) {
@@ -47,13 +49,16 @@ class CustomInput extends StatelessWidget {
           fontSize: fontSize,
           color: Color(colorLabel!),
         ),
-        SizedBox(height: DEVICE_HEIGHT * 0.021),
+        SizedBox(height: DEVICE_HEIGHT * sizespace!),
         Container(
           width: DEVICE_WIDTH * widthContainer,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: const Color(AppColors.colorWhite)),
+            border: Border.all(
+              color: const Color(AppColors.colorWhite),
+              width: 0.8,
+            ),
           ),
           child: TextFormField(
             onTap: () {

@@ -64,4 +64,9 @@ const Map<String, String> ar = <String, String>{
   'create_account_me': 'تسجيل الدخول الى',
   'are_you_forget_pass': 'هل نسيت النمط؟',
   'create_new_pattern': 'إنشاء نمط جديد',
+  'confirm_otp': 'تأكيد',
+  'error_pattern': 'فشل إنشاء النمط. يُرجى المحاولة مرة أخرى.',
+  'error': 'مشكلة',
+  'patter_success_confirmed': 'تم تأكيد النمط بنجاح',
+  'success_pattern': 'نجاح',
 };

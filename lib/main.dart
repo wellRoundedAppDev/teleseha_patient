@@ -9,7 +9,7 @@ import 'general_exports.dart';
 
 Future<void> main() async {
   await GetStorage.init();
-  Get.put(StartStepsController());
+  // Get.put(StartStepsController());
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations(<DeviceOrientation>[
     DeviceOrientation.portraitUp,
@@ -23,7 +23,6 @@ Future<void> main() async {
   });
 
   consoleLogPretty(baseUrl, key: 'baseUrl');
-  Get.put(MyAppController());
   HttpOverrides.global = MyHttpOverrides();
   runApp(const MyApp());
 }
