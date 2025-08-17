@@ -15,10 +15,6 @@ List<GetPage<dynamic>> appRoutes = <GetPage<dynamic>>[
     name: routeCreateAccountSuccess,
     page: () => const CreateAccountSuccess(),
   ),
-  GetPage<DiagnosisRecipient>(
-    name: routeDiagnosis,
-    page: () => const DiagnosisRecipient(),
-  ),
   GetPage<MedicalHistory>(
     name: routeFormDiagnosis,
     page: () => const MedicalHistory(),

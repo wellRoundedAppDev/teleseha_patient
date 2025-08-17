@@ -4,6 +4,7 @@ import '../../../../general_exports.dart';
 
 class MedicalHistory extends StatelessWidget {
   const MedicalHistory({super.key});
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<DiagnosisRecipientController>(
@@ -32,6 +33,23 @@ class MedicalHistory extends StatelessWidget {
                   ),
                 ),
                 backgroundColor: Colors.transparent,
+                elevation: 0,
+                actions: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(right: DEVICE_WIDTH * 0.035),
+                    child: TextButton(
+                      onPressed: () {
+                        Get.to(CustomOtp());
+                      },
+                      child: CustomText(
+                        text: 'skep'.tr,
+                        type: CustomTextType.title,
+                        fontSize: 10,
+                        color: const Color(AppColors.colorBlack),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -40,20 +58,13 @@ class MedicalHistory extends StatelessWidget {
               width: DEVICE_WIDTH,
               child: Column(
                 children: <Widget>[
-                  if (controller.isMyChildrenSelected == 'aboutMe')
-                    CustomText(
-                      text: 'medical_history'.tr,
-                      fontSize: 24,
-                      type: CustomTextType.title,
-                      color: const Color(AppColors.colorTextBlue),
-                    )
-                  else
-                    CustomText(
-                      text: 'medical_history_about_children'.tr,
-                      fontSize: 24,
-                      type: CustomTextType.title,
-                      color: const Color(AppColors.colorTextBlue),
-                    ),
+                  SizedBox(height: DEVICE_HEIGHT * 0.035),
+                  CustomText(
+                    text: 'medical_history'.tr,
+                    fontSize: 24,
+                    type: CustomTextType.title,
+                    color: const Color(AppColors.colorTextBlue),
+                  ),
                   SizedBox(height: DEVICE_HEIGHT * 0.05),
                   CustomInput(
                     title: 'chronic_diseases'.tr,
@@ -64,6 +75,7 @@ class MedicalHistory extends StatelessWidget {
                     colorLabel: AppColors.colorLabel,
                     keyboardType: TextInputType.number,
                     fontSize: 16,
+                    sizespace: 0.005,
                   ),
                   CustomInput(
                     title: 'surgical_operations'.tr,
@@ -74,6 +86,7 @@ class MedicalHistory extends StatelessWidget {
                     colorLabel: AppColors.colorLabel,
                     keyboardType: TextInputType.number,
                     fontSize: 16,
+                    sizespace: 0.005,
                   ),
                   CustomInput(
                     title: 'continuous_medications'.tr,
@@ -84,6 +97,7 @@ class MedicalHistory extends StatelessWidget {
                     colorLabel: AppColors.colorLabel,
                     keyboardType: TextInputType.number,
                     fontSize: 16,
+                    sizespace: 0.005,
                   ),
                   CustomInput(
                     title: 'allergies'.tr,
@@ -94,14 +108,15 @@ class MedicalHistory extends StatelessWidget {
                     colorLabel: AppColors.colorLabel,
                     keyboardType: TextInputType.number,
                     fontSize: 16,
+                    sizespace: 0.005,
+                    bottomSpacing: 0.058,
                   ),
-                  SizedBox(height: DEVICE_HEIGHT * 0.01),
                   Btn(
                     text: 'next'.tr,
                     color: const Color(AppColors.colorLineAndText),
                     onPressed: () {
                       controller.dedicalHistory()
-                          ? Get.toNamed(routeHome)
+                          ? Get.to(CustomOtp())
                           : const SizedBox();
                     },
                   ),

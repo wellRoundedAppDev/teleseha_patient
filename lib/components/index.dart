@@ -9,4 +9,5 @@ export 'logo/index.dart';
 export 'pattern_container/index.dart';
 export 'pattern_lock/index.dart';
 export 'status_bar/index.dart';
+export 'step_indicator/index.dart';
 export 'steps_btn/index.dart';

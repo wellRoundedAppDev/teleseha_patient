@@ -37,6 +37,25 @@ class CustomOtp extends StatelessWidget {
                   ),
                 ),
                 backgroundColor: Colors.transparent,
+                title: login.pageResolution == 'signUp'
+                    ? SizedBox(
+                        width: DEVICE_WIDTH * 0.425,
+                        height: DEVICE_HEIGHT * 0.0108,
+                        child: LinearProgressIndicator(
+                          value: 1,
+                          borderRadius: BorderRadius.circular(15),
+                          backgroundColor: const Color(
+                            AppColors.colorSuccessLine,
+                          ),
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            const Color(
+                              AppColors.colorLineAndText,
+                            ).withValues(alpha: 0.2),
+                          ),
+                        ),
+                      )
+                    : const SizedBox(),
+                centerTitle: true,
               ),
             ),
           ),
@@ -45,7 +64,11 @@ class CustomOtp extends StatelessWidget {
               margin: EdgeInsets.symmetric(horizontal: DEVICE_HEIGHT * 0.03),
               child: Center(
                 child: Column(
-                  children: <Widget>[                    
+                  children: <Widget>[
+                    if (login.pageResolution == 'signUp')
+                      SizedBox(height: DEVICE_HEIGHT * 0.015)
+                    else
+                      const SizedBox(),
                     const Logo(),
                     SizedBox(height: DEVICE_HEIGHT * 0.014),
                     SizedBox(
@@ -192,7 +215,15 @@ class CustomOtp extends StatelessWidget {
                               ),
                             ],
                           ),
-                          SizedBox(height: DEVICE_HEIGHT * 0.079),
+                          SizedBox(height: DEVICE_HEIGHT * 0.07),
+                          if (login.pageResolution == 'signUp')
+                            StepIndicator(
+                              currentStep: controller.currentStep + 1,
+                              totalSteps: controller.numberOfStep,
+                            )
+                          else
+                            const SizedBox(),
+                          SizedBox(height: DEVICE_HEIGHT * 0.048),
                           StepsBtn(
                             onPressed: () {
                               controller.checkOtpToNextPage();

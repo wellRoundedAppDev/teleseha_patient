@@ -34,7 +34,7 @@ class RegisterType extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Container(
-                  margin: const EdgeInsets.only(top: 1, right: 15),
+                  margin: const EdgeInsets.only(top: 1, right: 18),
                   child: CustomInput(
                     onTap: () {
                       controller.pickDate(context);
@@ -45,7 +45,7 @@ class RegisterType extends StatelessWidget {
                     controller: controller.dateController,
                     showValidMessage: controller.showdateControllerError,
                     textIsValid: 'is_valid_enter_age'.tr,
-                    widthContainer: 0.35,
+                    widthContainer: 0.38,
                     fontSize: 20,
                     sizespace: 0.019,
                     colorLabel: AppColors.colorLineAndText,

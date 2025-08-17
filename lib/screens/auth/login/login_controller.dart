@@ -34,10 +34,6 @@ class LoginController extends GetxController {
     <String, dynamic>{'id': 11, 'icon': iconUser, 'name': 'name_user_tow'.tr},
   ];
 
-  // final StartStepsController startStepsController = Get.put(
-  //   StartStepsController(),
-  // );
-
   void updatePageResolution(String newResolution) {
     pageResolution = newResolution;
     update();
@@ -80,8 +76,9 @@ class LoginController extends GetxController {
   void validatePattern() {
     final int currentAttempt = ++attemptId;
 
-    debugPrint('Input Pattern: $inputPattern');
-    debugPrint('Expected Pattern: $passPattern');
+    consoleLog('Input Pattern: $inputPattern');
+    consoleLog('Expected Pattern: $passPattern');
+    consoleLog('state: $state');
 
     if (listEquals(passPattern, inputPattern)) {
       state = PatternState.success;
@@ -131,8 +128,6 @@ class LoginController extends GetxController {
         update();
         consoleLog(tempSavedPattern);
         pageResolution = 'signIn';
-        resetPattern();
-        tempSavedPattern.clear();
         Get.toNamed(routeLoginAboutHow);
       } else {
         state = PatternState.error;
@@ -143,7 +138,6 @@ class LoginController extends GetxController {
           backgroundColor: Colors.red,
           colorText: Colors.white,
         );
-        resetPattern();
         updatePageResolution('update');
       }
     }
@@ -151,19 +145,10 @@ class LoginController extends GetxController {
 
   void startPattern() {
     if (state == PatternState.error || state == PatternState.success) {
-      resetPattern();
-    } else {
-      state = PatternState.active;
-      update();
+      inputPattern.clear();
+      state = PatternState.normal;
     }
+    state = PatternState.active;
+    update();
   }
-
-  // bool checkFunctionRegiserOrSignIn() {
-  //   final String? argument = startStepsController.argumentValue;
-  //   if (argument != '/pattern-lock') {
-  //     return startStepsController.checkSignInOrSignUp = true;
-  //   } else {
-  //     return startStepsController.checkSignInOrSignUp = false;
-  //   }
-  // }
 }

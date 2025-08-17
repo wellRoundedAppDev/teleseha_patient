@@ -24,9 +24,9 @@ class FingerPrint extends StatelessWidget {
                     },
                     child: CustomText(
                       text: 'skep'.tr,
-                      type: CustomTextType.button,
-                      fontSize: 12,
-                      color: const Color(AppColors.colorReset),
+                      type: CustomTextType.title,
+                      fontSize: 10,
+                      color: const Color(AppColors.colorBlack),
                     ),
                   ),
                 ],

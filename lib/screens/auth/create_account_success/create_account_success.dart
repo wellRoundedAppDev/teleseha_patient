@@ -14,14 +14,14 @@ class CreateAccountSuccess extends StatelessWidget {
         child: Column(
           children: <Widget>[
             const Logo(),
-            SizedBox(height: DEVICE_HEIGHT * 0.07),
+            SizedBox(height: DEVICE_HEIGHT * 0.058),
             SvgPicture.asset(
               successMark,
               width: DEVICE_WIDTH * 0.15,
               height: DEVICE_HEIGHT * 0.15,
               fit: BoxFit.cover,
             ),
-            SizedBox(height: DEVICE_HEIGHT * 0.04),
+            SizedBox(height: DEVICE_HEIGHT * 0.038),
             Text(
               'success'.tr,
               style: const TextStyle(
@@ -41,7 +41,7 @@ class CreateAccountSuccess extends StatelessWidget {
                 color: Color(AppColors.colorThinks),
               ),
             ),
-            SizedBox(height: DEVICE_HEIGHT * 0.04),
+            SizedBox(height: DEVICE_HEIGHT * 0.035),
             Btn(
               text: 'next'.tr,
               color: const Color(AppColors.colorLineAndText),

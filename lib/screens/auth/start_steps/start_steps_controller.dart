@@ -7,7 +7,7 @@ import '../../../general_exports.dart';
 
 class StartStepsController extends GetxController {
   int currentStep = 1;
-  int numberOfStep = 4;
+  int numberOfStep = 3;
   String? selectedMaleCode = 'male';
   // String? argumentValue;
   bool? checkSignInOrSignUp = false;
@@ -75,21 +75,13 @@ class StartStepsController extends GetxController {
     }
   }
 
-  // create request number one or can go to step tow
-  // bool canGoToStepTwo() {
-  //   showPhoneNumberError = textFieldPhoneNumber.text.isEmpty;
-  //   consoleLog(textFieldPhoneNumber.text);
-  //   update();
-  //   return !showPhoneNumberError;
-  // }
-
-  // bool canGoToStepFour() {
-  //   showNameError = textFieldName.text.isEmpty;
-  //   showdateControllerError = dateController.text.isEmpty;
-  //   consoleLog(textFieldName.text + dateController.text);
-  //   update();
-  //   return !showNameError && !showdateControllerError;
-  // }
+  bool canGoToStepOtp() {
+    showNameError = textFieldName.text.isEmpty;
+    showdateControllerError = dateController.text.isEmpty;
+    consoleLog(textFieldName.text + dateController.text);
+    update();
+    return !showNameError && !showdateControllerError;
+  }
 
   bool checkOtp() {
     if (!isValidOtpIsValid()) {
@@ -105,14 +97,21 @@ class StartStepsController extends GetxController {
   void checkOtpToNextPage() {
     if (checkOtp()) {
       final LoginController controller = Get.find<LoginController>();
-      controller.updatePageResolution('update');
-      if (controller.pageResolution == 'update') {
+      if (controller.pageResolution == 'signIn') {
+        controller.updatePageResolution('update');
         otpController.clear();
         Get.to(() => PatternLock());
         update();
+        controller.resetPattern();
+        consoleLog(otpController);
+      } else if (controller.pageResolution == 'signUp') {
+        controller.updatePageResolution('signUp');
+        otpController.clear();
+        Get.toNamed(routeCreateAccountSuccess);
+        update();
+        controller.resetPattern();
         consoleLog(otpController);
       }
-      update();
     }
   }
 
@@ -128,19 +127,6 @@ class StartStepsController extends GetxController {
   void updatePattern(List<int> pattern) {
     inputPattern = pattern;
   }
-
-  // void setArgument(String? value) {
-  //   if (checkOtp()) {
-  //     argumentValue = value;
-  //     update();
-  //   }
-  // }
-
-  // void resetSignInOrRegister() {
-  //   checkSignInOrSignUp = null;
-  //   // argumentValue = null;
-  //   update();
-  // }
 
   void resetPattern() {
     inputPattern.clear();
@@ -193,48 +179,23 @@ class StartStepsController extends GetxController {
         currentStep++;
         update();
       }
+    } else if (currentStep == 2) {
+      if (canGoToStepOtp()) {
+        Get.toNamed(routeFormDiagnosis);
+        update();
+      }
     }
-
-    // else if (currentStep == 2) {
-    // canGoToStepThree();
-    // } else if (currentStep == 3) {
-    //   if (canGoToStepFour()) {
-    //     ++currentStep;
-    //     consoleLog(otpController.text);
-    //     clearOtpError();
-    //     update();
-    //   } else {
-    //     markOtpInvalid();
-    //     update();
-    //   }
-    // }
-    // post request otp
-    // check if otp in register open create account success
-    // if otp in error pattern open new pattern
-    // else if (currentStep == numberOfStep) {
-    //   if (canGoToCreateSuccessPage()) {
-    //     Get.toNamed(routeCreateAccountSuccess);
-    //     consoleLog(
-    //       '${textFieldName.text}, ${dateController.text}, $selectedMaleCode',
-    //     );
-
-    //     textFieldPhoneNumber.clear();
-    //     otpController.clear();
-    //     textFieldName.clear();
-    //     dateController.clear();
-    //     update();
-    //   }
-    // }
-    // save userdata in localstorage
   }
 
   void restartTimer() {
+    timer?.cancel();
     secondsRemaining = 70;
     update();
     startCountdown();
   }
 
   void startCountdown() {
+    timer?.cancel();
     timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       if (secondsRemaining > 0) {
         secondsRemaining--;

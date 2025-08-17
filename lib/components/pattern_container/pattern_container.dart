@@ -25,7 +25,7 @@ class PatternContainer extends StatelessWidget {
         linePaint: (s) => Paint()
           ..strokeWidth = 2
           ..color = switch (s) {
-            PatternState.normal => Colors.grey,
+            PatternState.normal => const Color(AppColors.colorPointer),
             PatternState.active => Colors.blue,
             PatternState.success => Colors.green,
             PatternState.error => Colors.red,
@@ -33,7 +33,7 @@ class PatternContainer extends StatelessWidget {
           ..style = PaintingStyle.stroke,
         dotBuilder: (s) {
           final color = switch (s) {
-            PatternState.normal => Colors.grey,
+            PatternState.normal => const Color(AppColors.colorPointer),
             PatternState.active => Colors.blue,
             PatternState.success => Colors.green,
             PatternState.error => Colors.red,

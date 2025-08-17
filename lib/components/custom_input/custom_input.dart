@@ -97,23 +97,13 @@ class CustomInput extends StatelessWidget {
             ),
           ),
         ),
-        if (showValidMessage!)
-          SizedBox(height: DEVICE_HEIGHT * 0.0115)
-        else
-          SizedBox(height: DEVICE_HEIGHT * 0),
+        if (showValidMessage!) SizedBox(height: DEVICE_HEIGHT * 0.0115),
         if (showValidMessage!)
           CustomText(
             text: textIsValid!,
             type: CustomTextType.title,
             fontSize: 11,
             color: const Color(AppColors.colorError),
-          )
-        else
-          const CustomText(
-            text: '',
-            type: CustomTextType.title,
-            fontSize: 11,
-            color: Color(AppColors.colorError),
           ),
         SizedBox(height: DEVICE_HEIGHT * bottomSpacing),
       ],

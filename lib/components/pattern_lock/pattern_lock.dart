@@ -6,7 +6,6 @@ import '../../general_exports.dart';
 
 class PatternLock extends StatelessWidget {
   const PatternLock({super.key});
-
   Widget _buildPatternArea({
     required PatternState state,
     required List<int> pattern,
@@ -80,7 +79,6 @@ class PatternLock extends StatelessWidget {
         final StartStepsController? stepsController = isSignUp
             ? Get.find<StartStepsController>()
             : null;
-
         return Directionality(
           textDirection: TextDirection.ltr,
           child: controller.pageResolution != 'signUp'
@@ -93,7 +91,8 @@ class PatternLock extends StatelessWidget {
                         hoverColor: Colors.transparent,
                         splashColor: Colors.transparent,
                         onTap: () {
-                          if (controller.pageResolution == 'update') {
+                          controller.updatePageResolution('signIn');
+                          if (controller.pageResolution == 'signIn') {
                             final StartStepsController? startStepsController =
                                 Get.isRegistered<StartStepsController>()
                                 ? Get.find<StartStepsController>()
@@ -202,8 +201,8 @@ class PatternLock extends StatelessWidget {
                                     ),
                                     recognizer: TapGestureRecognizer()
                                       ..onTap = () {
-                                        Get.to(CustomOtp());
                                         controller.showForgetPatter = false;
+                                        Get.to(() => CustomOtp());
                                       },
                                   ),
                                 ],
@@ -215,8 +214,8 @@ class PatternLock extends StatelessWidget {
                             StepsBtn(
                               onPressed: () {
                                 controller.state = PatternState.active;
-                                controller.update();
                                 controller.createVerificationForExistingUser();
+                                controller.update();
                               },
                               text: controller.pageResolution == 'update'
                                   ? 'next'.tr
