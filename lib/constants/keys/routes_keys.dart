@@ -1,6 +1,6 @@
 const String routeFingerPrint = '/finger-print';
 const String routeLogin = '/login';
-const String routeLoginAboutHow = '/about-how';
+const String routeProfiles = '/about-how';
 const String routeSteps = '/steps';
 const String routePatternLock = '/pattern-lock';
 const String routeCreateAccountSuccess = '/success';

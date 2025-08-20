@@ -3,8 +3,8 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../../general_exports.dart';
 
-class LoginAboutHow extends StatelessWidget {
-  const LoginAboutHow({super.key});
+class profiles extends StatelessWidget {
+  const profiles({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +76,7 @@ class LoginAboutHow extends StatelessWidget {
                       child: ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount: controller.usersIntegrate.length,
+                        itemCount: controller.profiles.length,
                         itemBuilder: (BuildContext context, int index) {
                           return Container(
                             margin: const EdgeInsets.fromLTRB(24, 0, 25, 24),

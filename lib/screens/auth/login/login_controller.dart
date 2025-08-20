@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:pattern_dots/pattern_dots.dart';
 
 import '../../../general_exports.dart';
+import '../form_user_data/form_data_user.dart';
 
 class LoginController extends GetxController {
   final TextEditingController PhoneNumberController = TextEditingController();
@@ -18,20 +19,21 @@ class LoginController extends GetxController {
   PatternState state = PatternState.normal;
   int attemptId = 0;
   bool showForgetPatter = false;
+  LocalStorage localStorage = LocalStorage();
 
   // check pass about data if true open the user and open response users and loop to users and view to list view
-  final List<Map<String, dynamic>> usersIntegrate = <Map<String, dynamic>>[
-    <String, dynamic>{'id': 1, 'icon': iconUser, 'name': 'name_user'.tr},
-    <String, dynamic>{'id': 2, 'icon': iconUser, 'name': 'name_user_tow'.tr},
-    <String, dynamic>{'id': 3, 'icon': iconUser, 'name': 'name_user'.tr},
-    <String, dynamic>{'id': 4, 'icon': iconUser, 'name': 'name_user_tow'.tr},
-    <String, dynamic>{'id': 5, 'icon': iconUser, 'name': 'name_user'.tr},
-    <String, dynamic>{'id': 6, 'icon': iconUser, 'name': 'name_user_tow'.tr},
-    <String, dynamic>{'id': 7, 'icon': iconUser, 'name': 'name_user_tow'.tr},
-    <String, dynamic>{'id': 8, 'icon': iconUser, 'name': 'name_user'.tr},
-    <String, dynamic>{'id': 9, 'icon': iconUser, 'name': 'name_user_tow'.tr},
-    <String, dynamic>{'id': 10, 'icon': iconUser, 'name': 'name_user'.tr},
-    <String, dynamic>{'id': 11, 'icon': iconUser, 'name': 'name_user_tow'.tr},
+  final List<Map<String, dynamic>> profiles = <Map<String, dynamic>>[
+    // <String, dynamic>{'id': 1, 'icon': iconUser, 'name': 'name_user'.tr},
+    // <String, dynamic>{'id': 2, 'icon': iconUser, 'name': 'name_user_tow'.tr},
+    // <String, dynamic>{'id': 3, 'icon': iconUser, 'name': 'name_user'.tr},
+    // <String, dynamic>{'id': 4, 'icon': iconUser, 'name': 'name_user_tow'.tr},
+    // <String, dynamic>{'id': 5, 'icon': iconUser, 'name': 'name_user'.tr},
+    // <String, dynamic>{'id': 6, 'icon': iconUser, 'name': 'name_user_tow'.tr},
+    // <String, dynamic>{'id': 7, 'icon': iconUser, 'name': 'name_user_tow'.tr},
+    // <String, dynamic>{'id': 8, 'icon': iconUser, 'name': 'name_user'.tr},
+    // <String, dynamic>{'id': 9, 'icon': iconUser, 'name': 'name_user_tow'.tr},
+    // <String, dynamic>{'id': 10, 'icon': iconUser, 'name': 'name_user'.tr},
+    // <String, dynamic>{'id': 11, 'icon': iconUser, 'name': 'name_user_tow'.tr},
   ];
 
   void updatePage(String newResolution) {
@@ -39,26 +41,54 @@ class LoginController extends GetxController {
     update();
   }
 
+  // start test request object is mobile registered
+  final List<Map<String, dynamic>> isMobileRegistered = <Map<String, dynamic>>[
+    <String, dynamic>{'mobile': '0592613795', 'role': 'Patient'},
+    <String, dynamic>{'mobile': '0597771256', 'role': 'Doctor'},
+    <String, dynamic>{'mobile': '0592947000', 'role': 'Patient'},
+  ];
+
+  bool isLoading = false;
+  // end test request object is mobile registered
+
   bool handleLogin() {
-    if (PhoneNumberController.text.isEmpty) {
+    isLoading = true;
+
+    final String phone = PhoneNumberController.text.trim();
+
+    if (phone.isEmpty) {
       showPhoneNumberError = true;
+      isLoading = false;
+      update();
+      return false;
+    }
+    if (phone.length < 7 || phone.length > 11) {
+      showPhoneNumberError = true;
+      isLoading = false;
       update();
       return false;
     }
     showPhoneNumberError = false;
-    update();
-    // check request if textfield phone number true open route pattern lock else open route steps
-    if (PhoneNumberController.text == '222') {
+
+    final bool numberExists = isMobileRegistered.any(
+      (Map<String, dynamic> entry) =>
+          entry['mobile'] == phone && entry['role'] == 'Patient',
+    );
+
+    // if number here true response 'nextAction': 'Login'
+    if (numberExists) {
       linePerecentage = 0.6;
       page = 'signIn';
-      Get.to(() => CustomOtp());
-      update();
-      PhoneNumberController.clear();
-    } else {
-      updatePage('signUp');
-      Get.to(() => CustomOtp());
-      PhoneNumberController.clear();
+      Get.to(() => const PatternLock());
+      consoleLog('response next action login');
     }
+    // if number not here response 'nextAction': 'OtpConfirm'
+    else {
+      updatePage('signUp');
+      consoleLog('response next otp confirm');
+      Get.to(() => CustomOtp());
+    }
+    isLoading = false;
     return true;
   }
 
@@ -72,37 +102,51 @@ class LoginController extends GetxController {
     inputPattern = pattern;
   }
 
+  bool isLoginRequestValid(List<Map<String, dynamic>> loginData) {
+    if (loginData.isEmpty) return false;
+
+    final Map<String, dynamic> data = loginData.first;
+    final String? mobile = data['mobile'];
+    final String? password = data['password'];
+    if (mobile == null || mobile.trim().isEmpty) return false;
+    if (password == null || password.trim().isEmpty) return false;
+    if (mobile.length < 7 || mobile.length > 11) return false;
+    if (password.length < 4) return false;
+    return true;
+  }
+
   // check pattern if pattern success open routeLoginAboutHow false make show forget patter true
   void validatePattern() {
     final int currentAttempt = ++attemptId;
 
-    consoleLog('Input Pattern: $inputPattern');
-    consoleLog('Expected Pattern: $passPattern');
-    consoleLog('state: $state');
+    final List<Map<String, dynamic>> login = <Map<String, dynamic>>[
+      <String, dynamic>{
+        'mobile': PhoneNumberController.text.trim(),
+        'password': inputPattern.join(),
+      },
+    ];
 
-    if (listEquals(passPattern, inputPattern)) {
-      state = PatternState.success;
-      update();
-      Get.snackbar(
-        '✅ Success',
-        'Pattern: $inputPattern',
-        backgroundColor: const Color(AppColors.colorSuccessLine),
-        colorText: const Color(0xFFFFFFFF),
+    if (isLoginRequestValid(login)) {
+      // if profiles not emity open page profiles and save refresh token in localstorage
+      // if profiles emity open register name and type and date
+      if (profiles.isEmpty) {
+        Get.to(() => FormDataUser(isFromProfile: false));
+      } else {
+        Get.toNamed(routeProfiles);
+      }
+      consoleLog(
+        'id: 1, mobile ${PhoneNumberController.text} role $inputPattern status 1 and profiles access token refresh token',
       );
-      Get.toNamed(routeLoginAboutHow);
-      resetPattern();
     } else {
       state = PatternState.error;
-      update();
-
       showForgetPatter = true;
-
-      // ignore: always_specify_types
-      Future.delayed(const Duration(seconds: 2), () {
-        if (currentAttempt == attemptId) {
-          resetPattern();
-        }
-      });
+      update();
+      Get.snackbar(
+        'error'.tr,
+        'error_pattern'.tr,
+        backgroundColor: const Color(AppColors.colorError),
+        colorText: const Color(AppColors.colorWhiteSelectedType),
+      );
     }
   }
 
@@ -119,8 +163,8 @@ class LoginController extends GetxController {
         Get.snackbar(
           'error'.tr,
           'error_pattern'.tr,
-          backgroundColor: Colors.red,
-          colorText: Colors.white,
+          backgroundColor: const Color(AppColors.colorError),
+          colorText: const Color(AppColors.colorWhiteSelectedType),
         );
       }
     } else if (page == 'verifyPattern') {
@@ -128,16 +172,31 @@ class LoginController extends GetxController {
         state = PatternState.success;
         update();
         consoleLog(tempSavedPattern);
+
+        // here response user data and access token and refresh token
+        final List<Map<String, dynamic>> login = <Map<String, dynamic>>[
+          <String, dynamic>{
+            'mobile': PhoneNumberController.text.trim(),
+            'password': inputPattern.join(),
+            'createPasswordToken': 'توكن الإنشاء (نص)',
+          },
+        ];
+
         page = 'signIn';
-        Get.toNamed(routeLoginAboutHow);
+        if (profiles.isEmpty) {
+          page = 'signIn';
+        } else {
+          Get.toNamed(routeLogin);
+        }
+        resetPattern();
       } else {
         state = PatternState.error;
         update();
         Get.snackbar(
           'error'.tr,
           'error_pattern'.tr,
-          backgroundColor: Colors.red,
-          colorText: Colors.white,
+          backgroundColor: const Color(AppColors.colorError),
+          colorText: const Color(AppColors.colorWhiteSelectedType),
         );
         updatePage('update');
       }

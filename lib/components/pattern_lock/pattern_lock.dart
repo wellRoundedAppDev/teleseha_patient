@@ -92,17 +92,7 @@ class PatternLock extends StatelessWidget {
                         splashColor: Colors.transparent,
                         onTap: () {
                           if (controller.page == 'signIn') {
-                            final StartStepsController? startStepsController =
-                                Get.isRegistered<StartStepsController>()
-                                ? Get.find<StartStepsController>()
-                                : null;
-                            if (startStepsController != null) {
-                              startStepsController.timer?.cancel();
-                              startStepsController.secondsRemaining = 70;
-                              startStepsController.startCountdown();
-                              startStepsController.update();
-                            }
-                            Get.to(() => CustomOtp());
+                            Get.back();
                           } else if (controller.page == 'update' ||
                               controller.page == 'verifyPattern') {
                             Future.delayed(const Duration(seconds: 2), () {
@@ -210,7 +200,7 @@ class PatternLock extends StatelessWidget {
                                         Future.delayed(
                                           const Duration(seconds: 2),
                                           () {
-                                            controller.updatePage('update');
+                                            Get.to(() => CustomOtp());
                                           },
                                         );
                                       },

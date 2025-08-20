@@ -5,11 +5,9 @@ import 'package:get_storage/get_storage.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'general_exports.dart';
-// import 'services/push_notification_service.dart';
 
 Future<void> main() async {
   await GetStorage.init();
-  // Get.put(StartStepsController());
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations(<DeviceOrientation>[
     DeviceOrientation.portraitUp,

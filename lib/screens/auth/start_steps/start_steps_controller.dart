@@ -14,11 +14,13 @@ class StartStepsController extends GetxController {
   List<int> tempSavedPattern = <int>[];
   List<int> inputPattern = <int>[];
 
-  TextEditingController PhoneNumberController = TextEditingController();
   TextEditingController otpController = TextEditingController();
   DateTime selectedDate = DateTime.now();
   TextEditingController dateController = TextEditingController();
   TextEditingController textFieldName = TextEditingController();
+  LocalStorage localStorage = LocalStorage();
+
+  LoginController login = Get.find();
 
   bool showPhoneNumberError = false;
   bool showOtpError = false;
@@ -93,11 +95,14 @@ class StartStepsController extends GetxController {
     }
   }
 
+  // request otp confirm
   void checkOtpToNextPage() {
     if (checkOtp()) {
       final LoginController controller = Get.find<LoginController>();
       if (controller.page == 'signIn') {
-        controller.updatePage('signIn');
+        // if nextAction create password open patternLock and update page
+        consoleLog(login.PhoneNumberController.text + ' ' + otpController.text);
+        controller.updatePage('update');
         otpController.clear();
         Get.to(() => const PatternLock());
         update();
@@ -106,7 +111,6 @@ class StartStepsController extends GetxController {
       } else if (controller.page == 'signUp') {
         controller.updatePage('signUp');
         otpController.clear();
-        // Get.toNamed(routeCreateAccountSuccess);
         update();
         controller.resetPattern();
         consoleLog(otpController);

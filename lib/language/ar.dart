@@ -17,7 +17,7 @@ const Map<String, String> ar = <String, String>{
   'is_valid_name_field': 'الرجاء ادخال الاسم',
   'number_phone': 'رقم الهاتف',
   'number_phone_field': '0123456789',
-  'is_valid_number': 'الرجاء ادخال الرقم',
+  'is_valid_number': 'الرجاء ادخال رقم الهاتف والتحقق منه',
   'confirm': 'تأكيد الحساب',
   'input_confirm': 'أدخل كود التحقق المكون من  6 ارقام الذي ارسلناه للرقم',
   'resend': 'لم يصلك الرمز؟',
