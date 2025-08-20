@@ -7,14 +7,10 @@ class IsValid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      isValidText!,
-      style: const TextStyle(
-        color: Color(AppColors.colorError),
-        fontSize: 11,
-        fontFamily: 'Cairo',
-        fontWeight: FontWeight.w700,
-      ),
+    return CustomText(
+      text: isValidText!,
+      type: CustomTextType.button,
+      color: const Color(AppColors.colorError),
     );
   }
 }

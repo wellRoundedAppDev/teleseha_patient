@@ -81,9 +81,9 @@ class CustomInput extends StatelessWidget {
                     )
                   : null,
               border: InputBorder.none,
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 10,
-                vertical: 20,
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: DEVICE_HEIGHT * 0.024,
+                vertical: DEVICE_WIDTH * 0.051,
               ),
               hintText: hint,
               hintStyle: TextStyle(

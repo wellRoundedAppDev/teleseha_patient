@@ -39,7 +39,7 @@ class MedicalHistory extends StatelessWidget {
                     padding: EdgeInsets.only(right: DEVICE_WIDTH * 0.035),
                     child: TextButton(
                       onPressed: () {
-                        Get.to(CustomOtp());
+                        Get.toNamed(routeCreateAccountSuccess);
                       },
                       child: CustomText(
                         text: 'skep'.tr,

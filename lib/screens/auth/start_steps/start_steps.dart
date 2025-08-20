@@ -1,6 +1,7 @@
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../general_exports.dart';
+import '../form_user_data/form_data_user.dart';
 
 class StartSteps extends StatelessWidget {
   StartSteps({super.key});
@@ -81,7 +82,7 @@ class StartSteps extends StatelessWidget {
                     ? Column(
                         children: <Widget>[
                           SizedBox(height: DEVICE_HEIGHT * 0.053),
-                          Container(child: RegisterType()),
+                          Container(child: FormDataUser()),
                           SizedBox(height: DEVICE_HEIGHT * 0.067),
                           StepIndicator(
                             currentStep: controller.currentStep,
@@ -92,7 +93,7 @@ class StartSteps extends StatelessWidget {
                       )
                     : const Text('test'),
               if (controller.currentStep < controller.numberOfStep)
-                StepsBtn(
+                Btn(
                   onPressed: () {
                     controller.onNextButtonPress();
                   },

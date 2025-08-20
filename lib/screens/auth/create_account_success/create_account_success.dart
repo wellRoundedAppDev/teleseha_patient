@@ -22,24 +22,18 @@ class CreateAccountSuccess extends StatelessWidget {
               fit: BoxFit.cover,
             ),
             SizedBox(height: DEVICE_HEIGHT * 0.038),
-            Text(
-              'success'.tr,
-              style: const TextStyle(
-                fontFamily: 'Cairo',
-                fontSize: 22,
-                fontWeight: FontWeight.w700,
-                color: Color(AppColors.colorTextBlue),
-              ),
+            CustomText(
+              text: 'success'.tr,
+              fontSize: 22,
+              type: CustomTextType.title,
+              color: const Color(AppColors.colorTextBlue),
             ),
             SizedBox(height: DEVICE_HEIGHT * 0.04),
-            Text(
-              'thinks_create_account'.tr,
-              style: const TextStyle(
-                fontFamily: 'Cairo',
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: Color(AppColors.colorThinks),
-              ),
+            CustomText(
+              text: 'thinks_create_account'.tr,
+              fontSize: 16,
+              type: CustomTextType.button,
+              color: const Color(AppColors.colorThinks),
             ),
             SizedBox(height: DEVICE_HEIGHT * 0.035),
             Btn(

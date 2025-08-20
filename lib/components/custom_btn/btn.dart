@@ -22,14 +22,11 @@ class Btn extends StatelessWidget {
         onPressed: () {
           onPressed?.call();
         },
-        child: Text(
-          text ?? '',
-          style: const TextStyle(
-            color: Color(AppColors.colorWhiteSelectedType),
-            fontSize: 17,
-            fontFamily: 'Cairo',
-            fontWeight: FontWeight.w700,
-          ),
+        child: CustomText(
+          text: text,
+          type: CustomTextType.inputTitle,
+          fontSize: 17,
+          color: const Color(AppColors.colorWhiteSelectedType),
         ),
       ),
     );

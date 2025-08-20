@@ -9,13 +9,12 @@ class StartStepsController extends GetxController {
   int currentStep = 1;
   int numberOfStep = 3;
   String? selectedMaleCode = 'male';
-  // String? argumentValue;
   bool? checkSignInOrSignUp = false;
   final bool isSignIn = false;
   List<int> tempSavedPattern = <int>[];
   List<int> inputPattern = <int>[];
 
-  TextEditingController textFieldPhoneNumber = TextEditingController();
+  TextEditingController PhoneNumberController = TextEditingController();
   TextEditingController otpController = TextEditingController();
   DateTime selectedDate = DateTime.now();
   TextEditingController dateController = TextEditingController();
@@ -97,20 +96,21 @@ class StartStepsController extends GetxController {
   void checkOtpToNextPage() {
     if (checkOtp()) {
       final LoginController controller = Get.find<LoginController>();
-      if (controller.pageResolution == 'signIn') {
-        controller.updatePageResolution('update');
+      if (controller.page == 'signIn') {
+        controller.updatePage('signIn');
         otpController.clear();
-        Get.to(() => PatternLock());
+        Get.to(() => const PatternLock());
         update();
         controller.resetPattern();
         consoleLog(otpController);
-      } else if (controller.pageResolution == 'signUp') {
-        controller.updatePageResolution('signUp');
+      } else if (controller.page == 'signUp') {
+        controller.updatePage('signUp');
         otpController.clear();
-        Get.toNamed(routeCreateAccountSuccess);
+        // Get.toNamed(routeCreateAccountSuccess);
         update();
         controller.resetPattern();
         consoleLog(otpController);
+        Get.toNamed(routeSteps);
       }
     }
   }

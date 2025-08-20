@@ -66,7 +66,7 @@ class FingerPrint extends StatelessWidget {
                     color: const Color(AppColors.colorLineAndText),
                   ),
                   SizedBox(height: DEVICE_HEIGHT * 0.04),
-                  StepsBtn(
+                  Btn(
                     onPressed: () {
                       controller.startBiometricAuth();
                     },

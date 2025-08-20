@@ -59,7 +59,7 @@ class Login extends StatelessWidget {
                           CustomInput(
                             title: 'number_phone'.tr,
                             hint: 'number_phone_field'.tr,
-                            controller: controller.textFieldPhoneNumber,
+                            controller: controller.PhoneNumberController,
                             showValidMessage: controller.showPhoneNumberError,
                             textIsValid: 'is_valid_number'.tr,
                             colorLabel: AppColors.colorLabel,
@@ -70,7 +70,7 @@ class Login extends StatelessWidget {
                         ],
                       ),
                       SizedBox(height: DEVICE_HEIGHT * 0.046),
-                      StepsBtn(
+                      Btn(
                         onPressed: () {
                           controller.handleLogin();
                         },

@@ -25,7 +25,7 @@ class CustomOtp extends StatelessWidget {
                   hoverColor: Colors.transparent,
                   splashColor: Colors.transparent,
                   onTap: () {
-                    login.updatePageResolution('signIn');
+                    login.updatePage('signIn');
                     Get.back();
                   },
                   child: Center(
@@ -37,15 +37,15 @@ class CustomOtp extends StatelessWidget {
                   ),
                 ),
                 backgroundColor: Colors.transparent,
-                title: login.pageResolution == 'signUp'
+                title: login.page == 'signUp'
                     ? SizedBox(
                         width: DEVICE_WIDTH * 0.425,
                         height: DEVICE_HEIGHT * 0.0108,
                         child: LinearProgressIndicator(
-                          value: 1,
+                          value: 0.3,
                           borderRadius: BorderRadius.circular(15),
                           backgroundColor: const Color(
-                            AppColors.colorSuccessLine,
+                            AppColors.backgroundColorLine,
                           ),
                           valueColor: AlwaysStoppedAnimation<Color>(
                             const Color(
@@ -65,7 +65,8 @@ class CustomOtp extends StatelessWidget {
               child: Center(
                 child: Column(
                   children: <Widget>[
-                    if (login.pageResolution == 'signUp')
+                    // Text(login.pageResolution),
+                    if (login.page == 'signUp')
                       SizedBox(height: DEVICE_HEIGHT * 0.015)
                     else
                       const SizedBox(),
@@ -114,16 +115,14 @@ class CustomOtp extends StatelessWidget {
                             children: <Widget>[
                               if (controller.showOtpError)
                                 Padding(
-                                  padding: const EdgeInsets.only(bottom: 10),
-                                  child: Text(
-                                    'valid_code'.tr,
-                                    style: const TextStyle(
-                                      color: Color(AppColors.colorError),
-                                      fontSize: 11,
-                                      fontFamily: 'Cairo',
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                    textAlign: TextAlign.right,
+                                  padding: EdgeInsets.only(
+                                    bottom: DEVICE_HEIGHT * 0.012,
+                                  ),
+                                  child: CustomText(
+                                    text: 'valid_code'.tr,
+                                    type: CustomTextType.title,
+                                    fontSize: 11,
+                                    color: const Color(AppColors.colorError),
                                   ),
                                 ),
                               Directionality(
@@ -204,27 +203,26 @@ class CustomOtp extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              Text(
-                                controller.formattedTime,
-                                style: const TextStyle(
-                                  fontFamily: 'Cairo',
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  color: Color(AppColors.colorNumber),
-                                ),
+                              CustomText(
+                                text: controller.formattedTime,
+                                color: const Color(AppColors.colorNumber),
                               ),
                             ],
                           ),
-                          SizedBox(height: DEVICE_HEIGHT * 0.07),
-                          if (login.pageResolution == 'signUp')
+                          if (login.page != 'signIn')
+                            SizedBox(height: DEVICE_HEIGHT * 0.07),
+                          if (login.page == 'signUp')
                             StepIndicator(
-                              currentStep: controller.currentStep + 1,
+                              currentStep: controller.currentStep,
                               totalSteps: controller.numberOfStep,
                             )
                           else
                             const SizedBox(),
-                          SizedBox(height: DEVICE_HEIGHT * 0.048),
-                          StepsBtn(
+                          if (login.page != 'signIn')
+                            SizedBox(height: DEVICE_HEIGHT * 0.048),
+                          if (login.page == 'signIn')
+                            SizedBox(height: DEVICE_HEIGHT * 0.085),
+                          Btn(
                             onPressed: () {
                               controller.checkOtpToNextPage();
                             },

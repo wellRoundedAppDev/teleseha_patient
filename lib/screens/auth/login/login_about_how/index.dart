@@ -1,1 +1,1 @@
-export 'login_about_how.dart.dart';
+export 'login_about_how.dart';

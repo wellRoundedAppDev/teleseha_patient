@@ -1,10 +1,10 @@
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../general_exports.dart';
+import '../../../general_exports.dart';
 
 // ignore: camel_case_types
-class RegisterType extends StatelessWidget {
-  const RegisterType({super.key});
+class FormDataUser extends StatelessWidget {
+  const FormDataUser({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +70,7 @@ class RegisterType extends StatelessWidget {
                       ) {
                         return Row(
                           children: <Widget>[
-                            InkWell(
+                            GestureDetector(
                               onTap: () {
                                 controller.changeTypeGenerate(item[code]!);
                               },
@@ -90,29 +90,26 @@ class RegisterType extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 10,
-                                  vertical: 18,
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: DEVICE_WIDTH * 0.028,
+                                  vertical: DEVICE_HEIGHT * 0.021,
                                 ),
                                 child: Row(
                                   children: <Widget>[
-                                    Text(
-                                      item[gender] ?? '',
-                                      style: TextStyle(
-                                        color:
-                                            controller.selectedMaleCode ==
-                                                item[code]
-                                            ? const Color(
-                                                AppColors
-                                                    .colorWhiteSelectedType,
-                                              )
-                                            : const Color(
-                                                AppColors.colorSelectDropDown,
-                                              ),
-                                        fontWeight: FontWeight.w700,
-                                        fontFamily: 'Cairo',
-                                        fontSize: 16,
-                                      ),
+                                    CustomText(
+                                      text: item[gender] ?? '',
+                                      type: CustomTextType.title,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 16,
+                                      color:
+                                          controller.selectedMaleCode ==
+                                              item[code]
+                                          ? const Color(
+                                              AppColors.colorWhiteSelectedType,
+                                            )
+                                          : const Color(
+                                              AppColors.colorSelectDropDown,
+                                            ),
                                     ),
                                     SizedBox(width: DEVICE_WIDTH * 0.04),
                                     SvgPicture.asset(

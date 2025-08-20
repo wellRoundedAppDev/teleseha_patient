@@ -45,16 +45,16 @@ class PatternLock extends StatelessWidget {
               PatternState.error => Colors.red,
             };
             return Container(
-              width: 16,
-              height: 16,
+              width: DEVICE_WIDTH * 0.04,
+              height: DEVICE_HEIGHT * 0.04,
               decoration: BoxDecoration(color: color, shape: BoxShape.circle),
             );
           },
           dotPainter: (_, __, ___) {},
         ),
         child: SizedBox(
-          width: 270,
-          height: 200,
+          width: DEVICE_WIDTH * 0.67,
+          height: DEVICE_HEIGHT * 0.24,
           child: PatternView(
             state: stepsController.state,
             value: stepsController.inputPattern,
@@ -75,13 +75,13 @@ class PatternLock extends StatelessWidget {
     return GetBuilder<LoginController>(
       init: LoginController(),
       builder: (LoginController controller) {
-        final bool isSignUp = controller.pageResolution == 'signUp';
+        final bool isSignUp = controller.page == 'signUp';
         final StartStepsController? stepsController = isSignUp
             ? Get.find<StartStepsController>()
             : null;
         return Directionality(
           textDirection: TextDirection.ltr,
-          child: controller.pageResolution != 'signUp'
+          child: controller.page != 'signUp'
               ? Scaffold(
                   appBar: PreferredSize(
                     preferredSize: const Size.fromHeight(kToolbarHeight),
@@ -91,8 +91,7 @@ class PatternLock extends StatelessWidget {
                         hoverColor: Colors.transparent,
                         splashColor: Colors.transparent,
                         onTap: () {
-                          controller.updatePageResolution('signIn');
-                          if (controller.pageResolution == 'signIn') {
+                          if (controller.page == 'signIn') {
                             final StartStepsController? startStepsController =
                                 Get.isRegistered<StartStepsController>()
                                 ? Get.find<StartStepsController>()
@@ -103,8 +102,13 @@ class PatternLock extends StatelessWidget {
                               startStepsController.startCountdown();
                               startStepsController.update();
                             }
+                            Get.to(() => CustomOtp());
+                          } else if (controller.page == 'update' ||
+                              controller.page == 'verifyPattern') {
+                            Future.delayed(const Duration(seconds: 2), () {
+                              controller.updatePage('signIn');
+                            });
                           }
-                          Get.back();
                         },
                         child: Center(
                           child: SvgPicture.asset(
@@ -116,13 +120,13 @@ class PatternLock extends StatelessWidget {
                       ),
                       backgroundColor: Colors.transparent,
                       title:
-                          controller.pageResolution == 'signIn' ||
-                              controller.pageResolution == 'update'
+                          controller.page == 'signIn' ||
+                              controller.page == 'update'
                           ? SizedBox(
                               width: DEVICE_WIDTH * 0.425,
                               height: DEVICE_HEIGHT * 0.0108,
                               child: LinearProgressIndicator(
-                                value: controller.argumentValue,
+                                value: controller.linePerecentage,
                                 borderRadius: BorderRadius.circular(15),
                                 backgroundColor: const Color(
                                   AppColors.backgroundColorLine,
@@ -146,17 +150,18 @@ class PatternLock extends StatelessWidget {
                       ),
                       child: Column(
                         children: <Widget>[
+                          Text(controller.page),
                           const Logo(),
                           SizedBox(height: DEVICE_HEIGHT * 0.0425),
-                          if (controller.pageResolution == 'signIn')
+                          if (controller.page == 'signIn')
                             CustomText(
                               text: 'create_input_pattern'.tr,
                               fontSize: 24,
                               type: CustomTextType.title,
                               color: const Color(AppColors.colorTextBlue),
                             )
-                          else if (controller.pageResolution == 'update' ||
-                              controller.pageResolution == 'verifyPattern')
+                          else if (controller.page == 'update' ||
+                              controller.page == 'verifyPattern')
                             CustomText(
                               text: 'create_pattern'.tr,
                               fontSize: 24,
@@ -171,13 +176,13 @@ class PatternLock extends StatelessWidget {
                             onUpdate: controller.updatePattern,
                             onEnd: (List<int> pattern) {
                               controller.inputPattern = pattern;
-                              if (controller.pageResolution == 'signIn') {
+                              if (controller.page == 'signIn') {
                                 controller.validatePattern();
                               }
                             },
                           ),
                           SizedBox(height: DEVICE_HEIGHT * 0.053),
-                          if (controller.pageResolution == 'signIn' &&
+                          if (controller.page == 'signIn' &&
                               controller.showForgetPatter)
                             Text.rich(
                               TextSpan(
@@ -202,22 +207,27 @@ class PatternLock extends StatelessWidget {
                                     recognizer: TapGestureRecognizer()
                                       ..onTap = () {
                                         controller.showForgetPatter = false;
-                                        Get.to(() => CustomOtp());
+                                        Future.delayed(
+                                          const Duration(seconds: 2),
+                                          () {
+                                            controller.updatePage('update');
+                                          },
+                                        );
                                       },
                                   ),
                                 ],
                               ),
                             ),
                           SizedBox(height: DEVICE_HEIGHT * 0.10),
-                          if (controller.pageResolution == 'update' ||
-                              controller.pageResolution == 'verifyPattern')
-                            StepsBtn(
+                          if (controller.page == 'update' ||
+                              controller.page == 'verifyPattern')
+                            Btn(
                               onPressed: () {
                                 controller.state = PatternState.active;
                                 controller.createVerificationForExistingUser();
                                 controller.update();
                               },
-                              text: controller.pageResolution == 'update'
+                              text: controller.page == 'update'
                                   ? 'next'.tr
                                   : 'save'.tr,
                             ),

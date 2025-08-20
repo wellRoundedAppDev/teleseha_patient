@@ -102,16 +102,16 @@ class LoginAboutHow extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 SizedBox(
-                                  width: 86,
-                                  height: 30,
+                                  width: DEVICE_WIDTH * 0.22,
+                                  height: DEVICE_HEIGHT * 0.035,
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: const Color(
                                         AppColors.colorLineAndText,
                                       ),
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 5,
-                                        vertical: 5,
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: DEVICE_HEIGHT * 0.01,
+                                        vertical: DEVICE_HEIGHT * 0.001,
                                       ),
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(20),
@@ -121,13 +121,14 @@ class LoginAboutHow extends StatelessWidget {
                                         fontWeight: FontWeight.w600,
                                       ),
                                     ),
-                                    onPressed: () {},
-                                    child: Text(
-                                      'login'.tr,
-                                      style: const TextStyle(
-                                        color: Color(
-                                          AppColors.colorBackgroundScreen,
-                                        ),
+                                    onPressed: () {
+                                      Get.toNamed(routeHome);
+                                    },
+                                    child: CustomText(
+                                      text: 'login'.tr,
+                                      fontSize: 9,
+                                      color: const Color(
+                                        AppColors.colorBackgroundScreen,
                                       ),
                                     ),
                                   ),

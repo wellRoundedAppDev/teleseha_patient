@@ -4,13 +4,13 @@ import 'package:pattern_dots/pattern_dots.dart';
 import '../../../general_exports.dart';
 
 class LoginController extends GetxController {
-  final TextEditingController textFieldPhoneNumber = TextEditingController();
+  final TextEditingController PhoneNumberController = TextEditingController();
   List<int> tempSavedPattern = <int>[];
 
-  String pageResolution = 'signIn';
+  String page = 'signIn';
 
   bool showPhoneNumberError = false;
-  double argumentValue = 0.0;
+  double linePerecentage = 0.0;
 
   // check pass about data if true open the user and open response users and loop to users and view to list view
   final List<int> passPattern = <int>[0, 1, 2, 3, 4];
@@ -34,13 +34,13 @@ class LoginController extends GetxController {
     <String, dynamic>{'id': 11, 'icon': iconUser, 'name': 'name_user_tow'.tr},
   ];
 
-  void updatePageResolution(String newResolution) {
-    pageResolution = newResolution;
+  void updatePage(String newResolution) {
+    page = newResolution;
     update();
   }
 
   bool handleLogin() {
-    if (textFieldPhoneNumber.text.isEmpty) {
+    if (PhoneNumberController.text.isEmpty) {
       showPhoneNumberError = true;
       update();
       return false;
@@ -48,16 +48,16 @@ class LoginController extends GetxController {
     showPhoneNumberError = false;
     update();
     // check request if textfield phone number true open route pattern lock else open route steps
-    if (textFieldPhoneNumber.text == '222') {
-      argumentValue = 0.6;
-      pageResolution = 'signIn';
-      Get.to(() => PatternLock());
+    if (PhoneNumberController.text == '222') {
+      linePerecentage = 0.6;
+      page = 'signIn';
+      Get.to(() => CustomOtp());
       update();
-      textFieldPhoneNumber.clear();
+      PhoneNumberController.clear();
     } else {
-      updatePageResolution('signUp');
-      Get.toNamed(routeSteps);
-      textFieldPhoneNumber.clear();
+      updatePage('signUp');
+      Get.to(() => CustomOtp());
+      PhoneNumberController.clear();
     }
     return true;
   }
@@ -89,6 +89,7 @@ class LoginController extends GetxController {
         backgroundColor: const Color(AppColors.colorSuccessLine),
         colorText: const Color(0xFFFFFFFF),
       );
+      Get.toNamed(routeLoginAboutHow);
       resetPattern();
     } else {
       state = PatternState.error;
@@ -107,11 +108,11 @@ class LoginController extends GetxController {
 
   // create verification for existingUser about user
   void createVerificationForExistingUser() {
-    if (pageResolution == 'update') {
+    if (page == 'update') {
       if (inputPattern.isNotEmpty) {
         tempSavedPattern = <int>[...inputPattern];
         resetPattern();
-        updatePageResolution('verifyPattern');
+        updatePage('verifyPattern');
         state = PatternState.success;
         update();
       } else {
@@ -122,12 +123,12 @@ class LoginController extends GetxController {
           colorText: Colors.white,
         );
       }
-    } else if (pageResolution == 'verifyPattern') {
+    } else if (page == 'verifyPattern') {
       if (listEquals(tempSavedPattern, inputPattern)) {
         state = PatternState.success;
         update();
         consoleLog(tempSavedPattern);
-        pageResolution = 'signIn';
+        page = 'signIn';
         Get.toNamed(routeLoginAboutHow);
       } else {
         state = PatternState.error;
@@ -138,7 +139,7 @@ class LoginController extends GetxController {
           backgroundColor: Colors.red,
           colorText: Colors.white,
         );
-        updatePageResolution('update');
+        updatePage('update');
       }
     }
   }
