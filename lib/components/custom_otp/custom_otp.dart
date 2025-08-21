@@ -65,7 +65,6 @@ class CustomOtp extends StatelessWidget {
               child: Center(
                 child: Column(
                   children: <Widget>[
-                    Text(login.page),
                     if (login.page == 'signUp')
                       SizedBox(height: DEVICE_HEIGHT * 0.015)
                     else

@@ -28,9 +28,6 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         initialRoute: routeFingerPrint,
         // initialRoute: routeHome,
-        // initialRoute: Get.find<MyAppController>().userData == null
-        //     ? routeStartSteps
-        //     : routeHome,
         getPages: appRoutes,
         builder: (BuildContext context, Widget? child) {
           return Stack(children: <Widget>[FlutterSmartDialog(child: child)]);

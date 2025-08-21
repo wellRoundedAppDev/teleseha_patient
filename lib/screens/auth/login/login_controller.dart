@@ -130,6 +130,11 @@ class LoginController extends GetxController {
       // if profiles not emity open page profiles and save refresh token in localstorage
       // if profiles emity open register name and type and date
       if (profiles.isEmpty) {
+        // if response i have token save response refresh token in localstorage        
+        // localStorage.saveToStorage(
+        //   key: storageRefreshToken,
+        //   value: 'responseRefreshToken',
+        // );
         Get.to(() => FormDataUser(isFromProfile: false));
       } else {
         Get.toNamed(routeProfiles);

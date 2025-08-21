@@ -6,15 +6,19 @@ import '../../../general_exports.dart';
 
 class FingerPrintController extends GetxController {
   final LocalAuthentication auth = LocalAuthentication();
+  LocalStorage localStorage = LocalStorage();
 
-  void checkUserAndNavigate() {
-    final bool userData = false;
-    // ignore: dead_code
-    if (userData) {
-      Get.toNamed(routeHome);
-    } else {
-      Get.toNamed(routeLogin);
-    }
+  void checkUserAndNavigate() async {
+    // userData = await localStorage.getFromStorage(key: storageRefreshToken);
+    // final String? refreshToken = await localStorage.getFromStorage(
+    //   key: storageRefreshToken,
+    // );
+    // // check response and go to page when nextAction
+    // if (refreshToken != null && refreshToken.isNotEmpty) {
+    //   Get.offAllNamed(routeHome);
+    // } else {
+      Get.offAllNamed(routeLogin);
+    // }
   }
 
   Future<void> startBiometricAuth() async {

@@ -1,1 +1,1 @@
-const String storeLocationPermission = 'location_permission';
+const String storageRefreshToken = 'refresh_token';

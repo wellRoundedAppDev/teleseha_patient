@@ -140,7 +140,6 @@ class PatternLock extends StatelessWidget {
                       ),
                       child: Column(
                         children: <Widget>[
-                          Text(controller.page),
                           const Logo(),
                           SizedBox(height: DEVICE_HEIGHT * 0.0425),
                           if (controller.page == 'signIn')
