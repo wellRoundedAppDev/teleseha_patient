@@ -8,9 +8,10 @@ class StatusBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(
+      init: HomeController(),
       builder: (HomeController controller) {
         return Container(
-          margin: EdgeInsets.symmetric(horizontal: DEVICE_WIDTH * 0.065),
+          margin: EdgeInsets.symmetric(horizontal: DEVICE_WIDTH * 0.05),
           child: Container(
             margin: EdgeInsets.only(top: DEVICE_HEIGHT * 0.09),
             child: Column(
@@ -29,11 +30,11 @@ class StatusBar extends StatelessWidget {
                             height: DEVICE_HEIGHT * 0.034,
                             fit: BoxFit.cover,
                           ),
-                          SizedBox(height: DEVICE_HEIGHT * 0.01),
+                          SizedBox(height: DEVICE_HEIGHT * 0.015),
                           CustomText(
                             text:
-                                '${'say_welcome'.tr} ${controller.testUserData}!',
-                            fontSize: 20,
+                                '${'say_welcome'.tr} ${controller.testNameUserData}!',
+                            fontSize: 22,
                             type: CustomTextType.title,
                             color: const Color(
                               AppColors.colorWhiteSelectedType,
@@ -45,10 +46,7 @@ class StatusBar extends StatelessWidget {
                     Stack(
                       clipBehavior: Clip.none,
                       children: <Widget>[
-                        SvgPicture.asset(
-                          iconNotification,
-                          height: DEVICE_HEIGHT * 0.03,
-                        ),
+                        SvgPicture.asset(iconNotification),
                         Positioned(
                           top: DEVICE_WIDTH * -0.025,
                           right: DEVICE_HEIGHT * -0.002,
@@ -73,12 +71,96 @@ class StatusBar extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: DEVICE_HEIGHT * 0.02),
+                SizedBox(height: DEVICE_HEIGHT * 0.027),
                 Container(
-                  padding: EdgeInsets.all(DEVICE_HEIGHT * 0.03),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: DEVICE_WIDTH * 0.04,
+                    vertical: DEVICE_HEIGHT * 0.01,
+                  ),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: const Color(AppColors.colorReception),
                     borderRadius: BorderRadius.circular(DEVICE_HEIGHT * 0.024),
+                    boxShadow: <BoxShadow>[
+                      BoxShadow(
+                        color: const Color(0xFFDADADA).withValues(alpha: 0.5),
+                        offset: const Offset(0, 2),
+                        blurRadius: 6,
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Row(
+                            children: <Widget>[
+                              SvgPicture.asset(
+                                iconReception,
+                                width: DEVICE_WIDTH * 0.021,
+                                height: DEVICE_HEIGHT * 0.021,
+                                fit: BoxFit.cover,
+                              ),
+                              SizedBox(width: DEVICE_HEIGHT * 0.005),
+                              Container(
+                                margin: const EdgeInsets.only(top: 1),
+                                child: CustomText(
+                                  text: 'medical_reception'.tr,
+                                  fontSize: 15,
+                                  type: CustomTextType.title,
+                                  color: const Color(
+                                    AppColors.colorLineAndText,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            width: DEVICE_WIDTH * 0.21,
+                            child: ElevatedButton(
+                              onPressed: () {},
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(
+                                  AppColors.colorLineAndText,
+                                ),
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: DEVICE_HEIGHT * 0.01,
+                                  vertical: DEVICE_HEIGHT * 0.011,
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
+                              child: CustomText(
+                                text: 'start_now'.tr,
+                                fontSize: 11,
+                                type: CustomTextType.title,
+                                color: const Color(
+                                  AppColors.colorWhiteSelectedType,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          CustomText(
+                            text: 'dont_know_subilshate'.tr,
+                            fontSize: 13,
+                            color: const Color(AppColors.colorTextSkep),
+                          ),
+                          SizedBox(height: DEVICE_HEIGHT * 0.005),
+                          CustomText(
+                            text: 'selected_subilshate'.tr,
+                            fontSize: 13,
+                            color: const Color(AppColors.colorTextSkep),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ],

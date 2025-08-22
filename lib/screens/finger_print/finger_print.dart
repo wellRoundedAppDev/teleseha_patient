@@ -54,7 +54,7 @@ class FingerPrint extends StatelessWidget {
                   ),
                   SizedBox(height: DEVICE_HEIGHT * 0.04),
                   SvgPicture.asset(
-                    footPrint,
+                    fingerPrint,
                     width: DEVICE_WIDTH * 0.17,
                     height: DEVICE_HEIGHT * 0.17,
                     fit: BoxFit.cover,

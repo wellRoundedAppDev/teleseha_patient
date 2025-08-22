@@ -21,4 +21,8 @@ class AppColors {
   static const int colorPointerborder = 0xffF4F6F5;
   static const int colorPointer = 0xff4F007BBD;
   static const int colorBlack = 0xff000000;
+  static const int colorReception = 0xffF2F9FC;
+  static const int colorLastReception = 0xffF5FBFD;
+  static const int colorSpecialties = 0xff2D2D2D;
+static const int colorSpecialtiesTitle = 0xff4F4F4F;
 }

@@ -13,11 +13,11 @@ class FingerPrintController extends GetxController {
     // final String? refreshToken = await localStorage.getFromStorage(
     //   key: storageRefreshToken,
     // );
-    // // check response and go to page when nextAction
+    // check response and save and go to page when nextAction
     // if (refreshToken != null && refreshToken.isNotEmpty) {
     //   Get.offAllNamed(routeHome);
     // } else {
-      Get.offAllNamed(routeLogin);
+    Get.offAllNamed(routeLogin);
     // }
   }
 

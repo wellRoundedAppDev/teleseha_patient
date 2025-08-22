@@ -7,17 +7,12 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(AppColors.colorLineAndText),
-      body: GetBuilder<HomeController>(
-        init: HomeController(),
-        builder: (HomeController controller) {
-          return Column(
-            children: <Widget>[
-              const StatusBar(),
-              SizedBox(height: DEVICE_HEIGHT * 0.025),
-              const ContentArea(),
-            ],
-          );
-        },
+      body: Column(
+        children: <Widget>[
+          const StatusBar(),
+          SizedBox(height: DEVICE_HEIGHT * 0.03),
+          const ContentArea(),
+        ],
       ),
     );
   }
