@@ -17,7 +17,7 @@ class ContentArea extends StatelessWidget {
                     vertical: DEVICE_HEIGHT * 0.027,
                   )
                 : EdgeInsets.symmetric(
-                    horizontal: DEVICE_WIDTH * 0.05,
+                    horizontal: DEVICE_WIDTH * 0.045,
                     vertical: DEVICE_HEIGHT * 0.028,
                   ),
             decoration: const BoxDecoration(
@@ -146,45 +146,57 @@ class ContentArea extends StatelessWidget {
                     child: Wrap(
                       spacing: controller.checkReservations
                           ? DEVICE_HEIGHT * 0.005
-                          : DEVICE_HEIGHT * 0.002,
+                          : DEVICE_HEIGHT * 0.0094,
                       runSpacing: DEVICE_HEIGHT * 0.018,
                       children: <Widget>[
-                        ...controller.specialties.map((Map<String, dynamic> e) {
-                          return Card(
-                            elevation: 1,
-                            child: Container(
-                              width: DEVICE_WIDTH * 0.26,
-                              height: DEVICE_HEIGHT * 0.108,
-                              margin: const EdgeInsets.all(2),
-                              decoration: BoxDecoration(
-                                color: const Color(
-                                  AppColors.colorWhiteSelectedType,
-                                ),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  SvgPicture.asset(
-                                    e['icon'],
-                                    width: DEVICE_WIDTH * 0.05,
-                                    height: DEVICE_HEIGHT * 0.05,
-                                    fit: BoxFit.cover,
-                                  ),
-                                  SizedBox(height: DEVICE_HEIGHT * 0.013),
-                                  CustomText(
-                                    text: e['title'],
-                                    fontSize: 13,
-                                    type: CustomTextType.button,
+                        ...controller.specialties.asMap().map((
+                          int index,
+                          Map<String, dynamic> e,
+                        ) {
+                          return MapEntry(
+                            index,
+                            Card(
+                              elevation: 1,
+                              child: GestureDetector(
+                                onTap: () {
+                                  // Get.toNamed('/symptoms/$index');
+                                  // consoleLog('test $index');
+                                },
+                                child: Container(
+                                  width: DEVICE_WIDTH * 0.26,
+                                  height: DEVICE_HEIGHT * 0.108,
+                                  margin: const EdgeInsets.all(2),
+                                  decoration: BoxDecoration(
                                     color: const Color(
-                                      AppColors.colorSpecialtiesTitle,
+                                      AppColors.colorWhiteSelectedType,
                                     ),
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
-                                ],
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      SvgPicture.asset(
+                                        e['icon'],
+                                        width: DEVICE_WIDTH * 0.05,
+                                        height: DEVICE_HEIGHT * 0.05,
+                                        fit: BoxFit.cover,
+                                      ),
+                                      SizedBox(height: DEVICE_HEIGHT * 0.013),
+                                      CustomText(
+                                        text: e['title'],
+                                        fontSize: 13,
+                                        type: CustomTextType.button,
+                                        color: const Color(
+                                          AppColors.colorSpecialtiesTitle,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
                             ),
                           );
-                        }),
+                        }).values,
                       ],
                     ),
                   ),

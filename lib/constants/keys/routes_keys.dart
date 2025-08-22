@@ -8,3 +8,4 @@ const String routeDiagnosis = '/diagnosis-recipient';
 const String routeSelectTypeChildren = '/type-children';
 const String routeFormDiagnosis = '/form-diagnosis';
 const String routeScreen = '/main-screen';
+const String routeSymptoms = '/symptoms/:id';

@@ -10,11 +10,8 @@ class CustomBottomNavBar extends StatelessWidget {
     return GetBuilder<BottomNavController>(
       builder: (BottomNavController controller) {
         return Container(
-          margin: EdgeInsets.only(
-            bottom: DEVICE_HEIGHT * 0.061,
-            left: DEVICE_WIDTH * 0.04,
-            right: DEVICE_WIDTH * 0.04,
-          ),
+          height: DEVICE_HEIGHT * 0.087,
+          margin: EdgeInsets.only(bottom: DEVICE_HEIGHT * 0.07),
           decoration: BoxDecoration(
             color: const Color(AppColors.colorWhiteSelectedType),
             borderRadius: BorderRadius.circular(30),
@@ -23,59 +20,57 @@ class CustomBottomNavBar extends StatelessWidget {
             ],
           ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: List.generate(controller.labels.length, (int index) {
               final bool isSelected = controller.selectedIndex == index;
               return GestureDetector(
                 onTap: () {
                   controller.changeIndex(index);
                 },
-                child: SizedBox(
-                  width: DEVICE_WIDTH * 0.18,
-                  height: DEVICE_HEIGHT * 0.097,
-                  child: Stack(
-                    clipBehavior: Clip.none,
-                    alignment: Alignment.center,
+                child: Container(
+                  width: isSelected ? 95 : 70,
+                  decoration: BoxDecoration(
+                    gradient: isSelected
+                        ? const LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: <Color>[
+                              Color(0xFFB8D9F1),
+                              Color.fromARGB(111, 184, 217, 241),
+                            ],
+                          )
+                        : null,
+                    borderRadius: BorderRadius.circular(
+                      controller.selectedIndex == 0 ||
+                              controller.selectedIndex == 4
+                          ? 20
+                          : 100,
+                    ),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      if (isSelected)
-                        Positioned(
-                          top: 0,
-                          bottom: 0,
-                          left: -8,
-                          right: -8,
-                          child: Material(
-                            color: Colors.blue.withOpacity(0.1),
-                            elevation: 10,
-                            shadowColor: const Color(0x1A4F5565),
-                            shape: const CircleBorder(),
-                            child: const SizedBox.expand(),
-                          ),
-                        ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          SvgPicture.asset(
-                            controller.icons[index],
-                            width: DEVICE_WIDTH * 0.1,
-                            height: DEVICE_HEIGHT * 0.025,
-                            fit: BoxFit.cover,
-                            color: isSelected
-                                ? const Color(AppColors.colorLineAndText)
-                                : const Color(AppColors.colorSelectDropDown),
-                          ),
-                          SizedBox(height: DEVICE_HEIGHT * 0.003),
-                          CustomText(
-                            text: controller.labels[index],
-                            fontSize: 8,
-                            type: CustomTextType.title,
-                            color: isSelected
-                                ? const Color(AppColors.colorLineAndText)
-                                : const Color(AppColors.colorSelectDropDown),
-                          ),
-                        ],
+                      SvgPicture.asset(
+                        controller.icons[index],
+                        width: DEVICE_WIDTH * 0.1,
+                        height: DEVICE_HEIGHT * 0.025,
+                        fit: BoxFit.cover,
+                        color: isSelected
+                            ? const Color(AppColors.colorLineAndText)
+                            : const Color(AppColors.colorSelectDropDown),
+                      ),
+                      SizedBox(height: DEVICE_HEIGHT * 0.003),
+                      CustomText(
+                        text: controller.labels[index],
+                        fontSize: 8.5,
+                        type: CustomTextType.title,
+                        color: isSelected
+                            ? const Color(AppColors.colorLineAndText)
+                            : const Color(AppColors.colorSelectDropDown),
                       ),
                     ],
                   ),
+                  // ],
                 ),
               );
             }),

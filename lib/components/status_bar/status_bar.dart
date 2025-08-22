@@ -10,7 +10,7 @@ class StatusBar extends StatelessWidget {
     return GetBuilder<HomePageContentController>(
       builder: (HomePageContentController controller) {
         return Container(
-          margin: EdgeInsets.symmetric(horizontal: DEVICE_WIDTH * 0.05),
+          margin: EdgeInsets.symmetric(horizontal: DEVICE_WIDTH * 0.035),
           child: Container(
             margin: EdgeInsets.only(top: DEVICE_HEIGHT * 0.09),
             child: Column(
