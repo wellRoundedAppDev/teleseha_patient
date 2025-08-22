@@ -1,11 +1,12 @@
 import '../../general_exports.dart';
 
-class HomeController extends GetxController {
+class HomePageContentController extends GetxController {
   // here get user name about response refresh-login request
   String testNameUserData = 'name_user'.tr;
   // here check response if have last refervations
-  bool checkReservations = true;
+  bool checkReservations = false;
   int nextReservation = 3;
+  int selectedIndexBottomNavigationBar = 0;
 
   final List<Map<String, dynamic>> specialties = <Map<String, dynamic>>[
     <String, dynamic>{

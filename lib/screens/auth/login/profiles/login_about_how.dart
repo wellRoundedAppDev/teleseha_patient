@@ -122,7 +122,7 @@ class profiles extends StatelessWidget {
                                       ),
                                     ),
                                     onPressed: () {
-                                      Get.toNamed(routeHome);
+                                      Get.toNamed(routeScreen);
                                     },
                                     child: CustomText(
                                       text: 'login'.tr,

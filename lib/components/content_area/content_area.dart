@@ -7,9 +7,8 @@ class ContentArea extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<HomeController>(
-      init: HomeController(),
-      builder: (HomeController controller) {
+    return GetBuilder<HomePageContentController>(
+      builder: (HomePageContentController controller) {
         return Expanded(
           child: Container(
             padding: controller.checkReservations
@@ -18,7 +17,7 @@ class ContentArea extends StatelessWidget {
                     vertical: DEVICE_HEIGHT * 0.027,
                   )
                 : EdgeInsets.symmetric(
-                    horizontal: DEVICE_WIDTH * 0.06,
+                    horizontal: DEVICE_WIDTH * 0.05,
                     vertical: DEVICE_HEIGHT * 0.028,
                   ),
             decoration: const BoxDecoration(
@@ -148,11 +147,11 @@ class ContentArea extends StatelessWidget {
                       spacing: controller.checkReservations
                           ? DEVICE_HEIGHT * 0.005
                           : DEVICE_HEIGHT * 0.002,
-                      runSpacing: DEVICE_HEIGHT * 0.021,
+                      runSpacing: DEVICE_HEIGHT * 0.018,
                       children: <Widget>[
                         ...controller.specialties.map((Map<String, dynamic> e) {
                           return Card(
-                            elevation: 2,
+                            elevation: 1,
                             child: Container(
                               width: DEVICE_WIDTH * 0.26,
                               height: DEVICE_HEIGHT * 0.108,

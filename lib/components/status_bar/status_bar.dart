@@ -7,9 +7,8 @@ class StatusBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<HomeController>(
-      init: HomeController(),
-      builder: (HomeController controller) {
+    return GetBuilder<HomePageContentController>(
+      builder: (HomePageContentController controller) {
         return Container(
           margin: EdgeInsets.symmetric(horizontal: DEVICE_WIDTH * 0.05),
           child: Container(

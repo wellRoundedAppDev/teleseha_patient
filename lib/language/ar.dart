@@ -88,4 +88,9 @@ const Map<String, String> ar = <String, String>{
   'orthopedics': 'جراحة العظام',
   'psychiatry': 'الطب النفسي',
   'lung': 'الرئة',
+  'home': 'الصفحة الرئيسية',
+  'doctors': 'الدكاترة',
+  'personal_page': 'الصفحة الشخصية',
+  'reports': 'التقارير',
+  'settings': 'الإعدادات',
 };

@@ -42,6 +42,7 @@ dependencies:
   local_auth: ^2.3.0
   fluttertoast: ^8.2.12
   pattern_dots: ^1.0.0+1
+  flashy_tab_bar2: ^0.0.10
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

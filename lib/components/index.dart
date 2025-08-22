@@ -3,6 +3,7 @@ export 'custom_btn/index.dart';
 export 'custom_input/index.dart';
 export 'custom_otp/index.dart';
 export 'custom_text/index.dart';
+export 'home_bottom/index.dart';
 export 'is_valid/index.dart';
 export 'line_steps/index.dart';
 export 'logo/index.dart';
