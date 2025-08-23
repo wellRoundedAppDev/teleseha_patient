@@ -115,7 +115,7 @@ class HomeStatusBar extends StatelessWidget {
                               ),
                             ],
                           ),
-                          StyleBtnHeader(
+                          StyleBtnHeader(                            
                             textBtn: 'start_now'.tr,
                             onPressed: () {
                               Get.toNamed(routeSymptoms);

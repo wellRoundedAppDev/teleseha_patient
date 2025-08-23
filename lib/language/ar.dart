@@ -116,4 +116,10 @@ const Map<String, String> ar = <String, String>{
   'search_about_doctor': 'ابحث عن طبيب',
   'general_specialty_doctors': 'دكاترة التخصص العام',
   'name_doctor': 'د.حسام بدر',
+  'general_internal_affairs': 'الباطنه العامه',
+  'detection_times': '(85 مرات الكشف)',
+  'reservation': 'حجز',
+  'viewProfilesDoctor': 'مشاهدة الملف الشخصي',
+  'good_listen': 'مستمع جيد',
+  'wd': 'ودو',
 };

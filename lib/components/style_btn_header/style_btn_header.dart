@@ -1,16 +1,26 @@
 import '../../general_exports.dart';
 
 class StyleBtnHeader extends StatelessWidget {
-  StyleBtnHeader({super.key, this.textBtn, this.onPressed});
+  StyleBtnHeader({
+    super.key,
+    this.textBtn,
+    this.onPressed,
+    this.width = 0.2,
+    this.height = 0.042,
+    this.size = 8
+  });
 
   String? textBtn;
   Function? onPressed;
+  double? width;
+  double? height;
+  double? size;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: DEVICE_HEIGHT * 0.042,
-      width: DEVICE_WIDTH * 0.2,
+      height: DEVICE_HEIGHT * height!,
+      width: DEVICE_WIDTH * width!,
       child: ElevatedButton(
         onPressed: () {
           onPressed?.call();
@@ -23,7 +33,7 @@ class StyleBtnHeader extends StatelessWidget {
         ),
         child: CustomText(
           text: textBtn,
-          fontSize: 8,
+          fontSize: size!,
           type: CustomTextType.title,
           color: const Color(AppColors.colorWhiteSelectedType),
         ),

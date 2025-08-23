@@ -38,6 +38,8 @@ const String iconSettings = '${iconsPath}settings.svg';
 const String iconArrow = '${iconsPath}iconArrow.svg';
 const String iconSearch = '${iconsPath}iconSearch.svg';
 const String iconFilter = '${iconsPath}filter.svg';
+const String iconStar = '${iconsPath}star.svg';
+const String iconArraw = '${iconsPath}IconArraw.svg';
 
 // images
 const String imageDoctor = '${imagesPath}doctor.png';
