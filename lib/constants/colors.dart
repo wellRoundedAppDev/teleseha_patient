@@ -24,5 +24,6 @@ class AppColors {
   static const int colorReception = 0xffF2F9FC;
   static const int colorLastReception = 0xffF5FBFD;
   static const int colorSpecialties = 0xff2D2D2D;
-static const int colorSpecialtiesTitle = 0xff4F4F4F;
+  static const int colorSpecialtiesTitle = 0xff4F4F4F;
+  static const int colorSymptomsBorder = 0xff66666670;
 }

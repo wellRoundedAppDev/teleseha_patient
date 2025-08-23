@@ -5,12 +5,20 @@ class Symptoms extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final String id = Get.parameters['id'] ?? 'default_id';
-
-    return const Scaffold(
-      // appBar: AppBar(title: Text('Symptoms Page')),
-      // body: Center(child: Text('ID: $id')),
-      body: Text('hello world'),
+    return GetBuilder<ContentSympotomsController>(
+      init: ContentSympotomsController(),
+      builder: (ContentSympotomsController controller) {
+        return Scaffold(
+          backgroundColor: const Color(AppColors.colorLineAndText),
+          body: Column(
+            children: <Widget>[
+              StatusBar(goToComponentStatusBar: 'Symptoms'),
+              SizedBox(height: DEVICE_HEIGHT * 0.03),
+              ContentArea(goToComponentContentArea: 'Symptoms'),
+            ],
+          ),
+        );
+      },
     );
   }
 }

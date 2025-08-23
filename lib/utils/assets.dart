@@ -34,3 +34,5 @@ const String iconDoctors = '${iconsPath}iconDoctors.svg';
 const String iconPersonal = '${iconsPath}iconPersonal.svg';
 const String iconReports = '${iconsPath}reports.svg';
 const String iconSettings = '${iconsPath}settings.svg';
+const String iconArrow = '${iconsPath}iconArrow.svg';
+const String iconSearch = '${iconsPath}iconSearch.svg';

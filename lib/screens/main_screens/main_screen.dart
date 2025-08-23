@@ -2,6 +2,7 @@ import '../../general_exports.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<BottomNavController>(
@@ -10,7 +11,9 @@ class MainScreen extends StatelessWidget {
         return Scaffold(
           body: controller.pages[controller.selectedIndex],
           bottomNavigationBar: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 10),
+            margin: EdgeInsets.symmetric(
+              horizontal: controller.horizontalMargin,
+            ),
             child: const CustomBottomNavBar(),
           ),
         );

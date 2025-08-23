@@ -11,7 +11,7 @@ class CustomBottomNavBar extends StatelessWidget {
       builder: (BottomNavController controller) {
         return Container(
           height: DEVICE_HEIGHT * 0.087,
-          margin: EdgeInsets.only(bottom: DEVICE_HEIGHT * 0.07),
+          margin: EdgeInsets.only(bottom: DEVICE_HEIGHT * 0.05),
           decoration: BoxDecoration(
             color: const Color(AppColors.colorWhiteSelectedType),
             borderRadius: BorderRadius.circular(30),
@@ -20,7 +20,7 @@ class CustomBottomNavBar extends StatelessWidget {
             ],
           ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: List.generate(controller.labels.length, (int index) {
               final bool isSelected = controller.selectedIndex == index;
               return GestureDetector(
@@ -28,7 +28,7 @@ class CustomBottomNavBar extends StatelessWidget {
                   controller.changeIndex(index);
                 },
                 child: Container(
-                  width: isSelected ? 95 : 70,
+                  width: isSelected ? controller.widthSelected : 70,
                   decoration: BoxDecoration(
                     gradient: isSelected
                         ? const LinearGradient(
