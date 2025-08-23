@@ -20,6 +20,7 @@ class CustomInput extends StatelessWidget {
     this.readOnly = false,
     this.onTap,
     this.sizespace = 0.021,
+    this.paddingVertical = 0.051,
   });
 
   final String? title;
@@ -37,6 +38,7 @@ class CustomInput extends StatelessWidget {
   final bool readOnly;
   final Function? onTap;
   final double? sizespace;
+  final double paddingVertical;
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +85,7 @@ class CustomInput extends StatelessWidget {
               border: InputBorder.none,
               contentPadding: EdgeInsets.symmetric(
                 horizontal: DEVICE_HEIGHT * 0.024,
-                vertical: DEVICE_WIDTH * 0.051,
+                vertical: DEVICE_WIDTH * paddingVertical,
               ),
               hintText: hint,
               hintStyle: TextStyle(

@@ -19,8 +19,10 @@ class ContentArea extends StatelessWidget {
         ),
         width: DEVICE_WIDTH,
         child: goToComponentContentArea == 'HomePage'
-            ? const ContentHome()
-            : ContentSymptoms(),
+            ? ContentHome()
+            : goToComponentContentArea == 'Symptoms'
+            ? const ContentSymptoms()
+            : const ContentDoctors(),
       ),
     );
   }

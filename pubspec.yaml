@@ -74,6 +74,7 @@ flutter:
   assets:
   - assets/
   - assets/icons/
+  - assets/images/
 
   # example:
   fonts:

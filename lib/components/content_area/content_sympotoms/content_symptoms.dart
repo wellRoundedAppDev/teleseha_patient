@@ -66,21 +66,10 @@ class ContentSymptoms extends StatelessWidget {
                       children: List.generate(controller.items.length, (
                         int index,
                       ) {
-                        double itemWidth;
-                        if (index == 0) {
-                          itemWidth = maxWidth;
-                        } else {
-                          final int row = (index / 2).floor();
-                          if (row.isOdd) {
-                            itemWidth = index.isOdd
-                                ? (maxWidth * 0.45) - (spacing / 2)
-                                : (maxWidth * 0.45) - (spacing / 2);
-                          } else {
-                            itemWidth = index.isOdd
-                                ? (maxWidth * 0.55) - (spacing / 2)
-                                : (maxWidth * 0.55) - (spacing / 2);
-                          }
-                        }
+                        double itemWidth = controller.calculateItemWidth(
+                          index,
+                          maxWidth,
+                        );
                         return Container(
                           width: itemWidth,
                           padding: EdgeInsets.symmetric(
@@ -130,6 +119,9 @@ class ContentSymptoms extends StatelessWidget {
                                   },
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  activeColor: const Color(
+                                    AppColors.colorLineAndText,
                                   ),
                                 ),
                               ),

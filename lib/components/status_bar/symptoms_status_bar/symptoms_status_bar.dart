@@ -1,6 +1,6 @@
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../general_exports.dart';
+import '../../../general_exports.dart';
 
 class SymptomsStatusBar extends StatelessWidget {
   const SymptomsStatusBar({super.key});

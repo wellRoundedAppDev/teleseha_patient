@@ -3,7 +3,9 @@ import 'package:flutter_svg/svg.dart';
 import '../../general_exports.dart';
 
 class ContentHome extends StatelessWidget {
-  const ContentHome({super.key});
+  ContentHome({super.key});
+  final BottomNavController bottomController = Get.put(BottomNavController());
+  final DoctorsController doctors = Get.put(DoctorsController());
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +19,7 @@ class ContentHome extends StatelessWidget {
                 padding: EdgeInsets.all(DEVICE_WIDTH * 0.047),
                 decoration: BoxDecoration(
                   color: const Color(AppColors.colorLastReception),
-                  borderRadius: BorderRadius.circular(
-                    DEVICE_HEIGHT * 0.024,
-                  ),
+                  borderRadius: BorderRadius.circular(DEVICE_HEIGHT * 0.024),
                   boxShadow: <BoxShadow>[
                     BoxShadow(
                       color: const Color(0xFFD8DADC).withValues(alpha: 0.4),
@@ -42,9 +42,7 @@ class ContentHome extends StatelessWidget {
                               text: 'Recent_bookings'.tr,
                               fontSize: 17,
                               type: CustomTextType.title,
-                              color: const Color(
-                                AppColors.colorLineAndText,
-                              ),
+                              color: const Color(AppColors.colorLineAndText),
                             ),
                             SizedBox(width: DEVICE_WIDTH * 0.01),
                             SvgPicture.asset(
@@ -62,9 +60,7 @@ class ContentHome extends StatelessWidget {
                               text: 'nearest_reservation'.tr,
                               fontSize: 12,
                               type: CustomTextType.title,
-                              color: const Color(
-                                AppColors.colorSuccessLine,
-                              ),
+                              color: const Color(AppColors.colorSuccessLine),
                             ),
                             SizedBox(width: DEVICE_WIDTH * 0.02),
                             SvgPicture.asset(
@@ -83,9 +79,7 @@ class ContentHome extends StatelessWidget {
                                   '${'next_reservation'.tr} ${controller.nextReservation}',
                               fontSize: 12,
                               type: CustomTextType.title,
-                              color: const Color(
-                                AppColors.colorLineAndText,
-                              ),
+                              color: const Color(AppColors.colorLineAndText),
                             ),
                             SizedBox(width: DEVICE_WIDTH * 0.01),
                             SvgPicture.asset(
@@ -143,8 +137,15 @@ class ContentHome extends StatelessWidget {
                           elevation: 1,
                           child: GestureDetector(
                             onTap: () {
-                              // Get.toNamed('/symptoms/$index');
-                              // consoleLog('test $index');
+                              final BottomNavController findBottomController =
+                                  Get.find();
+                              findBottomController.selectedIndex = 1;
+
+                              final DoctorsController sympotomsController =
+                                  Get.find();
+                              sympotomsController.passedIndex = index;
+
+                              findBottomController.update();
                             },
                             child: Container(
                               width: DEVICE_WIDTH * 0.26,

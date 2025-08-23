@@ -9,6 +9,8 @@ class StatusBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return goToComponentStatusBar == 'HomePage'
         ? const HomeStatusBar()
-        : const SymptomsStatusBar();
+        : goToComponentStatusBar == 'Symptoms'
+        ? const SymptomsStatusBar()
+        : DoctorsStatusBar();
   }
 }

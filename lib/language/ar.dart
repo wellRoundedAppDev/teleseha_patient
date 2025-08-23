@@ -113,4 +113,7 @@ const Map<String, String> ar = <String, String>{
   'symptoms14': 'عدم اتباع تعليمات بسيطة',
   'symptoms15': 'صعوبة النوم وحده',
   'diagnosisOfMyCondition': 'تشخيص حالتي',
+  'search_about_doctor': 'ابحث عن طبيب',
+  'general_specialty_doctors': 'دكاترة التخصص العام',
+  'name_doctor': 'د.حسام بدر',
 };

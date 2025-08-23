@@ -1,6 +1,6 @@
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../general_exports.dart';
+import '../../../general_exports.dart';
 
 class HomeStatusBar extends StatelessWidget {
   const HomeStatusBar({super.key});
@@ -117,7 +117,9 @@ class HomeStatusBar extends StatelessWidget {
                           ),
                           StyleBtnHeader(
                             textBtn: 'start_now'.tr,
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.toNamed(routeSymptoms);
+                            },
                           ),
                         ],
                       ),

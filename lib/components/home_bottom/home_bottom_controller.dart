@@ -2,7 +2,7 @@ import '../../general_exports.dart';
 
 class BottomNavController extends GetxController {
   int selectedIndex = 2;
-  
+
   final double widthSelected = DEVICE_WIDTH <= 380 ? 75 : 95;
   final double horizontalMargin = DEVICE_WIDTH <= 380 ? 0 : 8;
 
