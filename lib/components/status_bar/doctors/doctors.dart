@@ -3,7 +3,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../general_exports.dart';
 
 class DoctorsStatusBar extends StatelessWidget {
-  const DoctorsStatusBar({super.key});
+  DoctorsStatusBar({super.key});
+
+  final BottomNavController bottomController = Get.put(BottomNavController());
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,10 @@ class DoctorsStatusBar extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Get.back();
+                        final BottomNavController findBottomController =
+                            Get.find();
+                        findBottomController.selectedIndex = 2;
+                        findBottomController.update();
                       },
                       child: SvgPicture.asset(
                         iconArrow,

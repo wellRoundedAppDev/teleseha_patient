@@ -22,7 +22,7 @@ class ContentArea extends StatelessWidget {
             ? ContentHome()
             : goToComponentContentArea == 'Symptoms'
             ? const ContentSymptoms()
-            : const ContentDoctors(),
+            : ContentDoctors(),
       ),
     );
   }

@@ -4,6 +4,9 @@ class DoctorsController extends GetxController {
   TextEditingController filterDoctors = TextEditingController();
   bool showDoctors = false;
 
+  final double widthSelected = DEVICE_WIDTH <= 380 ? 300 : 400;
+  final double sizeTextSelected = DEVICE_WIDTH <= 380 ? 11 : 15;
+
   int? passedIndex = 0;
 
   List<Map<String, dynamic>> doctors = <Map<String, dynamic>>[

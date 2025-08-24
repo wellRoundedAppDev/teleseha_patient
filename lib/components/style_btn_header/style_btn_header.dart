@@ -5,9 +5,9 @@ class StyleBtnHeader extends StatelessWidget {
     super.key,
     this.textBtn,
     this.onPressed,
-    this.width = 0.2,
+    this.width = 0.21,
     this.height = 0.042,
-    this.size = 8
+    this.size = 8,
   });
 
   String? textBtn;

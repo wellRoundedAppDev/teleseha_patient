@@ -21,13 +21,15 @@ class ContentDoctors extends StatelessWidget {
             ),
             SizedBox(height: DEVICE_HEIGHT * 0.027),
             SizedBox(
-              height: DEVICE_HEIGHT * 0.47,
+              height: controller.widthSelected,
               child: ListView.builder(
                 shrinkWrap: true,
                 padding: EdgeInsets.zero,
                 itemCount: controller.doctors.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Card(
+                    elevation: 0.01,
+                    color: const Color(AppColors.colorWhiteSelectedType),
                     margin: EdgeInsets.only(bottom: DEVICE_HEIGHT * 0.02),
                     child: Column(
                       children: <Widget>[
@@ -49,7 +51,7 @@ class ContentDoctors extends StatelessWidget {
                                     child: Image.asset(
                                       controller.doctors[index]['image'],
                                       width: DEVICE_WIDTH * 0.25,
-                                      height: DEVICE_HEIGHT * 0.125,
+                                      height: DEVICE_HEIGHT * 0.12,
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -91,6 +93,10 @@ class ContentDoctors extends StatelessWidget {
                                                         ),
                                                       ],
                                                     ),
+                                                  ),
+                                                  SizedBox(
+                                                    height:
+                                                        DEVICE_HEIGHT * 0.004,
                                                   ),
                                                   Row(
                                                     children: <Widget>[
@@ -146,7 +152,7 @@ class ContentDoctors extends StatelessWidget {
                                                         .doctors[index]['reveal'],
                                                     type: CustomTextType
                                                         .inputTitle,
-                                                    fontSize: 13,
+                                                    fontSize: 11,
                                                     color: const Color(
                                                       AppColors
                                                           .colorNameSpecialization,
@@ -155,17 +161,18 @@ class ContentDoctors extends StatelessWidget {
                                                 ],
                                               ),
                                               StyleBtnHeader(
-                                                width: 0.175,
-                                                size: 12,
+                                                width: DEVICE_WIDTH * 0.00047,
+                                                size:
+                                                    controller.sizeTextSelected,
                                                 textBtn: 'reservation'.tr,
                                                 onPressed: () {},
                                               ),
                                             ],
                                           ),
                                         ),
-                                        SizedBox(height: DEVICE_HEIGHT * 0.008),
+                                        SizedBox(height: DEVICE_HEIGHT * 0.01),
                                         SizedBox(
-                                          width: 220,
+                                          width: DEVICE_WIDTH * 1,
                                           child: Expanded(
                                             child: Wrap(
                                               spacing: 8,
@@ -180,7 +187,7 @@ class ContentDoctors extends StatelessWidget {
                                                         EdgeInsets.symmetric(
                                                           horizontal:
                                                               DEVICE_WIDTH *
-                                                              0.04,
+                                                              0.03,
                                                           vertical:
                                                               DEVICE_HEIGHT *
                                                               0.007,
@@ -223,12 +230,12 @@ class ContentDoctors extends StatelessWidget {
                             ],
                           ),
                         ),
-                        SizedBox(height: DEVICE_HEIGHT * 0.006),
+                        SizedBox(height: DEVICE_HEIGHT * 0.007),
                         const Divider(
-                          color: Color(AppColors.colorLineDoctors),
+                          color: Color.fromARGB(68, 128, 128, 64),
                           thickness: 1,
                         ),
-                        SizedBox(height: DEVICE_HEIGHT * 0.01),
+                        SizedBox(height: DEVICE_HEIGHT * 0.006),
                         Padding(
                           padding: EdgeInsetsGeometry.symmetric(
                             horizontal: DEVICE_WIDTH * 0.06,
