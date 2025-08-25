@@ -3,6 +3,7 @@ import '../../general_exports.dart';
 class HomePageContentController extends GetxController {
   // here get user name about response refresh-login request
   String testNameUserData = 'name_user'.tr;
+
   // here check response if have last refervations
   bool checkReservations = false;
   int nextReservation = 3;
@@ -32,4 +33,26 @@ class HomePageContentController extends GetxController {
     <String, dynamic>{'icon': iconPsychiatry, 'title': 'psychiatry'.tr},
     <String, dynamic>{'icon': iconLungs, 'title': 'lung'.tr},
   ];
+  
+  void openContentDoctorsAboutSelected() {
+    //   final BottomNavController findBottomController = Get.find();
+
+    //   final DoctorsController doctorsController = Get.find();
+    //   doctorsController.passedIndex = index;
+
+    final ChangeParamContentAndNextPage changeParam = Get.find();
+    changeParam.goToComponentStatusBar.value = 'Subspecialties';
+    update();
+
+    //   if (index == 0) {
+    //     doctorsController.selectedGeneralOrSpecializedMajor = true;
+    //     changeParam.goToComponentStatusBar.value = 'Symptoms';
+    //   } else {
+    //     doctorsController.selectedGeneralOrSpecializedMajor = false;
+    //   }
+
+    //   changeParam.update();
+    //   doctorsController.update();
+    //   findBottomController.update();
+  }
 }

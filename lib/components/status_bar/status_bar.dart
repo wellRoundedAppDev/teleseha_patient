@@ -1,16 +1,19 @@
 import '../../general_exports.dart';
 
 class StatusBar extends StatelessWidget {
-  StatusBar({super.key, this.goToComponentStatusBar});
-
-  String? goToComponentStatusBar;
+  const StatusBar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return goToComponentStatusBar == 'HomePage'
-        ? const HomeStatusBar()
-        : goToComponentStatusBar == 'Symptoms'
-        ? const SymptomsStatusBar()
-        : DoctorsStatusBar();
+    final controller = Get.find<ChangeParamContentAndNextPage>();
+    return Obx(() {
+      return controller.goToComponentStatusBar.value == 'HomePage'
+          ? const HomeStatusBar()
+          : controller.goToComponentStatusBar.value == 'Symptoms'
+          ? const SymptomsStatusBar()
+          : controller.goToComponentStatusBar.value == 'Doctors'
+          ? DoctorsStatusBar()
+          : const SubSpecialtiesStatusBar();
+    });
   }
 }

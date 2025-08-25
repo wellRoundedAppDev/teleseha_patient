@@ -12,9 +12,9 @@ class HomePageContent extends StatelessWidget {
           backgroundColor: const Color(AppColors.colorLineAndText),
           body: Column(
             children: <Widget>[
-              StatusBar(goToComponentStatusBar: 'HomePage'),
+              const StatusBar(),
               SizedBox(height: DEVICE_HEIGHT * 0.03),
-              ContentArea(goToComponentContentArea: 'HomePage',),
+              ContentArea(),
             ],
           ),
         );

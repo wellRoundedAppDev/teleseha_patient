@@ -7,8 +7,10 @@ class SymptomsStatusBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ChangeParamContentAndNextPage change = Get.find();
     return GetBuilder<ContentSympotomsController>(
-      builder: (ContentSympotomsController controller) {
+      init: ContentSympotomsController(),
+      builder: (ContentSympotomsController controller) {      
         return Container(
           margin: EdgeInsets.symmetric(horizontal: DEVICE_WIDTH * 0.035),
           child: Container(
@@ -16,9 +18,11 @@ class SymptomsStatusBar extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
+                Text(change.knowNextPage.value),
                 GestureDetector(
                   onTap: () {
-                    Get.back();
+                    change.goToComponentStatusBar.value = 'HomePage';
+                    change.update();
                   },
                   child: SvgPicture.asset(
                     iconArrow,

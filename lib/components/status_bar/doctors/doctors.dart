@@ -33,6 +33,11 @@ class DoctorsStatusBar extends StatelessWidget {
                         final BottomNavController findBottomController =
                             Get.find();
                         findBottomController.selectedIndex = 2;
+
+                        final ChangeParamContentAndNextPage changeParam = Get.find();
+                        changeParam.goToComponentStatusBar.value = 'HomePage';
+
+                        changeParam.update();
                         findBottomController.update();
                       },
                       child: SvgPicture.asset(

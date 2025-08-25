@@ -16,9 +16,9 @@ class BottomNavController extends GetxController {
 
   final List<Widget> pages = <Widget>[
     const HomePageContent(),
-    const Doctors(),
     const HomePageContent(),
-    const Doctors(),
+    const HomePageContent(),
+    const HomePageContent(),
     const HomePageContent(),
   ];
 
@@ -32,6 +32,15 @@ class BottomNavController extends GetxController {
 
   void changeIndex(int index) {
     selectedIndex = index;
+    final ChangeParamContentAndNextPage changeParam = Get.find();
+
+    if (index == 2) {
+      changeParam.goToComponentStatusBar.value = 'HomePage';
+    } else if (index == 1) {
+      changeParam.goToComponentStatusBar.value = 'Doctors';
+    }
+    
+    changeParam.update();
     update();
   }
 }

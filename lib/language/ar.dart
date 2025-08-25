@@ -122,4 +122,6 @@ const Map<String, String> ar = <String, String>{
   'viewProfilesDoctor': 'مشاهدة الملف الشخصي',
   'good_listen': 'مستمع جيد',
   'wd': 'ودو',
+  'specialistDoctors': 'الدكاترة الأخصائيين',
+  'subSpecialist': 'التخصصات الفرعيه',
 };

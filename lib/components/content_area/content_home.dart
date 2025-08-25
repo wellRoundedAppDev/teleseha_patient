@@ -137,15 +137,7 @@ class ContentHome extends StatelessWidget {
                           elevation: 1,
                           child: GestureDetector(
                             onTap: () {
-                              final BottomNavController findBottomController =
-                                  Get.find();
-                              findBottomController.selectedIndex = 1;
-
-                              final DoctorsController sympotomsController =
-                                  Get.find();
-                              sympotomsController.passedIndex = index;
-
-                              findBottomController.update();
+                              controller.openContentDoctorsAboutSelected();
                             },
                             child: Container(
                               width: DEVICE_WIDTH * 0.26,

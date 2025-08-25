@@ -13,12 +13,20 @@ class ContentDoctors extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            CustomText(
-              text: 'general_specialty_doctors'.tr,
-              type: CustomTextType.title,
-              fontSize: 16,
-              color: const Color(AppColors.colorTitle),
-            ),
+            if (controller.selectedGeneralOrSpecializedMajor)
+              CustomText(
+                text: 'general_specialty_doctors'.tr,
+                type: CustomTextType.title,
+                fontSize: 16,
+                color: const Color(AppColors.colorTitle),
+              )
+            else
+              CustomText(
+                text: 'specialistDoctors'.tr,
+                type: CustomTextType.title,
+                fontSize: 16,
+                color: const Color(AppColors.colorTitle),
+              ),
             SizedBox(height: DEVICE_HEIGHT * 0.027),
             SizedBox(
               height: controller.widthSelected,

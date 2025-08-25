@@ -5,4 +5,3 @@ export 'home_page_content/index.dart';
 export 'main_screens/index.dart';
 export 'my_app/index.dart';
 export 'splash/index.dart';
-export 'symptoms/index.dart';

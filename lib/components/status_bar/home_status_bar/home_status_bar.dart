@@ -115,10 +115,14 @@ class HomeStatusBar extends StatelessWidget {
                               ),
                             ],
                           ),
-                          StyleBtnHeader(                            
+                          StyleBtnHeader(
                             textBtn: 'start_now'.tr,
                             onPressed: () {
-                              Get.toNamed(routeSymptoms);
+                              ChangeParamContentAndNextPage change = Get.find();
+                              change.goToComponentStatusBar.value = 'Symptoms';
+                              change.knowNextPage.value =
+                                  'Comping from home going to reception';
+                              change.update();
                             },
                           ),
                         ],
