@@ -33,7 +33,7 @@ class HomeStatusBar extends StatelessWidget {
                           CustomText(
                             text:
                                 '${'say_welcome'.tr} ${controller.testNameUserData}!',
-                            fontSize: 22,
+                            fontSize: 20,
                             type: CustomTextType.title,
                             color: const Color(
                               AppColors.colorWhiteSelectedType,
@@ -106,7 +106,7 @@ class HomeStatusBar extends StatelessWidget {
                                 margin: const EdgeInsets.only(top: 1),
                                 child: CustomText(
                                   text: 'medical_reception'.tr,
-                                  fontSize: 15,
+                                  fontSize: 13,
                                   type: CustomTextType.title,
                                   color: const Color(
                                     AppColors.colorLineAndText,
@@ -117,8 +117,10 @@ class HomeStatusBar extends StatelessWidget {
                           ),
                           StyleBtnHeader(
                             textBtn: 'start_now'.tr,
+                            size: 9,
                             onPressed: () {
-                              ChangeParamContentAndNextPage change = Get.find();
+                              final ChangeParamContentAndNextPage change =
+                                  Get.find();
                               change.goToComponentStatusBar.value = 'Symptoms';
                               change.knowNextPage.value =
                                   'Comping from home going to reception';
@@ -132,13 +134,13 @@ class HomeStatusBar extends StatelessWidget {
                         children: <Widget>[
                           CustomText(
                             text: 'dont_know_subilshate'.tr,
-                            fontSize: 13,
+                            fontSize: 12,
                             color: const Color(AppColors.colorTextSkep),
                           ),
                           SizedBox(height: DEVICE_HEIGHT * 0.005),
                           CustomText(
                             text: 'selected_subilshate'.tr,
-                            fontSize: 13,
+                            fontSize: 12,
                             color: const Color(AppColors.colorTextSkep),
                           ),
                         ],

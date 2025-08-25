@@ -66,6 +66,7 @@ class Login extends StatelessWidget {
                             keyboardType: TextInputType.number,
                             suffixIconPath: iconNumber,
                             bottomSpacing: DEVICE_HEIGHT * 0.0,
+                            sizespace: DEVICE_HEIGHT * 0.000018,
                           ),
                         ],
                       ),

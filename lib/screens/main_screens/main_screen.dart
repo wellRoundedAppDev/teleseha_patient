@@ -14,9 +14,9 @@ class MainScreen extends StatelessWidget {
         return Scaffold(
           body: controller.pages[controller.selectedIndex],
           bottomNavigationBar: Obx(() {
-            return change.goToComponentStatusBar == 'HomePage' ||
-                    change.goToComponentStatusBar == 'Doctors'||
-                    change.goToComponentStatusBar == 'Subspecialties'
+            return change.goToComponentStatusBar.value == 'HomePage' ||
+                    change.goToComponentStatusBar.value == 'Doctors'||
+                    change.goToComponentStatusBar.value == 'Subspecialties'
                 ? Container(
                     margin: EdgeInsets.symmetric(
                       horizontal: controller.horizontalMargin,

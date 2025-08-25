@@ -16,7 +16,7 @@ class CustomInput extends StatelessWidget {
     this.icon,
     this.suffixIconPath,
     this.bottomSpacing = 0.02,
-    this.fontSize = 18,
+    this.fontSize = 16,
     this.readOnly = false,
     this.onTap,
     this.sizespace = 0.021,
@@ -91,6 +91,7 @@ class CustomInput extends StatelessWidget {
               hintStyle: TextStyle(
                 fontFamily: 'Cairo',
                 fontSize: 14,
+                fontStyle: FontStyle.normal,
                 fontWeight: FontWeight.w400,
                 color: const Color(
                   AppColors.colorHintText,

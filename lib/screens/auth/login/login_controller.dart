@@ -24,16 +24,6 @@ class LoginController extends GetxController {
   // check pass about data if true open the user and open response users and loop to users and view to list view
   final List<Map<String, dynamic>> profiles = <Map<String, dynamic>>[
     <String, dynamic>{'id': 1, 'icon': iconUser, 'name': 'name_user'.tr},
-    // <String, dynamic>{'id': 2, 'icon': iconUser, 'name': 'name_user_tow'.tr},
-    // <String, dynamic>{'id': 3, 'icon': iconUser, 'name': 'name_user'.tr},
-    // <String, dynamic>{'id': 4, 'icon': iconUser, 'name': 'name_user_tow'.tr},
-    // <String, dynamic>{'id': 5, 'icon': iconUser, 'name': 'name_user'.tr},
-    // <String, dynamic>{'id': 6, 'icon': iconUser, 'name': 'name_user_tow'.tr},
-    // <String, dynamic>{'id': 7, 'icon': iconUser, 'name': 'name_user_tow'.tr},
-    // <String, dynamic>{'id': 8, 'icon': iconUser, 'name': 'name_user'.tr},
-    // <String, dynamic>{'id': 9, 'icon': iconUser, 'name': 'name_user_tow'.tr},
-    // <String, dynamic>{'id': 10, 'icon': iconUser, 'name': 'name_user'.tr},
-    // <String, dynamic>{'id': 11, 'icon': iconUser, 'name': 'name_user_tow'.tr},
   ];
 
   void updatePage(String newResolution) {

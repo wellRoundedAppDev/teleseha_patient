@@ -16,20 +16,27 @@ class ContentArea extends StatelessWidget {
                   controller.goToComponentStatusBar.value != 'Subspecialties'
                   ? DEVICE_HEIGHT * 0.028
                   : DEVICE_HEIGHT * 0.045,
-              // vertical: 35,
             ),
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(topRight: Radius.circular(40)),
               color: Color(AppColors.backgroundColorLine),
             ),
             width: DEVICE_WIDTH,
-            child: controller.goToComponentStatusBar.value == 'HomePage'
-                ? ContentHome()
-                : controller.goToComponentStatusBar.value == 'Symptoms'
-                ? const ContentSymptoms()
-                : controller.goToComponentStatusBar.value == 'Doctors'
-                ? const ContentDoctors()
-                : ContentSubSpecialties(),
+            child: Obx(() {
+              return controller.goToComponentStatusBar.value == 'HomePage'
+                  ? ContentHome()
+                  : controller.goToComponentStatusBar.value == 'Symptoms'
+                  ? const ContentSymptoms()
+                  : controller.goToComponentStatusBar.value == 'Doctors'
+                  ? const ContentDoctors()
+                  : controller.goToComponentStatusBar.value == 'Reception'
+                  ? const ContentReception()
+                  : controller.goToComponentStatusBar.value == 'successReception'
+                  ? const SuccessReception()
+                  : controller.goToComponentStatusBar.value == 'KnowledgeOfSpecialty'
+                  ? const KnowledgeOfSpecialty()
+                  : const ContentSubSpecialties();
+            }),
           ),
         );
       },

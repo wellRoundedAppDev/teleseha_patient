@@ -2,8 +2,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../general_exports.dart';
 
-class SubSpecialtiesStatusBar extends StatelessWidget {
-  const SubSpecialtiesStatusBar({super.key});
+class OntherStatusBar extends StatelessWidget {
+  const OntherStatusBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,15 +13,18 @@ class SubSpecialtiesStatusBar extends StatelessWidget {
       builder: (ContentSympotomsController controller) {
         return Container(
           width: DEVICE_WIDTH,
-          padding: EdgeInsets.symmetric(horizontal: DEVICE_WIDTH * 0.06),
+          padding: EdgeInsets.symmetric(horizontal: DEVICE_WIDTH * 0.07),
           margin: EdgeInsets.only(top: DEVICE_HEIGHT * 0.09),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
-              Text(change.knowNextPage.value),
               GestureDetector(
                 onTap: () {
-                  change.goToComponentStatusBar.value = 'HomePage';
+                  change.goToComponentStatusBar.value == 'Reception' ||
+                          change.goToComponentStatusBar.value ==
+                              'successReception'
+                      ? change.goToComponentStatusBar.value = 'Symptoms'
+                      : change.goToComponentStatusBar.value = 'HomePage';
                   change.update();
                 },
                 child: SvgPicture.asset(

@@ -40,6 +40,11 @@ const String iconSearch = '${iconsPath}iconSearch.svg';
 const String iconFilter = '${iconsPath}filter.svg';
 const String iconStar = '${iconsPath}star.svg';
 const String iconArraw = '${iconsPath}IconArraw.svg';
+const String iconPublic = '${iconsPath}iconPublic.svg';
+const String iconSubSpecialties1 = '${iconsPath}subSpecialties1.svg';
+const String iconSubSpecialties2 = '${iconsPath}subSpecialties2.svg';
+const String iconSubSpecialties3 = '${iconsPath}subSpecialties3.svg';
+const String iconSubSpecialties4 = '${iconsPath}subSpecialties4.svg';
 
 // images
 const String imageDoctor = '${imagesPath}doctor.png';

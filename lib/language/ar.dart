@@ -112,7 +112,7 @@ const Map<String, String> ar = <String, String>{
   'symptoms13': 'عدم اتباع تعليمات بسيطة',
   'symptoms14': 'عدم اتباع تعليمات بسيطة',
   'symptoms15': 'صعوبة النوم وحده',
-  'diagnosisOfMyCondition': 'تشخيص حالتي',
+  'selected_specialty': 'تحديد التخصص',
   'search_about_doctor': 'ابحث عن طبيب',
   'general_specialty_doctors': 'دكاترة التخصص العام',
   'name_doctor': 'د.حسام بدر',
@@ -123,5 +123,17 @@ const Map<String, String> ar = <String, String>{
   'good_listen': 'مستمع جيد',
   'wd': 'ودو',
   'specialistDoctors': 'الدكاترة الأخصائيين',
-  'subSpecialist': 'التخصصات الفرعيه',
+  'sub_specialist': 'التخصصات الفرعيه',
+  'public': 'عام',
+  'sub_specialties_1': 'الطفولة المُبكرة (1-3 سنوات)',
+  'sub_specialties_2': 'ما قبل المدرسة (3-5 سنوات)',
+  'sub_specialties_3': 'سن المدرسة (6-12 سنة)',
+  'sub_specialties_4': 'المراهقون (13-18 سنة)',
+  'reception': 'الإستقبال',
+  'analysis_underway': 'جاري تحليل الاعراض وتحديد التخصص',
+  'please_wait':
+      'سيتم توجيهك للتخصص المناسب  بعد 20 دقائق الرجاء الانتظار.....',
+  'wait': 'انتظار.....',
+  'specialization_selected': 'تم تحديد التخصص الرجاء الدفع لعرضه',
+  'buy': 'دفع'
 };

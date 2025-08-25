@@ -24,8 +24,8 @@ class Btn extends StatelessWidget {
         },
         child: CustomText(
           text: text,
-          type: CustomTextType.inputTitle,
-          fontSize: 17,
+          type: CustomTextType.button,
+          fontSize: 20,
           color: const Color(AppColors.colorWhiteSelectedType),
         ),
       ),

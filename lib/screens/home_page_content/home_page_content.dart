@@ -14,7 +14,7 @@ class HomePageContent extends StatelessWidget {
             children: <Widget>[
               const StatusBar(),
               SizedBox(height: DEVICE_HEIGHT * 0.03),
-              ContentArea(),
+              const ContentArea(),
             ],
           ),
         );

@@ -66,7 +66,7 @@ class FormDataUser extends StatelessWidget {
                           CustomText(
                             text: 'type'.tr,
                             type: CustomTextType.title,
-                            fontWeight: FontWeight.w400,
+                            // fontWeight: FontWeight.w400,
                             color: const Color(AppColors.colorLineAndText),
                           ),
                           SizedBox(height: DEVICE_HEIGHT * 0.019),
@@ -116,7 +116,7 @@ class FormDataUser extends StatelessWidget {
                                           CustomText(
                                             text: item[gender] ?? '',
                                             type: CustomTextType.title,
-                                            fontWeight: FontWeight.w400,
+                                            // fontWeight: FontWeight.w400,
                                             fontSize: 16,
                                             color:
                                                 controller.selectedMaleCode ==
@@ -330,7 +330,7 @@ class UserFormFields extends StatelessWidget {
                 CustomText(
                   text: 'type'.tr,
                   type: CustomTextType.title,
-                  fontWeight: FontWeight.w400,
+                  // fontWeight: FontWeight.w400,
                   color: const Color(AppColors.colorLineAndText),
                 ),
                 SizedBox(height: DEVICE_HEIGHT * 0.019),
@@ -367,7 +367,7 @@ class UserFormFields extends StatelessWidget {
                                 CustomText(
                                   text: item[gender] ?? '',
                                   type: CustomTextType.title,
-                                  fontWeight: FontWeight.w400,
+                                  // fontWeight: FontWeight.w400,
                                   fontSize: 16,
                                   color:
                                       controller.selectedMaleCode == item[code]
