@@ -16,7 +16,9 @@ class ContentHome extends StatelessWidget {
           children: <Widget>[
             if (controller.checkReservations)
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  consoleLog('test');
+                },
                 child: Container(
                   padding: EdgeInsets.all(DEVICE_WIDTH * 0.047),
                   decoration: BoxDecoration(

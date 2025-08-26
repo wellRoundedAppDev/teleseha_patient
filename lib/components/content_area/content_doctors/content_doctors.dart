@@ -7,26 +7,20 @@ class ContentDoctors extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ChangeParamContentAndNextPage change = Get.find();
+
     return GetBuilder<DoctorsController>(
       init: DoctorsController(),
       builder: (DoctorsController controller) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            if (controller.selectedGeneralOrSpecializedMajor)
-              CustomText(
-                text: 'general_specialty_doctors'.tr,
-                type: CustomTextType.title,
-                fontSize: 16,
-                color: const Color(AppColors.colorTitle),
-              )
-            else
-              CustomText(
-                text: 'specialistDoctors'.tr,
-                type: CustomTextType.title,
-                fontSize: 16,
-                color: const Color(AppColors.colorTitle),
-              ),
+            CustomText(
+              text: 'general_specialty_doctors'.tr,
+              type: CustomTextType.title,
+              fontSize: 16,
+              color: const Color(AppColors.colorTitle),
+            ),
             SizedBox(height: DEVICE_HEIGHT * 0.027),
             SizedBox(
               height: controller.widthSelected,
@@ -273,7 +267,14 @@ class ContentDoctors extends StatelessWidget {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  consoleLog('test');
+                                  final int doctorId =
+                                      controller.doctors[index]['id'];
+
+                                  change.selectedDoctorId.value = doctorId;
+
+                                  change.goToComponentStatusBar.value =
+                                      'ProfileDoctor';
+                                  change.update();
                                 },
                                 child: Row(
                                   children: <Widget>[
@@ -289,7 +290,7 @@ class ContentDoctors extends StatelessWidget {
                                     Container(
                                       margin: const EdgeInsets.only(top: 3),
                                       child: SvgPicture.asset(
-                                        iconArraw,
+                                        iconArrowGreen,
                                         width: DEVICE_WIDTH * 0.025,
                                         height: DEVICE_HEIGHT * 0.015,
                                       ),

@@ -3,30 +3,75 @@ import '../../general_exports.dart';
 class MainScreen extends StatelessWidget {
   MainScreen({super.key});
 
-  ChangeParamContentAndNextPage changeParam = Get.put(ChangeParamContentAndNextPage());
+  final ChangeParamContentAndNextPage changeParam = Get.put(
+    ChangeParamContentAndNextPage(),
+  );
 
   @override
   Widget build(BuildContext context) {
-    final ChangeParamContentAndNextPage change = Get.find();
-    return GetBuilder<BottomNavController>(
-      init: BottomNavController(),
-      builder: (BottomNavController controller) {
-        return Scaffold(
-          body: controller.pages[controller.selectedIndex],
-          bottomNavigationBar: Obx(() {
-            return change.goToComponentStatusBar.value == 'HomePage' ||
-                    change.goToComponentStatusBar.value == 'Doctors'||
-                    change.goToComponentStatusBar.value == 'Subspecialties'
+    final BottomNavController bottomNavController = Get.put(
+      BottomNavController(),
+    );
+    final HomePageContentController homeController = Get.put(
+      HomePageContentController(),
+    );
+
+    return Obx(() {
+      return Stack(
+        children: <Widget>[
+          Scaffold(
+            body: bottomNavController.pages[bottomNavController.selectedIndex],
+            bottomNavigationBar:
+                changeParam.goToComponentStatusBar.value == 'HomePage' ||
+                    changeParam.goToComponentStatusBar.value == 'Doctors' ||
+                    changeParam.goToComponentStatusBar.value == 'Subspecialties'
                 ? Container(
                     margin: EdgeInsets.symmetric(
-                      horizontal: controller.horizontalMargin,
+                      horizontal: bottomNavController.horizontalMargin,
                     ),
                     child: const CustomBottomNavBar(),
                   )
-                : const SizedBox();
+                : const SizedBox(),
+          ),
+
+          Obx(() {
+            if (!homeController.isDrawerOpen.value) return const SizedBox();
+            return Positioned.fill(
+              child: GestureDetector(
+                onTap: () {
+                  homeController.isDrawerOpen.value = false;
+                },
+                child: Container(color: Colors.black54),
+              ),
+            );
           }),
-        );
-      },
-    );
+
+          Obx(() {
+            return AnimatedPositioned(
+              duration: const Duration(milliseconds: 250),
+              curve: Curves.easeInOut,
+              right: homeController.isDrawerOpen.value
+                  ? 0
+                  : -DEVICE_WIDTH * 0.76,
+              bottom: 0,
+              child: Material(
+                elevation: 16,
+                child: SizedBox(
+                  width: DEVICE_WIDTH * 0.76,
+                  child: SizedBox(
+                    height: DEVICE_HEIGHT,
+                    child: CustomDrawer(
+                      onClose: () {
+                        homeController.isDrawerOpen.value = false;
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            );
+          }),
+        ],
+      );
+    });
   }
 }

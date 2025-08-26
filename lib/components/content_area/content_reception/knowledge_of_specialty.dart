@@ -1,3 +1,5 @@
+import 'package:flutter_svg/svg.dart';
+
 import '../../../general_exports.dart';
 
 class KnowledgeOfSpecialty extends StatelessWidget {
@@ -6,6 +8,7 @@ class KnowledgeOfSpecialty extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ChangeParamContentAndNextPage change = Get.find();
+    final HomePageContentController homePage = Get.find();
 
     return GetBuilder<ReceptionController>(
       init: ReceptionController(),
@@ -28,57 +31,55 @@ class KnowledgeOfSpecialty extends StatelessWidget {
                     width: DEVICE_WIDTH * 0.56,
                     height: DEVICE_HEIGHT * 0.22,
                     decoration: BoxDecoration(
-                      color: const Color(AppColors.colorWhite),
+                      border: Border.all(
+                        color: const Color(AppColors.colorSymptomsBorder),
+                      ),
+                      color: const Color.fromARGB(118, 253, 253, 253),
                       borderRadius: BorderRadius.circular(20),
+                      boxShadow: <BoxShadow>[
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.07),
+                          blurRadius: 20,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
                     ),
-                    child: const Center(
+                    child: Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          CustomText(
-                            text: 'test',
-                            fontSize: 20,
-                            type: CustomTextType.title,
-                            color: Color(AppColors.colorWhiteSelectedType),
+                          SvgPicture.asset(
+                            iconHeart,
+                            width: DEVICE_WIDTH * 0.08,
+                            height: DEVICE_HEIGHT * 0.08,
                           ),
                           CustomText(
-                            text: 'test',
+                            text: '${'Specialization_is'.tr} ${'heart'.tr}',
                             fontSize: 20,
                             type: CustomTextType.title,
-                            color: Color(AppColors.colorWhiteSelectedType),
+                            color: const Color(AppColors.colorSelectDropDown),
                           ),
                         ],
                       ),
                     ),
                   ),
                 ),
-                SizedBox(height: DEVICE_HEIGHT * 0.04),
+                SizedBox(height: DEVICE_HEIGHT * 0.033),
                 CustomText(
-                  text: 'analysis_underway'.tr,
+                  text: 'please_booking'.tr,
                   fontSize: 16,
                   type: CustomTextType.title,
                   color: const Color(AppColors.colorLineAndText),
                 ),
-                SizedBox(height: DEVICE_HEIGHT * 0.008),
-                CustomText(
-                  text: 'please_wait'.tr,
-                  fontSize: 11,
-                  type: CustomTextType.title,
-                  color: const Color.fromARGB(175, 51, 51, 51),
-                ),
-                SizedBox(height: DEVICE_HEIGHT * 0.04),
+                SizedBox(height: DEVICE_HEIGHT * 0.065),
                 Btn(
                   onPressed: () {
-                    change.goToComponentStatusBar.value = 'successReception';
+                    change.goToComponentStatusBar.value = 'HomePage';
+                    homePage.checkReservations = true;
+                    homePage.update();
                     change.update();
                   },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(83, 0, 123, 189),
-                    padding: EdgeInsets.symmetric(
-                      vertical: DEVICE_HEIGHT * 0.02,
-                    ),
-                  ),
-                  text: 'wait'.tr,
+                  text: 'selected_doctor'.tr,
                 ),
               ],
             ),

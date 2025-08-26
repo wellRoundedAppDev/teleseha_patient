@@ -1,7 +1,7 @@
 import '../../general_exports.dart';
 
 class HomePageContent extends StatelessWidget {
-  const HomePageContent({super.key});
+  HomePageContent({super.key});
 
   @override
   Widget build(BuildContext context) {

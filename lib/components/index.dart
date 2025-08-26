@@ -1,6 +1,7 @@
 export 'change_param_content_and_next_page.dart';
 export 'content_area/index.dart';
 export 'custom_btn/index.dart';
+export 'custom_drawer/index.dart';
 export 'custom_input/index.dart';
 export 'custom_otp/index.dart';
 export 'custom_text/index.dart';

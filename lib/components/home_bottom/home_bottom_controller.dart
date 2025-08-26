@@ -15,11 +15,11 @@ class BottomNavController extends GetxController {
   ];
 
   final List<Widget> pages = <Widget>[
-    const HomePageContent(),
-    const HomePageContent(),
-    const HomePageContent(),
-    const HomePageContent(),
-    const HomePageContent(),
+    HomePageContent(),
+    HomePageContent(),
+    HomePageContent(),
+    HomePageContent(),
+    HomePageContent(),
   ];
 
   final List icons = <dynamic>[

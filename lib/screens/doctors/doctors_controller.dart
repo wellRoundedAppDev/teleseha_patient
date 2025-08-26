@@ -13,6 +13,7 @@ class DoctorsController extends GetxController {
 
   List<Map<String, dynamic>> doctors = <Map<String, dynamic>>[
     <String, dynamic>{
+      'id': 1,
       'image': imageDoctor,
       'name': 'name_doctor'.tr,
       'specialization': 'general_internal_affairs'.tr,
@@ -22,6 +23,7 @@ class DoctorsController extends GetxController {
       'salary': '200 ج',
     },
     <String, dynamic>{
+      'id': 2,
       'image': imageDoctor,
       'name': 'name_doctor'.tr,
       'specialization': 'general_internal_affairs'.tr,
@@ -31,6 +33,7 @@ class DoctorsController extends GetxController {
       'salary': '200 ج',
     },
     <String, dynamic>{
+      'id': 3,
       'image': imageDoctor,
       'name': 'name_doctor'.tr,
       'specialization': 'general_internal_affairs'.tr,

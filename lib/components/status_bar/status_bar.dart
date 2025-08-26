@@ -13,6 +13,8 @@ class StatusBar extends StatelessWidget {
           ? const SymptomsStatusBar()
           : controller.goToComponentStatusBar.value == 'Doctors'
           ? DoctorsStatusBar()
+          : controller.goToComponentStatusBar.value == 'ProfileDoctor'
+          ? const profileDoctorStatusBar()
           : const OntherStatusBar();
     });
   }

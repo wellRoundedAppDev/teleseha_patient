@@ -1,1 +1,1 @@
-export 'sub_specialties.dart';
+export 'other_status_bar.dart';

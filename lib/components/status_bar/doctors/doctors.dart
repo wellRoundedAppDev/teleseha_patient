@@ -9,6 +9,8 @@ class DoctorsStatusBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final HomePageContentController contentHomePage = Get.find();
+
     return GetBuilder<DoctorsController>(
       init: DoctorsController(),
       builder: (DoctorsController controller) {
@@ -34,7 +36,8 @@ class DoctorsStatusBar extends StatelessWidget {
                             Get.find();
                         findBottomController.selectedIndex = 2;
 
-                        final ChangeParamContentAndNextPage changeParam = Get.find();
+                        final ChangeParamContentAndNextPage changeParam =
+                            Get.find();
                         changeParam.goToComponentStatusBar.value = 'HomePage';
 
                         changeParam.update();
@@ -69,7 +72,10 @@ class DoctorsStatusBar extends StatelessWidget {
                     SizedBox(width: DEVICE_WIDTH * 0.018),
                     Expanded(
                       child: GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          contentHomePage.isDrawerOpen.value = true;
+                          contentHomePage.update();
+                        },
                         child: Container(
                           alignment: Alignment.center,
                           width: DEVICE_WIDTH,

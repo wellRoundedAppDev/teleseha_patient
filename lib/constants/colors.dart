@@ -30,4 +30,7 @@ class AppColors {
   static const int colorNameSpecialization = 0xff6C757D;
   static const int colorLineDoctors = 0xff80808040;
   static const int colorListSkills = 0xffE0F2FA54;
+  static const int colorFilter = 0xff040317;
+  static const int colorFilterLine = 0xff8080801F;
+  static const int colorAcademicDegree = 0xffABD3E980;
 }

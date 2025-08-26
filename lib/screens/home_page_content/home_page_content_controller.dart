@@ -8,6 +8,9 @@ class HomePageContentController extends GetxController {
   bool checkReservations = false;
   int nextReservation = 3;
   int selectedSpecialtyIndex = 0;
+  int selectedIndex = 2;
+  final ScrollController scrollController = ScrollController();
+  var isDrawerOpen = false.obs;
 
   final List<Map<String, dynamic>> specialtiesWithSub = <Map<String, dynamic>>[
     <String, dynamic>{
@@ -139,11 +142,19 @@ class HomePageContentController extends GetxController {
       ],
     },
   ];
-  
+
   void openContentDoctorsAboutSelected(int index) {
     final ChangeParamContentAndNextPage changeParam = Get.find();
     changeParam.goToComponentStatusBar.value = 'Subspecialties';
     selectedSpecialtyIndex = index;
     update();
   }
+
+  final List<Map<String, dynamic>> academicDegree = <Map<String, dynamic>>[
+    <String, dynamic>{'title': 'general_practitioner'.tr},
+    <String, dynamic>{'title': 'specialist'.tr},
+    <String, dynamic>{'title': 'consultative'.tr},
+    <String, dynamic>{'title': 'teacher'.tr},
+    <String, dynamic>{'title': 'mr'.tr},
+  ];
 }
