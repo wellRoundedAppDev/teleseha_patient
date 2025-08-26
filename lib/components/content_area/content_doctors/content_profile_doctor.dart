@@ -9,16 +9,10 @@ class ContentProfileDoctor extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<DoctorsController>(
       builder: (DoctorsController controller) {
-        final int? selectedDoctorId = controller.passedIndex;
+        controller.selectedDoctorFunction();
 
-        Map<String, dynamic>? selectedDoctor;
-        selectedDoctor = controller.doctors.firstWhere(
-          (Map<String, dynamic> doctor) => doctor['id'] == selectedDoctorId,
-          orElse: () => <String, dynamic>{},
-        );
-
-        final List<Map<String, String>> availableTimes =
-            selectedDoctor['available_times'] as List<Map<String, String>>;
+        // final availableTimes = controller.selectedDoctor?['available_times'];
+        // final qualifications = controller.selectedDoctor?['qualifications'];
 
         return SizedBox(
           height: DEVICE_HEIGHT,
@@ -35,7 +29,7 @@ class ContentProfileDoctor extends StatelessWidget {
                     children: <Widget>[
                       SizedBox(height: DEVICE_HEIGHT * 0.03),
                       CustomText(
-                        text: selectedDoctor['name'],
+                        text: controller.selectedDoctor?['name'],
                         fontSize: 24,
                         type: CustomTextType.title,
                         color: const Color(AppColors.colorBlack),
@@ -51,7 +45,7 @@ class ContentProfileDoctor extends StatelessWidget {
                       Row(
                         children: <Widget>[
                           CustomText(
-                            text: selectedDoctor['range'],
+                            text: controller.selectedDoctor?['range'],
                             fontSize: 12,
                             type: CustomTextType.title,
                             color: const Color(AppColors.colorBlack),
@@ -64,7 +58,7 @@ class ContentProfileDoctor extends StatelessWidget {
                           ),
                           SizedBox(width: DEVICE_WIDTH * 0.025),
                           CustomText(
-                            text: selectedDoctor['reveal'],
+                            text: controller.selectedDoctor?['reveal'],
                             fontSize: 11,
                             type: CustomTextType.inputTitle,
                             color: const Color(
@@ -93,7 +87,8 @@ class ContentProfileDoctor extends StatelessWidget {
                               ),
                               children: <InlineSpan>[
                                 TextSpan(
-                                  text: selectedDoctor['descriptionDoctor']
+                                  text: controller
+                                      .selectedDoctor?['descriptionDoctor']
                                       .replaceAll('\n', '\n'),
                                 ),
                               ],
@@ -162,7 +157,7 @@ class ContentProfileDoctor extends StatelessWidget {
                                 ),
                                 SizedBox(height: DEVICE_HEIGHT * 0.015),
                                 CustomText(
-                                  text: selectedDoctor['address'],
+                                  text: controller.selectedDoctor?['address'],
                                   fontSize: 14,
                                   type: CustomTextType.button,
                                   color: const Color(
@@ -179,13 +174,13 @@ class ContentProfileDoctor extends StatelessWidget {
                                   children: <Widget>[
                                     SvgPicture.asset(
                                       iconDate,
-                                      width: DEVICE_WIDTH * 0.015,
-                                      height: DEVICE_HEIGHT * 0.015,
+                                      width: DEVICE_WIDTH * 0.017,
+                                      height: DEVICE_HEIGHT * 0.017,
                                     ),
                                     SizedBox(width: DEVICE_WIDTH * 0.015),
                                     CustomText(
                                       text: 'available_time'.tr,
-                                      fontSize: 13,
+                                      fontSize: 14,
                                       type: CustomTextType.title,
                                       color: const Color(
                                         AppColors.colorLineAndText,
@@ -193,103 +188,409 @@ class ContentProfileDoctor extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                                SizedBox(height: DEVICE_HEIGHT * 0.015),
+                                SizedBox(height: DEVICE_HEIGHT * 0.011),
                                 SizedBox(
-                                  width: DEVICE_WIDTH * 0.3,
+                                  width: DEVICE_WIDTH * 0.47,
                                   child: Wrap(
-                                    spacing: DEVICE_WIDTH * 0.01,
                                     runSpacing: DEVICE_HEIGHT * 0.01,
-                                    children: availableTimes
-                                        .fold<Map<String, List<String>>>({}, (
-                                          acc,
-                                          time,
-                                        ) {
-                                          final day = time['day']!;
-                                          final timeSlot = time['time']!;
-                                          if (!acc.containsKey(day)) {
-                                            acc[day] = [];
-                                          }
-                                          acc[day]!.add(timeSlot);
-                                          return acc;
-                                        })
-                                        .entries
-                                        .map((entry) {
-                                          final day = entry.key;
-                                          final timeSlots = entry.value;
-
-                                          return Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              CustomText(
-                                                text: day,
-                                                fontSize: 13,
-                                                type: CustomTextType.title,
-                                                color: const Color(
-                                                  AppColors
-                                                      .colorNameSpecialization,
-                                                ),
-                                              ),
-                                              for (var time in timeSlots)
-                                                CustomText(
-                                                  text: time,
-                                                  fontSize: 13,
-                                                  type: CustomTextType.title,
-                                                  color: const Color(
-                                                    AppColors
-                                                        .colorNameSpecialization,
+                                    children:
+                                        (controller.availableTimes
+                                                as List<Map<String, dynamic>>)
+                                            .map<Widget>((
+                                              Map<String, dynamic> time,
+                                            ) {
+                                              final List<String> days =
+                                                  time['days'] as List<String>;
+                                              final List times =
+                                                  time['times'] as List;
+                                              final String displayDays = days
+                                                  .join(' - ');
+                                              return Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: <Widget>[
+                                                  CustomText(
+                                                    text: displayDays,
+                                                    fontSize: 14,
+                                                    type: CustomTextType.title,
+                                                    color: const Color.fromARGB(
+                                                      255,
+                                                      86,
+                                                      93,
+                                                      99,
+                                                    ),
                                                   ),
-                                                ),
-                                            ],
-                                          );
-                                        })
-                                        .toList(),
+                                                  SizedBox(
+                                                    height:
+                                                        DEVICE_HEIGHT * 0.0027,
+                                                  ),
+                                                  ...times.map<Widget>((
+                                                    timeItem,
+                                                  ) {
+                                                    return Padding(
+                                                      padding: EdgeInsets.only(
+                                                        right:
+                                                            DEVICE_WIDTH *
+                                                            0.015,
+                                                        bottom:
+                                                            DEVICE_HEIGHT *
+                                                            0.002,
+                                                      ),
+                                                      child: Row(
+                                                        children: <Widget>[
+                                                          Container(
+                                                            width:
+                                                                DEVICE_WIDTH *
+                                                                0.01,
+                                                            height:
+                                                                DEVICE_HEIGHT *
+                                                                0.005,
+                                                            color: const Color(
+                                                              AppColors
+                                                                  .colorNameSpecialization,
+                                                            ),
+                                                          ),
+                                                          SizedBox(
+                                                            width:
+                                                                DEVICE_WIDTH *
+                                                                0.0122,
+                                                          ),
+                                                          CustomText(
+                                                            text:
+                                                                timeItem['time']!,
+                                                            fontSize: 12,
+                                                            type: CustomTextType
+                                                                .title,
+                                                            color: const Color(
+                                                              AppColors
+                                                                  .colorNameSpecialization,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    );
+                                                  }),
+                                                ],
+                                              );
+                                            })
+                                            .toList(),
                                   ),
                                 ),
-                                // SizedBox(
-                                //   width: DEVICE_WIDTH * 0.3,
-                                //   child: Wrap(
-                                //     spacing: DEVICE_WIDTH * 0.01,
-                                //     runSpacing: DEVICE_HEIGHT * 0.01,
-                                //     children: availableTimes.asMap().entries.map((
-                                //       MapEntry<int, Map<String, String>> entry,
-                                //     ) {
-                                //       final int index = entry.key;
-                                //       final Map<String, String> time =
-                                //           entry.value;
-                                //       final bool isOddIndex = index % 2 != 0;
-                                //       return Column(
-                                //         children: <Widget>[
-                                //           CustomText(
-                                //             text:
-                                //                 '${time['day']!}${isOddIndex ? '' : ' - '}',
-                                //             fontSize: 13,
-                                //             type: CustomTextType.title,
-                                //             color: const Color(
-                                //               AppColors.colorNameSpecialization,
-                                //             ),
-                                //           ),
-                                //           CustomText(
-                                //             text:
-                                //                 '${time['day']!}${isOddIndex ? '' : ' - '}',
-                                //             fontSize: 13,
-                                //             type: CustomTextType.title,
-                                //             color: const Color(
-                                //               AppColors.colorNameSpecialization,
-                                //             ),
-                                //           ),
-                                //         ],
-                                //       );
-                                //     }).toList(),
-                                //   ),
-                                // ),
                               ],
                             ),
+                            // SizedBox(height: DEVICE_HEIGHT * 0.028),
+                            // Column(
+                            //   crossAxisAlignment: CrossAxisAlignment.start,
+                            //   children: <Widget>[
+                            //     Row(
+                            //       children: <Widget>[
+                            //         SvgPicture.asset(
+                            //           iconDate,
+                            //           width: DEVICE_WIDTH * 0.017,
+                            //           height: DEVICE_HEIGHT * 0.017,
+                            //         ),
+                            //         SizedBox(width: DEVICE_WIDTH * 0.015),
+                            //         CustomText(
+                            //           text: 'exceptional_appointments'.tr,
+                            //           fontSize: 14,
+                            //           type: CustomTextType.title,
+                            //           color: const Color(
+                            //             AppColors.colorLineAndText,
+                            //           ),
+                            //         ),
+                            //       ],
+                            //     ),
+                            //     SizedBox(height: DEVICE_HEIGHT * 0.011),
+                            //     SizedBox(
+                            //       width: DEVICE_WIDTH * 0.47,
+                            //       child: Wrap(
+                            //         runSpacing: DEVICE_HEIGHT * 0.01,
+                            //         children: (availableTimes).map<Widget>((
+                            //           Map<String, dynamic> time,
+                            //         ) {
+                            //           final List<String> days =
+                            //               time['days'] as List<String>;
+                            //           final List times = time['times'] as List;
+                            //           final String displayDays = days.join(
+                            //             ' - ',
+                            //           );
+                            //           return Column(
+                            //             crossAxisAlignment:
+                            //                 CrossAxisAlignment.start,
+                            //             children: <Widget>[
+                            //               CustomText(
+                            //                 text: displayDays,
+                            //                 fontSize: 14,
+                            //                 type: CustomTextType.title,
+                            //                 color: const Color.fromARGB(
+                            //                   255,
+                            //                   86,
+                            //                   93,
+                            //                   99,
+                            //                 ),
+                            //               ),
+                            //               SizedBox(
+                            //                 height: DEVICE_HEIGHT * 0.0027,
+                            //               ),
+                            //               ...times.map<Widget>((timeItem) {
+                            //                 return Padding(
+                            //                   padding: EdgeInsets.only(
+                            //                     right: DEVICE_WIDTH * 0.015,
+                            //                     bottom: DEVICE_HEIGHT * 0.002,
+                            //                   ),
+                            //                   child: Row(
+                            //                     children: <Widget>[
+                            //                       Container(
+                            //                         width: DEVICE_WIDTH * 0.01,
+                            //                         height:
+                            //                             DEVICE_HEIGHT * 0.005,
+                            //                         color: const Color(
+                            //                           AppColors
+                            //                               .colorNameSpecialization,
+                            //                         ),
+                            //                       ),
+                            //                       SizedBox(
+                            //                         width:
+                            //                             DEVICE_WIDTH * 0.0122,
+                            //                       ),
+                            //                       CustomText(
+                            //                         text: timeItem['time']!,
+                            //                         fontSize: 12,
+                            //                         type: CustomTextType.title,
+                            //                         color: const Color(
+                            //                           AppColors
+                            //                               .colorNameSpecialization,
+                            //                         ),
+                            //                       ),
+                            //                     ],
+                            //                   ),
+                            //                 );
+                            //               }),
+                            //             ],
+                            //           );
+                            //         }).toList(),
+                            //       ),
+                            //     ),
+                            //   ],
+                            // ),
                           ],
                         ),
                       ),
                     ],
                   ),
+                ),
+                SizedBox(height: DEVICE_HEIGHT * 0.012),
+                Container(
+                  height: DEVICE_HEIGHT * 0.001,
+                  width: DEVICE_WIDTH,
+                  color: const Color.fromARGB(78, 128, 128, 31),
+                ),
+                SizedBox(height: DEVICE_HEIGHT * 0.013),
+                Container(
+                  width: DEVICE_WIDTH,
+                  margin: EdgeInsets.symmetric(
+                    horizontal: DEVICE_WIDTH * 0.055,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      CustomText(
+                        text: 'qualifications'.tr,
+                        fontSize: 14,
+                        type: CustomTextType.title,
+                        color: const Color(AppColors.colorAboutDoctor),
+                      ),
+                      SizedBox(height: DEVICE_HEIGHT * 0.01),
+                      Wrap(
+                        spacing: DEVICE_HEIGHT * 0.065,
+                        children: (controller.qualifications ?? <dynamic>[])
+                            .map<Widget>((qualification) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      SvgPicture.asset(
+                                        qualification['icon'],
+                                        width: DEVICE_WIDTH * 0.03,
+                                        height: DEVICE_HEIGHT * 0.02,
+                                      ),
+                                      SizedBox(width: DEVICE_HEIGHT * 0.008),
+                                      Container(
+                                        margin: const EdgeInsets.only(top: 3),
+                                        child: CustomText(
+                                          text: 'university'.tr,
+                                          fontSize: 13,
+                                          type: CustomTextType.title,
+                                          color: const Color(
+                                            AppColors.colorAboutDoctor,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: DEVICE_HEIGHT * 0.007),
+                                  CustomText(
+                                    text: qualification['university'],
+                                    fontSize: 11,
+                                    type: CustomTextType.title,
+                                    color: const Color(
+                                      AppColors.colorNameSpecialization,
+                                    ),
+                                  ),
+                                  SizedBox(height: DEVICE_HEIGHT * 0.005),
+                                  CustomText(
+                                    text: qualification['specialization'],
+                                    fontSize: 11,
+                                    type: CustomTextType.title,
+                                    color: const Color(
+                                      AppColors.colorNameSpecialization,
+                                    ),
+                                  ),
+                                ],
+                              );
+                            })
+                            .toList(),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: DEVICE_HEIGHT * 0.012),
+                Container(
+                  height: DEVICE_HEIGHT * 0.001,
+                  width: DEVICE_WIDTH,
+                  color: const Color.fromARGB(78, 128, 128, 31),
+                ),
+                SizedBox(height: DEVICE_HEIGHT * 0.035),
+                SizedBox(
+                  width: DEVICE_WIDTH,
+                  child: Stack(
+                    children: <Widget>[
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          SizedBox(height: DEVICE_HEIGHT * 0.012),
+                          SizedBox(
+                            height: DEVICE_HEIGHT * 0.047,
+                            width: DEVICE_WIDTH,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: List.generate(controller.tabs.length, (
+                                int index,
+                              ) {
+                                final bool isActive =
+                                    index == controller.isSelected;
+                                return Padding(
+                                  padding: EdgeInsets.only(
+                                    right: DEVICE_WIDTH * 0.02,
+                                  ),
+                                  child: InkWell(
+                                    onTap: () {
+                                      controller.isSelected = index;
+                                      controller.update();
+                                    },
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                        CustomText(
+                                          text: controller.tabs[index],
+                                          fontSize: 14,
+                                          type: CustomTextType.title,
+                                          color: isActive
+                                              ? const Color(
+                                                  AppColors.colorLineAndText,
+                                                )
+                                              : const Color(
+                                                  AppColors
+                                                      .colorNameSpecialization,
+                                                ),
+                                        ),
+                                        SizedBox(height: DEVICE_HEIGHT * 0.012),
+                                        AnimatedContainer(
+                                          duration: const Duration(
+                                            milliseconds: 150,
+                                          ),
+                                          curve: Curves.easeInOut,
+                                          height: DEVICE_HEIGHT * 0.002,
+                                          width: isActive
+                                              ? controller.calculateWidth(
+                                                  controller.tabs[index],
+                                                )
+                                              : 0,
+                                          decoration: BoxDecoration(
+                                            color: isActive
+                                                ? const Color(
+                                                    AppColors.colorLineAndText,
+                                                  )
+                                                : const Color(
+                                                    AppColors
+                                                        .colorNameSpecialization,
+                                                  ),
+                                            borderRadius: BorderRadius.circular(
+                                              3,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              }),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Positioned(
+                        bottom: 3.5,
+                        child: Container(
+                          height: DEVICE_HEIGHT * 0.001,
+                          width: DEVICE_WIDTH,
+                          color: const Color.fromARGB(78, 128, 128, 31),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(
+                    horizontal: DEVICE_WIDTH * 0.055,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      SizedBox(height: DEVICE_HEIGHT * 0.03),
+                      CustomText(
+                        text:
+                            controller.selectedDoctor?['name'] +
+                            ' ' +
+                            'he_has_experience_in'.tr,
+                        fontSize: 16,
+                        type: CustomTextType.title,
+                        color: const Color(AppColors.colorBlack),
+                      ),
+                      SizedBox(height: DEVICE_HEIGHT * 0.012),
+                      Row(
+                        children: <Widget>[
+                          Container(
+                            width: DEVICE_WIDTH * 0.01,
+                            height: DEVICE_HEIGHT * 0.005,
+                            color: const Color(
+                              AppColors.colorNameSpecialization,
+                            ),
+                          ),
+                          SizedBox(width: DEVICE_WIDTH * 0.0122),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: DEVICE_HEIGHT * 0.012),
+                Container(
+                  height: DEVICE_HEIGHT * 0.001,
+                  width: DEVICE_WIDTH,
+                  color: const Color.fromARGB(78, 128, 128, 31),
                 ),
               ],
             ),

@@ -171,4 +171,22 @@ const Map<String, String> ar = <String, String>{
   'title_address1': '6 أكتوبر - حي الشباب - الجيزة',
   'title_address2': 'الزمالك - القاهرة - مصر',
   'available_time': 'الوقت المتاح',
+  'exceptional_appointments': 'المواعيد الاستثنائية',
+  'qualifications': 'المؤهلات',
+  'university': 'الجامعة',
+  'al_azhar_al_sharif': 'الازهر الشريف',
+  'bachelor_of_medicine_and_surgery': 'بكالوريوس طب وجراحة',
+  'practical_experiences': 'الخبرات العلمية',
+  'education': 'التعليم',
+  'practical_experiments': 'التجارب العملية',
+  'ratings': 'التقييمات',
+  'he_has_experience_in': 'لديه خبره في:',
+  'list_experience_in_1':
+      'استشاري أمراض باطنة وقلب في مستشفى القاهرة التخصصي — 2017 حتى الآن',
+  'list_experience_in_2':
+      'تقديم الرعاية الطبية الشاملة للمرضى المصابين بأمراض الباطنة المختلفة، مع متابعة دقيقة لحالات أمراض القلب المزمنة مثل ارتفاع ضغط الدم، فشل القلب، واضطرابات النظم القلبي.',
+  'list_experience_in_3':
+      'استشاري أمراض باطنة وقلب في مستشفى القاهرة التخصصي — 2017 حتى الآن',
+  'list_experience_in_4':
+      'طبيب باطنة وقلب في مركز القلب بمدينة نصر — 2013 - 2017  ',
 };
