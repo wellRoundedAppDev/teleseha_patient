@@ -74,7 +74,6 @@ class MedicalHistory extends StatelessWidget {
                     textIsValid: 'is_valid_diseases'.tr,
                     colorLabel: AppColors.colorLabel,
                     keyboardType: TextInputType.number,
-                    fontSize: 16,
                     sizespace: 0.005,
                   ),
                   CustomInput(
@@ -85,7 +84,6 @@ class MedicalHistory extends StatelessWidget {
                     textIsValid: 'is_valid_surgical_operations'.tr,
                     colorLabel: AppColors.colorLabel,
                     keyboardType: TextInputType.number,
-                    fontSize: 16,
                     sizespace: 0.005,
                   ),
                   CustomInput(
@@ -96,7 +94,6 @@ class MedicalHistory extends StatelessWidget {
                     textIsValid: 'is_valid_continuous_medications'.tr,
                     colorLabel: AppColors.colorLabel,
                     keyboardType: TextInputType.number,
-                    fontSize: 16,
                     sizespace: 0.005,
                   ),
                   CustomInput(
@@ -107,7 +104,6 @@ class MedicalHistory extends StatelessWidget {
                     textIsValid: 'is_valid_allergies'.tr,
                     colorLabel: AppColors.colorLabel,
                     keyboardType: TextInputType.number,
-                    fontSize: 16,
                     sizespace: 0.005,
                     bottomSpacing: 0.058,
                   ),

@@ -95,6 +95,7 @@ class PatternLock extends StatelessWidget {
                             Get.back();
                           } else if (controller.page == 'update' ||
                               controller.page == 'verifyPattern') {
+                            // ignore: always_specify_types
                             Future.delayed(const Duration(seconds: 2), () {
                               controller.updatePage('signIn');
                             });
@@ -116,7 +117,7 @@ class PatternLock extends StatelessWidget {
                               width: DEVICE_WIDTH * 0.425,
                               height: DEVICE_HEIGHT * 0.0108,
                               child: LinearProgressIndicator(
-                                value: controller.linePerecentage,
+                                value: controller.linePercentage,
                                 borderRadius: BorderRadius.circular(15),
                                 backgroundColor: const Color(
                                   AppColors.backgroundColorLine,
@@ -196,6 +197,7 @@ class PatternLock extends StatelessWidget {
                                     recognizer: TapGestureRecognizer()
                                       ..onTap = () {
                                         controller.showForgetPatter = false;
+                                        // ignore: always_specify_types
                                         Future.delayed(
                                           const Duration(seconds: 2),
                                           () {

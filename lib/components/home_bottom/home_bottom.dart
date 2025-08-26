@@ -21,6 +21,7 @@ class CustomBottomNavBar extends StatelessWidget {
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            // ignore: always_specify_types
             children: List.generate(controller.labels.length, (int index) {
               final bool isSelected = controller.selectedIndex == index;
               return GestureDetector(
@@ -55,6 +56,7 @@ class CustomBottomNavBar extends StatelessWidget {
                         width: DEVICE_WIDTH * 0.1,
                         height: DEVICE_HEIGHT * 0.025,
                         fit: BoxFit.cover,
+                        // ignore: deprecated_member_use
                         color: isSelected
                             ? const Color(AppColors.colorLineAndText)
                             : const Color(AppColors.colorSelectDropDown),

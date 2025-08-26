@@ -7,6 +7,6 @@ class ContentProfileDoctor extends StatelessWidget {
   Widget build(BuildContext context) {
     final ChangeParamContentAndNextPage change = Get.find();
     consoleLog('${change.selectedDoctorId}');
-    return Text('content profile doctor');
+    return const Text('content profile doctor');
   }
 }

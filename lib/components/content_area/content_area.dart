@@ -35,7 +35,7 @@ class ContentArea extends StatelessWidget {
                   ? const SuccessReception()
                   : controller.goToComponentStatusBar.value == 'KnowledgeOfSpecialty'
                   ? const KnowledgeOfSpecialty()
-                  : controller.goToComponentStatusBar.value == 'Subspecialties'
+                  : controller.goToComponentStatusBar.value == 'Subspecialty'
                   ? const ContentSubSpecialties()
                   : const ContentProfileDoctor();
             }),

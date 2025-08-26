@@ -101,7 +101,7 @@ class StartStepsController extends GetxController {
       final LoginController controller = Get.find<LoginController>();
       if (controller.page == 'signIn') {
         // if nextAction create password open patternLock and update page
-        consoleLog(login.PhoneNumberController.text + ' ' + otpController.text);
+        consoleLog('${login.phoneNumberController.text} ${otpController.text}');
         controller.updatePage('update');
         otpController.clear();
         Get.to(() => const PatternLock());
@@ -152,11 +152,13 @@ class StartStepsController extends GetxController {
     }
 
     if (tempSavedPattern.isEmpty) {
+      // ignore: always_specify_types
       tempSavedPattern = List.from(pattern);
       state = PatternState.success;
       update();
       return true;
     } else {
+      // ignore: always_specify_types
       inputPattern = List.from(pattern);
       if (listEquals(inputPattern, tempSavedPattern)) {
         state = PatternState.success;

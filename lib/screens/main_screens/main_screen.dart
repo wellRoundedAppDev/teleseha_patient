@@ -24,7 +24,7 @@ class MainScreen extends StatelessWidget {
             bottomNavigationBar:
                 changeParam.goToComponentStatusBar.value == 'HomePage' ||
                     changeParam.goToComponentStatusBar.value == 'Doctors' ||
-                    changeParam.goToComponentStatusBar.value == 'Subspecialties'
+                    changeParam.goToComponentStatusBar.value == 'Subspecialty'
                 ? Container(
                     margin: EdgeInsets.symmetric(
                       horizontal: bottomNavController.horizontalMargin,
@@ -35,7 +35,9 @@ class MainScreen extends StatelessWidget {
           ),
 
           Obx(() {
-            if (!homeController.isDrawerOpen.value) return const SizedBox();
+            if (!homeController.isDrawerOpen.value) {
+              return const SizedBox();
+            }
             return Positioned.fill(
               child: GestureDetector(
                 onTap: () {

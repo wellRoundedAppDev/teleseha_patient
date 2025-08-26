@@ -3,8 +3,8 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../../general_exports.dart';
 
-class profiles extends StatelessWidget {
-  const profiles({super.key});
+class Profiles extends StatelessWidget {
+  const Profiles({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +91,7 @@ class profiles extends StatelessWidget {
                               ),
                               boxShadow: <BoxShadow>[
                                 BoxShadow(
-                                  color: Colors.black.withOpacity(0.06),
+                                  color: Colors.black.withValues(alpha: 0.06),
                                   spreadRadius: 1,
                                   blurRadius: 6,
                                   offset: const Offset(0, 2),

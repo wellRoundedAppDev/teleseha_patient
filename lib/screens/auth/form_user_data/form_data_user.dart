@@ -4,8 +4,8 @@ import '../../../general_exports.dart';
 
 // ignore: camel_case_types
 class FormDataUser extends StatelessWidget {
+  FormDataUser({required this.isFromProfile, super.key});
   final bool isFromProfile;
-  FormDataUser({super.key, required this.isFromProfile});
 
   LoginController login = Get.put(LoginController());
 
@@ -381,6 +381,7 @@ class UserFormFields extends StatelessWidget {
                                 SizedBox(width: DEVICE_WIDTH * 0.04),
                                 SvgPicture.asset(
                                   item[icon] ?? '',
+                                  // ignore: deprecated_member_use
                                   color:
                                       controller.selectedMaleCode == item[code]
                                       ? const Color(

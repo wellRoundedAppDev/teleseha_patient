@@ -2,8 +2,8 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../general_exports.dart';
 
-class profileDoctorStatusBar extends StatelessWidget {
-  const profileDoctorStatusBar({super.key});
+class ProfileDoctorStatusBar extends StatelessWidget {
+  const ProfileDoctorStatusBar({super.key});
 
   @override
   Widget build(BuildContext context) {

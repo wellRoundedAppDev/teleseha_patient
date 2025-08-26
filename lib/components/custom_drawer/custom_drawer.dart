@@ -1,4 +1,6 @@
 import 'package:flutter_svg/svg.dart';
+import 'package:syncfusion_flutter_core/theme.dart';
+import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 import '../../general_exports.dart';
 
@@ -41,7 +43,9 @@ class CustomDrawer extends StatelessWidget {
                           ],
                         ),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            controller.isDrawerOpen.value = false;
+                          },
                           child: SvgPicture.asset(
                             iconClose,
                             width: DEVICE_WIDTH * 0.014,
@@ -90,6 +94,7 @@ class CustomDrawer extends StatelessWidget {
                                     iconCarouselRight,
                                     width: DEVICE_WIDTH * 0.025,
                                     height: DEVICE_HEIGHT * 0.025,
+                                    // ignore: deprecated_member_use
                                     color: controller.selectedIndex == 0
                                         ? const Color(AppColors.colorBlack)
                                         : const Color(
@@ -119,6 +124,7 @@ class CustomDrawer extends StatelessWidget {
                                     iconCarouselLeft,
                                     width: DEVICE_WIDTH * 0.025,
                                     height: DEVICE_HEIGHT * 0.025,
+                                    // ignore: deprecated_member_use
                                     color:
                                         controller.selectedIndex <
                                             controller
@@ -223,34 +229,209 @@ class CustomDrawer extends StatelessWidget {
                             Wrap(
                               spacing: 9,
                               runSpacing: 11,
+                              // ignore: always_specify_types
                               children: List.generate(
                                 controller.academicDegree.length,
                                 (int index) {
-                                  return Container(
-                                    alignment: Alignment.center,
-                                    width: DEVICE_WIDTH * 0.32,
-                                    height: DEVICE_HEIGHT * 0.044,
-                                    decoration: BoxDecoration(
-                                      color: const Color.fromARGB(
-                                        133,
-                                        195,
-                                        218,
-                                        235,
+                                  final bool isSelected =
+                                      controller.selectedacademicDegree ==
+                                      index;
+                                  return GestureDetector(
+                                    onTap: () {
+                                      controller.selectedacademicDegree = index;
+                                      controller.update();
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      width: DEVICE_WIDTH * 0.32,
+                                      height: DEVICE_HEIGHT * 0.044,
+                                      decoration: BoxDecoration(
+                                        color: isSelected
+                                            ? const Color(
+                                                AppColors.colorLineAndText,
+                                              )
+                                            : const Color.fromARGB(
+                                                133,
+                                                195,
+                                                218,
+                                                235,
+                                              ),
+                                        borderRadius: BorderRadius.circular(20),
                                       ),
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                    child: CustomText(
-                                      text: controller
-                                          .academicDegree[index]['title'],
-                                      type: CustomTextType.title,
-                                      fontSize: 12,
-                                      color: const Color(
-                                        AppColors.colorLineAndText,
+                                      child: CustomText(
+                                        text: controller
+                                            .academicDegree[index]['title'],
+                                        type: CustomTextType.title,
+                                        fontSize: 12,
+                                        color: isSelected
+                                            ? const Color(
+                                                AppColors
+                                                    .colorWhiteSelectedType,
+                                              )
+                                            : const Color(
+                                                AppColors.colorLineAndText,
+                                              ),
                                       ),
                                     ),
                                   );
                                 },
                               ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: DEVICE_HEIGHT * 0.032),
+                      Container(
+                        height: DEVICE_HEIGHT * 0.001,
+                        width: DEVICE_WIDTH,
+                        color: const Color(AppColors.colorFilterLine),
+                      ),
+                      SizedBox(height: DEVICE_HEIGHT * 0.017),
+                      Container(
+                        width: DEVICE_WIDTH,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: DEVICE_WIDTH * 0.04,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            CustomText(
+                              text: 'appointments_available'.tr,
+                              fontSize: 14,
+                              type: CustomTextType.title,
+                              color: const Color(AppColors.colorFilter),
+                            ),
+                            SizedBox(height: DEVICE_HEIGHT * 0.019),
+                            Wrap(
+                              spacing: 6,
+                              runSpacing: 11,
+                              // ignore: always_specify_types
+                              children: List.generate(
+                                controller.appointmentsAvailable.length,
+                                (int index) {
+                                  final bool isSelected =
+                                      controller
+                                          .selectedAppointmentsAvailable ==
+                                      index;
+                                  return GestureDetector(
+                                    onTap: () {
+                                      controller.selectedAppointmentsAvailable =
+                                          index;
+                                      controller.update();
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      width: DEVICE_WIDTH * 0.3,
+                                      height: DEVICE_HEIGHT * 0.044,
+                                      decoration: BoxDecoration(
+                                        color: isSelected
+                                            ? const Color(
+                                                AppColors.colorLineAndText,
+                                              )
+                                            : const Color.fromARGB(
+                                                133,
+                                                195,
+                                                218,
+                                                235,
+                                              ),
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      child: CustomText(
+                                        text: controller
+                                            .appointmentsAvailable[index]['title'],
+                                        type: CustomTextType.title,
+                                        fontSize: 12,
+                                        color: isSelected
+                                            ? const Color(
+                                                AppColors
+                                                    .colorWhiteSelectedType,
+                                              )
+                                            : const Color(
+                                                AppColors.colorLineAndText,
+                                              ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: DEVICE_HEIGHT * 0.032),
+                      Container(
+                        height: DEVICE_HEIGHT * 0.001,
+                        width: DEVICE_WIDTH,
+                        color: const Color(AppColors.colorFilterLine),
+                      ),
+                      SizedBox(height: DEVICE_HEIGHT * 0.017),
+                      Container(
+                        width: DEVICE_WIDTH,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: DEVICE_WIDTH * 0.04,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            CustomText(
+                              text: 'booking_value'.tr,
+                              fontSize: 14,
+                              type: CustomTextType.title,
+                              color: const Color(AppColors.colorFilter),
+                            ),
+                            SizedBox(height: DEVICE_HEIGHT * 0.058),
+                            Obx(
+                              () => SfSliderTheme(
+                                data: SfSliderThemeData(
+                                  activeTrackHeight: DEVICE_HEIGHT * 0.013,
+                                  inactiveTrackHeight: DEVICE_HEIGHT * 0.013,
+                                  trackCornerRadius: 200,
+                                  tooltipBackgroundColor: const Color.fromARGB(
+                                    172,
+                                    149,
+                                    199,
+                                    237,
+                                  ),
+                                  tooltipTextStyle: const TextStyle(
+                                    color: Color(AppColors.colorTextBlue),
+                                    fontSize: 12,
+                                  ),
+                                ),
+                                child: SfSlider(
+                                  min: 0,
+                                  max: 500,
+                                  value: controller.currentSliderValue.value,
+                                  onChanged: (dynamic value) {
+                                    //   double newValue =
+                                    //     ((value / 100).ceil() * 100).toDouble();
+                                    // if (newValue > 500) newValue = 500;
+                                    // controller.currentSliderValue.value =
+                                    //     newValue;
+                                    controller.currentSliderValue.value = value;
+                                  },
+                                  activeColor: const Color(
+                                    AppColors.colorLineAndText,
+                                  ),
+                                  enableTooltip: true,
+                                  shouldAlwaysShowTooltip: true,
+                                  inactiveColor: const Color.fromARGB(
+                                    133,
+                                    166,
+                                    189,
+                                    207,
+                                  ),
+                                  tooltipTextFormatterCallback:
+                                      (actual, String formatted) =>
+                                          '${actual.toStringAsFixed(0)} ج',
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: DEVICE_HEIGHT * 0.03),
+                            Btn(
+                              onPressed: () {
+                                controller.isDrawerOpen.value = false;
+                              },
+                              text: 'search'.tr,
                             ),
                           ],
                         ),

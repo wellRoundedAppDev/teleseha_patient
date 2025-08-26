@@ -6,7 +6,7 @@ List<GetPage<dynamic>> appRoutes = <GetPage<dynamic>>[
   GetPage<FingerPrint>(name: routeFingerPrint, page: () => const FingerPrint()),
   GetPage<Login>(name: routeLogin, page: () => const Login()),
   GetPage<FingerPrint>(name: routeFingerPrint, page: () => const FingerPrint()),
-  GetPage<profiles>(name: routeProfiles, page: () => const profiles()),
+  GetPage<Profiles>(name: routeProfiles, page: () => const Profiles()),
   GetPage<StartSteps>(name: routeSteps, page: () => StartSteps()),
   GetPage<CreateAccountSuccess>(
     name: routeCreateAccountSuccess,

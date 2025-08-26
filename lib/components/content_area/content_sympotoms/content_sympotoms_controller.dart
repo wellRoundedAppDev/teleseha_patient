@@ -1,11 +1,12 @@
 import '../../../general_exports.dart';
 
-class ContentSympotomsController extends GetxController {
-  // here create max lenght in filter add symoitoims
+class ContentSymptomsController extends GetxController {
+  // here create max length in filter add symptoms
   TextEditingController filter = TextEditingController();
   bool isSelectedSymptoms = false;
 
   // this request about symptoms
+  // ignore: always_specify_types
   final List items = <dynamic>[
     <String, Object>{'title': 'symptoms1'.tr, 'isSelected': false},
     <String, Object>{'title': 'symptoms2'.tr, 'isSelected': false},
@@ -26,6 +27,7 @@ class ContentSympotomsController extends GetxController {
 
   void changeValueCheck(int index, bool value) {
     items[index]['isSelected'] = value;
+    // ignore: always_specify_types
     isSelectedSymptoms = items.any((item) => item['isSelected'] == true);
     update();
   }

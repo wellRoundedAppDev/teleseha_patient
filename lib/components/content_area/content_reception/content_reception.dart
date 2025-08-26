@@ -45,8 +45,8 @@ class ContentReception extends StatelessWidget {
                                 height: DEVICE_WIDTH * 0.16,
                                 child: CircularProgressIndicator(
                                   strokeWidth: 8,
-                                  backgroundColor: Colors.white.withOpacity(
-                                    0.2,
+                                  backgroundColor: Colors.white.withValues(
+                                    alpha: 0.2,
                                   ),
                                   valueColor:
                                       const AlwaysStoppedAnimation<Color>(
@@ -58,6 +58,7 @@ class ContentReception extends StatelessWidget {
                                 iconDoctors,
                                 width: DEVICE_WIDTH * 0.035,
                                 height: DEVICE_HEIGHT * 0.035,
+                                // ignore: deprecated_member_use
                                 color: Colors.white,
                               ),
                             ],

@@ -33,4 +33,5 @@ class AppColors {
   static const int colorFilter = 0xff040317;
   static const int colorFilterLine = 0xff8080801F;
   static const int colorAcademicDegree = 0xffABD3E980;
+  static const int colorLineSlider = 0xff007BBD12;
 }

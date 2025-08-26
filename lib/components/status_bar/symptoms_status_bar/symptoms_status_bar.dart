@@ -8,9 +8,9 @@ class SymptomsStatusBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ChangeParamContentAndNextPage change = Get.find();
-    return GetBuilder<ContentSympotomsController>(
-      init: ContentSympotomsController(),
-      builder: (ContentSympotomsController controller) {
+    return GetBuilder<ContentSymptomsController>(
+      init: ContentSymptomsController(),
+      builder: (ContentSymptomsController controller) {
         return Container(
           margin: EdgeInsets.symmetric(horizontal: DEVICE_WIDTH * 0.035),
           child: Container(

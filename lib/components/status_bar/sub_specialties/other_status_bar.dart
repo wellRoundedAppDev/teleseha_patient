@@ -2,15 +2,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../general_exports.dart';
 
-class OntherStatusBar extends StatelessWidget {
-  const OntherStatusBar({super.key});
+class OtherStatusBar extends StatelessWidget {
+  const OtherStatusBar({super.key});
 
   @override
   Widget build(BuildContext context) {
     final ChangeParamContentAndNextPage change = Get.find();
-    return GetBuilder<ContentSympotomsController>(
-      init: ContentSympotomsController(),
-      builder: (ContentSympotomsController controller) {
+    return GetBuilder<ContentSymptomsController>(
+      init: ContentSymptomsController(),
+      builder: (ContentSymptomsController controller) {
         return Container(
           width: DEVICE_WIDTH,
           padding: EdgeInsets.symmetric(horizontal: DEVICE_WIDTH * 0.07),

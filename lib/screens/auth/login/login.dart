@@ -59,7 +59,7 @@ class Login extends StatelessWidget {
                           CustomInput(
                             title: 'number_phone'.tr,
                             hint: 'number_phone_field'.tr,
-                            controller: controller.PhoneNumberController,
+                            controller: controller.phoneNumberController,
                             showValidMessage: controller.showPhoneNumberError,
                             textIsValid: 'is_valid_number'.tr,
                             colorLabel: AppColors.colorLabel,

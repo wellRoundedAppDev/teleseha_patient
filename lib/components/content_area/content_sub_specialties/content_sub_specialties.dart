@@ -58,6 +58,7 @@ class ContentSubSpecialties extends StatelessWidget {
                               ],
                             ),
                           SizedBox(height: DEVICE_HEIGHT * 0.02),
+                          // ignore: always_specify_types
                           ...List.generate(
                             controller
                                     .specialtiesWithSub[controller
@@ -91,6 +92,7 @@ class ContentSubSpecialties extends StatelessWidget {
   }
 }
 
+// ignore: always_specify_types
 Widget buildItem(controller, Map item, int index) {
   return Container(
     padding: EdgeInsets.symmetric(

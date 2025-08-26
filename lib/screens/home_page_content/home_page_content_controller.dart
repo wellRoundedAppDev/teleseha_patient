@@ -4,13 +4,16 @@ class HomePageContentController extends GetxController {
   // here get user name about response refresh-login request
   String testNameUserData = 'name_user'.tr;
 
-  // here check response if have last refervations
+  // here check response if have last reservations
   bool checkReservations = false;
   int nextReservation = 3;
   int selectedSpecialtyIndex = 0;
   int selectedIndex = 2;
   final ScrollController scrollController = ScrollController();
-  var isDrawerOpen = false.obs;
+  RxBool isDrawerOpen = false.obs;
+  RxDouble currentSliderValue = 100.0.obs;
+  int selectedacademicDegree = 1;
+  int selectedAppointmentsAvailable = 1;
 
   final List<Map<String, dynamic>> specialtiesWithSub = <Map<String, dynamic>>[
     <String, dynamic>{
@@ -76,7 +79,7 @@ class HomePageContentController extends GetxController {
           'icon': iconDigestiveSystem,
           'title': 'gastroenterology'.tr,
         },
-        <String, String>{'icon': iconDigestiveSystem, 'title': 'hepatology'.tr},
+        <String, String>{'icon': iconDigestiveSystem, 'title': 'hematology'.tr},
       ],
     },
     <String, dynamic>{
@@ -145,7 +148,7 @@ class HomePageContentController extends GetxController {
 
   void openContentDoctorsAboutSelected(int index) {
     final ChangeParamContentAndNextPage changeParam = Get.find();
-    changeParam.goToComponentStatusBar.value = 'Subspecialties';
+    changeParam.goToComponentStatusBar.value = 'Subspecialty';
     selectedSpecialtyIndex = index;
     update();
   }
@@ -157,4 +160,11 @@ class HomePageContentController extends GetxController {
     <String, dynamic>{'title': 'teacher'.tr},
     <String, dynamic>{'title': 'mr'.tr},
   ];
+
+  final List<Map<String, dynamic>> appointmentsAvailable =
+      <Map<String, dynamic>>[
+        <String, dynamic>{'title': 'today'.tr},
+        <String, dynamic>{'title': 'tomorrow'.tr},
+        <String, dynamic>{'title': 'this_week'.tr},
+      ];
 }

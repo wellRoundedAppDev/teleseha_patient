@@ -5,7 +5,7 @@ class StatusBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<ChangeParamContentAndNextPage>();
+    final ChangeParamContentAndNextPage controller = Get.find<ChangeParamContentAndNextPage>();
     return Obx(() {
       return controller.goToComponentStatusBar.value == 'HomePage'
           ? const HomeStatusBar()
@@ -14,8 +14,8 @@ class StatusBar extends StatelessWidget {
           : controller.goToComponentStatusBar.value == 'Doctors'
           ? DoctorsStatusBar()
           : controller.goToComponentStatusBar.value == 'ProfileDoctor'
-          ? const profileDoctorStatusBar()
-          : const OntherStatusBar();
+          ? const ProfileDoctorStatusBar()
+          : const OtherStatusBar();
     });
   }
 }

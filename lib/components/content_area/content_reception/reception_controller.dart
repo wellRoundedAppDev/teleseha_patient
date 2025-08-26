@@ -38,7 +38,7 @@ class ReceptionController extends GetxController {
   }
 
   void onTimerComplete() {
-    print('Timer finished! Event triggered.');
+    consoleLog('Timer finished! Event triggered.');
   }
 
   @override

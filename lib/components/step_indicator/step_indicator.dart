@@ -13,6 +13,7 @@ class StepIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
+      // ignore: always_specify_types
       children: List.generate(totalSteps, (int index) {
         final int stepNumber = totalSteps - index;
         return Row(

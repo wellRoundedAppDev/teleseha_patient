@@ -7,8 +7,8 @@ class ContentSymptoms extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<ContentSympotomsController>(
-      builder: (ContentSympotomsController controller) {
+    return GetBuilder<ContentSymptomsController>(
+      builder: (ContentSymptomsController controller) {
         // final ChangeParamContentAndNextPage change = Get.find();
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -20,7 +20,7 @@ class ContentSymptoms extends StatelessWidget {
                   controller: controller.filter,
                   style: const TextStyle(color: Colors.black),
                   decoration: InputDecoration(
-                    hintText: 'search_about_sympotoms'.tr,
+                    hintText: 'search_about_symptoms'.tr,
                     hintStyle: const TextStyle(
                       color: Color(AppColors.colorHintText),
                     ),
@@ -50,7 +50,7 @@ class ContentSymptoms extends StatelessWidget {
             ),
             SizedBox(height: DEVICE_HEIGHT * 0.015),
             CustomText(
-              text: 'sympotoms'.tr,
+              text: 'symptoms'.tr,
               fontSize: 18,
               type: CustomTextType.title,
               color: const Color(AppColors.colorSpecialties),

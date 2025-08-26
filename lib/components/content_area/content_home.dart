@@ -137,6 +137,7 @@ class ContentHome extends StatelessWidget {
                       int index,
                       Map<String, dynamic> e,
                     ) {
+                      // ignore: always_specify_types
                       return MapEntry(
                         index,
                         Card(

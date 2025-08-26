@@ -179,6 +179,7 @@ class ContentDoctors extends StatelessWidget {
                                             child: Wrap(
                                               spacing: 8,
                                               runSpacing: 6,
+                                              // ignore: always_specify_types
                                               children: List.generate(
                                                 controller
                                                     .doctors[index]['skills']

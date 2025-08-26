@@ -8,7 +8,7 @@ class FingerPrintController extends GetxController {
   final LocalAuthentication auth = LocalAuthentication();
   LocalStorage localStorage = LocalStorage();
 
-  void checkUserAndNavigate() async {
+  Future<void> checkUserAndNavigate() async {
     // userData = await localStorage.getFromStorage(key: storageRefreshToken);
     // final String? refreshToken = await localStorage.getFromStorage(
     //   key: storageRefreshToken,
