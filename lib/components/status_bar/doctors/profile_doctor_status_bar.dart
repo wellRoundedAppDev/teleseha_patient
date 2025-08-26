@@ -8,7 +8,6 @@ class ProfileDoctorStatusBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ChangeParamContentAndNextPage change = Get.find();
-    consoleLog('${change.selectedDoctorId}');
     return GetBuilder<DoctorsController>(
       init: DoctorsController(),
       builder: (DoctorsController controller) {

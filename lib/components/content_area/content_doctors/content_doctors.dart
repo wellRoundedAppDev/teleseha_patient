@@ -271,7 +271,7 @@ class ContentDoctors extends StatelessWidget {
                                   final int doctorId =
                                       controller.doctors[index]['id'];
 
-                                  change.selectedDoctorId.value = doctorId;
+                                  controller.passedIndex = doctorId;
 
                                   change.goToComponentStatusBar.value =
                                       'ProfileDoctor';

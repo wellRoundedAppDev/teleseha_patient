@@ -429,6 +429,13 @@ class CustomDrawer extends StatelessWidget {
                             SizedBox(height: DEVICE_HEIGHT * 0.03),
                             Btn(
                               onPressed: () {
+                                // post request filter
+                                consoleLog(controller.selectedIndex);
+                                consoleLog(controller.selectedacademicDegree);
+                                consoleLog(
+                                  controller.selectedAppointmentsAvailable,
+                                );
+                                consoleLog(controller.currentSliderValue.value);
                                 controller.isDrawerOpen.value = false;
                               },
                               text: 'search'.tr,

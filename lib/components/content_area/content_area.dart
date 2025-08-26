@@ -11,15 +11,22 @@ class ContentArea extends StatelessWidget {
         return Expanded(
           child: Container(
             padding: EdgeInsets.symmetric(
-              horizontal: DEVICE_WIDTH * 0.045,
+              horizontal:
+                  controller.goToComponentStatusBar.value == 'ProfileDoctor'
+                  ? DEVICE_WIDTH * 0
+                  : DEVICE_WIDTH * 0.045,
               vertical:
-                  controller.goToComponentStatusBar.value != 'Subspecialties'
+                  controller.goToComponentStatusBar.value != 'Subspecialty'
                   ? DEVICE_HEIGHT * 0.028
                   : DEVICE_HEIGHT * 0.045,
             ),
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(topRight: Radius.circular(40)),
-              color: Color(AppColors.backgroundColorLine),
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(
+                topRight: Radius.circular(40),
+              ),
+              color: controller.goToComponentStatusBar.value == 'ProfileDoctor'
+                  ? const Color(AppColors.colorBackgroundScreen)
+                  : const Color(AppColors.backgroundColorLine),
             ),
             width: DEVICE_WIDTH,
             child: Obx(() {
@@ -31,9 +38,11 @@ class ContentArea extends StatelessWidget {
                   ? const ContentDoctors()
                   : controller.goToComponentStatusBar.value == 'Reception'
                   ? const ContentReception()
-                  : controller.goToComponentStatusBar.value == 'successReception'
+                  : controller.goToComponentStatusBar.value ==
+                        'successReception'
                   ? const SuccessReception()
-                  : controller.goToComponentStatusBar.value == 'KnowledgeOfSpecialty'
+                  : controller.goToComponentStatusBar.value ==
+                        'KnowledgeOfSpecialty'
                   ? const KnowledgeOfSpecialty()
                   : controller.goToComponentStatusBar.value == 'Subspecialty'
                   ? const ContentSubSpecialties()

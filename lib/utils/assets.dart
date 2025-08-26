@@ -48,6 +48,7 @@ const String iconSubSpecialties4 = '${iconsPath}subSpecialties4.svg';
 const String iconClose = '${iconsPath}close.svg';
 const String iconCarouselRight = '${iconsPath}arrow_carousel_right.svg';
 const String iconCarouselLeft = '${iconsPath}arrow_carousel_left.svg';
+const String iconMap = '${iconsPath}iconMap.svg';
 
 // images
 const String imageDoctor = '${imagesPath}doctor.png';

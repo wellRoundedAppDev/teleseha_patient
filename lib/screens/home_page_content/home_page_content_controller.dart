@@ -9,11 +9,11 @@ class HomePageContentController extends GetxController {
   int nextReservation = 3;
   int selectedSpecialtyIndex = 0;
   int selectedIndex = 2;
+  int selectedacademicDegree = 1;
+  int selectedAppointmentsAvailable = 1;
   final ScrollController scrollController = ScrollController();
   RxBool isDrawerOpen = false.obs;
   RxDouble currentSliderValue = 100.0.obs;
-  int selectedacademicDegree = 1;
-  int selectedAppointmentsAvailable = 1;
 
   final List<Map<String, dynamic>> specialtiesWithSub = <Map<String, dynamic>>[
     <String, dynamic>{
