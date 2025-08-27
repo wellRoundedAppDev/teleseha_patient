@@ -192,4 +192,6 @@ const Map<String, String> ar = <String, String>{
   'clinical_experience': 'الخبرة السريرية',
   'clinical_experience_deception':
       '2012 - حتى الآن: إدارة حالات التهاب المفاصل العظمي، التهاب الفقرات، عرق النسا، فتق الأقراص، هشاشة العظام، إلخ.',
+  'timetable': 'الجدول الزمني',
+  'october': 'اكتوبر 2025',
 };

@@ -51,6 +51,7 @@ const String iconCarouselLeft = '${iconsPath}arrow_carousel_left.svg';
 const String iconMap = '${iconsPath}iconMap.svg';
 const String iconUniversity = '${iconsPath}university.svg';
 const String iconAcademicDegree = '${iconsPath}academicDegree.svg';
+const String iconDown = '${iconsPath}iconDown.svg';
 
 // images
 const String imageDoctor = '${imagesPath}doctor.png';

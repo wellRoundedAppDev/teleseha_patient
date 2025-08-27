@@ -35,7 +35,7 @@ class ContentSymptomsController extends GetxController {
   void changeParamNextPage() {
     if (isSelectedSymptoms) {
       final ChangeParamContentAndNextPage changeParam = Get.find();
-      changeParam.goToComponentStatusBar.value = 'Reception';
+      changeParam.goToComponentHeader.value = 'Reception';
       changeParam.update();
     }
     update();

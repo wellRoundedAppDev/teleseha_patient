@@ -1,10 +1,12 @@
+import 'package:intl/intl.dart';
+
 import '../../general_exports.dart';
 
 class DoctorsController extends GetxController {
   TextEditingController filterDoctors = TextEditingController();
   bool showDoctors = false;
 
-  final double widthSelected = DEVICE_WIDTH <= 380 ? 300 : 400;
+  final double widthSelected = DEVICE_WIDTH <= 380 ? 0.45 : 0.48;
   final double sizeTextSelected = DEVICE_WIDTH <= 380 ? 11 : 15;
 
   int? passedIndex = 0;
@@ -17,9 +19,34 @@ class DoctorsController extends GetxController {
   RxList<String> heHasExperienceIn = <String>[].obs;
   RxList<String> clinicalExperience = <String>[].obs;
 
+  String selectedMonthName = DateFormat.MMMM('ar').format(DateTime.now());
+
   bool selectedGeneralOrSpecializedMajor = true;
 
   int isSelected = 0;
+
+  DateTime selectedDate = DateTime.now();
+
+  Future<void> pickDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime.now(),
+    );
+
+    if (picked != null) {
+      selectedDate = picked;
+      selectedMonthName = DateFormat.MMMM('ar').format(picked);
+      final String formattedDate =
+          '${picked.day.toString().padLeft(2, '0')}-'
+          '${picked.month.toString().padLeft(2, '0')}-'
+          '${picked.year}';
+      update();
+    } else {
+      consoleLog('❌ Date picker dismissed');
+    }
+  }
 
   void selectedDoctorFunction() {
     selectedDoctor = doctors.firstWhere(

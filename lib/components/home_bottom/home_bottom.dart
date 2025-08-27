@@ -29,6 +29,7 @@ class CustomBottomNavBar extends StatelessWidget {
                   controller.changeIndex(index);
                 },
                 child: Container(
+                  // width: 70,
                   width: isSelected ? controller.widthSelected : 70,
                   decoration: BoxDecoration(
                     gradient: isSelected

@@ -94,7 +94,7 @@ class ContentReception extends StatelessWidget {
                 SizedBox(height: DEVICE_HEIGHT * 0.04),
                 Btn(
                   onPressed: () {
-                    change.goToComponentStatusBar.value = 'successReception';
+                    change.goToComponentHeader.value = 'successReception';
                     change.update();
                   },
                   style: ElevatedButton.styleFrom(

@@ -38,7 +38,7 @@ class DoctorsStatusBar extends StatelessWidget {
 
                         final ChangeParamContentAndNextPage changeParam =
                             Get.find();
-                        changeParam.goToComponentStatusBar.value = 'HomePage';
+                        changeParam.goToComponentHeader.value = 'HomePage';
 
                         changeParam.update();
                         findBottomController.update();

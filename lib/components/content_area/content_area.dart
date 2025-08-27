@@ -1,4 +1,6 @@
 import '../../general_exports.dart';
+// import 'paymob_manager.dart';
+// import 'package:url_launcher/url_launcher.dart';
 
 class ContentArea extends StatelessWidget {
   const ContentArea({super.key});
@@ -12,11 +14,11 @@ class ContentArea extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.symmetric(
               horizontal:
-                  controller.goToComponentStatusBar.value == 'ProfileDoctor'
+                  controller.goToComponentHeader.value == 'ProfileDoctor' ||
+                      controller.goToComponentHeader.value == 'drSchedule'
                   ? DEVICE_WIDTH * 0
                   : DEVICE_WIDTH * 0.045,
-              vertical:
-                  controller.goToComponentStatusBar.value != 'Subspecialty'
+              vertical: controller.goToComponentHeader.value != 'Subspecialty'
                   ? DEVICE_HEIGHT * 0.028
                   : DEVICE_HEIGHT * 0.045,
             ),
@@ -24,28 +26,37 @@ class ContentArea extends StatelessWidget {
               borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(40),
               ),
-              color: controller.goToComponentStatusBar.value == 'ProfileDoctor'
+              color: controller.goToComponentHeader.value != 'Symptoms'
                   ? const Color(AppColors.colorBackgroundScreen)
                   : const Color(AppColors.backgroundColorLine),
             ),
             width: DEVICE_WIDTH,
             child: Obx(() {
-              return controller.goToComponentStatusBar.value == 'HomePage'
+              return controller.goToComponentHeader.value == 'HomePage'
                   ? ContentHome()
-                  : controller.goToComponentStatusBar.value == 'Symptoms'
+                  : controller.goToComponentHeader.value == 'Symptoms'
                   ? const ContentSymptoms()
-                  : controller.goToComponentStatusBar.value == 'Doctors'
+                  : controller.goToComponentHeader.value == 'Doctors'
                   ? const ContentDoctors()
-                  : controller.goToComponentStatusBar.value == 'Reception'
+                  : controller.goToComponentHeader.value == 'Reception'
                   ? const ContentReception()
-                  : controller.goToComponentStatusBar.value ==
-                        'successReception'
-                  ? const SuccessReception()
-                  : controller.goToComponentStatusBar.value ==
+                  : controller.goToComponentHeader.value == 'successReception'
+                  ? SuccessReception(
+                      textBtn: 'buy'.tr,
+                      specializationSelected: 'specialization_selected'.tr,
+                      onPressed: () {
+                        controller.goToComponentHeader.value =
+                            'KnowledgeOfSpecialty';
+                        controller.update();
+                      },
+                    )
+                  : controller.goToComponentHeader.value ==
                         'KnowledgeOfSpecialty'
                   ? const KnowledgeOfSpecialty()
-                  : controller.goToComponentStatusBar.value == 'Subspecialty'
+                  : controller.goToComponentHeader.value == 'Subspecialty'
                   ? const ContentSubSpecialties()
+                  : controller.goToComponentHeader.value == 'drSchedule'
+                  ? const DrSchedule()
                   : const ContentProfileDoctor();
             }),
           ),
@@ -54,3 +65,13 @@ class ContentArea extends StatelessWidget {
     );
   }
 }
+
+  // Future<void> _pay() async {
+  //   PayMobManager().getPaymentKey(10, 'EGP').then((String paymentKey) {
+  //     launchUrl(
+  //       Uri.parse(
+  //         "https://accept.paymob.com/api/acceptance/iframe/5555/?payment_token${paymentKey}",
+  //       ),
+  //     );
+  //   });
+  // }

@@ -1,17 +1,23 @@
 import 'package:flutter_svg/flutter_svg.dart';
 
-// import 'package:url_launcher/url_launcher.dart';
-
 import '../../../general_exports.dart';
-// import 'paymob_manager.dart';
 
 class SuccessReception extends StatelessWidget {
-  const SuccessReception({super.key});
+  SuccessReception({
+    super.key,
+    this.receptionTextStatus = true,
+    this.specializationSelected,
+    this.textBtn,
+    this.onPressed,
+  });
+
+  bool? receptionTextStatus;
+  String? specializationSelected;
+  String? textBtn;
+  Function? onPressed;
 
   @override
   Widget build(BuildContext context) {
-    final ChangeParamContentAndNextPage change = Get.find();
-
     return GetBuilder<ReceptionController>(
       init: ReceptionController(),
       builder: (ReceptionController controller) {
@@ -19,12 +25,15 @@ class SuccessReception extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             SizedBox(height: DEVICE_HEIGHT * 0.015),
-            CustomText(
-              text: 'reception'.tr,
-              fontSize: 20,
-              type: CustomTextType.title,
-              color: const Color(AppColors.colorLineAndText),
-            ),
+            if (receptionTextStatus ?? true)
+              CustomText(
+                text: 'reception'.tr,
+                fontSize: 20,
+                type: CustomTextType.title,
+                color: const Color(AppColors.colorLineAndText),
+              )
+            else
+              const SizedBox(),
             SizedBox(height: DEVICE_HEIGHT * 0.11),
             Column(
               children: <Widget>[
@@ -35,20 +44,17 @@ class SuccessReception extends StatelessWidget {
                 ),
                 SizedBox(height: DEVICE_HEIGHT * 0.05),
                 CustomText(
-                  text: 'specialization_selected'.tr,
+                  text: specializationSelected,
                   fontSize: 16,
                   type: CustomTextType.title,
                   color: const Color(AppColors.colorLineAndText),
                 ),
                 SizedBox(height: DEVICE_HEIGHT * 0.08),
                 Btn(
-                  // onPressed: () async => _pay,
                   onPressed: () {
-                    change.goToComponentStatusBar.value =
-                        'KnowledgeOfSpecialty';
-                    change.update();
+                    onPressed?.call();
                   },
-                  text: 'buy'.tr,
+                  text: textBtn,
                 ),
               ],
             ),
@@ -57,14 +63,4 @@ class SuccessReception extends StatelessWidget {
       },
     );
   }
-
-  // Future<void> _pay() async {
-  //   PayMobManager().getPaymentKey(10, 'EGP').then((String paymentKey) {
-  //     launchUrl(
-  //       Uri.parse(
-  //         "https://accept.paymob.com/api/acceptance/iframe/5555/?payment_token${paymentKey}",
-  //       ),
-  //     );
-  //   });
-  // }
 }

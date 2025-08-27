@@ -117,11 +117,11 @@ class HomeStatusBar extends StatelessWidget {
                           ),
                           StyleBtnHeader(
                             textBtn: 'start_now'.tr,
-                            size: 9,
+                            size: 7,
                             onPressed: () {
                               final ChangeParamContentAndNextPage change =
                                   Get.find();
-                              change.goToComponentStatusBar.value = 'Symptoms';
+                              change.goToComponentHeader.value = 'Symptoms';
                               change.knowNextPage.value =
                                   'Comping from home going to reception';
                               change.update();

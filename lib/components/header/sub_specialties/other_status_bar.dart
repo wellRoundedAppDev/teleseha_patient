@@ -20,11 +20,13 @@ class OtherStatusBar extends StatelessWidget {
             children: <Widget>[
               GestureDetector(
                 onTap: () {
-                  change.goToComponentStatusBar.value == 'Reception' ||
-                          change.goToComponentStatusBar.value ==
-                              'successReception'
-                      ? change.goToComponentStatusBar.value = 'Symptoms'
-                      : change.goToComponentStatusBar.value = 'HomePage';
+                  change.goToComponentHeader.value == 'drSchedule'
+                      ? change.goToComponentHeader.value = 'Doctors'
+                      : change.goToComponentHeader.value == 'Reception' ||
+                            change.goToComponentHeader.value ==
+                                'successReception'
+                      ? change.goToComponentHeader.value = 'Symptoms'
+                      : change.goToComponentHeader.value = 'HomePage';
                   change.update();
                 },
                 child: SvgPicture.asset(

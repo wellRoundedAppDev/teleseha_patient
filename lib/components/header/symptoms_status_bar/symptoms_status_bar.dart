@@ -21,7 +21,7 @@ class SymptomsStatusBar extends StatelessWidget {
                 // Text(change.knowNextPage.value),
                 GestureDetector(
                   onTap: () {
-                    change.goToComponentStatusBar.value = 'HomePage';
+                    change.goToComponentHeader.value = 'HomePage';
                     change.update();
                   },
                   child: SvgPicture.asset(

@@ -20,7 +20,7 @@ class ProfileDoctorStatusBar extends StatelessWidget {
             children: <Widget>[
               GestureDetector(
                 onTap: () {
-                  change.goToComponentStatusBar.value = 'Doctors';
+                  change.goToComponentHeader.value = 'Doctors';
                   change.update();
                 },
                 child: SvgPicture.asset(
@@ -30,18 +30,6 @@ class ProfileDoctorStatusBar extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
-              // Stack(
-              //   children: <Widget>[
-              //     Positioned(
-              //       child: Image.asset(
-              //         imageDoctorDetails,
-              //         width: 100,
-              //         height: 428,
-              //         fit: BoxFit.cover,
-              //       ),
-              //     ),
-              //   ],
-              // ),
             ],
           ),
         );

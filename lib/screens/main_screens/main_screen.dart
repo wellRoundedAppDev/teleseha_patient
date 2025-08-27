@@ -22,9 +22,9 @@ class MainScreen extends StatelessWidget {
           Scaffold(
             body: bottomNavController.pages[bottomNavController.selectedIndex],
             bottomNavigationBar:
-                changeParam.goToComponentStatusBar.value == 'HomePage' ||
-                    changeParam.goToComponentStatusBar.value == 'Doctors' ||
-                    changeParam.goToComponentStatusBar.value == 'Subspecialty'
+                changeParam.goToComponentHeader.value == 'HomePage' ||
+                    changeParam.goToComponentHeader.value == 'Doctors' ||
+                    changeParam.goToComponentHeader.value == 'Subspecialty'
                 ? Container(
                     margin: EdgeInsets.symmetric(
                       horizontal: bottomNavController.horizontalMargin,

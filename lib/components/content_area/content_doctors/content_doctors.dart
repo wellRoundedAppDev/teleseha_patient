@@ -23,7 +23,7 @@ class ContentDoctors extends StatelessWidget {
             ),
             SizedBox(height: DEVICE_HEIGHT * 0.027),
             SizedBox(
-              height: controller.widthSelected,
+              height: DEVICE_HEIGHT * controller.widthSelected,
               child: ListView.builder(
                 shrinkWrap: true,
                 padding: EdgeInsets.zero,
@@ -48,7 +48,7 @@ class ContentDoctors extends StatelessWidget {
                                 children: <Widget>[
                                   ClipRRect(
                                     borderRadius: BorderRadiusGeometry.circular(
-                                      20,
+                                      10,
                                     ),
                                     child: Image.asset(
                                       controller.doctors[index]['image'],
@@ -167,7 +167,19 @@ class ContentDoctors extends StatelessWidget {
                                                 size:
                                                     controller.sizeTextSelected,
                                                 textBtn: 'reservation'.tr,
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  final int doctorId =
+                                                      controller
+                                                          .doctors[index]['id'];
+                                                  controller.passedIndex =
+                                                      doctorId;
+
+                                                  change
+                                                          .goToComponentHeader
+                                                          .value =
+                                                      'drSchedule';
+                                                  change.update();
+                                                },
                                               ),
                                             ],
                                           ),
@@ -273,7 +285,7 @@ class ContentDoctors extends StatelessWidget {
 
                                   controller.passedIndex = doctorId;
 
-                                  change.goToComponentStatusBar.value =
+                                  change.goToComponentHeader.value =
                                       'ProfileDoctor';
                                   change.update();
                                 },

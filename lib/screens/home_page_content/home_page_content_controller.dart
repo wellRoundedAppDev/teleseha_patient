@@ -148,7 +148,7 @@ class HomePageContentController extends GetxController {
 
   void openContentDoctorsAboutSelected(int index) {
     final ChangeParamContentAndNextPage changeParam = Get.find();
-    changeParam.goToComponentStatusBar.value = 'Subspecialty';
+    changeParam.goToComponentHeader.value = 'Subspecialty';
     selectedSpecialtyIndex = index;
     update();
   }
