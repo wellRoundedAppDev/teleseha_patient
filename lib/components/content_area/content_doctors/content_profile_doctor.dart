@@ -11,9 +11,6 @@ class ContentProfileDoctor extends StatelessWidget {
       builder: (DoctorsController controller) {
         controller.selectedDoctorFunction();
 
-        // final availableTimes = controller.selectedDoctor?['available_times'];
-        // final qualifications = controller.selectedDoctor?['qualifications'];
-
         return SizedBox(
           height: DEVICE_HEIGHT,
           child: SingleChildScrollView(
@@ -201,7 +198,9 @@ class ContentProfileDoctor extends StatelessWidget {
                                             ) {
                                               final List<String> days =
                                                   time['days'] as List<String>;
+                                              // ignore: always_specify_types
                                               final List times =
+                                                  // ignore: always_specify_types
                                                   time['times'] as List;
                                               final String displayDays = days
                                                   .join(' - ');
@@ -225,6 +224,7 @@ class ContentProfileDoctor extends StatelessWidget {
                                                         DEVICE_HEIGHT * 0.0027,
                                                   ),
                                                   ...times.map<Widget>((
+                                                    // ignore: always_specify_types
                                                     timeItem,
                                                   ) {
                                                     return Padding(
@@ -403,8 +403,8 @@ class ContentProfileDoctor extends StatelessWidget {
                       SizedBox(height: DEVICE_HEIGHT * 0.01),
                       Wrap(
                         spacing: DEVICE_HEIGHT * 0.065,
-                        children: (controller.qualifications ?? <dynamic>[])
-                            .map<Widget>((qualification) {
+                        children: (controller.qualifications)
+                            .map<Widget>((Map<String, dynamic> qualification) {
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
@@ -477,6 +477,7 @@ class ContentProfileDoctor extends StatelessWidget {
                             width: DEVICE_WIDTH,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              // ignore: always_specify_types
                               children: List.generate(controller.tabs.length, (
                                 int index,
                               ) {
@@ -553,44 +554,130 @@ class ContentProfileDoctor extends StatelessWidget {
                     ],
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.symmetric(
-                    horizontal: DEVICE_WIDTH * 0.055,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      SizedBox(height: DEVICE_HEIGHT * 0.03),
-                      CustomText(
-                        text:
-                            controller.selectedDoctor?['name'] +
-                            ' ' +
-                            'he_has_experience_in'.tr,
-                        fontSize: 16,
-                        type: CustomTextType.title,
-                        color: const Color(AppColors.colorBlack),
-                      ),
-                      SizedBox(height: DEVICE_HEIGHT * 0.012),
-                      Row(
-                        children: <Widget>[
-                          Container(
-                            width: DEVICE_WIDTH * 0.01,
-                            height: DEVICE_HEIGHT * 0.005,
-                            color: const Color(
-                              AppColors.colorNameSpecialization,
-                            ),
+                IndexedStack(
+                  index: controller.isSelected,
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.symmetric(
+                            horizontal: DEVICE_WIDTH * 0.055,
                           ),
-                          SizedBox(width: DEVICE_WIDTH * 0.0122),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: DEVICE_HEIGHT * 0.012),
-                Container(
-                  height: DEVICE_HEIGHT * 0.001,
-                  width: DEVICE_WIDTH,
-                  color: const Color.fromARGB(78, 128, 128, 31),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              SizedBox(height: DEVICE_HEIGHT * 0.03),
+                              CustomText(
+                                text:
+                                    controller.selectedDoctor?['name'] +
+                                    // ignore: prefer_interpolation_to_compose_strings
+                                    ' ' +
+                                    'he_has_experience_in'.tr,
+                                fontSize: 16,
+                                type: CustomTextType.title,
+                                color: const Color(AppColors.colorBlack),
+                              ),
+                              SizedBox(height: DEVICE_HEIGHT * 0.012),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: controller.heHasExperienceIn.map((
+                                  String e,
+                                ) {
+                                  return Padding(
+                                    padding: EdgeInsets.symmetric(
+                                      vertical: DEVICE_HEIGHT * 0.005,
+                                    ),
+                                    child: Row(
+                                      children: <Widget>[
+                                        Container(
+                                          width: DEVICE_WIDTH * 0.01,
+                                          height: DEVICE_HEIGHT * 0.005,
+                                          color: const Color(
+                                            AppColors.colorNameSpecialization,
+                                          ),
+                                        ),
+                                        SizedBox(width: DEVICE_WIDTH * 0.025),
+                                        Expanded(
+                                          child: CustomText(
+                                            text: e,
+                                            fontSize: 12,
+                                            type: CustomTextType.button,
+                                            color: const Color(
+                                              AppColors.colorNameSpecialization,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: DEVICE_HEIGHT * 0.012),
+                        Container(
+                          height: DEVICE_HEIGHT * 0.001,
+                          width: DEVICE_WIDTH,
+                          color: const Color.fromARGB(78, 128, 128, 31),
+                        ),
+                        SizedBox(height: DEVICE_HEIGHT * 0.012),
+                        Container(
+                          margin: EdgeInsets.symmetric(
+                            horizontal: DEVICE_WIDTH * 0.055,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              CustomText(
+                                text: 'clinical_experience'.tr,
+                                fontSize: 16,
+                                type: CustomTextType.title,
+                                color: const Color(AppColors.colorBlack),
+                              ),
+                              SizedBox(height: DEVICE_HEIGHT * 0.012),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: controller.clinicalExperience.map((
+                                  String e,
+                                ) {
+                                  return Padding(
+                                    padding: EdgeInsets.symmetric(
+                                      vertical: DEVICE_HEIGHT * 0.005,
+                                    ),
+                                    child: Row(
+                                      children: <Widget>[
+                                        Container(
+                                          width: DEVICE_WIDTH * 0.01,
+                                          height: DEVICE_HEIGHT * 0.005,
+                                          color: const Color(
+                                            AppColors.colorNameSpecialization,
+                                          ),
+                                        ),
+                                        SizedBox(width: DEVICE_WIDTH * 0.025),
+                                        Expanded(
+                                          child: CustomText(
+                                            text: e,
+                                            fontSize: 12,
+                                            type: CustomTextType.button,
+                                            color: const Color(
+                                              AppColors.colorNameSpecialization,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                              SizedBox(height: DEVICE_HEIGHT * 0.055),
+                              Btn(onPressed: () {}, text: 'reservation'.tr),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ],
             ),

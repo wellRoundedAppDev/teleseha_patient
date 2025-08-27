@@ -9,10 +9,13 @@ class DoctorsController extends GetxController {
 
   int? passedIndex = 0;
   int? get selectedDoctorId => passedIndex;
+  // ignore: always_specify_types
   Map? selectedDoctor;
 
   RxList<Map<String, dynamic>> availableTimes = <Map<String, dynamic>>[].obs;
   RxList<Map<String, dynamic>> qualifications = <Map<String, dynamic>>[].obs;
+  RxList<String> heHasExperienceIn = <String>[].obs;
+  RxList<String> clinicalExperience = <String>[].obs;
 
   bool selectedGeneralOrSpecializedMajor = true;
 
@@ -20,15 +23,22 @@ class DoctorsController extends GetxController {
 
   void selectedDoctorFunction() {
     selectedDoctor = doctors.firstWhere(
+      // ignore: always_specify_types
       (doctor) => doctor['id'] == selectedDoctorId,
       orElse: () => <dynamic, dynamic>{},
     );
 
     availableTimes.value = List<Map<String, dynamic>>.from(
-      selectedDoctor?['available_times'] ?? [],
+      selectedDoctor?['available_times'] ?? <dynamic>[],
     );
     qualifications.value = List<Map<String, dynamic>>.from(
-      selectedDoctor?['qualifications'] ?? [],
+      selectedDoctor?['qualifications'] ?? <dynamic>[],
+    );
+    heHasExperienceIn.value = List<String>.from(
+      selectedDoctor?['practicalExperienceIn'] ?? <dynamic>[],
+    );
+    clinicalExperience.value = List<String>.from(
+      selectedDoctor?['clinicalExperience'] ?? <dynamic>[],
     );
   }
 
@@ -38,6 +48,7 @@ class DoctorsController extends GetxController {
     'ratings'.tr,
   ];
 
+  // ignore: always_specify_types
   List doctors = <dynamic>[
     <String, Object>{
       'id': 1,
@@ -90,6 +101,7 @@ class DoctorsController extends GetxController {
         'list_experience_in_3'.tr,
         'list_experience_in_4'.tr,
       ],
+      'clinicalExperience': <String>['clinical_experience_deception'.tr],
     },
     <String, Object>{
       'id': 2,
@@ -148,6 +160,7 @@ class DoctorsController extends GetxController {
         'list_experience_in_3'.tr,
         'list_experience_in_4'.tr,
       ],
+      'clinicalExperience': <String>['clinical_experience_deception'.tr],
     },
     <String, Object>{
       'id': 3,
@@ -209,6 +222,10 @@ class DoctorsController extends GetxController {
         'list_experience_in_2'.tr,
         'list_experience_in_3'.tr,
         'list_experience_in_4'.tr,
+      ],
+      'clinicalExperience': <String>[
+        'clinical_experience_deception'.tr,
+        'clinical_experience_deception'.tr,
       ],
     },
   ];

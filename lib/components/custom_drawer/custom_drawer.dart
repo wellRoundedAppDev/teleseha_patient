@@ -421,6 +421,7 @@ class CustomDrawer extends StatelessWidget {
                                     207,
                                   ),
                                   tooltipTextFormatterCallback:
+                                      // ignore: always_specify_types
                                       (actual, String formatted) =>
                                           '${actual.toStringAsFixed(0)} ج',
                                 ),
