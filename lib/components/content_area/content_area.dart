@@ -34,19 +34,50 @@ class ContentArea extends StatelessWidget {
             child: Obx(() {
               return controller.goToComponentHeader.value == 'HomePage'
                   ? ContentHome()
+                  : controller.goToComponentHeader.value == 'RecentBookings'
+                  ? const RecentBookings()
                   : controller.goToComponentHeader.value == 'Symptoms'
                   ? const ContentSymptoms()
                   : controller.goToComponentHeader.value == 'Doctors'
                   ? const ContentDoctors()
                   : controller.goToComponentHeader.value == 'Reception'
                   ? const ContentReception()
+                  : controller.goToComponentHeader.value == 'enterSymptoms'
+                  ? SuccessReception(
+                      receptionTextStatus: false,
+                      textBtn: 'enterSymptoms'.tr,
+                      titleSpecializationSelected: 'thanks_booked_success'.tr,
+                      onPressed: () {
+                        controller.goToComponentHeader.value = 'Symptoms';
+                        controller.knowNextPage.value =
+                            'comping from success is complete going to doctor and success';
+                        controller.update();
+                      },
+                    )
                   : controller.goToComponentHeader.value == 'successReception'
                   ? SuccessReception(
                       textBtn: 'buy'.tr,
-                      specializationSelected: 'specialization_selected'.tr,
+                      titleSpecializationSelected: 'specialization_selected'.tr,
+                      textSpecializationSelected:
+                          'please_pay_to_show_your_case_specialty'.tr,
                       onPressed: () {
                         controller.goToComponentHeader.value =
                             'KnowledgeOfSpecialty';
+                        controller.update();
+                      },
+                    )
+                  : controller.goToComponentHeader.value ==
+                        'successSendToDoctor'
+                  ? SuccessReception(
+                      textBtn: 'home'.tr,
+                      titleSpecializationSelected: 'thanks_booked_success'.tr,
+                      textSpecializationSelected: 'please_arrive_on_time'.tr,
+                      onPressed: () {
+                        // ignore: non_constant_identifier_names
+                        final HomePageContentController HomePage = Get.find();
+                        HomePage.checkReservations = true;
+                        controller.goToComponentHeader.value = 'HomePage';
+                        HomePage.update();
                         controller.update();
                       },
                     )

@@ -37,4 +37,5 @@ class AppColors {
   static const int colorAboutDoctor = 0xff1E1E1E;
   static const int colorBorderDataDoctor = 0xff80808021;
   static const int colorcircleTop = 0xff002440;
+  static const int colorGoldRains = 0xffCE9925;
 }

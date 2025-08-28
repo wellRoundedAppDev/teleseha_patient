@@ -52,6 +52,9 @@ const String iconMap = '${iconsPath}iconMap.svg';
 const String iconUniversity = '${iconsPath}university.svg';
 const String iconAcademicDegree = '${iconsPath}academicDegree.svg';
 const String iconDown = '${iconsPath}iconDown.svg';
+const String iconGoodListen = '${iconsPath}goodListen.svg';
+const String iconCalm = '${iconsPath}calm.svg';
+const String iconEyeglasses = '${iconsPath}eyeglasses.svg';
 
 // images
 const String imageDoctor = '${imagesPath}doctor.png';

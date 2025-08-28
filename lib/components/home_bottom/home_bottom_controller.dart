@@ -35,11 +35,12 @@ class BottomNavController extends GetxController {
     selectedIndex = index;
     final ChangeParamContentAndNextPage changeParam = Get.find();
 
-    if (index == 2) {
-      changeParam.goToComponentHeader.value = 'HomePage';
-    } else if (index == 1) {
-      changeParam.goToComponentHeader.value = 'Doctors';
-    }
+    index == 2
+        ? changeParam.goToComponentHeader.value = 'HomePage'
+        : index == 1
+        ? changeParam.goToComponentHeader.value = 'Doctors'
+        // ignore: unnecessary_statements
+        : '';
 
     changeParam.update();
     update();

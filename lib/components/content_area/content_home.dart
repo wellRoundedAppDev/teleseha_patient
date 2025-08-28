@@ -6,6 +6,7 @@ class ContentHome extends StatelessWidget {
   ContentHome({super.key});
   final BottomNavController bottomController = Get.put(BottomNavController());
   final DoctorsController doctors = Get.put(DoctorsController());
+  final ChangeParamContentAndNextPage change = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,8 @@ class ContentHome extends StatelessWidget {
             if (controller.checkReservations)
               GestureDetector(
                 onTap: () {
-                  consoleLog('test');
+                  change.goToComponentHeader.value = 'RecentBookings';
+                  change.update();
                 },
                 child: Container(
                   padding: EdgeInsets.all(DEVICE_WIDTH * 0.047),

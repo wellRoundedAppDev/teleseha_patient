@@ -23,6 +23,7 @@ class MainScreen extends StatelessWidget {
             body: bottomNavController.pages[bottomNavController.selectedIndex],
             bottomNavigationBar:
                 changeParam.goToComponentHeader.value == 'HomePage' ||
+                    changeParam.goToComponentHeader.value == 'RecentBookings' ||
                     changeParam.goToComponentHeader.value == 'Doctors' ||
                     changeParam.goToComponentHeader.value == 'Subspecialty'
                 ? Container(

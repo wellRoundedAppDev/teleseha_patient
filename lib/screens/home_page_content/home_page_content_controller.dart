@@ -19,6 +19,10 @@ class HomePageContentController extends GetxController {
     <String, dynamic>{
       'icon': iconGeneralSpecialty,
       'title': 'build_specialties'.tr,
+    },
+    <String, dynamic>{
+      'icon': iconHeart,
+      'title': 'heart'.tr,
       'subSpecialties': <Map<String, String>>[
         <String, String>{'icon': iconPublic, 'title': 'public'.tr},
         <String, String>{
@@ -36,18 +40,6 @@ class HomePageContentController extends GetxController {
         <String, String>{
           'icon': iconSubSpecialties4,
           'title': 'sub_specialties_4'.tr,
-        },
-      ],
-    },
-    <String, dynamic>{
-      'icon': iconHeart,
-      'title': 'heart'.tr,
-      'subSpecialties': <Map<String, String>>[
-        <String, String>{'icon': iconHeart, 'title': 'cardiologist'.tr},
-        <String, String>{'icon': iconHeart, 'title': 'heart_surgery'.tr},
-        <String, String>{
-          'icon': iconHeart,
-          'title': 'cardiac_rehabilitation'.tr,
         },
       ],
     },
@@ -148,9 +140,19 @@ class HomePageContentController extends GetxController {
 
   void openContentDoctorsAboutSelected(int index) {
     final ChangeParamContentAndNextPage changeParam = Get.find();
-    changeParam.goToComponentHeader.value = 'Subspecialty';
-    selectedSpecialtyIndex = index;
-    update();
+    consoleLog(index);
+    if (index == 0) {
+      BottomNavController homeBottomController = Get.find();
+      homeBottomController.selectedIndex = 1;
+      changeParam.goToComponentHeader.value = 'Doctors';
+      selectedSpecialtyIndex = index;
+      homeBottomController.update();
+      update();
+    } else {
+      changeParam.goToComponentHeader.value = 'Subspecialty';
+      selectedSpecialtyIndex = index;
+      update();
+    }
   }
 
   final List<Map<String, dynamic>> academicDegree = <Map<String, dynamic>>[

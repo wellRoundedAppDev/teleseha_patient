@@ -34,9 +34,19 @@ class ContentSymptomsController extends GetxController {
 
   void changeParamNextPage() {
     if (isSelectedSymptoms) {
+      // comping from success is complete going to doctor and success
       final ChangeParamContentAndNextPage changeParam = Get.find();
-      changeParam.goToComponentHeader.value = 'Reception';
-      changeParam.update();
+      final HomePageContentController changePage = Get.find();
+      if (changeParam.knowNextPage.value ==
+          'Comping from home going to reception') {
+        changePage.checkReservations = false;
+        changeParam.goToComponentHeader.value = 'Reception';
+        changeParam.update();
+      } else {
+        changePage.checkReservations = true;
+        changeParam.goToComponentHeader.value = 'successSendToDoctor';
+        changeParam.update();
+      }
     }
     update();
   }

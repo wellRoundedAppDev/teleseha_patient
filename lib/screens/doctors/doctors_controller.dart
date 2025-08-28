@@ -2,8 +2,20 @@ import 'package:intl/intl.dart';
 
 import '../../general_exports.dart';
 
+class WeekDay {
+  WeekDay({
+    required this.dayName,
+    required this.isAvailable,
+    required this.date,
+  });
+  String dayName;
+  bool isAvailable;
+  final int date;
+}
+
 class DoctorsController extends GetxController {
   TextEditingController filterDoctors = TextEditingController();
+
   bool showDoctors = false;
 
   final double widthSelected = DEVICE_WIDTH <= 380 ? 0.45 : 0.48;
@@ -13,44 +25,120 @@ class DoctorsController extends GetxController {
   int? get selectedDoctorId => passedIndex;
   // ignore: always_specify_types
   Map? selectedDoctor;
+  RxInt selectedRatingIndex = (-1).obs;
 
   RxList<Map<String, dynamic>> availableTimes = <Map<String, dynamic>>[].obs;
   RxList<Map<String, dynamic>> qualifications = <Map<String, dynamic>>[].obs;
   RxList<String> heHasExperienceIn = <String>[].obs;
   RxList<String> clinicalExperience = <String>[].obs;
 
-  String selectedMonthName = DateFormat.MMMM('ar').format(DateTime.now());
+  String selectedMonthName = DateFormat(
+    'MMMM yyyy',
+    'ar',
+  ).format(DateTime.now());
 
   bool selectedGeneralOrSpecializedMajor = true;
 
   int isSelected = 0;
 
+  RxList<WeekDay> weekDays = <WeekDay>[].obs;
+  String currentDay = '';
+  int? selectedDayIndex;
+  String savedDateWithDay = '';
+
+  String? selectedTime;
+
   DateTime selectedDate = DateTime.now();
+
+  TextEditingController yourCommentOnTheSession = TextEditingController();
 
   Future<void> pickDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: selectedDate,
-      firstDate: DateTime(2000),
-      lastDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime.now().add(const Duration(days: 365)),
     );
 
     if (picked != null) {
       selectedDate = picked;
-      selectedMonthName = DateFormat.MMMM('ar').format(picked);
-      final String formattedDate =
-          '${picked.day.toString().padLeft(2, '0')}-'
-          '${picked.month.toString().padLeft(2, '0')}-'
-          '${picked.year}';
+      selectedMonthName = DateFormat('MMMM yyyy', 'ar').format(picked);
+      generateWeekDays();
       update();
     } else {
       consoleLog('❌ Date picker dismissed');
     }
+    update();
+  }
+
+  void saveDateWithDay() {
+    final DateTime currentDate = selectedDate;
+    final String dayName = DateFormat('EEEE', 'ar').format(currentDate);
+    final String formattedDate = DateFormat(
+      'dd MMMM yyyy',
+      'ar',
+    ).format(currentDate);
+
+    savedDateWithDay = '$dayName, $formattedDate';
+    update();
+    consoleLog('تم حفظ التاريخ مع يوم الأسبوع: $savedDateWithDay');
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    generateWeekDays();
+    final DateTime currentDate = DateTime.now();
+    selectedDayIndex = currentDate.weekday - 3;
+    update();
+  }
+
+  void generateWeekDays() {
+    final List<String> days = <String>[
+      'الأحد',
+      'الاثنين',
+      'الثلاثاء',
+      'الأربعاء',
+      'الخميس',
+      'الجمعة',
+      'السبت',
+    ];
+
+    final DateTime currentDate = selectedDate;
+    final int currentDayIndex = currentDate.weekday - 3;
+
+    currentDay = days[currentDayIndex];
+
+    weekDays.clear();
+    for (int i = 0; i < 7; i++) {
+      final DateTime dayDate = currentDate.add(Duration(days: i));
+      final String dayName = DateFormat('EEEE', 'ar').format(dayDate);
+      final bool isAvailable = dayDate.isAfter(
+        DateTime.now().subtract(const Duration(days: 1)),
+      );
+      final int dayOfMonth = dayDate.day;
+      weekDays.add(
+        WeekDay(dayName: dayName, isAvailable: isAvailable, date: dayOfMonth),
+      );
+    }
+  }
+
+  void selectDay(int index) {
+    selectedDayIndex = index;
+
+    final DateTime currentDate = selectedDate;
+
+    final DateTime newSelectedDate = currentDate
+        .subtract(Duration(days: currentDate.weekday - 3))
+        .add(Duration(days: index));
+
+    selectedDate = newSelectedDate;
+    selectedMonthName = DateFormat('MMMM yyyy', 'ar').format(selectedDate);
+    update();
   }
 
   void selectedDoctorFunction() {
     selectedDoctor = doctors.firstWhere(
-      // ignore: always_specify_types
       (doctor) => doctor['id'] == selectedDoctorId,
       orElse: () => <dynamic, dynamic>{},
     );
@@ -69,10 +157,12 @@ class DoctorsController extends GetxController {
     );
   }
 
-  final List<String> tabs = <String>[
-    'practical_experiments'.tr,
-    'education'.tr,
-    'ratings'.tr,
+  final List<String> tabs = <String>['practical_experiments'.tr, 'ratings'.tr];
+
+  final List ratings = <dynamic>[
+    <String, String>{'titleRatings': 'good_listen'.tr, 'icon': iconGoodListen},
+    <String, String>{'titleRatings': 'friendly'.tr, 'icon': iconCalm},
+    <String, String>{'titleRatings': 'dont_neglect'.tr, 'icon': iconEyeglasses},
   ];
 
   // ignore: always_specify_types
@@ -95,12 +185,12 @@ class DoctorsController extends GetxController {
           'times': <Map<String, String>>[
             <String, String>{'time': '1:00 - 6:00 مساءً'},
             <String, String>{'time': '2:00 - 3:00 مساءً'},
-          ],
-        },
-        <String, List<Object>>{
-          'days': <String>['الاحد'],
-          'times': <Map<String, String>>[
-            <String, String>{'time': '1:00 - 6:00 مساءً'},
+            <String, String>{'time': '3:00 - 7:00 مساءً'},
+            <String, String>{'time': '5:00 - 4:00 مساءً'},
+            <String, String>{'time': '6:00 - 1:00 مساءً'},
+            <String, String>{'time': '2:00 - 4:00 مساءً'},
+            <String, String>{'time': '1:00 - 8:00 مساءً'},
+            <String, String>{'time': '1:00 - 3:00 مساءً'},
           ],
         },
         <String, List<Object>>{

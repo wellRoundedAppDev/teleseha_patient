@@ -45,6 +45,7 @@ dependencies:
   flashy_tab_bar2: ^0.0.10
   syncfusion_flutter_sliders: ^30.2.6
   syncfusion_flutter_core: ^30.2.6
+  flutter_rating_bar: ^4.0.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

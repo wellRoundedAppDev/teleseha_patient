@@ -9,11 +9,10 @@ class ContentSymptoms extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<ContentSymptomsController>(
       builder: (ContentSymptomsController controller) {
-        // final ChangeParamContentAndNextPage change = Get.find();
+        final ChangeParamContentAndNextPage change = Get.find();
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            // Text(change.knowNextPage.value),
             Stack(
               children: <Widget>[
                 TextField(
@@ -89,7 +88,7 @@ class ContentSymptoms extends StatelessWidget {
                         Expanded(
                           child: CustomText(
                             text: controller.items[index]['title'],
-                            fontSize: 12.5,
+                            fontSize: 13,
                             color: const Color(AppColors.colorSpecialties),
                           ),
                         ),
@@ -130,7 +129,11 @@ class ContentSymptoms extends StatelessWidget {
                       ),
                     )
                   : null,
-              text: 'selected_specialty'.tr,
+              text:
+                  change.knowNextPage.value ==
+                      'comping from success is complete going to doctor and success'
+                  ? 'send_about_doctor'.tr
+                  : 'selected_specialty'.tr,
             ),
           ],
         );
