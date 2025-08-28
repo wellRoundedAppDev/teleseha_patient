@@ -1,3 +1,5 @@
+import 'package:flutter_svg/svg.dart';
+
 import '../../../general_exports.dart';
 
 class RecentBookings extends StatelessWidget {
@@ -5,44 +7,218 @@ class RecentBookings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          CustomText(
-            text: 'Recent_bookings'.tr,
-            fontSize: 18,
-            type: CustomTextType.title,
-            color: const Color(AppColors.colorLineAndText),
+    return GetBuilder<RecentBookingsController>(
+      init: RecentBookingsController(),
+      builder: (RecentBookingsController controller) {
+        return Container(
+          margin: EdgeInsets.symmetric(
+            horizontal: DEVICE_HEIGHT * 0.015,
+            vertical: DEVICE_WIDTH * 0.015,
           ),
-          SizedBox(
-            height: 200,
-            child: ListView(
-              shrinkWrap: true,
-              physics: const BouncingScrollPhysics(),
-              children: <Widget>[
-                Container(
-                  padding: const EdgeInsets.all(20.0),
-                  decoration: BoxDecoration(
-                    boxShadow: <BoxShadow>[
-                      BoxShadow(
-                        color: const Color(0xFFD8DADC).withValues(alpha: 0.4),
-                        blurRadius: 6,
-                        spreadRadius: 2,
-                        offset: const Offset(0, 2),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              CustomText(
+                text: 'Recent_bookings'.tr,
+                fontSize: 18,
+                type: CustomTextType.title,
+                color: const Color(AppColors.colorLineAndText),
+              ),
+              SizedBox(height: DEVICE_HEIGHT * 0.02),
+              SizedBox(
+                height: DEVICE_HEIGHT * 0.58,
+                child: ListView.builder(
+                  itemCount: controller.lastRecent.length,
+                  shrinkWrap: true,
+                  padding: EdgeInsets.zero,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      margin: EdgeInsets.only(bottom: DEVICE_HEIGHT * 0.022),
+                      padding: const EdgeInsets.all(20.0),
+                      decoration: BoxDecoration(
+                        boxShadow: <BoxShadow>[
+                          BoxShadow(
+                            color: const Color(
+                              0xFFD8DADC,
+                            ).withValues(alpha: 0.4),
+                            blurRadius: 6,
+                            spreadRadius: 2,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                        color: const Color(AppColors.colorLastReception),
+                        borderRadius: BorderRadius.circular(16),
                       ),
-                    ],
-                    color: const Color(AppColors.colorLastReception),
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: const Text('test'),
+                      child: Column(
+                        children: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  ClipRRect(
+                                    borderRadius: BorderRadiusGeometry.circular(
+                                      10,
+                                    ),
+                                    child: Image.asset(
+                                      imageDoctor,
+                                      width: DEVICE_WIDTH * 0.14,
+                                      height: DEVICE_HEIGHT * 0.063,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  SizedBox(width: DEVICE_WIDTH * 0.02),
+                                  Container(
+                                    margin: const EdgeInsets.only(top: 3),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        SizedBox(
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              CustomText(
+                                                text: controller
+                                                    .lastRecent[index]['name'],
+                                                type: CustomTextType.title,
+                                                fontSize: 14,
+                                                color: const Color(
+                                                  AppColors.colorLineAndText,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(height: DEVICE_HEIGHT * 0.004),
+                                        Row(
+                                          children: <Widget>[
+                                            CustomText(
+                                              text:
+                                                  'general_internal_affairs'.tr,
+                                              type: CustomTextType.inputTitle,
+                                              fontSize: 12,
+                                              color: const Color(
+                                                AppColors.colorLineAndText,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: <Widget>[
+                                  const CustomText(
+                                    text: '4.9',
+                                    fontSize: 10,
+                                    type: CustomTextType.title,
+                                    color: Color(AppColors.colorLineAndText),
+                                  ),
+                                  SizedBox(width: DEVICE_WIDTH * 0.012),
+                                  SvgPicture.asset(
+                                    iconStar,
+                                    width: DEVICE_WIDTH * 0.025,
+                                    height: DEVICE_HEIGHT * 0.015,
+                                  ),
+                                  SizedBox(width: DEVICE_WIDTH * 0.025),
+                                  CustomText(
+                                    text: 'detection_times'.tr,
+                                    fontSize: 10,
+                                    type: CustomTextType.inputTitle,
+                                    color: const Color(
+                                      AppColors.colorLineAndText,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: DEVICE_HEIGHT * 0.02),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Row(
+                                children: <Widget>[
+                                  Row(
+                                    children: <Widget>[
+                                      SvgPicture.asset(
+                                        iconCalendar,
+                                        width: DEVICE_WIDTH * 0.025,
+                                        height: DEVICE_HEIGHT * 0.015,
+                                      ),
+                                      SizedBox(width: DEVICE_WIDTH * 0.017),
+                                      CustomText(
+                                        text: 'accosts'.tr,
+                                        fontSize: 12,
+                                        type: CustomTextType.title,
+                                        color: const Color(
+                                          AppColors.colorLineAndText,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(width: DEVICE_WIDTH * 0.033),
+                                  Container(
+                                    margin: const EdgeInsets.only(top: 2),
+                                    child: Row(
+                                      children: <Widget>[
+                                        CustomText(
+                                          text: '2:00'.tr,
+                                          fontSize: 12,
+                                          type: CustomTextType.title,
+                                          color: const Color(
+                                            AppColors.colorLineAndText,
+                                          ),
+                                        ),
+                                        SizedBox(width: DEVICE_WIDTH * 0.017),
+                                        SvgPicture.asset(
+                                          iconTime,
+                                          width: DEVICE_WIDTH * 0.025,
+                                          height: DEVICE_HEIGHT * 0.015,
+                                          color: const Color(
+                                            AppColors.colorLineAndText,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Btn(
+                                width: 0.27,
+                                size: 11,
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: const Color(
+                                    AppColors.colorLineAndText,
+                                  ),
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: DEVICE_HEIGHT * 0.017,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  // change.goToComponentHeader.value =
+                                  //     'drSchedule';
+                                  // change.update();
+                                },
+                                text: 'entry_to_the_session'.tr,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

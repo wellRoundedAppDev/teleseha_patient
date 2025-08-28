@@ -1,17 +1,27 @@
 import '../../general_exports.dart';
 
 class Btn extends StatelessWidget {
-  const Btn({super.key, this.text, this.color, this.onPressed, this.style});
+  const Btn({
+    super.key,
+    this.text,
+    this.color,
+    this.onPressed,
+    this.style,
+    this.width = 0.9,
+    this.size = 20
+  });
 
   final String? text;
   final Color? color;
   final Function? onPressed;
   final ButtonStyle? style;
+  final double? width;
+  final double? size;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: DEVICE_WIDTH * 0.9,
+      width: DEVICE_WIDTH * width!,
       child: ElevatedButton(
         style:
             style ??
@@ -25,7 +35,7 @@ class Btn extends StatelessWidget {
         child: CustomText(
           text: text,
           type: CustomTextType.button,
-          fontSize: 20,
+          fontSize: size,
           color: const Color(AppColors.colorWhiteSelectedType),
         ),
       ),

@@ -198,7 +198,7 @@ const Map<String, String> ar = <String, String>{
   'time': 'الوقت',
   'enterSymptoms': 'ادخال الاعراض',
   'thanks_booked_success': 'شكرًا تم الحجز بنجاح!',
-  'please_arrive_on_time': 'الرجاء الحضور وقت ميعاد الجلسة',  
+  'please_arrive_on_time': 'الرجاء الحضور وقت ميعاد الجلسة',
   'evaluate_your_session': 'قيّم جلستك',
   'to_help': 'لمساعدتنا على تحسين تجربتك',
   'friendly': 'ودود',
@@ -206,4 +206,6 @@ const Map<String, String> ar = <String, String>{
   'what_is_your_comment_on_the_session': 'ما تعليقك على الجلسة',
   'write_your_comment_about_the_session': 'اكتب تعليقك على الجلسة',
   'send_about_doctor': 'ارسال للطبيب',
+  'accosts': '24 اغسطس',
+  'entry_to_the_session': 'الدخول للجلسه',
 };

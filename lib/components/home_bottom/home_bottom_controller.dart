@@ -1,7 +1,7 @@
 import '../../general_exports.dart';
 
 class BottomNavController extends GetxController {
-  int selectedIndex = 2;
+  int selectedIndexBottomNav = 2;
 
   final double widthSelected = DEVICE_WIDTH <= 380 ? 75 : 85;
   final double horizontalMargin = DEVICE_WIDTH <= 380 ? 0 : 8;
@@ -32,7 +32,7 @@ class BottomNavController extends GetxController {
   ];
 
   void changeIndex(int index) {
-    selectedIndex = index;
+    selectedIndexBottomNav = index;
     final ChangeParamContentAndNextPage changeParam = Get.find();
 
     index == 2

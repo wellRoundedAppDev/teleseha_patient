@@ -69,14 +69,19 @@ class ContentArea extends StatelessWidget {
                   : controller.goToComponentHeader.value ==
                         'successSendToDoctor'
                   ? SuccessReception(
+                      receptionTextStatus: false,
                       textBtn: 'home'.tr,
                       titleSpecializationSelected: 'thanks_booked_success'.tr,
                       textSpecializationSelected: 'please_arrive_on_time'.tr,
                       onPressed: () {
                         // ignore: non_constant_identifier_names
                         final HomePageContentController HomePage = Get.find();
+                        final BottomNavController bottomNav = Get.find();
+
                         HomePage.checkReservations = true;
                         controller.goToComponentHeader.value = 'HomePage';
+                        bottomNav.selectedIndexBottomNav = 2;
+
                         HomePage.update();
                         controller.update();
                       },

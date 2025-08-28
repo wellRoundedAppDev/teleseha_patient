@@ -23,7 +23,8 @@ class CustomBottomNavBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             // ignore: always_specify_types
             children: List.generate(controller.labels.length, (int index) {
-              final bool isSelected = controller.selectedIndex == index;
+              final bool isSelected =
+                  controller.selectedIndexBottomNav == index;
               return GestureDetector(
                 onTap: () {
                   controller.changeIndex(index);
@@ -42,8 +43,8 @@ class CustomBottomNavBar extends StatelessWidget {
                           )
                         : null,
                     borderRadius: BorderRadius.circular(
-                      controller.selectedIndex == 0 ||
-                              controller.selectedIndex == 4
+                      controller.selectedIndexBottomNav == 0 ||
+                              controller.selectedIndexBottomNav == 4
                           ? 20
                           : 100,
                     ),

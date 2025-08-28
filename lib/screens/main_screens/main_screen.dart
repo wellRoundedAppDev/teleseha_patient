@@ -20,7 +20,8 @@ class MainScreen extends StatelessWidget {
       return Stack(
         children: <Widget>[
           Scaffold(
-            body: bottomNavController.pages[bottomNavController.selectedIndex],
+            body: bottomNavController
+                .pages[bottomNavController.selectedIndexBottomNav],
             bottomNavigationBar:
                 changeParam.goToComponentHeader.value == 'HomePage' ||
                     changeParam.goToComponentHeader.value == 'RecentBookings' ||

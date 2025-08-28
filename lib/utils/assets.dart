@@ -55,6 +55,7 @@ const String iconDown = '${iconsPath}iconDown.svg';
 const String iconGoodListen = '${iconsPath}goodListen.svg';
 const String iconCalm = '${iconsPath}calm.svg';
 const String iconEyeglasses = '${iconsPath}eyeglasses.svg';
+const String iconCalendar = '${iconsPath}calendar.svg';
 
 // images
 const String imageDoctor = '${imagesPath}doctor.png';

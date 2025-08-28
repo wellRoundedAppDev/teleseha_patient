@@ -34,7 +34,7 @@ class DoctorsStatusBar extends StatelessWidget {
                       onTap: () {
                         final BottomNavController findBottomController =
                             Get.find();
-                        findBottomController.selectedIndex = 2;
+                        findBottomController.selectedIndexBottomNav = 2;
 
                         final ChangeParamContentAndNextPage changeParam =
                             Get.find();

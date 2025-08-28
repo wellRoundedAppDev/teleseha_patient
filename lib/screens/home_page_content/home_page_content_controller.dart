@@ -140,10 +140,9 @@ class HomePageContentController extends GetxController {
 
   void openContentDoctorsAboutSelected(int index) {
     final ChangeParamContentAndNextPage changeParam = Get.find();
-    consoleLog(index);
     if (index == 0) {
-      BottomNavController homeBottomController = Get.find();
-      homeBottomController.selectedIndex = 1;
+      final BottomNavController homeBottomController = Get.find();
+      homeBottomController.selectedIndexBottomNav = 1;
       changeParam.goToComponentHeader.value = 'Doctors';
       selectedSpecialtyIndex = index;
       homeBottomController.update();
