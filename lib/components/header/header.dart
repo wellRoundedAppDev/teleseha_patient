@@ -16,7 +16,7 @@ class Header extends StatelessWidget {
           ? DoctorsStatusBar()
           : controller.goToComponentHeader.value == 'ProfileDoctor'
           ? const ProfileDoctorStatusBar()
-          : const OtherStatusBar();
+          : const OtherHeader();
     });
   }
 }

@@ -208,4 +208,13 @@ const Map<String, String> ar = <String, String>{
   'send_about_doctor': 'ارسال للطبيب',
   'accosts': '24 اغسطس',
   'entry_to_the_session': 'الدخول للجلسه',
+  'active_now': 'نشط الان',
+  'wait_your_turn': 'انتظار دورك',
+  'there_is_one_person_in_front_of_you': 'أمامك شخص واحد',
+  'your_expected_entry_time': 'الوقت المتوقع لدخولك.............',
+  'remain': 'تبقى',
+  'minute': 'دقيقة',
+  'dont_worry': 'لا تقلق سيتم ارسال تنبيه لك عندما يأتي دورك',
+  'its_your_turn': 'جاء دورك يجب الدخول الآن... ',
+  'enter_the_session': 'دخول الجلسه',
 };

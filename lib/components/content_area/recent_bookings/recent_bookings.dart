@@ -180,6 +180,7 @@ class RecentBookings extends StatelessWidget {
                                           iconTime,
                                           width: DEVICE_WIDTH * 0.025,
                                           height: DEVICE_HEIGHT * 0.015,
+                                          // ignore: deprecated_member_use
                                           color: const Color(
                                             AppColors.colorLineAndText,
                                           ),
@@ -189,23 +190,33 @@ class RecentBookings extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              Btn(
-                                width: 0.27,
-                                size: 11,
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(
-                                    AppColors.colorLineAndText,
-                                  ),
-                                  padding: EdgeInsets.symmetric(
-                                    vertical: DEVICE_HEIGHT * 0.017,
-                                  ),
-                                ),
+                              StyleBtnHeader(
+                                width: DEVICE_WIDTH * 0.00067,
+                                height: DEVICE_HEIGHT * 0.000055,
+                                textBtn: 'entry_to_the_session'.tr,
                                 onPressed: () {
-                                  // change.goToComponentHeader.value =
-                                  //     'drSchedule';
-                                  // change.update();
+                                  final int lastRecentId =
+                                      controller.lastRecent[index]['id'];
+                                  controller.passedIndex = lastRecentId;
+                                  consoleLog(controller.passedIndex);
+                                  final ChangeParamContentAndNextPage change =
+                                      Get.find();
+                                  change.goToComponentHeader.value =
+                                      'waitingForYourTurn';
+                                  change.update();
+                                  // import 'paymob_manager.dart';
+                                  // import 'package:url_launcher/url_launcher.dart';
+
+                                  // Future<void> _pay() async {
+                                  //   PayMobManager().getPaymentKey(10, 'EGP').then((String paymentKey) {
+                                  //     launchUrl(
+                                  //       Uri.parse(
+                                  //         "https://accept.paymob.com/api/acceptance/iframe/5555/?payment_token${paymentKey}",
+                                  //       ),
+                                  //     );
+                                  //   });
+                                  // }
                                 },
-                                text: 'entry_to_the_session'.tr,
                               ),
                             ],
                           ),

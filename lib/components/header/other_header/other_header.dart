@@ -2,8 +2,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../general_exports.dart';
 
-class OtherStatusBar extends StatelessWidget {
-  const OtherStatusBar({super.key});
+class OtherHeader extends StatelessWidget {
+  const OtherHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,9 @@ class OtherStatusBar extends StatelessWidget {
             children: <Widget>[
               GestureDetector(
                 onTap: () {
-                  change.goToComponentHeader.value == 'drSchedule'
+                  change.goToComponentHeader.value == 'waitingForYourTurn'
+                      ? change.goToComponentHeader.value = 'RecentBookings'
+                      : change.goToComponentHeader.value == 'drSchedule'
                       ? change.goToComponentHeader.value = 'Doctors'
                       : change.goToComponentHeader.value == 'Reception' ||
                             change.goToComponentHeader.value ==

@@ -3,7 +3,6 @@
 import '../../general_exports.dart';
 
 List<GetPage<dynamic>> appRoutes = <GetPage<dynamic>>[
-  GetPage<FingerPrint>(name: routeFingerPrint, page: () => const FingerPrint()),
   GetPage<Login>(name: routeLogin, page: () => const Login()),
   GetPage<FingerPrint>(name: routeFingerPrint, page: () => const FingerPrint()),
   GetPage<Profiles>(name: routeProfiles, page: () => const Profiles()),
@@ -17,4 +16,5 @@ List<GetPage<dynamic>> appRoutes = <GetPage<dynamic>>[
     page: () => const MedicalHistory(),
   ),
   GetPage<MainScreen>(name: routeScreen, page: () => MainScreen()),
+  GetPage<VideoCall>(name: routeVideoCall, page: () => const VideoCall()),
 ];

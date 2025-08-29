@@ -1,6 +1,4 @@
 import '../../general_exports.dart';
-// import 'paymob_manager.dart';
-// import 'package:url_launcher/url_launcher.dart';
 
 class ContentArea extends StatelessWidget {
   const ContentArea({super.key});
@@ -93,6 +91,8 @@ class ContentArea extends StatelessWidget {
                   ? const ContentSubSpecialties()
                   : controller.goToComponentHeader.value == 'drSchedule'
                   ? const DrSchedule()
+                  : controller.goToComponentHeader.value == 'waitingForYourTurn'
+                  ? const WaitingForYourTurn()
                   : const ContentProfileDoctor();
             }),
           ),
@@ -101,13 +101,3 @@ class ContentArea extends StatelessWidget {
     );
   }
 }
-
-  // Future<void> _pay() async {
-  //   PayMobManager().getPaymentKey(10, 'EGP').then((String paymentKey) {
-  //     launchUrl(
-  //       Uri.parse(
-  //         "https://accept.paymob.com/api/acceptance/iframe/5555/?payment_token${paymentKey}",
-  //       ),
-  //     );
-  //   });
-  // }

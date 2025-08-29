@@ -755,7 +755,9 @@ class ContentProfileDoctor extends StatelessWidget {
                                       itemBuilder: (BuildContext context, _) =>
                                           const Icon(
                                             Icons.star,
-                                            color: Colors.amber,
+                                            color: Color(
+                                              AppColors.colorGoldRainsStar,
+                                            ),
                                           ),
                                       onRatingUpdate: (double rating) {
                                         consoleLog(rating);
@@ -767,97 +769,93 @@ class ContentProfileDoctor extends StatelessWidget {
                                     spacing: 10.0,
                                     runSpacing: 8.0,
                                     // ignore: always_specify_types
-                                    children: List.generate(
-                                      controller.ratings.length,
-                                      (int index) {
-                                        // ignore: always_specify_types
-                                        final rating =
-                                            controller.ratings[index];
-                                        final bool isSelected =
-                                            controller
-                                                .selectedRatingIndex
-                                                .value ==
-                                            index;
-                                        return GestureDetector(
-                                          onTap: () {
-                                            controller
-                                                    .selectedRatingIndex
-                                                    .value =
-                                                index;
-                                            controller.update();
-                                          },
-                                          child: Container(
-                                            alignment: Alignment.center,
-                                            width: DEVICE_WIDTH * 0.278,
-                                            padding: const EdgeInsets.symmetric(
-                                              horizontal: 9,
-                                              vertical: 10,
-                                            ),
-                                            decoration: BoxDecoration(
-                                              boxShadow: <BoxShadow>[
-                                                BoxShadow(
-                                                  color: const Color(
-                                                    0xFFD8DADC,
-                                                  ).withValues(alpha: 0.8),
-                                                  blurRadius: 3,
-                                                  spreadRadius: 2,
-                                                  offset: const Offset(0, 2),
-                                                ),
-                                              ],
-                                              color: isSelected
-                                                  ? const Color(
-                                                      AppColors
-                                                          .colorLineAndText,
-                                                    )
-                                                  : const Color(
-                                                      AppColors
-                                                          .colorWhiteSelectedType,
-                                                    ),
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                            ),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: <Widget>[
-                                                CustomText(
-                                                  text:
-                                                      rating['titleRatings'] ??
-                                                      'good_listen'.tr,
-                                                  fontSize: 10,
-                                                  type: CustomTextType.title,
-                                                  color: isSelected
-                                                      ? const Color(
-                                                          AppColors
-                                                              .colorWhiteSelectedType,
-                                                        )
-                                                      : const Color(
-                                                          AppColors
-                                                              .colorLineAndText,
-                                                        ),
-                                                ),
-                                                const SizedBox(width: 8),
-                                                SvgPicture.asset(
-                                                  rating['icon'] ??
-                                                      iconGoodListen,
-                                                  width: 30,
-                                                  height: 30,
-                                                  // ignore: deprecated_member_use
-                                                  color: isSelected
-                                                      ? const Color(
-                                                          AppColors
-                                                              .colorWhiteSelectedType,
-                                                        )
-                                                      : const Color(
-                                                          AppColors
-                                                              .colorGoldRains,
-                                                        ),
-                                                ),
-                                              ],
+                                    children: List.generate(controller.ratings.length, (
+                                      int index,
+                                    ) {
+                                      // ignore: always_specify_types
+                                      final rating = controller.ratings[index];
+                                      final bool isSelected =
+                                          controller
+                                              .selectedRatingIndex
+                                              .value ==
+                                          index;
+                                      return GestureDetector(
+                                        onTap: () {
+                                          controller.selectedRatingIndex.value =
+                                              index;
+                                          controller.update();
+                                        },
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          width: DEVICE_WIDTH * 0.278,
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 9,
+                                            vertical: 10,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            boxShadow: <BoxShadow>[
+                                              BoxShadow(
+                                                color: const Color(
+                                                  0xFFD8DADC,
+                                                ).withValues(alpha: 0.8),
+                                                blurRadius: 3,
+                                                spreadRadius: 2,
+                                                offset: const Offset(0, 2),
+                                              ),
+                                            ],
+                                            color: isSelected
+                                                ? const Color(
+                                                    AppColors.colorLineAndText,
+                                                  )
+                                                : const Color(
+                                                    AppColors
+                                                        .colorWhiteSelectedType,
+                                                  ),
+                                            borderRadius: BorderRadius.circular(
+                                              30,
                                             ),
                                           ),
-                                        );
-                                      },
-                                    ),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: <Widget>[
+                                              CustomText(
+                                                text:
+                                                    rating['titleRatings'] ??
+                                                    'good_listen'.tr,
+                                                fontSize: 10,
+                                                type: CustomTextType.title,
+                                                color: isSelected
+                                                    ? const Color(
+                                                        AppColors
+                                                            .colorWhiteSelectedType,
+                                                      )
+                                                    : const Color(
+                                                        AppColors
+                                                            .colorLineAndText,
+                                                      ),
+                                              ),
+                                              const SizedBox(width: 8),
+                                              SvgPicture.asset(
+                                                rating['icon'] ??
+                                                    iconGoodListen,
+                                                width: 30,
+                                                height: 30,
+                                                // ignore: deprecated_member_use
+                                                color: isSelected
+                                                    ? const Color(
+                                                        AppColors
+                                                            .colorWhiteSelectedType,
+                                                      )
+                                                    : const Color(
+                                                        AppColors
+                                                            .colorGoldRains,
+                                                      ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    }),
                                   ),
                                   SizedBox(height: DEVICE_HEIGHT * 0.043),
                                   CustomText(
