@@ -8,8 +8,19 @@ class WaitingForYourTurn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<RecentBookingsController>(
-      builder: (RecentBookingsController controller) {
+    return GetBuilder<BookingsController>(
+      builder: (BookingsController controller) {
+        if (controller.currentStep == 2) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            final VideoCallController videoCall = Get.put(
+              VideoCallController(),
+            );
+            if (!videoCall.isCallStarted.value) {
+              videoCall.initAgora();
+            }
+          });
+        }
+
         controller.selectedLastRecentFunction();
         return Container(
           alignment: Alignment.center,
@@ -38,6 +49,7 @@ class WaitingForYourTurn extends StatelessWidget {
                         iconDoctors,
                         width: DEVICE_WIDTH * 0.047,
                         height: DEVICE_WIDTH * 0.047,
+                        // ignore: deprecated_member_use
                         color: const Color(AppColors.colorLineAndText),
                       ),
                       SizedBox(width: DEVICE_WIDTH * 0.012),
@@ -95,6 +107,7 @@ class WaitingForYourTurn extends StatelessWidget {
                 textDirection: TextDirection.ltr,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
+                  // ignore: always_specify_types
                   children: List.generate(controller.totalSteps, (int index) {
                     final bool isActive = index == controller.currentStep;
 
@@ -139,6 +152,7 @@ class WaitingForYourTurn extends StatelessWidget {
                                     iconDoctors,
                                     width: DEVICE_WIDTH * 0.022,
                                     height: DEVICE_HEIGHT * 0.022,
+                                    // ignore: deprecated_member_use
                                     color: const Color(
                                       AppColors.colorWhiteSelectedType,
                                     ),
@@ -230,21 +244,44 @@ class WaitingForYourTurn extends StatelessWidget {
               else
                 const SizedBox(),
               SizedBox(height: DEVICE_HEIGHT * 0.07),
-              Btn(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: controller.currentStep == 0
-                      ? const Color.fromRGBO(0, 123, 189, 0.49)
-                      : const Color(AppColors.colorLineAndText),
-                  padding: EdgeInsets.symmetric(vertical: DEVICE_HEIGHT * 0.02),
-                ),
-                onPressed: () {
-                  controller.update();
-                  controller.currentStep == 2 ? Get.toNamed(routeVideoCall) : null;
+              GetBuilder<VideoCallController>(
+                id: 'participantButton',
+                builder: (VideoCallController videoCall) {
+                  final bool hasParticipant = videoCall.hasParticipant;
+                  return Btn(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: hasParticipant
+                          ? const Color(AppColors.colorLineAndText)
+                          : const Color.fromRGBO(0, 123, 189, 0.49),
+                      padding: EdgeInsets.symmetric(
+                        vertical: DEVICE_HEIGHT * 0.02,
+                      ),
+                    ),
+                    onPressed: hasParticipant
+                        ? () async {
+                            Get.toNamed(routeVideoCall);
+                          }
+                        : null,
+                    text: hasParticipant ? 'enter_the_session'.tr : 'wait'.tr,
+                  );
                 },
-                text: controller.currentStep == 0
-                    ? 'wait'.tr
-                    : 'enter_the_session'.tr,
               ),
+
+              // Btn(
+              //   style: ElevatedButton.styleFrom(
+              //     backgroundColor: controller.currentStep == 0
+              //         ? const Color.fromRGBO(0, 123, 189, 0.49)
+              //         : const Color(AppColors.colorLineAndText),
+              //     padding: EdgeInsets.symmetric(vertical: DEVICE_HEIGHT * 0.02),
+              //   ),
+              //   onPressed: () async {
+              //     final VideoCallController videoCall = Get.find();
+              //     videoCall.initAgora();
+              //   },
+              //   text: controller.currentStep == 0
+              //       ? 'wait'.tr
+              //       : 'enter_the_session'.tr,
+              // ),
             ],
           ),
         );

@@ -7,9 +7,9 @@ class RecentBookings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<RecentBookingsController>(
-      init: RecentBookingsController(),
-      builder: (RecentBookingsController controller) {
+    return GetBuilder<BookingsController>(
+      init: BookingsController(),
+      builder: (BookingsController controller) {
         return Container(
           margin: EdgeInsets.symmetric(
             horizontal: DEVICE_HEIGHT * 0.015,

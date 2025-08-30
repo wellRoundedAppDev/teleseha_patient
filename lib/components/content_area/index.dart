@@ -4,6 +4,7 @@ export 'content_home.dart';
 export 'content_reception/index.dart';
 export 'content_sub_specialties/index.dart';
 export 'content_sympotoms/index.dart';
+export 'waiting_for_your_turn/Bookings_controller.dart';
 export 'recent_bookings/index.dart';
 export 'success/index.dart';
 export 'waiting_for_your_turn/index.dart';

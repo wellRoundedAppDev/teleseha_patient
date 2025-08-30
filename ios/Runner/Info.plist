@@ -47,5 +47,9 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+<string>نحتاج الوصول للكاميرا للمكالمة</string>
+<key>NSMicrophoneUsageDescription</key>
+<string>نحتاج الوصول للميكروفون للمكالمة</string>
 </dict>
 </plist>

@@ -1,8 +1,7 @@
 import 'dart:async';
-
 import '../../../general_exports.dart';
 
-class RecentBookingsController extends GetxController {
+class BookingsController extends GetxController {
   int? passedIndex = 0;
   int? get selectedRecentBookingsId => passedIndex;
   // ignore: always_specify_types
@@ -14,8 +13,10 @@ class RecentBookingsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    Timer.periodic(const Duration(minutes: 1), (timer) {
+
+    Timer.periodic(const Duration(minutes: 1), (Timer timer) {
       remainingMinutes > 0 ? remainingMinutes-- : timer.cancel();
+      // ignore: unnecessary_statements
       remainingMinutes == 10 || remainingMinutes == 0 ? currentStep = 2 : null;
       update();
     });
@@ -64,6 +65,7 @@ class RecentBookingsController extends GetxController {
       'date': 'accosts'.tr,
       'time': '2:00',
     },
+
     <String, Object>{
       'id': 5,
       'image': imageDoctor,

@@ -6,13 +6,19 @@ import '../../general_exports.dart';
 class VideoCallController extends GetxController {
   String appId = '2c8437b9443e4607ad16973d4d4c2736';
   String token =
-      '007eJxTYHjUP1VKabsN88zzKxQmnvSeZtx0weJabHSH8dwNcmIsIjoKDEbJFibG5kmWJibGqSZmBuaJKYZmlubGKSYpJslG5sZmy2o2ZDQEMjI0FuQwMEIhiM/CUJJaXMLAAACTJBy9';
+      '007eJxTYPjZ89H8qbNPpN8mo8yrSqp3ZN+zPt55Yrly8sZl5ydZnVyrwGCUbGFibJ5kaWJinGpiZmCemGJoZmlunGKSYpJsZG5slmq6MaMhkJGBLfkrKyMDBIL4LAwlqcUlDAwAk3Uf5Q==';
   String channel = 'test';
   int? remoteUid;
   bool localUserJoined = false;
   late RtcEngine engine;
   bool isMute = false;
   RxBool isCallStarted = false.obs;
+  bool isVideoMuted = false;
+  bool isRemoteVideoMuted = false;
+  int? localUid;
+
+  BookingsController bookings = Get.put(BookingsController());
+  bool get hasParticipant => localUserJoined || remoteUid != null;
 
   Future<void> toggleMute() async {
     isMute = !isMute;
@@ -54,11 +60,18 @@ class VideoCallController extends GetxController {
       engine.registerEventHandler(
         RtcEngineEventHandler(
           onJoinChannelSuccess: (RtcConnection connection, int elapsed) {
+            localUid = connection.localUid;
             localUserJoined = true;
             update();
+            if (remoteUid != null) {
+              bookings.currentStep = 2;
+              bookings.update();
+            }
           },
           onUserJoined: (RtcConnection connection, int remoteUid, int elapsed) {
             this.remoteUid = remoteUid;
+            bookings.currentStep = 2;
+            bookings.update();
             update();
           },
           onUserOffline:
@@ -100,6 +113,15 @@ class VideoCallController extends GetxController {
                   }
                 }
               },
+
+          onUserMuteVideo: (connection, uid, muted) {
+            if (uid == localUid) {
+              isVideoMuted = muted;
+            } else {
+              isRemoteVideoMuted = muted;
+            }
+            update();
+          },
         ),
       );
 
@@ -128,6 +150,14 @@ class VideoCallController extends GetxController {
       }
       Get.snackbar('خطأ في الاتصال', errorMessage);
       debugPrint('Error during initialization: $e');
+    }
+  }
+
+  void toggleVideoMute() {
+    if (engine != null && localUid != null) {
+      isVideoMuted = !isVideoMuted;
+      engine!.muteLocalVideoStream(isVideoMuted);
+      update();
     }
   }
 

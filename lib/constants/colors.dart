@@ -39,4 +39,5 @@ class AppColors {
   static const int colorcircleTop = 0xff002440;
   static const int colorGoldRains = 0xffCE9925;
   static const int colorGoldRainsStar = 0xffFFC107;
+  static const int colorBorderOneChange = 0xff80808066;
 }
