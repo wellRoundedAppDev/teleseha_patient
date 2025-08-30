@@ -6,15 +6,6 @@ import '../../general_exports.dart';
 class VideoCall extends StatelessWidget {
   const VideoCall({super.key});
 
-  // controller.isVideoMuted
-  //                           ? Image.asset(imageDoctor, fit: BoxFit.cover)
-  //  controller.isRemoteVideoMuted
-  //                                         ? Image.asset(
-  //                                             imageDoctor,
-  //                                             fit: BoxFit.cover,
-  //                                           )
-  //                                         :
-
   @override
   Widget build(BuildContext context) {
     return GetBuilder<VideoCallController>(
@@ -22,87 +13,87 @@ class VideoCall extends StatelessWidget {
       builder: (VideoCallController controller) {
         final bool isCallStarted = controller.isCallStarted.value;
 
+        Widget localVideoWidget() {
+          if (controller.remoteUid != null && controller.channel.isNotEmpty) {
+            return SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: DEVICE_HEIGHT,
+              child: controller.engine != null
+                  ? controller.isVideoMuted
+                        ? Image.asset(imageDoctor, fit: BoxFit.cover)
+                        : AgoraVideoView(
+                            controller: VideoViewController(
+                              rtcEngine: controller.engine,
+                              canvas: VideoCanvas(uid: controller.localUid),
+                            ),
+                          )
+                  : const CircularProgressIndicator(),
+            );
+          } else {
+            return const Center(child: Text('بانتظار انضمام الطرف الآخر...'));
+          }
+        }
+
+        Widget remoteVideoWidget() {
+          return Container(
+            padding: const EdgeInsets.all(2),
+            decoration: BoxDecoration(
+              color: const Color.fromRGBO(128, 128, 128, 0.40),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(18),
+              child: controller.engine == null
+                  ? const Center(child: CircularProgressIndicator())
+                  : controller.isRemoteVideoMuted
+                  ? Image.asset(imageDoctor, fit: BoxFit.cover)
+                  : AgoraVideoView(
+                      controller: VideoViewController.remote(
+                        rtcEngine: controller.engine,
+                        canvas: VideoCanvas(uid: controller.remoteUid),
+                        connection: RtcConnection(
+                          channelId: controller.channel,
+                        ),
+                      ),
+                    ),
+            ),
+          );
+        }
+
         return Scaffold(
           body: Stack(
             children: <Widget>[
-              if (controller.remoteUid != null && controller.channel.isNotEmpty)
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: DEVICE_HEIGHT,
-                  child: controller.engine != null
-                      ? controller.isVideoMuted
-                            ? Image.asset(imageDoctor, fit: BoxFit.cover)
-                            : AgoraVideoView(
-                                controller: VideoViewController(
-                                  rtcEngine: controller.engine,
-                                  canvas: VideoCanvas(uid: controller.localUid),
-                                ),
-                              )
-                      : const CircularProgressIndicator(),
-                )
-              else
-                const Center(child: Text('بانتظار انضمام الطرف الآخر...')),
-              if (isCallStarted)
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: DEVICE_HEIGHT * 0.08,
-                    horizontal: DEVICE_WIDTH * 0.07,
-                  ),
-                  child: Align(
-                    alignment: Alignment.topRight,
-                    child: Stack(
-                      children: <Widget>[
-                        Container(
-                          padding: const EdgeInsets.only(bottom: 10),
-                          child: Container(
-                            padding: const EdgeInsets.all(2),
-                            decoration: BoxDecoration(
-                              color: const Color.fromRGBO(128, 128, 128, 0.40),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(18),
-                              child: SizedBox(
-                                width: DEVICE_WIDTH * 0.22,
-                                height: DEVICE_HEIGHT * 0.15,
-                                child: controller.engine != null
-                                    ? controller.isRemoteVideoMuted
-                                          ? Image.asset(
-                                              imageDoctor,
-                                              fit: BoxFit.cover,
-                                            )
-                                          : AgoraVideoView(
-                                              controller:
-                                                  VideoViewController.remote(
-                                                    rtcEngine:
-                                                        controller.engine,
-                                                    canvas: VideoCanvas(
-                                                      uid: controller.remoteUid,
-                                                    ),
-                                                    connection: RtcConnection(
-                                                      channelId:
-                                                          controller.channel,
-                                                    ),
-                                                  ),
-                                            )
-                                    : const CircularProgressIndicator(),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          bottom: 0,
-                          left: 28,
-                          child: SvgPicture.asset(
-                            iconRotation,
-                            width: 35,
-                            height: 35,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+              Text('test'),
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: DEVICE_HEIGHT,
+                child: controller.isSwapped
+                    ? remoteVideoWidget()
+                    : localVideoWidget(),
+              ),
+
+              Positioned(
+                top: 50,
+                right: 20,
+                child: SizedBox(
+                  width: DEVICE_WIDTH * 0.22,
+                  height: DEVICE_HEIGHT * 0.15,
+                  child: controller.isSwapped
+                      ? localVideoWidget()
+                      : remoteVideoWidget(),
                 ),
+              ),
+
+              Positioned(
+                top: 165,
+                right: 45,
+                child: GestureDetector(
+                  onTap: () {
+                    controller.swapVideoPosition();
+                  },
+                  child: SvgPicture.asset(iconRotation, width: 35, height: 35),
+                ),
+              ),
             ],
           ),
           floatingActionButton: GetBuilder<VideoCallController>(

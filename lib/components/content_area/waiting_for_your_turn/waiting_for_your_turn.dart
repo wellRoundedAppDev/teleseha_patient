@@ -266,22 +266,19 @@ class WaitingForYourTurn extends StatelessWidget {
                   );
                 },
               ),
-
-              // Btn(
-              //   style: ElevatedButton.styleFrom(
-              //     backgroundColor: controller.currentStep == 0
-              //         ? const Color.fromRGBO(0, 123, 189, 0.49)
-              //         : const Color(AppColors.colorLineAndText),
-              //     padding: EdgeInsets.symmetric(vertical: DEVICE_HEIGHT * 0.02),
-              //   ),
-              //   onPressed: () async {
-              //     final VideoCallController videoCall = Get.find();
-              //     videoCall.initAgora();
-              //   },
-              //   text: controller.currentStep == 0
-              //       ? 'wait'.tr
-              //       : 'enter_the_session'.tr,
-              // ),
+              const SizedBox(height: 20),
+              Container(
+                color: Colors.orange,
+                child: GestureDetector(
+                  onTap: () {
+                    final VideoCallController videoCall =
+                        Get.find<VideoCallController>();
+                    consoleLog('test');
+                    videoCall.joinAsFirstUser();
+                  },
+                  child: const Text('Join as first participant'),
+                ),
+              ),
             ],
           ),
         );

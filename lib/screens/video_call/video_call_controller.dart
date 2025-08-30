@@ -16,9 +16,19 @@ class VideoCallController extends GetxController {
   bool isVideoMuted = false;
   bool isRemoteVideoMuted = false;
   int? localUid;
+  bool isSwapped = false;
 
   BookingsController bookings = Get.put(BookingsController());
-  bool get hasParticipant => localUserJoined || remoteUid != null;
+  // bool get hasParticipant => remoteUid != null;
+  bool get hasParticipant => localUserJoined;
+
+  void joinAsFirstUser() async {
+    localUserJoined = true;
+    bookings.currentStep = 2;
+    await initAgora();
+    update();
+    bookings.update();
+  }
 
   Future<void> toggleMute() async {
     isMute = !isMute;
@@ -188,5 +198,10 @@ class VideoCallController extends GetxController {
         'يرجى تمكين الكاميرا والميكروفون من إعدادات الجهاز.',
       );
     }
+  }
+
+  void swapVideoPosition() {
+    isSwapped = !isSwapped;
+    update();
   }
 }
