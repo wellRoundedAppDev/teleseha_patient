@@ -59,6 +59,9 @@ const String iconCalendar = '${iconsPath}calendar.svg';
 const String iconUserSteps = '${iconsPath}iconUserSteps.svg';
 const String iconUserStepsGreen = '${iconsPath}iconUserStepsGreen.svg';
 const String iconRotation = '${iconsPath}rotation.svg';
+const String iconVoice = '${iconsPath}iconVoice.svg';
+const String iconPhone = '${iconsPath}iconPhone.svg';
+const String iconVideo = '${iconsPath}iconVideo.svg';
 
 // images
 const String imageDoctor = '${imagesPath}doctor.png';

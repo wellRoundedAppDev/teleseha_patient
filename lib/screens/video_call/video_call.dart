@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -9,10 +11,15 @@ class VideoCall extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<VideoCallController>(
-      init: VideoCallController(),
       builder: (VideoCallController controller) {
         final bool isCallStarted = controller.isCallStarted.value;
-
+        final String minutes = (controller.secondsLeft ~/ 60)
+            .toString()
+            .padLeft(2, '0');
+        final String seconds = (controller.secondsLeft % 60).toString().padLeft(
+          2,
+          '0',
+        );
         Widget localVideoWidget() {
           if (controller.remoteUid != null && controller.channel.isNotEmpty) {
             return SizedBox(
@@ -20,7 +27,27 @@ class VideoCall extends StatelessWidget {
               height: DEVICE_HEIGHT,
               child: controller.engine != null
                   ? controller.isVideoMuted
-                        ? Image.asset(imageDoctor, fit: BoxFit.cover)
+                        ? Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadiusGeometry.circular(18),
+                              border: Border.all(
+                                width: 2,
+                                color: const Color.fromRGBO(
+                                  128,
+                                  128,
+                                  128,
+                                  0.40,
+                                ),
+                              ),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadiusGeometry.circular(18),
+                              child: Image.asset(
+                                imageDoctor,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          )
                         : AgoraVideoView(
                             controller: VideoViewController(
                               rtcEngine: controller.engine,
@@ -63,7 +90,6 @@ class VideoCall extends StatelessWidget {
         return Scaffold(
           body: Stack(
             children: <Widget>[
-              Text('test'),
               SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: DEVICE_HEIGHT,
@@ -71,67 +97,126 @@ class VideoCall extends StatelessWidget {
                     ? remoteVideoWidget()
                     : localVideoWidget(),
               ),
-
+              Container(
+                margin: EdgeInsets.only(top: DEVICE_HEIGHT * 0.09),
+                padding: EdgeInsets.symmetric(horizontal: DEVICE_WIDTH * 0.06),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    const SizedBox(),
+                    Container(
+                      margin: EdgeInsets.only(right: DEVICE_WIDTH * 0.14),
+                      child: CustomText(
+                        text: '[$minutes:$seconds]',
+                        fontSize: 24,
+                        type: CustomTextType.title,
+                        color: const Color(AppColors.colorWhiteSelectedType),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: SvgPicture.asset(
+                        iconBack,
+                        width: DEVICE_WIDTH * 0.04,
+                        height: DEVICE_HEIGHT * 0.02,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               Positioned(
-                top: 50,
-                right: 20,
+                top: DEVICE_HEIGHT * 0.09,
+                right: DEVICE_WIDTH * 0.05,
                 child: SizedBox(
-                  width: DEVICE_WIDTH * 0.22,
-                  height: DEVICE_HEIGHT * 0.15,
+                  width: DEVICE_WIDTH * 0.25,
+                  height: DEVICE_HEIGHT * 0.17,
                   child: controller.isSwapped
                       ? localVideoWidget()
                       : remoteVideoWidget(),
                 ),
               ),
-
               Positioned(
-                top: 165,
-                right: 45,
+                top: DEVICE_HEIGHT * 0.24,
+                right: DEVICE_WIDTH * 0.135,
                 child: GestureDetector(
                   onTap: () {
                     controller.swapVideoPosition();
                   },
-                  child: SvgPicture.asset(iconRotation, width: 35, height: 35),
+                  child: SvgPicture.asset(
+                    iconRotation,
+                    width: DEVICE_WIDTH * 0.04,
+                    height: DEVICE_HEIGHT * 0.04,
+                  ),
                 ),
               ),
             ],
           ),
           floatingActionButton: GetBuilder<VideoCallController>(
             builder: (VideoCallController controller) {
-              return Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  const SizedBox(height: 10),
-                  FloatingActionButton(
-                    onPressed: controller.toggleVideoMute,
-                    backgroundColor: controller.isVideoMuted
-                        ? Colors.red
-                        : Colors.blue,
-                    child: Icon(
-                      controller.isVideoMuted
-                          ? Icons.videocam_off
-                          : Icons.videocam,
+              return Container(
+                margin: EdgeInsets.only(right: DEVICE_WIDTH * 0.14),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(30),
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
+                        child: FloatingActionButton(
+                          onPressed: controller.toggleVideoMute,
+                          backgroundColor: (controller.isVideoMuted
+                              ? const Color(AppColors.colorPointerNotification)
+                              : const Color(AppColors.colorBackgroundIconCall)),
+                          child: SvgPicture.asset(
+                            iconVideo,
+                            width: DEVICE_WIDTH * 0.026,
+                            height: DEVICE_HEIGHT * 0.026,
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                  FloatingActionButton.extended(
-                    onPressed: controller.isCallStarted.value
-                        ? () async {
-                            await controller.endCall();
-                          }
-                        : null,
-                    label: const Text('إنهاء المكالمة'),
-                    icon: const Icon(Icons.call_end),
-                    backgroundColor: Colors.red,
-                  ),
-                  const SizedBox(height: 10),
-                  FloatingActionButton(
-                    onPressed: controller.toggleMute,
-                    backgroundColor: controller.isMute
-                        ? Colors.red
-                        : Colors.blue,
-                    child: Icon(controller.isMute ? Icons.mic_off : Icons.mic),
-                  ),
-                ],
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(30),
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
+                        child: FloatingActionButton(
+                          onPressed: controller.isCallStarted.value
+                              ? () async {
+                                  await controller.endCall();
+                                }
+                              : null,
+                          backgroundColor: const Color(
+                            AppColors.colorPointerNotification,
+                          ),
+                          child: SvgPicture.asset(
+                            iconPhone,
+                            width: DEVICE_WIDTH * 0.026,
+                            height: DEVICE_HEIGHT * 0.026,
+                          ),
+                        ),
+                      ),
+                    ),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(30),
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
+                        child: FloatingActionButton(
+                          onPressed: controller.toggleMute,
+                          backgroundColor: (controller.isMute
+                              ? const Color(AppColors.colorPointerNotification)
+                              : const Color(AppColors.colorBackgroundIconCall)),
+                          child: SvgPicture.asset(
+                            iconVoice,
+                            width: DEVICE_WIDTH * 0.026,
+                            height: DEVICE_HEIGHT * 0.026,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               );
             },
           ),

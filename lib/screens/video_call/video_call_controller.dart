@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -6,7 +8,7 @@ import '../../general_exports.dart';
 class VideoCallController extends GetxController {
   String appId = '2c8437b9443e4607ad16973d4d4c2736';
   String token =
-      '007eJxTYPjZ89H8qbNPpN8mo8yrSqp3ZN+zPt55Yrly8sZl5ydZnVyrwGCUbGFibJ5kaWJinGpiZmCemGJoZmlunGKSYpJsZG5slmq6MaMhkJGBLfkrKyMDBIL4LAwlqcUlDAwAk3Uf5Q==';
+      '007eJxTYDDNM/HZNpdtiue+340X7T50PuL7nT5h45S3+0QXmqwzSjBWYDBKtjAxNk+yNDExTjUxMzBPTDE0szQ3TjFJMUk2Mjc2W9q+KaMhkJHhoDIrMyMDBIL4LAwlqcUlDAwAXVcfNA==';
   String channel = 'test';
   int? remoteUid;
   bool localUserJoined = false;
@@ -18,9 +20,34 @@ class VideoCallController extends GetxController {
   int? localUid;
   bool isSwapped = false;
 
+  // var secondsLeft = 900;
+ var secondsLeft = 50; 
+  late Timer _timer;
+
   BookingsController bookings = Get.put(BookingsController());
-  // bool get hasParticipant => remoteUid != null;
+  // // bool get hasParticipant => remoteUid != null;
   bool get hasParticipant => localUserJoined;
+
+  void startTimer() {
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (secondsLeft > 0) {
+        secondsLeft--;
+        update();
+      } else {
+        _timer.cancel();
+        onTimerFinished();
+      }
+    });
+  }
+
+  void onTimerFinished() {    
+    leaveChannel();
+  }
+
+  Future<void> leaveChannel() async {
+    await engine.leaveChannel();
+    // Get.back();
+  }
 
   void joinAsFirstUser() async {
     localUserJoined = true;
@@ -82,6 +109,7 @@ class VideoCallController extends GetxController {
             this.remoteUid = remoteUid;
             bookings.currentStep = 2;
             bookings.update();
+            startTimer();
             update();
           },
           onUserOffline:

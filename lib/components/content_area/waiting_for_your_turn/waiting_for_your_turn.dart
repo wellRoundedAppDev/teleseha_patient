@@ -12,9 +12,7 @@ class WaitingForYourTurn extends StatelessWidget {
       builder: (BookingsController controller) {
         if (controller.currentStep == 2) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            final VideoCallController videoCall = Get.put(
-              VideoCallController(),
-            );
+            final VideoCallController videoCall = Get.find();
             if (!videoCall.isCallStarted.value) {
               videoCall.initAgora();
             }
