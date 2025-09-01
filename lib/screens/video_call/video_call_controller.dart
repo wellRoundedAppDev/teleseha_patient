@@ -8,7 +8,7 @@ import '../../general_exports.dart';
 class VideoCallController extends GetxController {
   String appId = '2c8437b9443e4607ad16973d4d4c2736';
   String token =
-      '007eJxTYDDNM/HZNpdtiue+340X7T50PuL7nT5h45S3+0QXmqwzSjBWYDBKtjAxNk+yNDExTjUxMzBPTDE0szQ3TjFJMUk2Mjc2W9q+KaMhkJHhoDIrMyMDBIL4LAwlqcUlDAwAXVcfNA==';
+      '007eJxTYNDp23cpJfpd+0mfIrmpW6SS899G/FjjLFb1j+19xYlpNfsUGIySLUyMzZMsTUyMU03MDMwTUwzNLM2NU0xSTJKNzI3N/Jq3ZjQEMjLcd/dmYIRCEJ+FoSS1uISBAQCa3SAu';
   String channel = 'test';
   int? remoteUid;
   bool localUserJoined = false;
@@ -21,15 +21,15 @@ class VideoCallController extends GetxController {
   bool isSwapped = false;
 
   // var secondsLeft = 900;
- var secondsLeft = 50; 
+  int secondsLeft = 50;
   late Timer _timer;
 
   BookingsController bookings = Get.put(BookingsController());
-  // // bool get hasParticipant => remoteUid != null;
+  // bool get hasParticipant => remoteUid != null;
   bool get hasParticipant => localUserJoined;
 
   void startTimer() {
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       if (secondsLeft > 0) {
         secondsLeft--;
         update();
@@ -40,7 +40,7 @@ class VideoCallController extends GetxController {
     });
   }
 
-  void onTimerFinished() {    
+  void onTimerFinished() {
     leaveChannel();
   }
 
@@ -49,12 +49,13 @@ class VideoCallController extends GetxController {
     // Get.back();
   }
 
-  void joinAsFirstUser() async {
+  Future<void> joinAsFirstUser() async {
     localUserJoined = true;
     bookings.currentStep = 2;
-    await initAgora();
     update();
     bookings.update();
+    await initAgora();
+    Get.toNamed(routeVideoCall);
   }
 
   Future<void> toggleMute() async {
@@ -100,10 +101,10 @@ class VideoCallController extends GetxController {
             localUid = connection.localUid;
             localUserJoined = true;
             update();
-            if (remoteUid != null) {
-              bookings.currentStep = 2;
-              bookings.update();
-            }
+            // if (remoteUid != null) {
+            //   bookings.currentStep = 2;
+            //   bookings.update();
+            // }
           },
           onUserJoined: (RtcConnection connection, int remoteUid, int elapsed) {
             this.remoteUid = remoteUid;
@@ -152,7 +153,7 @@ class VideoCallController extends GetxController {
                 }
               },
 
-          onUserMuteVideo: (connection, uid, muted) {
+          onUserMuteVideo: (RtcConnection connection, int uid, bool muted) {
             if (uid == localUid) {
               isVideoMuted = muted;
             } else {
@@ -192,9 +193,9 @@ class VideoCallController extends GetxController {
   }
 
   void toggleVideoMute() {
-    if (engine != null && localUid != null) {
+    if (localUid != null) {
       isVideoMuted = !isVideoMuted;
-      engine!.muteLocalVideoStream(isVideoMuted);
+      engine.muteLocalVideoStream(isVideoMuted);
       update();
     }
   }

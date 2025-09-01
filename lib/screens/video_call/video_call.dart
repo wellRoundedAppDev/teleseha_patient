@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -12,7 +10,6 @@ class VideoCall extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<VideoCallController>(
       builder: (VideoCallController controller) {
-        final bool isCallStarted = controller.isCallStarted.value;
         final String minutes = (controller.secondsLeft ~/ 60)
             .toString()
             .padLeft(2, '0');
@@ -21,40 +18,30 @@ class VideoCall extends StatelessWidget {
           '0',
         );
         Widget localVideoWidget() {
-          if (controller.remoteUid != null && controller.channel.isNotEmpty) {
+          if (controller.localUid != null && controller.localUserJoined) {
             return SizedBox(
               width: MediaQuery.of(context).size.width,
               height: DEVICE_HEIGHT,
-              child: controller.engine != null
-                  ? controller.isVideoMuted
-                        ? Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadiusGeometry.circular(18),
-                              border: Border.all(
-                                width: 2,
-                                color: const Color.fromRGBO(
-                                  128,
-                                  128,
-                                  128,
-                                  0.40,
-                                ),
-                              ),
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadiusGeometry.circular(18),
-                              child: Image.asset(
-                                imageDoctor,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          )
-                        : AgoraVideoView(
-                            controller: VideoViewController(
-                              rtcEngine: controller.engine,
-                              canvas: VideoCanvas(uid: controller.localUid),
-                            ),
-                          )
-                  : const CircularProgressIndicator(),
+              child: controller.isVideoMuted
+                  ? Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadiusGeometry.circular(18),
+                        border: Border.all(
+                          width: 2,
+                          color: const Color.fromRGBO(128, 128, 128, 0.40),
+                        ),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadiusGeometry.circular(18),
+                        child: Image.asset(imageDoctor, fit: BoxFit.cover),
+                      ),
+                    )
+                  : AgoraVideoView(
+                      controller: VideoViewController(
+                        rtcEngine: controller.engine,
+                        canvas: VideoCanvas(uid: controller.localUid),
+                      ),
+                    ),
             );
           } else {
             return const Center(child: Text('بانتظار انضمام الطرف الآخر...'));
@@ -62,6 +49,9 @@ class VideoCall extends StatelessWidget {
         }
 
         Widget remoteVideoWidget() {
+          if (controller.remoteUid == null || controller.remoteUid == 0) {
+            return const Center(child: Text('بانتظار انضمام الطرف الآخر...'));
+          }
           return Container(
             padding: const EdgeInsets.all(2),
             decoration: BoxDecoration(
@@ -70,9 +60,7 @@ class VideoCall extends StatelessWidget {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(18),
-              child: controller.engine == null
-                  ? const Center(child: CircularProgressIndicator())
-                  : controller.isRemoteVideoMuted
+              child: controller.isRemoteVideoMuted
                   ? Image.asset(imageDoctor, fit: BoxFit.cover)
                   : AgoraVideoView(
                       controller: VideoViewController.remote(
@@ -153,73 +141,73 @@ class VideoCall extends StatelessWidget {
               ),
             ],
           ),
-          floatingActionButton: GetBuilder<VideoCallController>(
-            builder: (VideoCallController controller) {
-              return Container(
-                margin: EdgeInsets.only(right: DEVICE_WIDTH * 0.14),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(30),
-                      child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
-                        child: FloatingActionButton(
-                          onPressed: controller.toggleVideoMute,
-                          backgroundColor: (controller.isVideoMuted
-                              ? const Color(AppColors.colorPointerNotification)
-                              : const Color(AppColors.colorBackgroundIconCall)),
-                          child: SvgPicture.asset(
-                            iconVideo,
-                            width: DEVICE_WIDTH * 0.026,
-                            height: DEVICE_HEIGHT * 0.026,
-                          ),
-                        ),
-                      ),
-                    ),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(30),
-                      child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
-                        child: FloatingActionButton(
-                          onPressed: controller.isCallStarted.value
-                              ? () async {
-                                  await controller.endCall();
-                                }
-                              : null,
-                          backgroundColor: const Color(
-                            AppColors.colorPointerNotification,
-                          ),
-                          child: SvgPicture.asset(
-                            iconPhone,
-                            width: DEVICE_WIDTH * 0.026,
-                            height: DEVICE_HEIGHT * 0.026,
-                          ),
-                        ),
-                      ),
-                    ),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(30),
-                      child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
-                        child: FloatingActionButton(
-                          onPressed: controller.toggleMute,
-                          backgroundColor: (controller.isMute
-                              ? const Color(AppColors.colorPointerNotification)
-                              : const Color(AppColors.colorBackgroundIconCall)),
-                          child: SvgPicture.asset(
-                            iconVoice,
-                            width: DEVICE_WIDTH * 0.026,
-                            height: DEVICE_HEIGHT * 0.026,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
+          // floatingActionButton: GetBuilder<VideoCallController>(
+          //   builder: (VideoCallController controller) {
+          //     return Container(
+          //       margin: EdgeInsets.only(right: DEVICE_WIDTH * 0.14),
+          //       child: Row(
+          //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //         children: <Widget>[
+          //           // ClipRRect(
+          //           //   borderRadius: BorderRadius.circular(30),
+          //           //   child: BackdropFilter(
+          //           //     filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
+          //           //     child: FloatingActionButton(
+          //           //       onPressed: controller.toggleVideoMute,
+          //           //       backgroundColor: (controller.isVideoMuted
+          //           //           ? const Color(AppColors.colorPointerNotification)
+          //           //           : const Color(AppColors.colorBackgroundIconCall)),
+          //           //       child: SvgPicture.asset(
+          //           //         iconVideo,
+          //           //         width: DEVICE_WIDTH * 0.026,
+          //           //         height: DEVICE_HEIGHT * 0.026,
+          //           //       ),
+          //           //     ),
+          //           //   ),
+          //           // ),
+          //           // ClipRRect(
+          //           //   borderRadius: BorderRadius.circular(30),
+          //           //   child: BackdropFilter(
+          //           //     filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
+          //           //     child: FloatingActionButton(
+          //           //       onPressed: controller.isCallStarted.value
+          //           //           ? () async {
+          //           //               await controller.endCall();
+          //           //             }
+          //           //           : null,
+          //           //       backgroundColor: const Color(
+          //           //         AppColors.colorPointerNotification,
+          //           //       ),
+          //           //       child: SvgPicture.asset(
+          //           //         iconPhone,
+          //           //         width: DEVICE_WIDTH * 0.026,
+          //           //         height: DEVICE_HEIGHT * 0.026,
+          //           //       ),
+          //           //     ),
+          //           //   ),
+          //           // ),
+          //           // ClipRRect(
+          //           //   borderRadius: BorderRadius.circular(30),
+          //           //   child: BackdropFilter(
+          //           //     filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
+          //           //     child: FloatingActionButton(
+          //           //       onPressed: controller.toggleMute,
+          //           //       backgroundColor: (controller.isMute
+          //           //           ? const Color(AppColors.colorPointerNotification)
+          //           //           : const Color(AppColors.colorBackgroundIconCall)),
+          //           //       child: SvgPicture.asset(
+          //           //         iconVoice,
+          //           //         width: DEVICE_WIDTH * 0.026,
+          //           //         height: DEVICE_HEIGHT * 0.026,
+          //           //       ),
+          //           //     ),
+          //           //   ),
+          //           // ),
+          //         ],
+          //       ),
+          //     );
+          //   },
+          // ),
         );
       },
     );

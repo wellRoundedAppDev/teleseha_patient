@@ -108,7 +108,7 @@ class DoctorsController extends GetxController {
     final DateTime currentDate = selectedDate;
     final int currentDayIndex = currentDate.weekday - 3;
 
-    currentDay = days[currentDayIndex];
+    // currentDay = days[currentDayIndex];
 
     weekDays.clear();
     for (int i = 0; i < 7; i++) {

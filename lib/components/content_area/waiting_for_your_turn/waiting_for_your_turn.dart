@@ -32,6 +32,18 @@ class WaitingForYourTurn extends StatelessWidget {
             children: <Widget>[
               Column(
                 children: <Widget>[
+                  Container(
+                    color: Colors.orange,
+                    child: GestureDetector(
+                      onTap: () {
+                        final VideoCallController videoCall =
+                            Get.find<VideoCallController>();
+                        videoCall.joinAsFirstUser();
+                      },
+                      child: const Text('Join as first participant'),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
                   Image.asset(
                     controller.selectedLastRecent?['image'],
                     width: 81,
@@ -263,19 +275,6 @@ class WaitingForYourTurn extends StatelessWidget {
                     text: hasParticipant ? 'enter_the_session'.tr : 'wait'.tr,
                   );
                 },
-              ),
-              const SizedBox(height: 20),
-              Container(
-                color: Colors.orange,
-                child: GestureDetector(
-                  onTap: () {
-                    final VideoCallController videoCall =
-                        Get.find<VideoCallController>();
-                    consoleLog('test');
-                    videoCall.joinAsFirstUser();
-                  },
-                  child: const Text('Join as first participant'),
-                ),
               ),
             ],
           ),
