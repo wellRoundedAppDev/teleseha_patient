@@ -1,6 +1,9 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../general_exports.dart';
@@ -8,7 +11,7 @@ import '../../general_exports.dart';
 class VideoCallController extends GetxController {
   String appId = '2c8437b9443e4607ad16973d4d4c2736';
   String token =
-      '007eJxTYNDp23cpJfpd+0mfIrmpW6SS899G/FjjLFb1j+19xYlpNfsUGIySLUyMzZMsTUyMU03MDMwTUwzNLM2NU0xSTJKNzI3N/Jq3ZjQEMjLcd/dmYIRCEJ+FoSS1uISBAQCa3SAu';
+      '007eJxTYKix1zZ++GC3vJrZzE0TbuYJmJwRtou7bPz0peQVnc3vNPgUGIySLUyMzZMsTUyMU03MDMwTUwzNLM2NU0xSTJKNzI3N1K9vy2gIZGTQ6TBgYWSAQBCfhaEktbiEgQEA0kEdcQ==';
   String channel = 'test';
   int? remoteUid;
   bool localUserJoined = false;
@@ -19,6 +22,7 @@ class VideoCallController extends GetxController {
   bool isRemoteVideoMuted = false;
   int? localUid;
   bool isSwapped = false;
+  bool isRotateFolderAndImageSend = false;
 
   int secondsLeft = 900;
   late Timer _timer;
@@ -28,7 +32,17 @@ class VideoCallController extends GetxController {
 
   final DraggableScrollableController bottomSheetController =
       DraggableScrollableController();
-  RxDouble bottomSheetSize = 0.35.obs;
+
+  RxDouble bottomSheetSize = 0.3.obs;
+  RxDouble bottomSheetSizeStudio = 0.01.obs;
+
+  // start picker
+  final Rxn<File> selectedImage = Rxn<File>();
+  final ImagePicker _picker = ImagePicker();
+  RxString selectedImagePathFromGallery = ''.obs;
+  RxString selectedImagePathFromCamera = ''.obs;
+  RxList<String> selectedFilePaths = <String>[].obs;
+  // end picker
 
   @override
   void onInit() {
@@ -36,6 +50,65 @@ class VideoCallController extends GetxController {
     bottomSheetController.addListener(() {
       bottomSheetSize.value = bottomSheetController.size;
     });
+    bottomSheetController.addListener(() {
+      bottomSheetSizeStudio.value = bottomSheetController.size;
+    });
+  }
+
+  // start file picker and image picker
+  Future<void> pickMedia({required String sourceType}) async {
+    switch (sourceType) {
+      case 'image':
+        final FilePickerResult? result = await FilePicker.platform.pickFiles(
+          type: FileType.image,
+        );
+        if (result != null && result.files.isNotEmpty) {
+          final filePath = result.files.single.path;
+          if (filePath != null) {
+            selectedImagePathFromGallery.value = filePath;
+            isRotateFolderAndImageSend = false;
+          }
+        } else {
+          consoleLog('❌ User canceled image picker.');
+        }
+        break;
+
+      case 'camera':
+        final XFile? photo = await _picker.pickImage(
+          source: ImageSource.camera,
+        );
+        if (photo != null) {
+          selectedImagePathFromCamera.value = photo.path;
+          isRotateFolderAndImageSend = false;
+        } else {
+          consoleLog('❌ User canceled camera.');
+        }
+        break;
+
+      case 'file':
+        final result = await FilePicker.platform.pickFiles(
+          allowMultiple: true,
+          type: FileType.any,
+        );
+        if (result != null) {
+          selectedFilePaths.value = result.paths.whereType<String>().toList();
+          isRotateFolderAndImageSend = false;
+        } else {
+          consoleLog('❌ User canceled file picker.');
+        }
+        break;
+
+      default:
+        consoleLog('⚠️ Invalid source type: $sourceType');
+    }
+
+    update();
+  }
+  // end file picker and image picker
+
+  void toggleisFolderAndImageSend() {
+    isRotateFolderAndImageSend = !isRotateFolderAndImageSend;
+    update();
   }
 
   void startTimer() {

@@ -65,6 +65,8 @@ const String iconVideo = '${iconsPath}iconVideo.svg';
 const String iconSend = '${iconsPath}iconSend.svg';
 const String iconCamera = '${iconsPath}iconCamera.svg';
 const String iconPaperClip = '${iconsPath}iconPaperClip.svg';
+const String iconStudio = '${iconsPath}iconStudio.svg';
+const String iconFolder = '${iconsPath}iconFolder.svg';
 
 // images
 const String imageDoctor = '${imagesPath}doctor.png';
