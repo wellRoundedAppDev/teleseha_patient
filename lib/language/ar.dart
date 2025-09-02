@@ -217,4 +217,5 @@ const Map<String, String> ar = <String, String>{
   'dont_worry': 'لا تقلق سيتم ارسال تنبيه لك عندما يأتي دورك',
   'its_your_turn': 'جاء دورك يجب الدخول الآن... ',
   'enter_the_session': 'دخول الجلسه',
+  'send_message': 'أرسل رساله',
 };

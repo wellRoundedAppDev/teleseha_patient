@@ -28,7 +28,7 @@ class VideoCallController extends GetxController {
 
   final DraggableScrollableController bottomSheetController =
       DraggableScrollableController();
-  RxDouble bottomSheetSize = 0.2.obs;
+  RxDouble bottomSheetSize = 0.35.obs;
 
   @override
   void onInit() {
@@ -73,6 +73,14 @@ class VideoCallController extends GetxController {
     isMute = !isMute;
     await engine.muteAllRemoteAudioStreams(isMute);
     update();
+  }
+
+  Future<void> toggleVideoMute() async {
+    if (localUid != null) {
+      isVideoMuted = !isVideoMuted;
+      await engine.muteLocalVideoStream(isVideoMuted);
+      update();
+    }
   }
 
   @override
@@ -204,14 +212,6 @@ class VideoCallController extends GetxController {
       }
       Get.snackbar('خطأ في الاتصال', errorMessage);
       debugPrint('Error during initialization: $e');
-    }
-  }
-
-  void toggleVideoMute() {
-    if (localUid != null) {
-      isVideoMuted = !isVideoMuted;
-      engine.muteLocalVideoStream(isVideoMuted);
-      update();
     }
   }
 

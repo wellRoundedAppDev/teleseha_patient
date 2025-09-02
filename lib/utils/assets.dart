@@ -62,6 +62,9 @@ const String iconRotation = '${iconsPath}rotation.svg';
 const String iconVoice = '${iconsPath}iconVoice.svg';
 const String iconPhone = '${iconsPath}iconPhone.svg';
 const String iconVideo = '${iconsPath}iconVideo.svg';
+const String iconSend = '${iconsPath}iconSend.svg';
+const String iconCamera = '${iconsPath}iconCamera.svg';
+const String iconPaperClip = '${iconsPath}iconPaperClip.svg';
 
 // images
 const String imageDoctor = '${imagesPath}doctor.png';

@@ -41,4 +41,5 @@ class AppColors {
   static const int colorGoldRainsStar = 0xffFFC107;
   static const int colorBorderOneChange = 0xff80808066;
   static const int colorBackgroundIconCall = 0xff1C1F1E66;
+  static const int colorLineScrollBottomSheet = 0xffD8DADC;
 }
