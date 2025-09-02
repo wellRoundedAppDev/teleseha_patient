@@ -20,15 +20,26 @@ class VideoCallController extends GetxController {
   int? localUid;
   bool isSwapped = false;
 
-  // var secondsLeft = 900;
-  int secondsLeft = 50;
+  int secondsLeft = 900;
   late Timer _timer;
 
   BookingsController bookings = Get.put(BookingsController());
-  // bool get hasParticipant => remoteUid != null;
   bool get hasParticipant => localUserJoined;
 
+  final DraggableScrollableController bottomSheetController =
+      DraggableScrollableController();
+  RxDouble bottomSheetSize = 0.2.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    bottomSheetController.addListener(() {
+      bottomSheetSize.value = bottomSheetController.size;
+    });
+  }
+
   void startTimer() {
+    if (!hasParticipant) return;
     _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       if (secondsLeft > 0) {
         secondsLeft--;
@@ -72,6 +83,7 @@ class VideoCallController extends GetxController {
   }
 
   Future<void> initAgora() async {
+    await Future.delayed(const Duration(seconds: 2));
     await <Permission>[Permission.microphone, Permission.camera].request();
     final bool cameraGranted = await Permission.camera.isGranted;
     final bool microphoneGranted = await Permission.microphone.isGranted;
@@ -101,10 +113,6 @@ class VideoCallController extends GetxController {
             localUid = connection.localUid;
             localUserJoined = true;
             update();
-            // if (remoteUid != null) {
-            //   bookings.currentStep = 2;
-            //   bookings.update();
-            // }
           },
           onUserJoined: (RtcConnection connection, int remoteUid, int elapsed) {
             this.remoteUid = remoteUid;
@@ -172,7 +180,14 @@ class VideoCallController extends GetxController {
         token: token,
         channelId: channel,
         uid: 0,
-        options: const ChannelMediaOptions(),
+        options: const ChannelMediaOptions(
+          clientRoleType: ClientRoleType.clientRoleBroadcaster,
+          channelProfile: ChannelProfileType.channelProfileLiveBroadcasting,
+          publishCameraTrack: true,
+          publishMicrophoneTrack: true,
+          autoSubscribeVideo: true,
+          autoSubscribeAudio: true,
+        ),
       );
       isCallStarted.value = true;
       update();

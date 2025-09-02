@@ -14,7 +14,7 @@ class BookingsController extends GetxController {
   void onInit() {
     super.onInit();
 
-    Timer.periodic(const Duration(minutes: 1), (Timer timer) {
+    Timer.periodic(const Duration(seconds: 20), (Timer timer) {
       remainingMinutes > 0 ? remainingMinutes-- : timer.cancel();
       // ignore: unnecessary_statements
       remainingMinutes == 10 || remainingMinutes == 0 ? currentStep = 2 : null;
