@@ -23,6 +23,9 @@ class VideoCallController extends GetxController {
   int? localUid;
   bool isSwapped = false;
   bool isRotateFolderAndImageSend = false;
+  int selectedIndex = 2;
+
+  final ScrollController scrollController = ScrollController();
 
   int secondsLeft = 900;
   late Timer _timer;
@@ -33,8 +36,9 @@ class VideoCallController extends GetxController {
   final DraggableScrollableController bottomSheetController =
       DraggableScrollableController();
 
-  RxDouble bottomSheetSize = 0.3.obs;
-  RxDouble bottomSheetSizeStudio = 0.01.obs;
+  RxDouble bottomSheetSize = 0.35.obs;
+  RxDouble bottomSheetSizeStudio = 0.07.obs;
+  bool showNewPage = false;
 
   // start picker
   final Rxn<File> selectedImage = Rxn<File>();
@@ -53,6 +57,18 @@ class VideoCallController extends GetxController {
     bottomSheetController.addListener(() {
       bottomSheetSizeStudio.value = bottomSheetController.size;
     });
+
+    bottomSheetController.addListener(() {
+      final position = bottomSheetController.size;
+      if (position >= 0.7 && !showNewPage) {
+        showNewPage = true;
+        update();
+      }
+      if (position < 0.7 && showNewPage) {
+        showNewPage = false;
+        update();
+      }
+    });
   }
 
   // start file picker and image picker
@@ -63,7 +79,7 @@ class VideoCallController extends GetxController {
           type: FileType.image,
         );
         if (result != null && result.files.isNotEmpty) {
-          final filePath = result.files.single.path;
+          final String? filePath = result.files.single.path;
           if (filePath != null) {
             selectedImagePathFromGallery.value = filePath;
             isRotateFolderAndImageSend = false;
@@ -86,9 +102,8 @@ class VideoCallController extends GetxController {
         break;
 
       case 'file':
-        final result = await FilePicker.platform.pickFiles(
+        final FilePickerResult? result = await FilePicker.platform.pickFiles(
           allowMultiple: true,
-          type: FileType.any,
         );
         if (result != null) {
           selectedFilePaths.value = result.paths.whereType<String>().toList();
@@ -321,4 +336,13 @@ class VideoCallController extends GetxController {
     isSwapped = !isSwapped;
     update();
   }
+
+  final List<String> symptomImages = <String>[
+    imageNostrils,
+    imageFrontNose,
+    imageLowerEyelid,
+    imageNostrils,
+    imageFrontNose,
+    imageLowerEyelid,
+  ];
 }
