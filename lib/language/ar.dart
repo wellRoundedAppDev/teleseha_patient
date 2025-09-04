@@ -218,4 +218,6 @@ const Map<String, String> ar = <String, String>{
   'its_your_turn': 'جاء دورك يجب الدخول الآن... ',
   'enter_the_session': 'دخول الجلسه',
   'send_message': 'أرسل رساله',
+  'thank_you_successfully_ended': 'شكراً لك، لقد انتهت جلستك بنجاح!',
+  'doctor_evaluation': 'تقييم الطبيب',
 };

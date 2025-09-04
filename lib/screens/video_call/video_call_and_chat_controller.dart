@@ -30,7 +30,7 @@ class ChatLog {
 class VideoCallController extends GetxController {
   String appId = '2c8437b9443e4607ad16973d4d4c2736';
   String token =
-      '007eJxTYIg1YWULm8a7bqecr+H/Px1pkV/CjMMfzUxuW6Vz4lDAIUsFBqNkCxNj8yRLExPjVBMzA/PEFEMzS3PjFJMUk2Qjc2Mzi9qdGQ2BjAw/wp8yMTJAIIjPwlCSWlzCwAAA1RUegQ==';
+      '007eJxTYDA78fKfYc2K29uEKjRNFmufDJ3Hk6O43HeayGvHB0vj+RoUGIySLUyMzZMsTUyMU03MDMwTUwzNLM2NU0xSTJKNzI3Npq3fmdEQyMhwKTmWkZEBAkF8FoaS1OISBgYAG+Qewg==';
   String channel = 'test';
   int? remoteUid;
   bool localUserJoined = false;
@@ -49,9 +49,10 @@ class VideoCallController extends GetxController {
   late ScrollController firstPageScrollController;
 
   // int secondsLeft = 900;
-  int secondsLeft = 100;
+  int secondsLeft = 30;
   late Timer _timer;
   bool isOpenContainerRange = false;
+  RxBool isCallEnded = false.obs;
 
   BookingsController bookings = Get.put(BookingsController());
   bool get hasParticipant => localUserJoined;
@@ -422,11 +423,11 @@ class VideoCallController extends GetxController {
   }
 
   void onTimerFinished() {
-    leaveChannel();
+    endCall();
   }
 
   Future<void> leaveChannel() async {
-    await engine.leaveChannel();
+    await endCall();
     // Get.back();
   }
 
@@ -511,17 +512,17 @@ class VideoCallController extends GetxController {
                 update();
               },
           onError: (ErrorCodeType errorCode, String message) {
-            String errorMessage = message;
+            final String errorMessage = message;
             if (errorCode == ErrorCodeType.errNoPermission) {
-              errorMessage =
-                  'تم رفض الإذن. تأكد من أن لديك الإذن للوصول إلى الكاميرا والميكروفون.';
+              // errorMessage =
+              //     'تم رفض الإذن. تأكد من أن لديك الإذن للوصول إلى الكاميرا والميكروفون.';
             } else if (errorCode == ErrorCodeType.errNetDown) {
-              errorMessage = 'فشل الاتصال بالشبكة. تحقق من اتصالك بالإنترنت.';
+              // errorMessage = 'فشل الاتصال بالشبكة. تحقق من اتصالك بالإنترنت.';
             }
-            Get.snackbar('خطأ في الاتصال', errorMessage);
+            // Get.snackbar('خطأ في الاتصال', errorMessage);
           },
           onRejoinChannelSuccess: (RtcConnection connection, int elapsed) {
-            Get.snackbar('تمت إعادة الاتصال', 'لقد تمت إعادة الاتصال بالقناة.');
+            // Get.snackbar('تمت إعادة الاتصال', 'لقد تمت إعادة الاتصال بالقناة.');
           },
           onAudioVolumeIndication:
               (
@@ -532,9 +533,9 @@ class VideoCallController extends GetxController {
               ) {
                 for (AudioVolumeInfo speaker in speakers) {
                   if (speaker.volume != null && speaker.volume! > 10) {
-                    print('الصوت شغال للمستخدم ${speaker.volume}');
+                    // print('الصوت شغال للمستخدم ${speaker.volume}');
                   } else {
-                    print('الصوت هادئ أو ميت للمستخدم ${speaker.uid}');
+                    // print('الصوت هادئ أو ميت للمستخدم ${speaker.uid}');
                   }
                 }
               },
@@ -586,17 +587,18 @@ class VideoCallController extends GetxController {
   }
 
   Future<void> _dispose() async {
-    await engine.leaveChannel();
+    // await engine.leaveChannel();
     await engine.stopPreview();
     await engine.release();
   }
 
   Future<void> endCall() async {
-    await engine.leaveChannel();
+    // await engine.leaveChannel();
     await engine.stopPreview();
     await engine.release();
     isCallStarted.value = false;
     localUserJoined = false;
+    isCallEnded.value = true;
     remoteUid = null;
     update();
   }

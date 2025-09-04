@@ -1,12 +1,20 @@
 import '../../general_exports.dart';
 
 class Btn extends StatelessWidget {
-  const Btn({super.key, this.text, this.color, this.onPressed, this.style});
+  const Btn({
+    super.key,
+    this.text,
+    this.color,
+    this.onPressed,
+    this.style,
+    this.colorText,
+  });
 
   final String? text;
   final Color? color;
   final Function? onPressed;
   final ButtonStyle? style;
+  final Color? colorText;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +34,7 @@ class Btn extends StatelessWidget {
           text: text,
           type: CustomTextType.button,
           fontSize: 20,
-          color: const Color(AppColors.colorWhiteSelectedType),
+          color: colorText ?? const Color(AppColors.colorWhiteSelectedType),
         ),
       ),
     );

@@ -44,4 +44,5 @@ class AppColors {
   static const int colorLineScrollBottomSheet = 0xffD8DADC;
   static const int colorBackgroundSendImages = 0xffCDCFCE;
   static const int colorSendDoctor = 0xff4B8EB2;
+  static const int colorEndChat = 0xff808080;
 }

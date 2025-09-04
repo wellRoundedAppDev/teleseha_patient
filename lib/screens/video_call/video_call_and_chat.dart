@@ -25,7 +25,7 @@ class VideoCall extends StatelessWidget {
             return SizedBox(
               width: MediaQuery.of(context).size.width,
               height: DEVICE_HEIGHT,
-              child: controller.isVideoMuted
+              child: controller.isVideoMuted || controller.isCallEnded.value
                   ? Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadiusGeometry.circular(18),
@@ -50,13 +50,23 @@ class VideoCall extends StatelessWidget {
                     ),
             );
           } else {
-            return const Center(child: Text('بانتظار انضمام الطرف الآخر...'));
+            return Image.asset(
+              imageDoctor,
+              fit: BoxFit.cover,
+              width: DEVICE_WIDTH,
+              height: DEVICE_HEIGHT,
+            );
           }
         }
 
         Widget remoteVideoWidget() {
           if (controller.remoteUid == null || controller.remoteUid == 0) {
-            return const Center(child: Text('بانتظار انضمام الطرف الآخر...'));
+            return Image.asset(
+              imageDoctor,
+              fit: BoxFit.cover,
+              width: DEVICE_WIDTH,
+              height: DEVICE_HEIGHT,
+            );
           }
           return Container(
             padding: const EdgeInsets.all(2),
@@ -66,7 +76,8 @@ class VideoCall extends StatelessWidget {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(18),
-              child: controller.isRemoteVideoMuted
+              child:
+                  controller.isRemoteVideoMuted || controller.isCallEnded.value
                   ? Image.asset(imageDoctor, fit: BoxFit.cover)
                   : AgoraVideoView(
                       controller: VideoViewController.remote(
@@ -96,7 +107,7 @@ class VideoCall extends StatelessWidget {
                 margin: EdgeInsets.only(top: DEVICE_HEIGHT * 0.09),
                 padding: EdgeInsets.symmetric(horizontal: DEVICE_WIDTH * 0.06),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     const SizedBox(),
                     Container(
@@ -106,16 +117,6 @@ class VideoCall extends StatelessWidget {
                         fontSize: 24,
                         type: CustomTextType.title,
                         color: const Color(AppColors.colorWhiteSelectedType),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: SvgPicture.asset(
-                        iconBack,
-                        width: DEVICE_WIDTH * 0.04,
-                        height: DEVICE_HEIGHT * 0.02,
                       ),
                     ),
                   ],
@@ -211,7 +212,7 @@ class VideoCall extends StatelessWidget {
                       return Positioned(
                         bottom: controller.isShowTextfield
                             ? bottomOffset - 50
-                            : bottomOffset - 430,
+                            : bottomOffset - 390,
                         left: DEVICE_WIDTH * 0.075,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
@@ -310,7 +311,58 @@ class VideoCall extends StatelessWidget {
                   ),
                 );
               }),
-              Container(child: const Positioned(top: 0, child: Text('test'))),
+              Obx(() {
+                if (controller.isCallEnded.value) {
+                  return Container(
+                    width: DEVICE_WIDTH,
+                    height: DEVICE_HEIGHT,
+                    color: const Color(AppColors.colorEndChat).withAlpha(153),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        CustomText(
+                          text: 'thank_you_successfully_ended'.tr,
+                          fontSize: 20,
+                          type: CustomTextType.title,
+                          color: const Color(AppColors.colorWhiteSelectedType),
+                        ),
+                        const SizedBox(height: 70),
+                        Btn(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(
+                              AppColors.colorWhiteSelectedType,
+                            ),
+                            padding: EdgeInsets.symmetric(
+                              vertical: DEVICE_HEIGHT * 0.02,
+                            ),
+                          ),
+                          colorText: const Color(AppColors.colorLineAndText),
+                          onPressed: () {
+                            // Get.toNamed(routeDiagnosis);
+                          },
+                          text: 'doctor_evaluation'.tr,
+                        ),
+                      ],
+                    ),
+                  );
+                } else {
+                  return const SizedBox();
+                }
+              }),
+              Positioned(
+                top: DEVICE_HEIGHT * 0.09,
+                left: DEVICE_WIDTH * 0.07,
+                child: GestureDetector(
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: SvgPicture.asset(
+                    iconBack,
+                    width: DEVICE_WIDTH * 0.04,
+                    height: DEVICE_HEIGHT * 0.02,
+                  ),
+                ),
+              ),
             ],
           ),
         );
