@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
@@ -210,7 +211,7 @@ class VideoCall extends StatelessWidget {
                       return Positioned(
                         bottom: controller.isShowTextfield
                             ? bottomOffset - 50
-                            : bottomOffset - 500,
+                            : bottomOffset - 430,
                         left: DEVICE_WIDTH * 0.075,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
@@ -231,10 +232,10 @@ class VideoCall extends StatelessWidget {
                                 children: <Widget>[
                                   GestureDetector(
                                     onTap: () => controller.pickMedia(
-                                      sourceType: 'image',
+                                      sourceType: 'file',
                                     ),
                                     child: SvgPicture.asset(
-                                      iconStudio,
+                                      iconFolder,
                                       width: 23,
                                       height: 23,
                                     ),
@@ -242,10 +243,10 @@ class VideoCall extends StatelessWidget {
                                   const SizedBox(width: 12),
                                   GestureDetector(
                                     onTap: () => controller.pickMedia(
-                                      sourceType: 'file',
+                                      sourceType: 'image',
                                     ),
                                     child: SvgPicture.asset(
-                                      iconFolder,
+                                      iconStudio,
                                       width: 23,
                                       height: 23,
                                     ),
@@ -309,6 +310,7 @@ class VideoCall extends StatelessWidget {
                   ),
                 );
               }),
+              Container(child: const Positioned(top: 0, child: Text('test'))),
             ],
           ),
         );
@@ -442,16 +444,14 @@ Widget _defaultPageWidget(ScrollController scrollController) {
                     MapEntry<String, List<ChatLog>> entry,
                   ) {
                     final String dateGroup = entry.key;
-                    final List<ChatLog> messages = entry.value;
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: Center(
-                        child: Text(
-                          dateGroup,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
+                        child: CustomText(
+                          text: dateGroup,
+                          fontSize: 13,
+                          type: CustomTextType.button,
+                          color: const Color.fromRGBO(136, 136, 136, 0.83),
                         ),
                       ),
                     );
@@ -461,7 +461,11 @@ Widget _defaultPageWidget(ScrollController scrollController) {
               SizedBox(height: DEVICE_HEIGHT * 0.04),
               Container(
                 height: DEVICE_HEIGHT * 0.6,
-                padding: EdgeInsets.symmetric(horizontal: DEVICE_WIDTH * 0.04),
+                padding: EdgeInsets.only(
+                  bottom: 200,
+                  right: DEVICE_WIDTH * 0.04,
+                  left: DEVICE_WIDTH * 0.04,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(12),
@@ -470,16 +474,127 @@ Widget _defaultPageWidget(ScrollController scrollController) {
                   itemCount: controller.logText.length,
                   itemBuilder: (BuildContext context, int index) {
                     final ChatLog log = controller.logText[index];
-                    return Container(
-                      margin: const EdgeInsets.symmetric(vertical: 8),
-                      padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        color: Colors.blue.shade100,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Text(
-                        log.message,
-                        style: const TextStyle(fontSize: 14),
+                    return Align(
+                      alignment: !log.isSentByMe
+                          ? Alignment.centerRight
+                          : Alignment.centerLeft,
+                      child: Container(
+                        margin: EdgeInsets.only(bottom: DEVICE_HEIGHT * 0.02),
+                        width: DEVICE_WIDTH * 0.8,
+                        child: Column(
+                          crossAxisAlignment: log.isSentByMe
+                              ? CrossAxisAlignment.end
+                              : CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: !log.isSentByMe
+                                  ? MainAxisAlignment.end
+                                  : MainAxisAlignment.start,
+                              children: <Widget>[
+                                if (!log.isSentByMe)
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(30),
+                                    child: Image.asset(
+                                      imageDoctor,
+                                      width: DEVICE_WIDTH * 0.09,
+                                      height: DEVICE_HEIGHT * 0.05,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                SizedBox(width: DEVICE_WIDTH * 0.01),
+                                Expanded(
+                                  child: Container(
+                                    padding: const EdgeInsets.all(12),
+                                    decoration: BoxDecoration(
+                                      color: log.isSentByMe
+                                          ? const Color.fromARGB(
+                                              142,
+                                              75,
+                                              142,
+                                              178,
+                                            )
+                                          : const Color.fromARGB(
+                                              120,
+                                              180,
+                                              180,
+                                              180,
+                                            ),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        if (log.message.isNotEmpty)
+                                          CustomText(
+                                            text: log.message,
+                                            fontSize: 12,
+                                            type: CustomTextType.title,
+                                            color: const Color(
+                                              AppColors.colorWhiteSelectedType,
+                                            ),
+                                          ),
+                                        if (log.filePath != null &&
+                                            log.filePath!.isNotEmpty)
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                              top: 8.0,
+                                            ),
+                                            child:
+                                                _checkTypeFolderOrImageOrVideo(
+                                                  log.filePath!,
+                                                ),
+                                          ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: DEVICE_WIDTH * 0.02),
+                                if (log.isSentByMe)
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(30),
+                                    child: Image.asset(
+                                      imageDoctorDetails,
+                                      width: DEVICE_WIDTH * 0.09,
+                                      height: DEVICE_HEIGHT * 0.04,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                              ],
+                            ),
+                            const SizedBox(height: 4),
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: log.isSentByMe ? 25 : 35,
+                              ),
+                              child: Row(
+                                children: <Widget>[
+                                  Icon(
+                                    log.isDelivered
+                                        ? Icons.done_all
+                                        : Icons.done,
+                                    size: 16,
+                                    color: log.isDelivered
+                                        ? const Color(AppColors.colorTextBlue)
+                                        : const Color(AppColors.colorGrey),
+                                  ),
+                                  SizedBox(width: DEVICE_WIDTH * 0.01),
+                                  CustomText(
+                                    text: controller.formatTimestamp(
+                                      log.timestamp,
+                                    ),
+                                    fontSize: 13,
+                                    type: CustomTextType.button,
+                                    color: const Color(
+                                      AppColors.colorInputConfirm,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     );
                   },
@@ -502,96 +617,6 @@ Widget _defaultPageWidget(ScrollController scrollController) {
     },
   );
 }
-
-//         // Obx(() {
-//         //   final path =
-//         //       controller.selectedImagePathFromGallery.value;
-//         //   if (path.isNotEmpty) {
-//         //     return Image.file(
-//         //       File(path),
-//         //       width: 100,
-//         //       height: 100,
-//         //       fit: BoxFit.cover,
-//         //     );
-//         //   } else {
-//         //     return SizedBox();
-//         //   }
-//         // }),
-//         // Obx(() {
-//         //   final String path = controller
-//         //       .selectedImagePathFromCamera
-//         //       .value;
-//         //   if (path.isNotEmpty) {
-//         //     return Image.file(
-//         //       File(path),
-//         //       width: 100,
-//         //       height: 100,
-//         //       fit: BoxFit.cover,
-//         //     );
-//         //   } else {
-//         //     return const SizedBox();
-//         //   }
-//         // }),
-//         // Obx(() {
-//         //   if (controller.selectedFilePaths.isEmpty) {
-//         //     return const Text('لم يتم اختيار أي ملف');
-//         //   }
-//         //   return ListView.builder(
-//         //     shrinkWrap: true,
-//         //     itemCount:
-//         //         controller.selectedFilePaths.length,
-//         //     itemBuilder:
-//         //         (BuildContext context, int index) {
-//         //           final String path = controller
-//         //               .selectedFilePaths[index];
-//         //           return Padding(
-//         //             padding: const EdgeInsets.all(8.0),
-//         //             child:
-//         //                 _checkTypeFolderOrImageOrVideo(
-//         //                   path,
-//         //                 ),
-//         //           );
-//         //         },
-//         //   );
-//         // }),
-//         SizedBox(height: DEVICE_HEIGHT * 0.05),
-//         SizedBox(
-//           height: DEVICE_HEIGHT,
-//           child: Column(
-//             children: <Widget>[
-//               Padding(
-//                 padding: const EdgeInsets.symmetric(vertical: 8.0),
-//                 child: Center(
-//                   child: Text(
-//                     today,
-//                     style: const TextStyle(
-//                       fontWeight: FontWeight.bold,
-//                       fontSize: 16,
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//               SizedBox(
-//                 height: 200,
-//                 child: ListView(
-//                   children: logsGrouped.entries.expand((
-//                     MapEntry<String, List<ChatLog>> entry,
-//                   ) {
-//                     return <Text>[
-//                       ...entry.value.map((ChatLog log) => Text(log.message)),
-//                     ];
-//                   }).toList(),
-//                 ),
-//               ),
-//               _componentSend(),
-//             ],
-//           ),
-//         ),
-//       ],
-//     );
-//   },
-// );
-// }
 
 Widget _buildActionButton({
   required String icon,
@@ -641,33 +666,33 @@ class _BubbleArrowPainter extends CustomPainter {
   bool shouldRepaint(_BubbleArrowPainter oldDelegate) => false;
 }
 
-// Widget _checkTypeFolderOrImageOrVideo(String path) {
-//   final String extension = path.split('.').last.toLowerCase();
+Widget _checkTypeFolderOrImageOrVideo(String path) {
+  final String extension = path.split('.').last.toLowerCase();
 
-//   if (<String>[
-//     'jpg',
-//     'jpeg',
-//     'png',
-//     'gif',
-//     'bmp',
-//     'webp',
-//   ].contains(extension)) {
-//     return Image.file(File(path), width: 100, height: 100, fit: BoxFit.cover);
-//   } else if (<String>['mp4', 'avi', 'mov', 'wmv'].contains(extension)) {
-//     return Container(
-//       width: 100,
-//       height: 100,
-//       color: Colors.black,
-//       child: const Center(child: Icon(Icons.videocam, color: Colors.white)),
-//     );
-//   } else {
-//     return ListTile(
-//       leading: const Icon(Icons.insert_drive_file),
-//       title: Text(path.split('/').last),
-//       subtitle: const Text('ملف غير صورة أو فيديو'),
-//     );
-//   }
-// }
+  if (<String>[
+    'jpg',
+    'jpeg',
+    'png',
+    'gif',
+    'bmp',
+    'webp',
+  ].contains(extension)) {
+    return Image.file(File(path), width: 100, height: 100, fit: BoxFit.cover);
+  } else if (<String>['mp4', 'avi', 'mov', 'wmv'].contains(extension)) {
+    return Container(
+      width: 100,
+      height: 100,
+      color: Colors.black,
+      child: const Center(child: Icon(Icons.videocam, color: Colors.white)),
+    );
+  } else {
+    return ListTile(
+      leading: const Icon(Icons.insert_drive_file),
+      title: Text(path.split('/').last),
+      subtitle: const Text('ملف غير صورة أو فيديو'),
+    );
+  }
+}
 
 Widget _componentSend() {
   return GetBuilder<VideoCallController>(

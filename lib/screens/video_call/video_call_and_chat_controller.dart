@@ -5,21 +5,32 @@ import 'package:agora_chat_sdk/agora_chat_sdk.dart';
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:intl/intl.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../general_exports.dart';
 
 class ChatLog {
-  ChatLog({required this.message, required this.timestamp});
+  ChatLog({
+    required this.message,
+    required this.timestamp,
+    required this.msgId,
+    required this.isSentByMe,
+    this.isDelivered = false,
+    this.filePath,
+  });
   final String message;
   final DateTime timestamp;
+  final String msgId;
+  final bool isSentByMe;
+  bool isDelivered;
+  final String? filePath;
 }
 
 class VideoCallController extends GetxController {
   String appId = '2c8437b9443e4607ad16973d4d4c2736';
   String token =
-      '007eJxTYOjatiS0K3TiabkvjUZn/75s/Mj8I6R99elPqz/lhW95MkNIgcEo2cLE2DzJ0sTEONXEzMA8McXQzNLcOMUkxSTZyNzYrEVrR0ZDICMDo5IVK5AEQxCfhaEktbiEgQEAMkQhKA==';
+      '007eJxTYIg1YWULm8a7bqecr+H/Px1pkV/CjMMfzUxuW6Vz4lDAIUsFBqNkCxNj8yRLExPjVBMzA/PEFEMzS3PjFJMUk2Qjc2Mzi9qdGQ2BjAw/wp8yMTJAIIjPwlCSWlzCwAAA1RUegQ==';
   String channel = 'test';
   int? remoteUid;
   bool localUserJoined = false;
@@ -40,6 +51,7 @@ class VideoCallController extends GetxController {
   // int secondsLeft = 900;
   int secondsLeft = 100;
   late Timer _timer;
+  bool isOpenContainerRange = false;
 
   BookingsController bookings = Get.put(BookingsController());
   bool get hasParticipant => localUserJoined;
@@ -110,6 +122,13 @@ class VideoCallController extends GetxController {
         onMessagesDelivered: (List<ChatMessage> messages) {
           for (ChatMessage msg in messages) {
             addLogToConsole('message, from: ${msg.from} is delivered');
+            for (final ChatLog log in logText) {
+              if (log.msgId == msg.msgId) {
+                log.isDelivered = true;
+                break;
+              }
+            }
+            update();
           }
         },
       ),
@@ -156,9 +175,16 @@ class VideoCallController extends GetxController {
 
     try {
       await ChatClient.getInstance.chatManager.sendMessage(msg);
-      addLogToConsole(
-        'Message sent from: ${currentUserId!} → ${chatId!} | Content: $content',
+
+      final ChatLog log = ChatLog(
+        message: content,
+        timestamp: DateTime.now(),
+        msgId: msg.msgId,
+        isSentByMe: true,
       );
+
+      logText.add(log);
+      update();
     } on ChatError catch (e) {
       addLogToConsole(
         'send message failed, code: ${e.code}, desc: ${e.description}',
@@ -168,11 +194,12 @@ class VideoCallController extends GetxController {
 
   void onMessagesReceived(List<ChatMessage> messages) {
     for (ChatMessage msg in messages) {
-      if (msg.body.type == MessageType.TXT) {
+      if (msg.body.type == MessageType.TXT && msg.from != currentUserId) {
         final ChatTextMessageBody body = msg.body as ChatTextMessageBody;
-        addLogToConsole(
-          'Message from: ${msg.from} → ${msg.to} | Content: ${body.content}',
-        );
+
+        if (msg.from != currentUserId) {
+          addLogToConsole(body.content);
+        }
       } else {
         addLogToConsole(
           'receive message type: ${msg.body.type}, from: ${msg.from}',
@@ -181,8 +208,30 @@ class VideoCallController extends GetxController {
     }
   }
 
-  void addLogToConsole(String log) {
-    logText.add(ChatLog(message: log, timestamp: DateTime.now()));
+  void addIncomingMessage(ChatMessage msg) {
+    final ChatTextMessageBody body = msg.body as ChatTextMessageBody;
+
+    final ChatLog log = ChatLog(
+      message: body.content,
+      timestamp: DateTime.now(),
+      msgId: msg.msgId,
+      isSentByMe: false,
+      isDelivered: true,
+    );
+
+    logText.add(log);
+    update();
+  }
+
+  void addLogToConsole(String log, {String msgId = ''}) {
+    logText.add(
+      ChatLog(
+        message: log,
+        timestamp: DateTime.now(),
+        isSentByMe: true,
+        msgId: msgId,
+      ),
+    );
 
     update();
     Future.delayed(const Duration(milliseconds: 100), () {
@@ -263,6 +312,37 @@ class VideoCallController extends GetxController {
     currentUserId = userId;
     update();
   }
+
+  String formatTimestamp(DateTime timestamp) {
+    int hour = timestamp.hour;
+    final int minute = timestamp.minute;
+    final String period = hour >= 12 ? 'PM' : 'AM';
+
+    if (hour == 0) {
+      hour = 12;
+    } else if (hour > 12) {
+      hour -= 12;
+    }
+
+    final String formattedHour = hour.toString();
+    final String formattedMinute = minute.toString().padLeft(2, '0');
+
+    return '$formattedHour:$formattedMinute $period';
+  }
+
+  void addImageOrFileOrMessage(String path) {
+    final ChatLog newLog = ChatLog(
+      message: '',
+      timestamp: DateTime.now(),
+      isSentByMe: true,
+      filePath: path,
+      msgId: '',
+    );
+
+    logText.add(newLog);
+    update();
+  }
+
   // end chat function
 
   // start file picker and image picker
@@ -276,6 +356,7 @@ class VideoCallController extends GetxController {
           final String? filePath = result.files.single.path;
           if (filePath != null) {
             selectedImagePathFromGallery.value = filePath;
+            addImageOrFileOrMessage(filePath);
             isRotateFolderAndImageSend = false;
           }
         } else {
@@ -288,6 +369,7 @@ class VideoCallController extends GetxController {
           source: ImageSource.camera,
         );
         if (photo != null) {
+          addImageOrFileOrMessage(photo.path);
           selectedImagePathFromCamera.value = photo.path;
           isRotateFolderAndImageSend = false;
         } else {
@@ -301,6 +383,9 @@ class VideoCallController extends GetxController {
         );
         if (result != null) {
           selectedFilePaths.value = result.paths.whereType<String>().toList();
+          for (final String path in selectedFilePaths.value) {
+            addImageOrFileOrMessage(path);
+          }
           isRotateFolderAndImageSend = false;
         } else {
           consoleLog('❌ User canceled file picker.');
@@ -325,10 +410,13 @@ class VideoCallController extends GetxController {
     _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       if (secondsLeft > 0) {
         secondsLeft--;
+        isOpenContainerRange = false;
         update();
       } else {
         _timer.cancel();
+        isOpenContainerRange = true;
         onTimerFinished();
+        update();
       }
     });
   }

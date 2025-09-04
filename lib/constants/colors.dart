@@ -43,4 +43,5 @@ class AppColors {
   static const int colorBackgroundIconCall = 0xff1C1F1E66;
   static const int colorLineScrollBottomSheet = 0xffD8DADC;
   static const int colorBackgroundSendImages = 0xffCDCFCE;
+  static const int colorSendDoctor = 0xff4B8EB2;
 }
