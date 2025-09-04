@@ -147,74 +147,70 @@ class VideoCall extends StatelessWidget {
               ),
               Stack(
                 children: <Widget>[
-                  GestureDetector(
-                    child: DraggableScrollableSheet(
-                      controller: controller.bottomSheetController,
-                      initialChildSize:
-                          220 / MediaQuery.of(context).size.height,
-                      minChildSize: 0.15,
-                      maxChildSize: 0.9,
-                      builder:
-                          (
-                            BuildContext context,
-                            ScrollController scrollController,
-                          ) {
-                            return Container(
-                              decoration: const BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(40),
-                                  bottomLeft: Radius.circular(20),
-                                  bottomRight: Radius.circular(20),
-                                ),
+                  DraggableScrollableSheet(
+                    controller: controller.bottomSheetController,
+                    initialChildSize: 220 / MediaQuery.of(context).size.height,
+                    minChildSize: 0.15,
+                    maxChildSize: 0.9,
+                    builder:
+                        (
+                          BuildContext context,
+                          ScrollController scrollController,
+                        ) {
+                          return Container(
+                            decoration: const BoxDecoration(
+                              color: Color(AppColors.colorWhiteSelectedType),
+                              borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(40),
+                                bottomLeft: Radius.circular(20),
+                                bottomRight: Radius.circular(20),
                               ),
-                              child:
-                                  NotificationListener<
-                                    DraggableScrollableNotification
-                                  >(
-                                    onNotification:
-                                        (
-                                          DraggableScrollableNotification
-                                          notification,
-                                        ) {
-                                          controller
-                                                  .bottomSheetSizePageChat
-                                                  .value =
-                                              notification.extent;
+                            ),
+                            child:
+                                NotificationListener<
+                                  DraggableScrollableNotification
+                                >(
+                                  onNotification:
+                                      (
+                                        DraggableScrollableNotification
+                                        notification,
+                                      ) {
+                                        controller
+                                                .bottomSheetSizePageChat
+                                                .value =
+                                            notification.extent;
 
-                                          if (notification.extent > 0.7 &&
-                                              !controller
-                                                  .hasNavigatedToDoctorInfo) {
+                                        if (notification.extent > 0.7 &&
+                                            !controller
+                                                .hasNavigatedToDoctorInfo) {
+                                          controller.hasNavigatedToDoctorInfo =
+                                              true;
+                                          controller.isShowTextfield = false;
+                                          controller.update();
+                                        } else if (notification.extent <= 0.7 &&
                                             controller
-                                                    .hasNavigatedToDoctorInfo =
-                                                true;
-                                            controller.isShowTextfield = false;
-                                            controller.update();
-                                          } else if (notification.extent <=
-                                                  0.7 &&
-                                              controller
-                                                  .hasNavigatedToDoctorInfo) {
-                                            controller
-                                                    .hasNavigatedToDoctorInfo =
-                                                false;
-                                            controller.isShowTextfield = true;
-                                            controller.update();
-                                          }
+                                                .hasNavigatedToDoctorInfo) {
+                                          controller.hasNavigatedToDoctorInfo =
+                                              false;
+                                          controller.isShowTextfield = true;
+                                          controller.update();
+                                        }
 
-                                          return true;
-                                        },
-                                    child: _defaultPageWidget(scrollController),
-                                  ),
-                            );
-                          },
-                    ),
+                                        return true;
+                                      },
+                                  child: _defaultPageWidget(scrollController),
+                                ),
+                          );
+                        },
                   ),
                   if (controller.isRotateFolderAndImageSend)
                     Obx(() {
                       final double sheetSize = controller.bottomSheetSize.value;
                       final double bottomOffset = sheetSize * DEVICE_HEIGHT;
                       return Positioned(
-                        bottom: bottomOffset - 50,
+                        bottom: controller.isShowTextfield
+                            ? bottomOffset - 50
+                            : bottomOffset - 500,
                         left: DEVICE_WIDTH * 0.075,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
@@ -327,17 +323,12 @@ Widget _defaultPageWidget(ScrollController scrollController) {
       final Map<String, List<ChatLog>> logsGrouped = controller.groupLogsByDate(
         controller.logText,
       );
-      final List<String> dates = logsGrouped.keys.toList();
-      final String today = 'اليوم';
-      final List<ChatLog> messages = logsGrouped[today] ?? <ChatLog>[];
 
-      return SingleChildScrollView(
-        controller: scrollController,
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(minHeight: 300),
-          child: Column(
+      return Stack(
+        children: <Widget>[
+          ListView(
+            controller: scrollController,
             children: <Widget>[
-              const SizedBox(height: 10),
               Center(
                 child: Container(
                   width: DEVICE_WIDTH * 0.24,
@@ -348,12 +339,11 @@ Widget _defaultPageWidget(ScrollController scrollController) {
                   ),
                 ),
               ),
-              const SizedBox(height: 25),
               if (controller.isShowTextfield)
-                _componentSend()
-              else
-                const SizedBox(),
-              SizedBox(height: DEVICE_HEIGHT * 0.03),
+                SizedBox(height: DEVICE_HEIGHT * 0.03),
+              if (controller.isShowTextfield) _componentSend(),
+              if (controller.isShowTextfield)
+                SizedBox(height: DEVICE_HEIGHT * 0.025),
               Column(
                 children: <Widget>[
                   Padding(
@@ -447,103 +437,161 @@ Widget _defaultPageWidget(ScrollController scrollController) {
                       },
                     ),
                   ),
-                ],
-              ),
-              // Obx(() {
-              //   final path =
-              //       controller.selectedImagePathFromGallery.value;
-              //   if (path.isNotEmpty) {
-              //     return Image.file(
-              //       File(path),
-              //       width: 100,
-              //       height: 100,
-              //       fit: BoxFit.cover,
-              //     );
-              //   } else {
-              //     return SizedBox();
-              //   }
-              // }),
-              // Obx(() {
-              //   final String path = controller
-              //       .selectedImagePathFromCamera
-              //       .value;
-              //   if (path.isNotEmpty) {
-              //     return Image.file(
-              //       File(path),
-              //       width: 100,
-              //       height: 100,
-              //       fit: BoxFit.cover,
-              //     );
-              //   } else {
-              //     return const SizedBox();
-              //   }
-              // }),
-              // Obx(() {
-              //   if (controller.selectedFilePaths.isEmpty) {
-              //     return const Text('لم يتم اختيار أي ملف');
-              //   }
-              //   return ListView.builder(
-              //     shrinkWrap: true,
-              //     itemCount:
-              //         controller.selectedFilePaths.length,
-              //     itemBuilder:
-              //         (BuildContext context, int index) {
-              //           final String path = controller
-              //               .selectedFilePaths[index];
-              //           return Padding(
-              //             padding: const EdgeInsets.all(8.0),
-              //             child:
-              //                 _checkTypeFolderOrImageOrVideo(
-              //                   path,
-              //                 ),
-              //           );
-              //         },
-              //   );
-              // }),
-              SizedBox(height: DEVICE_HEIGHT * 0.05),
-              SizedBox(
-                height: DEVICE_HEIGHT,
-                child: Column(
-                  children: <Widget>[
-                    Padding(
+                  SizedBox(height: DEVICE_HEIGHT * 0.05),
+                  ...logsGrouped.entries.map((
+                    MapEntry<String, List<ChatLog>> entry,
+                  ) {
+                    final String dateGroup = entry.key;
+                    final List<ChatLog> messages = entry.value;
+                    return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: Center(
                         child: Text(
-                          today,
+                          dateGroup,
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
                           ),
                         ),
                       ),
-                    ),
-                    Expanded(
-                      child: ListView.builder(
-                        controller: controller.scrollController,
-                        itemCount: messages.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          final ChatLog log = messages[index];
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 16.0,
-                              vertical: 4,
-                            ),
-                            child: Text(log.message),
-                          );
-                        },
+                    );
+                  }),
+                ],
+              ),
+              SizedBox(height: DEVICE_HEIGHT * 0.04),
+              Container(
+                height: DEVICE_HEIGHT * 0.6,
+                padding: EdgeInsets.symmetric(horizontal: DEVICE_WIDTH * 0.04),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: ListView.builder(
+                  itemCount: controller.logText.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final ChatLog log = controller.logText[index];
+                    return Container(
+                      margin: const EdgeInsets.symmetric(vertical: 8),
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: Colors.blue.shade100,
+                        borderRadius: BorderRadius.circular(8),
                       ),
-                    ),
-                    _componentSend(),
-                  ],
+                      child: Text(
+                        log.message,
+                        style: const TextStyle(fontSize: 14),
+                      ),
+                    );
+                  },
                 ),
               ),
             ],
           ),
-        ),
+          if (!controller.isShowTextfield)
+            Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 18.0),
+                  child: Positioned(child: _componentSend()),
+                ),
+              ],
+            ),
+        ],
       );
     },
   );
 }
+
+//         // Obx(() {
+//         //   final path =
+//         //       controller.selectedImagePathFromGallery.value;
+//         //   if (path.isNotEmpty) {
+//         //     return Image.file(
+//         //       File(path),
+//         //       width: 100,
+//         //       height: 100,
+//         //       fit: BoxFit.cover,
+//         //     );
+//         //   } else {
+//         //     return SizedBox();
+//         //   }
+//         // }),
+//         // Obx(() {
+//         //   final String path = controller
+//         //       .selectedImagePathFromCamera
+//         //       .value;
+//         //   if (path.isNotEmpty) {
+//         //     return Image.file(
+//         //       File(path),
+//         //       width: 100,
+//         //       height: 100,
+//         //       fit: BoxFit.cover,
+//         //     );
+//         //   } else {
+//         //     return const SizedBox();
+//         //   }
+//         // }),
+//         // Obx(() {
+//         //   if (controller.selectedFilePaths.isEmpty) {
+//         //     return const Text('لم يتم اختيار أي ملف');
+//         //   }
+//         //   return ListView.builder(
+//         //     shrinkWrap: true,
+//         //     itemCount:
+//         //         controller.selectedFilePaths.length,
+//         //     itemBuilder:
+//         //         (BuildContext context, int index) {
+//         //           final String path = controller
+//         //               .selectedFilePaths[index];
+//         //           return Padding(
+//         //             padding: const EdgeInsets.all(8.0),
+//         //             child:
+//         //                 _checkTypeFolderOrImageOrVideo(
+//         //                   path,
+//         //                 ),
+//         //           );
+//         //         },
+//         //   );
+//         // }),
+//         SizedBox(height: DEVICE_HEIGHT * 0.05),
+//         SizedBox(
+//           height: DEVICE_HEIGHT,
+//           child: Column(
+//             children: <Widget>[
+//               Padding(
+//                 padding: const EdgeInsets.symmetric(vertical: 8.0),
+//                 child: Center(
+//                   child: Text(
+//                     today,
+//                     style: const TextStyle(
+//                       fontWeight: FontWeight.bold,
+//                       fontSize: 16,
+//                     ),
+//                   ),
+//                 ),
+//               ),
+//               SizedBox(
+//                 height: 200,
+//                 child: ListView(
+//                   children: logsGrouped.entries.expand((
+//                     MapEntry<String, List<ChatLog>> entry,
+//                   ) {
+//                     return <Text>[
+//                       ...entry.value.map((ChatLog log) => Text(log.message)),
+//                     ];
+//                   }).toList(),
+//                 ),
+//               ),
+//               _componentSend(),
+//             ],
+//           ),
+//         ),
+//       ],
+//     );
+//   },
+// );
+// }
 
 Widget _buildActionButton({
   required String icon,

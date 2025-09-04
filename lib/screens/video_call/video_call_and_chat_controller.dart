@@ -66,6 +66,8 @@ class VideoCallController extends GetxController {
   String? currentUserId;
   String? chatId;
   String? messageContent;
+  final double maxChildSize = 0.9;
+
   // end chat
 
   @override
@@ -258,7 +260,6 @@ class VideoCallController extends GetxController {
       consoleLog('Unknown error during login: $e');
     }
 
-    addLogToConsole('begin login...  userId: $userId');
     currentUserId = userId;
     update();
   }
