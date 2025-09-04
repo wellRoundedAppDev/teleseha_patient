@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:ui';
 
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
@@ -82,6 +81,7 @@ class VideoCall extends StatelessWidget {
         }
 
         return Scaffold(
+          resizeToAvoidBottomInset: true,
           body: Stack(
             children: <Widget>[
               SizedBox(
@@ -147,48 +147,67 @@ class VideoCall extends StatelessWidget {
               ),
               Stack(
                 children: <Widget>[
-                  DraggableScrollableSheet(
-                    controller: controller.bottomSheetController,
-                    initialChildSize: 220 / MediaQuery.of(context).size.height,
-                    minChildSize: 0.15,
-                    maxChildSize: 0.9,
-                    builder:
-                        (
-                          BuildContext context,
-                          ScrollController scrollController,
-                        ) {
-                          return Container(
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(40),
-                                bottomLeft: Radius.circular(20),
-                                bottomRight: Radius.circular(20),
-                              ),
-                            ),
-                            child:
-                                NotificationListener<
-                                  DraggableScrollableNotification
-                                >(
-                                  onNotification:
-                                      (
-                                        DraggableScrollableNotification
-                                        notification,
-                                      ) {
-                                        return true;
-                                      },
-                                  child: GetBuilder<VideoCallController>(
-                                    builder: (VideoCallController controller) {
-                                      return controller.showNewPage
-                                          ? _secondPageWidget(scrollController)
-                                          : _defaultPageWidget(
-                                              scrollController,
-                                            );
-                                    },
-                                  ),
+                  GestureDetector(
+                    child: DraggableScrollableSheet(
+                      controller: controller.bottomSheetController,
+                      initialChildSize:
+                          220 / MediaQuery.of(context).size.height,
+                      minChildSize: 0.15,
+                      maxChildSize: 0.9,
+                      builder:
+                          (
+                            BuildContext context,
+                            ScrollController scrollController,
+                          ) {
+                            return Container(
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(40),
+                                  bottomLeft: Radius.circular(20),
+                                  bottomRight: Radius.circular(20),
                                 ),
-                          );
-                        },
+                              ),
+                              child:
+                                  NotificationListener<
+                                    DraggableScrollableNotification
+                                  >(
+                                    onNotification:
+                                        (
+                                          DraggableScrollableNotification
+                                          notification,
+                                        ) {
+                                          controller
+                                                  .bottomSheetSizePageChat
+                                                  .value =
+                                              notification.extent;
+
+                                          if (notification.extent > 0.6 &&
+                                              !controller
+                                                  .hasNavigatedToDoctorInfo) {
+                                            controller
+                                                    .hasNavigatedToDoctorInfo =
+                                                true;
+                                            controller.isShowTextfield = false;
+                                            controller.update();
+                                          } else if (notification.extent <=
+                                                  0.6 &&
+                                              controller
+                                                  .hasNavigatedToDoctorInfo) {
+                                            controller
+                                                    .hasNavigatedToDoctorInfo =
+                                                false;
+                                            controller.isShowTextfield = true;
+                                            controller.update();
+                                          }
+
+                                          return true;
+                                        },
+                                    child: _defaultPageWidget(scrollController),
+                                  ),
+                            );
+                          },
+                    ),
                   ),
                   if (controller.isRotateFolderAndImageSend)
                     Obx(() {
@@ -307,12 +326,8 @@ Widget _defaultPageWidget(ScrollController scrollController) {
     builder: (VideoCallController controller) {
       return SingleChildScrollView(
         controller: scrollController,
-        physics: const NeverScrollableScrollPhysics(),
         child: ConstrainedBox(
-          constraints: const BoxConstraints(
-            minHeight: 300,
-            // minHeight: 220 / MediaQuery.of(context).size.height,
-          ),
+          constraints: const BoxConstraints(minHeight: 300),
           child: Column(
             children: <Widget>[
               const SizedBox(height: 10),
@@ -327,104 +342,10 @@ Widget _defaultPageWidget(ScrollController scrollController) {
                 ),
               ),
               const SizedBox(height: 25),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: DEVICE_HEIGHT * 0.03),
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.all(DEVICE_HEIGHT * 0.015),
-                      decoration: BoxDecoration(
-                        color: const Color(AppColors.colorLineAndText),
-                        borderRadius: BorderRadius.circular(14),
-                      ),
-                      child: SvgPicture.asset(
-                        iconSend,
-                        width: DEVICE_WIDTH * 0.04,
-                        height: DEVICE_HEIGHT * 0.04,
-                      ),
-                    ),
-                    SizedBox(width: DEVICE_WIDTH * 0.05),
-                    Expanded(
-                      child: Stack(
-                        children: <Widget>[
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: const Color(
-                                AppColors.colorWhiteSelectedType,
-                              ),
-                              boxShadow: <BoxShadow>[
-                                BoxShadow(
-                                  color: const Color(
-                                    AppColors.colorHintText,
-                                  ).withValues(alpha: 0.1),
-                                  blurRadius: 2,
-                                  spreadRadius: 2,
-                                  offset: const Offset(0, 3),
-                                ),
-                              ],
-                            ),
-                            child: TextField(
-                              // controller: controller.filter,
-                              decoration: InputDecoration(
-                                hintText: 'send_message'.tr,
-                                hintStyle: const TextStyle(
-                                  color: Color(AppColors.colorHintText),
-                                  fontSize: 14,
-                                ),
-                                contentPadding: EdgeInsets.symmetric(
-                                  horizontal: DEVICE_WIDTH * 0.06,
-                                  vertical: DEVICE_HEIGHT * 0.02,
-                                ),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(25),
-                                  borderSide: BorderSide.none,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            left: DEVICE_WIDTH * 0.03,
-                            top: DEVICE_HEIGHT * 0.01,
-                            child: Container(
-                              alignment: Alignment.center,
-                              height: DEVICE_HEIGHT * 0.05,
-                              padding: EdgeInsetsGeometry.symmetric(
-                                horizontal: DEVICE_WIDTH * 0.05,
-                              ),
-                              child: Row(
-                                children: <Widget>[
-                                  GestureDetector(
-                                    onTap: () => controller.pickMedia(
-                                      sourceType: 'camera',
-                                    ),
-                                    child: SvgPicture.asset(
-                                      iconCamera,
-                                      width: DEVICE_WIDTH * 0.04,
-                                      height: DEVICE_HEIGHT * 0.03,
-                                    ),
-                                  ),
-                                  SizedBox(width: DEVICE_WIDTH * 0.02),
-                                  GestureDetector(
-                                    onTap: () {
-                                      controller.toggleisFolderAndImageSend();
-                                    },
-                                    child: SvgPicture.asset(
-                                      iconPaperClip,
-                                      width: DEVICE_WIDTH * 0.05,
-                                      height: DEVICE_HEIGHT * 0.035,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              if (controller.isShowTextfield)
+                _componentSend()
+              else
+                const SizedBox(),
               SizedBox(height: DEVICE_HEIGHT * 0.03),
               Column(
                 children: <Widget>[
@@ -565,31 +486,34 @@ Widget _defaultPageWidget(ScrollController scrollController) {
               //           return Padding(
               //             padding: const EdgeInsets.all(8.0),
               //             child:
-              //                 checkTypeFolderOrImageOrVideo(
+              //                 _checkTypeFolderOrImageOrVideo(
               //                   path,
               //                 ),
               //           );
               //         },
               //   );
               // }),
+              SizedBox(height: DEVICE_HEIGHT * 0.05),
+              SizedBox(
+                height: 200,
+                child: Column(
+                  children: <Widget>[
+                    Text('${controller.formatRelativeDate}'),
+                    ListView.builder(
+                      itemBuilder: (_, int index) {
+                        return Text(controller.logText[index]);
+                      },
+                      itemCount: controller.logText.length,
+                    ),
+                  ],
+                ),
+              ),
+              _componentSend(),
             ],
           ),
         ),
       );
     },
-  );
-}
-
-Widget _secondPageWidget(ScrollController scrollController) {
-  return SingleChildScrollView(
-    controller: scrollController,
-    child: const Column(
-      children: <Widget>[
-        Text('Second Page'),
-        SizedBox(height: 800),
-        Text('End of Scroll'),
-      ],
-    ),
   );
 }
 
@@ -641,30 +565,136 @@ class _BubbleArrowPainter extends CustomPainter {
   bool shouldRepaint(_BubbleArrowPainter oldDelegate) => false;
 }
 
-Widget checkTypeFolderOrImageOrVideo(String path) {
-  final String extension = path.split('.').last.toLowerCase();
+// Widget _checkTypeFolderOrImageOrVideo(String path) {
+//   final String extension = path.split('.').last.toLowerCase();
 
-  if (<String>[
-    'jpg',
-    'jpeg',
-    'png',
-    'gif',
-    'bmp',
-    'webp',
-  ].contains(extension)) {
-    return Image.file(File(path), width: 100, height: 100, fit: BoxFit.cover);
-  } else if (<String>['mp4', 'avi', 'mov', 'wmv'].contains(extension)) {
-    return Container(
-      width: 100,
-      height: 100,
-      color: Colors.black,
-      child: const Center(child: Icon(Icons.videocam, color: Colors.white)),
-    );
-  } else {
-    return ListTile(
-      leading: const Icon(Icons.insert_drive_file),
-      title: Text(path.split('/').last),
-      subtitle: const Text('ملف غير صورة أو فيديو'),
-    );
-  }
+//   if (<String>[
+//     'jpg',
+//     'jpeg',
+//     'png',
+//     'gif',
+//     'bmp',
+//     'webp',
+//   ].contains(extension)) {
+//     return Image.file(File(path), width: 100, height: 100, fit: BoxFit.cover);
+//   } else if (<String>['mp4', 'avi', 'mov', 'wmv'].contains(extension)) {
+//     return Container(
+//       width: 100,
+//       height: 100,
+//       color: Colors.black,
+//       child: const Center(child: Icon(Icons.videocam, color: Colors.white)),
+//     );
+//   } else {
+//     return ListTile(
+//       leading: const Icon(Icons.insert_drive_file),
+//       title: Text(path.split('/').last),
+//       subtitle: const Text('ملف غير صورة أو فيديو'),
+//     );
+//   }
+// }
+
+Widget _componentSend() {
+  return GetBuilder<VideoCallController>(
+    builder: (VideoCallController controller) {
+      return Padding(
+        padding: EdgeInsets.symmetric(horizontal: DEVICE_HEIGHT * 0.03),
+        child: Row(
+          children: <Widget>[
+            GestureDetector(
+              onTap: controller.sendMessage,
+              child: Container(
+                padding: EdgeInsets.all(DEVICE_HEIGHT * 0.015),
+                decoration: BoxDecoration(
+                  color: const Color(AppColors.colorLineAndText),
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: SvgPicture.asset(
+                  iconSend,
+                  width: DEVICE_WIDTH * 0.04,
+                  height: DEVICE_HEIGHT * 0.04,
+                ),
+              ),
+            ),
+            SizedBox(width: DEVICE_WIDTH * 0.05),
+            Expanded(
+              child: Stack(
+                children: <Widget>[
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: const Color(AppColors.colorWhiteSelectedType),
+                      boxShadow: <BoxShadow>[
+                        BoxShadow(
+                          color: const Color(
+                            AppColors.colorHintText,
+                          ).withValues(alpha: 0.1),
+                          blurRadius: 2,
+                          spreadRadius: 2,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    child: TextField(
+                      onChanged: (String msg) =>
+                          controller.messageContent = msg,
+                      decoration: InputDecoration(
+                        hintText: 'send_message'.tr,
+                        hintStyle: const TextStyle(
+                          color: Color(AppColors.colorHintText),
+                          fontSize: 14,
+                        ),
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: DEVICE_WIDTH * 0.06,
+                          vertical: DEVICE_HEIGHT * 0.02,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25),
+                          borderSide: BorderSide.none,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: DEVICE_WIDTH * 0.03,
+                    top: DEVICE_HEIGHT * 0.01,
+                    child: Container(
+                      alignment: Alignment.center,
+                      height: DEVICE_HEIGHT * 0.05,
+                      padding: EdgeInsetsGeometry.symmetric(
+                        horizontal: DEVICE_WIDTH * 0.05,
+                      ),
+                      child: Row(
+                        children: <Widget>[
+                          GestureDetector(
+                            onTap: () =>
+                                controller.pickMedia(sourceType: 'camera'),
+                            child: SvgPicture.asset(
+                              iconCamera,
+                              width: DEVICE_WIDTH * 0.04,
+                              height: DEVICE_HEIGHT * 0.03,
+                            ),
+                          ),
+                          SizedBox(width: DEVICE_WIDTH * 0.02),
+                          GestureDetector(
+                            onTap: () {
+                              controller.toggleisFolderAndImageSend();
+                            },
+                            child: SvgPicture.asset(
+                              iconPaperClip,
+                              width: DEVICE_WIDTH * 0.05,
+                              height: DEVICE_HEIGHT * 0.035,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+    },
+  );
 }

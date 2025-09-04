@@ -49,7 +49,15 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 <string>نحتاج الوصول للكاميرا للمكالمة</string>
+<key>NSCameraUsageDescription</key>
+<string>Need camera for video call</string>
 <key>NSMicrophoneUsageDescription</key>
-<string>نحتاج الوصول للميكروفون للمكالمة</string>
+<string>Need microphone for voice call</string>
+<key>NSAppTransportSecurity</key>
+<dict>
+  <key>NSAllowsArbitraryLoads</key>
+  <true/>
+</dict>
+
 </dict>
 </plist>

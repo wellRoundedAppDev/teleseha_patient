@@ -38,7 +38,11 @@ class WaitingForYourTurn extends StatelessWidget {
                       onTap: () {
                         final VideoCallController videoCall =
                             Get.find<VideoCallController>();
-                        videoCall.joinAsFirstUser();
+                        videoCall.signInChat(
+                          userId: 'doctor',
+                          token:
+                              '007eJxTYBBbNCcqdEfMjEzH0radGRfcRMI5c1NmfWOzaCsM7/n7306BwSjZwsTYPMnSxMQ41cTMwDwxxdDM0tw4xSTFJNnI3NjMKnpHRkMgI0NaVi8TIwMrAyMQgvgqDIaJyYbGiWkGuhYWKRa6hoYglkFqmq6xoYFlsrFZmoFRqikAs8UlGA==',
+                        );
                       },
                       child: const Text('Join as first participant'),
                     ),
@@ -269,7 +273,11 @@ class WaitingForYourTurn extends StatelessWidget {
                     ),
                     onPressed: hasParticipant
                         ? () async {
-                            Get.toNamed(routeVideoCall);
+                            videoCall.signInChat(
+                              userId: 'patient',
+                              token:
+                                  '007eJxTYLB3403YsE1gX/z3fV9y5/4/sWL5FbMNKtqJwYcfvrWYmLZJgcEo2cLE2DzJ0sTEONXEzMA8McXQzNLcOMUkxSTZyNzYTDd6R0ZDICPD3J8yrIwMrAyMQAjiqzAYGyYnpxqbG+haWKRY6BoaphnoWqYlGugapqVYWBgZpJqkJSYCAPu/KJc=',
+                            );
                           }
                         : null,
                     text: hasParticipant ? 'enter_the_session'.tr : 'wait'.tr,

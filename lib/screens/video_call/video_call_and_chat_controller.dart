@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
-
+import 'package:intl/intl.dart';
+import 'package:agora_chat_sdk/agora_chat_sdk.dart';
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,7 +12,7 @@ import '../../general_exports.dart';
 class VideoCallController extends GetxController {
   String appId = '2c8437b9443e4607ad16973d4d4c2736';
   String token =
-      '007eJxTYKix1zZ++GC3vJrZzE0TbuYJmJwRtou7bPz0peQVnc3vNPgUGIySLUyMzZMsTUyMU03MDMwTUwzNLM2NU0xSTJKNzI3N1K9vy2gIZGTQ6TBgYWSAQBCfhaEktbiEgQEA0kEdcQ==';
+      '007eJxTYOjatiS0K3TiabkvjUZn/75s/Mj8I6R99elPqz/lhW95MkNIgcEo2cLE2DzJ0sTEONXEzMA8McXQzNLcOMUkxSTZyNzYrEVrR0ZDICMDo5IVK5AEQxCfhaEktbiEgQEAMkQhKA==';
   String channel = 'test';
   int? remoteUid;
   bool localUserJoined = false;
@@ -21,13 +22,16 @@ class VideoCallController extends GetxController {
   bool isVideoMuted = false;
   bool isRemoteVideoMuted = false;
   int? localUid;
+  static const String appKey = '711376482#1582448';
   bool isSwapped = false;
   bool isRotateFolderAndImageSend = false;
   int selectedIndex = 2;
 
   final ScrollController scrollController = ScrollController();
+  late ScrollController firstPageScrollController;
 
-  int secondsLeft = 900;
+  // int secondsLeft = 900;
+  int secondsLeft = 100;
   late Timer _timer;
 
   BookingsController bookings = Get.put(BookingsController());
@@ -37,8 +41,9 @@ class VideoCallController extends GetxController {
       DraggableScrollableController();
 
   RxDouble bottomSheetSize = 0.35.obs;
-  RxDouble bottomSheetSizeStudio = 0.07.obs;
-  bool showNewPage = false;
+  RxDouble bottomSheetSizePageChat = 0.0.obs;
+  bool hasNavigatedToDoctorInfo = false;
+  bool isShowTextfield = true;
 
   // start picker
   final Rxn<File> selectedImage = Rxn<File>();
@@ -48,6 +53,13 @@ class VideoCallController extends GetxController {
   RxList<String> selectedFilePaths = <String>[].obs;
   // end picker
 
+  // start chat
+  final RxList<String> logText = <String>[].obs;
+  String? currentUserId;
+  String? chatId;
+  String? messageContent;
+  // end chat
+
   @override
   void onInit() {
     super.onInit();
@@ -55,21 +67,174 @@ class VideoCallController extends GetxController {
       bottomSheetSize.value = bottomSheetController.size;
     });
     bottomSheetController.addListener(() {
-      bottomSheetSizeStudio.value = bottomSheetController.size;
+      bottomSheetSizePageChat.value = bottomSheetController.size;
     });
+  }
 
-    bottomSheetController.addListener(() {
-      final position = bottomSheetController.size;
-      if (position >= 0.7 && !showNewPage) {
-        showNewPage = true;
-        update();
+  // start chat function
+  Future<void> initSDK() async {
+    final ChatOptions options = ChatOptions(
+      appKey: appKey,
+      autoLogin: false,
+      debugMode: true,
+      requireDeliveryAck: true,
+    );
+    options.enableHWPush();
+    await ChatClient.getInstance.init(options);
+    await ChatClient.getInstance.startCallback();
+  }
+
+  void addChatListener() {
+    ChatClient.getInstance.addConnectionEventHandler(
+      'CONNECTION_UNIQUE_HANDLER_ID',
+      ConnectionEventHandler(
+        onConnected: () => addLogToConsole('onConnected'),
+        onDisconnected: () => addLogToConsole('onDisconnected'),
+      ),
+    );
+
+    ChatClient.getInstance.chatManager.addEventHandler(
+      'UNIQUE_HANDLER_ID',
+      ChatEventHandler(
+        onMessagesReceived: onMessagesReceived,
+        onMessagesDelivered: (List<ChatMessage> messages) {
+          for (ChatMessage msg in messages) {
+            addLogToConsole('message, from: ${msg.from} is delivered');
+          }
+        },
+      ),
+    );
+
+    ChatClient.getInstance.chatManager.addMessageEvent(
+      'UNIQUE_HANDLER_ID',
+      ChatMessageEvent(
+        onError: (String msgId, ChatMessage msg, ChatError error) {
+          addLogToConsole(
+            'send message failed, code: ${error.code}, desc: ${error.description}',
+          );
+        },
+      ),
+    );
+  }
+
+  Future<void> signOut() async {
+    try {
+      await ChatClient.getInstance.logout();
+      addLogToConsole('sign out succeed');
+      currentUserId = null;
+      update();
+    } on ChatError catch (e) {
+      addLogToConsole(
+        'sign out failed, code: ${e.code}, desc: ${e.description}',
+      );
+    }
+  }
+
+  Future<void> sendMessage() async {
+    if (chatId == null ||
+        messageContent == null ||
+        messageContent!.trim().isEmpty) {
+      addLogToConsole('single chat id or message content is null');
+      return;
+    }
+
+    final String content = messageContent!;
+    final ChatMessage msg = ChatMessage.createTxtSendMessage(
+      targetId: chatId!,
+      content: content,
+    );
+
+    try {
+      await ChatClient.getInstance.chatManager.sendMessage(msg);
+      addLogToConsole(
+        'Message sent from: ${currentUserId!} → ${chatId!} | Content: $content',
+      );
+    } on ChatError catch (e) {
+      addLogToConsole(
+        'send message failed, code: ${e.code}, desc: ${e.description}',
+      );
+    }
+  }
+
+  String formatRelativeDate(DateTime messageDate) {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final yesterday = today.subtract(Duration(days: 1));
+    final messageDay = DateTime(
+      messageDate.year,
+      messageDate.month,
+      messageDate.day,
+    );
+
+    if (messageDay == today) {
+      return 'اليوم';
+    } else if (messageDay == yesterday) {
+      return 'أمس';
+    } else {
+      return DateFormat('dd/MM/yyyy').format(messageDate);
+    }
+  }
+
+  void onMessagesReceived(List<ChatMessage> messages) {
+    for (ChatMessage msg in messages) {
+      if (msg.body.type == MessageType.TXT) {
+        final ChatTextMessageBody body = msg.body as ChatTextMessageBody;
+        addLogToConsole(
+          'Message from: ${msg.from} → ${msg.to} | Content: ${body.content}',
+        );
+      } else {
+        addLogToConsole(
+          'receive message type: ${msg.body.type}, from: ${msg.from}',
+        );
       }
-      if (position < 0.7 && showNewPage) {
-        showNewPage = false;
-        update();
+    }
+  }
+
+  void addLogToConsole(String log) {
+    logText.add('$timeString: $log');
+    update();
+    Future.delayed(const Duration(milliseconds: 100), () {
+      if (scrollController.hasClients) {
+        scrollController.jumpTo(scrollController.position.maxScrollExtent);
       }
     });
   }
+
+  String get timeString {
+    return DateTime.now().toString().split('.').first;
+  }
+
+  Future<void> signInChat({
+    required String userId,
+    required String token,
+  }) async {
+    try {
+      await initSDK();
+      await ChatClient.getInstance.loginWithToken(userId, token);
+
+      currentUserId = userId;
+
+      addChatListener();
+    } on ChatError catch (e) {
+      if (e.code == 200 || e.code == 218) {
+        joinAsFirstUser();
+        currentUserId = userId;
+        addChatListener();
+        userId == 'doctor'
+            ? chatId = 'patient'
+            : userId == 'patient'
+            ? chatId = 'doctor'
+            : '';
+      }
+    } catch (e) {
+      consoleLog('Unknown error during login: $e');
+    }
+
+    addLogToConsole('begin login...  userId: $userId');
+    currentUserId = userId;
+    update();
+  }
+  // end chat function
 
   // start file picker and image picker
   Future<void> pickMedia({required String sourceType}) async {
@@ -176,6 +341,8 @@ class VideoCallController extends GetxController {
     super.onClose();
     engine.release();
     await _dispose();
+    ChatClient.getInstance.chatManager.removeEventHandler('UNIQUE_HANDLER_ID');
+    ChatClient.getInstance.chatManager.removeMessageEvent('UNIQUE_HANDLER_ID');
   }
 
   Future<void> initAgora() async {
@@ -233,8 +400,6 @@ class VideoCallController extends GetxController {
                   'تم رفض الإذن. تأكد من أن لديك الإذن للوصول إلى الكاميرا والميكروفون.';
             } else if (errorCode == ErrorCodeType.errNetDown) {
               errorMessage = 'فشل الاتصال بالشبكة. تحقق من اتصالك بالإنترنت.';
-            } else {
-              errorMessage = 'حدث خطأ غير معروف: $message';
             }
             Get.snackbar('خطأ في الاتصال', errorMessage);
           },
