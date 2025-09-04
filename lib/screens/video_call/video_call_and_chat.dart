@@ -182,7 +182,7 @@ class VideoCall extends StatelessWidget {
                                                   .value =
                                               notification.extent;
 
-                                          if (notification.extent > 0.6 &&
+                                          if (notification.extent > 0.7 &&
                                               !controller
                                                   .hasNavigatedToDoctorInfo) {
                                             controller
@@ -191,7 +191,7 @@ class VideoCall extends StatelessWidget {
                                             controller.isShowTextfield = false;
                                             controller.update();
                                           } else if (notification.extent <=
-                                                  0.6 &&
+                                                  0.7 &&
                                               controller
                                                   .hasNavigatedToDoctorInfo) {
                                             controller
@@ -324,6 +324,13 @@ class VideoCall extends StatelessWidget {
 Widget _defaultPageWidget(ScrollController scrollController) {
   return GetBuilder<VideoCallController>(
     builder: (VideoCallController controller) {
+      final Map<String, List<ChatLog>> logsGrouped = controller.groupLogsByDate(
+        controller.logText,
+      );
+      final List<String> dates = logsGrouped.keys.toList();
+      final String today = 'اليوم';
+      final List<ChatLog> messages = logsGrouped[today] ?? <ChatLog>[];
+
       return SingleChildScrollView(
         controller: scrollController,
         child: ConstrainedBox(
@@ -495,20 +502,41 @@ Widget _defaultPageWidget(ScrollController scrollController) {
               // }),
               SizedBox(height: DEVICE_HEIGHT * 0.05),
               SizedBox(
-                height: 200,
+                height: DEVICE_HEIGHT,
                 child: Column(
                   children: <Widget>[
-                    Text('${controller.formatRelativeDate}'),
-                    ListView.builder(
-                      itemBuilder: (_, int index) {
-                        return Text(controller.logText[index]);
-                      },
-                      itemCount: controller.logText.length,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Center(
+                        child: Text(
+                          today,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
                     ),
+                    Expanded(
+                      child: ListView.builder(
+                        controller: controller.scrollController,
+                        itemCount: messages.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          final ChatLog log = messages[index];
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0,
+                              vertical: 4,
+                            ),
+                            child: Text(log.message),
+                          );
+                        },
+                      ),
+                    ),
+                    _componentSend(),
                   ],
                 ),
               ),
-              _componentSend(),
             ],
           ),
         ),

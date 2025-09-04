@@ -1,13 +1,20 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:intl/intl.dart';
+
 import 'package:agora_chat_sdk/agora_chat_sdk.dart';
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:intl/intl.dart';
 
 import '../../general_exports.dart';
+
+class ChatLog {
+  ChatLog({required this.message, required this.timestamp});
+  final String message;
+  final DateTime timestamp;
+}
 
 class VideoCallController extends GetxController {
   String appId = '2c8437b9443e4607ad16973d4d4c2736';
@@ -54,7 +61,8 @@ class VideoCallController extends GetxController {
   // end picker
 
   // start chat
-  final RxList<String> logText = <String>[].obs;
+  final RxList<ChatLog> logText = <ChatLog>[].obs;
+
   String? currentUserId;
   String? chatId;
   String? messageContent;
@@ -156,25 +164,6 @@ class VideoCallController extends GetxController {
     }
   }
 
-  String formatRelativeDate(DateTime messageDate) {
-    final now = DateTime.now();
-    final today = DateTime(now.year, now.month, now.day);
-    final yesterday = today.subtract(Duration(days: 1));
-    final messageDay = DateTime(
-      messageDate.year,
-      messageDate.month,
-      messageDate.day,
-    );
-
-    if (messageDay == today) {
-      return 'اليوم';
-    } else if (messageDay == yesterday) {
-      return 'أمس';
-    } else {
-      return DateFormat('dd/MM/yyyy').format(messageDate);
-    }
-  }
-
   void onMessagesReceived(List<ChatMessage> messages) {
     for (ChatMessage msg in messages) {
       if (msg.body.type == MessageType.TXT) {
@@ -191,13 +180,45 @@ class VideoCallController extends GetxController {
   }
 
   void addLogToConsole(String log) {
-    logText.add('$timeString: $log');
+    logText.add(ChatLog(message: log, timestamp: DateTime.now()));
+
     update();
     Future.delayed(const Duration(milliseconds: 100), () {
       if (scrollController.hasClients) {
         scrollController.jumpTo(scrollController.position.maxScrollExtent);
       }
     });
+  }
+
+  Map<String, List<ChatLog>> groupLogsByDate(List<ChatLog> logs) {
+    final Map<String, List<ChatLog>> grouped = <String, List<ChatLog>>{};
+
+    for (ChatLog log in logs) {
+      final String dateGroup = formatDateGroup(log.timestamp);
+
+      if (!grouped.containsKey(dateGroup)) {
+        grouped[dateGroup] = <ChatLog>[];
+      }
+
+      grouped[dateGroup]!.add(log);
+    }
+
+    return grouped;
+  }
+
+  String formatDateGroup(DateTime date) {
+    final DateTime now = DateTime.now();
+    final DateTime today = DateTime(now.year, now.month, now.day);
+    final DateTime yesterday = today.subtract(const Duration(days: 1));
+    final DateTime messageDate = DateTime(date.year, date.month, date.day);
+
+    if (messageDate == today) {
+      return 'اليوم';
+    } else if (messageDate == yesterday) {
+      return 'أمس';
+    } else {
+      return DateFormat('dd/MM/yyyy').format(messageDate);
+    }
   }
 
   String get timeString {
@@ -215,16 +236,23 @@ class VideoCallController extends GetxController {
       currentUserId = userId;
 
       addChatListener();
+      joinAsFirstUser();
+      if (userId == 'doctor') {
+        chatId = 'patient';
+      } else if (userId == 'patient') {
+        chatId = 'doctor';
+      }
     } on ChatError catch (e) {
+      consoleLog(e);
       if (e.code == 200 || e.code == 218) {
         joinAsFirstUser();
         currentUserId = userId;
         addChatListener();
-        userId == 'doctor'
-            ? chatId = 'patient'
-            : userId == 'patient'
-            ? chatId = 'doctor'
-            : '';
+        if (userId == 'doctor') {
+          chatId = 'patient';
+        } else if (userId == 'patient') {
+          chatId = 'doctor';
+        }
       }
     } catch (e) {
       consoleLog('Unknown error during login: $e');
