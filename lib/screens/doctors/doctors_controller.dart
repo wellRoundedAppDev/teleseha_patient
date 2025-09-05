@@ -26,7 +26,7 @@ class DoctorsController extends GetxController {
   int? get selectedDoctorId => passedIndex;
   // ignore: always_specify_types
   Map? selectedDoctor;
-  RxInt selectedRatingIndex = (-1).obs;
+  RxInt selectedRatingIndex = (0).obs;
 
   RxList<Map<String, dynamic>> availableTimes = <Map<String, dynamic>>[].obs;
   RxList<Map<String, dynamic>> qualifications = <Map<String, dynamic>>[].obs;
@@ -163,7 +163,7 @@ class DoctorsController extends GetxController {
   final List ratings = <dynamic>[
     <String, String>{'titleRatings': 'good_listen'.tr, 'icon': iconGoodListen},
     <String, String>{'titleRatings': 'friendly'.tr, 'icon': iconCalm},
-    <String, String>{'titleRatings': 'dont_neglect'.tr, 'icon': iconEyeglasses},
+    <String, String>{'titleRatings': 'explains_clearly'.tr, 'icon': iconHappy},
   ];
 
   // ignore: always_specify_types

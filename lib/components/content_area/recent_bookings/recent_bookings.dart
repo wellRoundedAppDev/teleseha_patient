@@ -62,7 +62,7 @@ class RecentBookings extends StatelessWidget {
                                       10,
                                     ),
                                     child: Image.asset(
-                                      imageDoctor,
+                                      controller.lastRecent[index]['image'],
                                       width: DEVICE_WIDTH * 0.14,
                                       height: DEVICE_HEIGHT * 0.063,
                                       fit: BoxFit.cover,
@@ -82,7 +82,9 @@ class RecentBookings extends StatelessWidget {
                                             children: <Widget>[
                                               CustomText(
                                                 text: controller
-                                                    .lastRecent[index]['name'],
+                                                    .lastRecent[index]['name']
+                                                    .toString()
+                                                    .tr,
                                                 type: CustomTextType.title,
                                                 fontSize: 14,
                                                 color: const Color(
@@ -96,8 +98,10 @@ class RecentBookings extends StatelessWidget {
                                         Row(
                                           children: <Widget>[
                                             CustomText(
-                                              text:
-                                                  'general_internal_affairs'.tr,
+                                              text: controller
+                                                  .lastRecent[index]['specialization']
+                                                  .toString()
+                                                  .tr,
                                               type: CustomTextType.inputTitle,
                                               fontSize: 12,
                                               color: const Color(
@@ -198,7 +202,6 @@ class RecentBookings extends StatelessWidget {
                                   final int lastRecentId =
                                       controller.lastRecent[index]['id'];
                                   controller.passedIndex = lastRecentId;
-                                  consoleLog(controller.passedIndex);
                                   final ChangeParamContentAndNextPage change =
                                       Get.find();
                                   change.goToComponentHeader.value =

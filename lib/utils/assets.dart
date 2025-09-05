@@ -67,6 +67,8 @@ const String iconCamera = '${iconsPath}iconCamera.svg';
 const String iconPaperClip = '${iconsPath}iconPaperClip.svg';
 const String iconStudio = '${iconsPath}iconStudio.svg';
 const String iconFolder = '${iconsPath}iconFolder.svg';
+const String iconHappy = '${iconsPath}happy.svg';
+const String iconCard = '${iconsPath}iconCard.svg';
 
 // images
 const String imageDoctor = '${imagesPath}doctor.png';
@@ -74,3 +76,5 @@ const String imageDoctorDetails = '${imagesPath}imageDoctor.png';
 const String imageLowerEyelid = '${imagesPath}lowerEyelid.png';
 const String imageFrontNose = '${imagesPath}frontNose.png';
 const String imageNostrils = '${imagesPath}nostrils.png';
+const String imageUnsplash = '${imagesPath}unsplash.png';
+const String imageCallPatient = '${imagesPath}callPatient.png';

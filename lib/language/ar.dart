@@ -202,7 +202,7 @@ const Map<String, String> ar = <String, String>{
   'evaluate_your_session': 'قيّم جلستك',
   'to_help': 'لمساعدتنا على تحسين تجربتك',
   'friendly': 'ودود',
-  'dont_neglect': 'لا يهمل',
+  'explains_clearly': 'يشرح بوضوح',
   'what_is_your_comment_on_the_session': 'ما تعليقك على الجلسة',
   'write_your_comment_about_the_session': 'اكتب تعليقك على الجلسة',
   'send_about_doctor': 'ارسال للطبيب',
@@ -220,4 +220,7 @@ const Map<String, String> ar = <String, String>{
   'send_message': 'أرسل رساله',
   'thank_you_successfully_ended': 'شكراً لك، لقد انتهت جلستك بنجاح!',
   'doctor_evaluation': 'تقييم الطبيب',
+  'enough_consultation_time': 'ما مدي كفاية وقت الاستشارة',
+  'send_evaluation': 'ارسال التقييم',
+  'prescription': 'الروشتة',
 };

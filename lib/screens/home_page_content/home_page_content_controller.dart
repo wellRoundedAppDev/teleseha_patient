@@ -5,7 +5,7 @@ class HomePageContentController extends GetxController {
   String testNameUserData = 'name_user'.tr;
 
   // here check response if have last reservations
-  bool checkReservations = true;
+  bool checkReservations = false;
   int nextReservation = 3;
   int selectedSpecialtyIndex = 0;
   int selectedIndex = 2;

@@ -16,5 +16,5 @@ List<GetPage<dynamic>> appRoutes = <GetPage<dynamic>>[
     page: () => const MedicalHistory(),
   ),
   GetPage<MainScreen>(name: routeScreen, page: () => MainScreen()),
-  GetPage<VideoCall>(name: routeVideoCall, page: () => const VideoCall()),
+  // GetPage<VideoCall>(name: routeVideoCall, page: () => VideoCall()),
 ];

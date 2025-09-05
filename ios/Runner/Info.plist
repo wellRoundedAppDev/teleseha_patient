@@ -58,6 +58,9 @@
   <key>NSAllowsArbitraryLoads</key>
   <true/>
 </dict>
+<string>We need access to the microphone for calls</string>
+<string>We need access to the camera for video calls</string>
+
 
 </dict>
 </plist>

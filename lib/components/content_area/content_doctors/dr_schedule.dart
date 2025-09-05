@@ -35,7 +35,9 @@ class DrSchedule extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             CustomText(
-                              text: controller.selectedDoctor?['name'],
+                              text: controller.selectedDoctor?['name']
+                                  .toString()
+                                  .tr,
                               type: CustomTextType.title,
                               fontSize: 16,
                               color: const Color(AppColors.colorTitle),

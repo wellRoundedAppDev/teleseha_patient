@@ -4,20 +4,21 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../general_exports.dart';
 
 class WaitingForYourTurn extends StatelessWidget {
-  const WaitingForYourTurn({super.key});
+  WaitingForYourTurn({super.key});
+  final ChangeParamContentAndNextPage change = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<BookingsController>(
       builder: (BookingsController controller) {
-        if (controller.currentStep == 2) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            final VideoCallController videoCall = Get.find();
-            if (!videoCall.isCallStarted.value) {
-              videoCall.initAgora();
-            }
-          });
-        }
+        // if (controller.currentStep == 2) {
+        //   WidgetsBinding.instance.addPostFrameCallback((_) {
+        //     final VideoCallController videoCall = Get.find();
+        //     if (!videoCall.isCallStarted.value) {
+        //       videoCall.initAgora();
+        //     }
+        //   });
+        // }
 
         controller.selectedLastRecentFunction();
         return Container(
@@ -36,13 +37,21 @@ class WaitingForYourTurn extends StatelessWidget {
                     color: Colors.orange,
                     child: GestureDetector(
                       onTap: () {
-                        final VideoCallController videoCall =
-                            Get.find<VideoCallController>();
-                        videoCall.signInChat(
-                          userId: 'doctor',
-                          token:
-                              '007eJxTYEjzm350QVPPzFVVh0pEnZvKP7rNOvj2sSjrvSt3TQ8LNz1VYDBKtjAxNk+yNDExTjUxMzBPTDE0szQ3TjFJMUk2Mjc249uwM6MhkJHhBLM9MyMDKwMjEIL4KgyGicmGxolpBroWFikWuoaGIJZBapqusaGBZbKxWZqBUaopAOxgJ70=',
-                        );
+                        controller.selectedLastRecentFunction();
+                        change.goToComponentHeader.value = 'DoctorEvaluation';
+                        // Get.to(
+                        //   () => ContentDoctorEvaluation(),
+                        //   arguments: <String, int?>{
+                        //     'id': controller.passedIndex,
+                        //   },
+                        // );
+                        // final VideoCallController videoCall =
+                        //     Get.find<VideoCallController>();
+                        // videoCall.signInChat(
+                        //   userId: 'doctor',
+                        //   token:
+                        //       '007eJxTYEjzm350QVPPzFVVh0pEnZvKP7rNOvj2sSjrvSt3TQ8LNz1VYDBKtjAxNk+yNDExTjUxMzBPTDE0szQ3TjFJMUk2Mjc249uwM6MhkJHhBLM9MyMDKwMjEIL4KgyGicmGxolpBroWFikWuoaGIJZBapqusaGBZbKxWZqBUaopAOxgJ70=',
+                        // );
                       },
                       child: const Text('Join as first participant'),
                     ),
@@ -68,7 +77,9 @@ class WaitingForYourTurn extends StatelessWidget {
                       ),
                       SizedBox(width: DEVICE_WIDTH * 0.012),
                       CustomText(
-                        text: controller.selectedLastRecent?['name'],
+                        text: controller.selectedLastRecent?['name']
+                            .toString()
+                            .tr,
                         fontSize: 16,
                         type: CustomTextType.title,
                         color: const Color(AppColors.colorLineAndText),
@@ -77,7 +88,9 @@ class WaitingForYourTurn extends StatelessWidget {
                   ),
                   SizedBox(height: DEVICE_HEIGHT * 0.007),
                   CustomText(
-                    text: controller.selectedLastRecent?['specialization'],
+                    text: controller.selectedLastRecent?['specialization']
+                        .toString()
+                        .tr,
                     fontSize: 12,
                     type: CustomTextType.inputTitle,
                     color: const Color(AppColors.colorLineAndText),
@@ -258,32 +271,32 @@ class WaitingForYourTurn extends StatelessWidget {
               else
                 const SizedBox(),
               SizedBox(height: DEVICE_HEIGHT * 0.07),
-              GetBuilder<VideoCallController>(
-                id: 'participantButton',
-                builder: (VideoCallController videoCall) {
-                  final bool hasParticipant = videoCall.hasParticipant;
-                  return Btn(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: hasParticipant
-                          ? const Color(AppColors.colorLineAndText)
-                          : const Color.fromRGBO(0, 123, 189, 0.49),
-                      padding: EdgeInsets.symmetric(
-                        vertical: DEVICE_HEIGHT * 0.02,
-                      ),
-                    ),
-                    onPressed: hasParticipant
-                        ? () async {
-                            videoCall.signInChat(
-                              userId: 'patient',
-                              token:
-                                  '007eJxTYDhVGF9bmxI5a1GkTeScJXf2lF6936R8hj/ifZL57Mu+O2IUGIySLUyMzZMsTUyMU03MDMwTUwzNLM2NU0xSTJKNzI3NNq/fmdEQyMhg8F6WhZGBlYERCEF8FQZjw+TkVGNzA10LixQLXUPDNANdy7REA13DtBQLCyODVJO0xEQAxKgoKQ==',
-                            );
-                          }
-                        : null,
-                    text: hasParticipant ? 'enter_the_session'.tr : 'wait'.tr,
-                  );
-                },
-              ),
+              // GetBuilder<VideoCallController>(
+              //   id: 'participantButton',
+              //   builder: (VideoCallController videoCall) {
+              //     final bool hasParticipant = videoCall.hasParticipant;
+              //     return Btn(
+              //       style: ElevatedButton.styleFrom(
+              //         backgroundColor: hasParticipant
+              //             ? const Color(AppColors.colorLineAndText)
+              //             : const Color.fromRGBO(0, 123, 189, 0.49),
+              //         padding: EdgeInsets.symmetric(
+              //           vertical: DEVICE_HEIGHT * 0.02,
+              //         ),
+              //       ),
+              //       onPressed: hasParticipant
+              //           ? () async {
+              //               videoCall.signInChat(
+              //                 userId: 'patient',
+              //                 token:
+              //                     '007eJxTYDhVGF9bmxI5a1GkTeScJXf2lF6936R8hj/ifZL57Mu+O2IUGIySLUyMzZMsTUyMU03MDMwTUwzNLM2NU0xSTJKNzI3NNq/fmdEQyMhg8F6WhZGBlYERCEF8FQZjw+TkVGNzA10LixQLXUPDNANdy7REA13DtBQLCyODVJO0xEQAxKgoKQ==',
+              //               );
+              //             }
+              //           : null,
+              //       text: hasParticipant ? 'enter_the_session'.tr : 'wait'.tr,
+              //     );
+              //   },
+              // ),
             ],
           ),
         );

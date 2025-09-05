@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import '../../../general_exports.dart';
 
 class BookingsController extends GetxController {
@@ -23,64 +24,64 @@ class BookingsController extends GetxController {
   }
 
   // ignore: always_specify_types
-  List lastRecent = <dynamic>[
-    <String, Object>{
+  List lastRecent = [
+    {
       'id': 1,
       'image': imageDoctor,
-      'name': 'name_doctor1'.tr,
-      'specialization': 'general_internal_affairs'.tr,
+      'name': 'name_doctor1',
+      'specialization': 'general_internal_affairs',
       'range': '4.9',
       'reveal': 'detection_times'.tr,
       'date': 'accosts'.tr,
       'time': '2:00',
     },
-    <String, Object>{
+    {
       'id': 2,
-      'image': imageDoctor,
-      'name': 'name_doctor2'.tr,
-      'specialization': 'general_internal_affairs'.tr,
+      'image': imageDoctorDetails,
+      'name': 'name_doctor2',
+      'specialization': 'general_internal_affairs',
       'range': '4.9',
       'reveal': 'detection_times'.tr,
       'date': 'accosts'.tr,
       'time': '2:00',
     },
-    <String, Object>{
+    {
       'id': 3,
       'image': imageDoctor,
-      'name': 'name_doctor1'.tr,
-      'specialization': 'general_internal_affairs'.tr,
+      'name': 'name_doctor1',
+      'specialization': 'general_internal_affairs',
       'range': '4.9',
       'reveal': 'detection_times'.tr,
       'date': 'accosts'.tr,
       'time': '2:00',
     },
 
-    <String, Object>{
+    {
       'id': 4,
       'image': imageDoctor,
-      'name': 'name_doctor1'.tr,
-      'specialization': 'general_internal_affairs'.tr,
+      'name': 'name_doctor1',
+      'specialization': 'general_internal_affairs',
       'range': '4.9',
       'reveal': 'detection_times'.tr,
       'date': 'accosts'.tr,
       'time': '2:00',
     },
 
-    <String, Object>{
+    {
       'id': 5,
       'image': imageDoctor,
-      'name': 'name_doctor1'.tr,
-      'specialization': 'general_internal_affairs'.tr,
+      'name': 'name_doctor1',
+      'specialization': 'general_internal_affairs',
       'range': '4.9',
       'reveal': 'detection_times'.tr,
       'date': 'accosts'.tr,
       'time': '2:00',
     },
-    <String, Object>{
+    {
       'id': 6,
       'image': imageDoctor,
-      'name': 'name_doctor1'.tr,
-      'specialization': 'general_internal_affairs'.tr,
+      'name': 'name_doctor1',
+      'specialization': 'general_internal_affairs',
       'range': '4.9',
       'reveal': 'detection_times'.tr,
       'date': 'accosts'.tr,
@@ -94,5 +95,6 @@ class BookingsController extends GetxController {
       (LastRecent) => LastRecent['id'] == selectedRecentBookingsId,
       orElse: () => <dynamic, dynamic>{},
     );
+    update();
   }
 }

@@ -45,4 +45,5 @@ class AppColors {
   static const int colorBackgroundSendImages = 0xffCDCFCE;
   static const int colorSendDoctor = 0xff4B8EB2;
   static const int colorEndChat = 0xff808080;
+  static const int colorCodePrescription = 0xff007BBDBD;
 }

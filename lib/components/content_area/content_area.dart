@@ -33,7 +33,7 @@ class ContentArea extends StatelessWidget {
               return controller.goToComponentHeader.value == 'HomePage'
                   ? ContentHome()
                   : controller.goToComponentHeader.value == 'RecentBookings'
-                  ? RecentBookings()
+                  ? const RecentBookings()
                   : controller.goToComponentHeader.value == 'Symptoms'
                   ? const ContentSymptoms()
                   : controller.goToComponentHeader.value == 'Doctors'
@@ -92,8 +92,12 @@ class ContentArea extends StatelessWidget {
                   : controller.goToComponentHeader.value == 'drSchedule'
                   ? const DrSchedule()
                   : controller.goToComponentHeader.value == 'waitingForYourTurn'
-                  ?  WaitingForYourTurn()
-                  : const ContentProfileDoctor();
+                  ? WaitingForYourTurn()
+                  : controller.goToComponentHeader.value == 'ProfileDoctor'
+                  ? const ContentProfileDoctor()
+                  : controller.goToComponentHeader.value == 'DoctorEvaluation'
+                  ? ContentDoctorEvaluation()
+                  : const ContentPrescription();
             }),
           ),
         );

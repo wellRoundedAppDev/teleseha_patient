@@ -84,7 +84,9 @@ class ContentDoctors extends StatelessWidget {
                                                       children: <Widget>[
                                                         CustomText(
                                                           text: controller
-                                                              .doctors[index]['name'],
+                                                              .doctors[index]['name']
+                                                              .toString()
+                                                              .tr,
                                                           type: CustomTextType
                                                               .title,
                                                           fontSize: 13,
