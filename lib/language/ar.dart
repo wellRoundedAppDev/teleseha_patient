@@ -223,4 +223,13 @@ const Map<String, String> ar = <String, String>{
   'enough_consultation_time': 'ما مدي كفاية وقت الاستشارة',
   'send_evaluation': 'ارسال التقييم',
   'prescription': 'الروشتة',
+  'name_doctor': 'اسم الطبيب:',
+  'practicing_the_profession': 'رقم ترخيص مزاولة المهنة:',
+  'name_patient': 'اسم المريض:',
+  'download_the_prescription': 'تحميل الروشتة',
+  'pdf_saved:': 'PDF حفظ داخل:',
+  'the_radiology': 'الاشعة',
+  'download_x_ray': 'تحميل الاشعة',
+  'analyses': 'التحاليل',
+  'download_the_analyses': 'تحميل التحاليل',
 };

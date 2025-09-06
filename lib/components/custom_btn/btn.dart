@@ -1,3 +1,5 @@
+import 'package:flutter_svg/svg.dart';
+
 import '../../general_exports.dart';
 
 class Btn extends StatelessWidget {
@@ -8,6 +10,9 @@ class Btn extends StatelessWidget {
     this.onPressed,
     this.style,
     this.colorText,
+    this.customWidth = 0.9,
+    this.size = 20,
+    this.icon,
   });
 
   final String? text;
@@ -15,11 +20,14 @@ class Btn extends StatelessWidget {
   final Function? onPressed;
   final ButtonStyle? style;
   final Color? colorText;
+  final double? customWidth;
+  final double? size;
+  final IconData? icon;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: DEVICE_WIDTH * 0.9,
+      width: DEVICE_WIDTH * customWidth!,
       child: ElevatedButton(
         style:
             style ??
@@ -30,12 +38,34 @@ class Btn extends StatelessWidget {
         onPressed: () {
           onPressed?.call();
         },
-        child: CustomText(
-          text: text,
-          type: CustomTextType.button,
-          fontSize: 20,
-          color: colorText ?? const Color(AppColors.colorWhiteSelectedType),
-        ),
+        child: icon != null
+            ? Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  CustomText(
+                    text: text,
+                    type: CustomTextType.button,
+                    fontSize: size,
+                    color:
+                        colorText ??
+                        const Color(AppColors.colorWhiteSelectedType),
+                  ),
+                  SizedBox(width: DEVICE_WIDTH * 0.02),
+                  SvgPicture.asset(
+                    iconDownload,
+                    width: DEVICE_WIDTH * 0.015,
+                    height: DEVICE_HEIGHT * 0.015,
+                  ),
+                ],
+              )
+            : CustomText(
+                text: text,
+                type: CustomTextType.button,
+                fontSize: size,
+                color:
+                    colorText ?? const Color(AppColors.colorWhiteSelectedType),
+              ),
       ),
     );
   }

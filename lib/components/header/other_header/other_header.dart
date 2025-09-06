@@ -20,10 +20,15 @@ class OtherHeader extends StatelessWidget {
             children: <Widget>[
               GestureDetector(
                 onTap: () {
+                  consoleLog(change.goToComponentHeader.value);
                   change.goToComponentHeader.value == 'waitingForYourTurn'
                       ? change.goToComponentHeader.value = 'RecentBookings'
                       : change.goToComponentHeader.value == 'drSchedule'
                       ? change.goToComponentHeader.value = 'Doctors'
+                      : change.goToComponentHeader.value == 'DoctorEvaluation'
+                      ? change.goToComponentHeader.value = 'waitingForYourTurn'
+                      : change.goToComponentHeader.value == 'ContentPrescription'
+                      ? change.goToComponentHeader.value = 'DoctorEvaluation'
                       : change.goToComponentHeader.value == 'Reception' ||
                             change.goToComponentHeader.value ==
                                 'successReception'

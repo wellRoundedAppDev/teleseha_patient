@@ -97,7 +97,7 @@ class ContentArea extends StatelessWidget {
                   ? const ContentProfileDoctor()
                   : controller.goToComponentHeader.value == 'DoctorEvaluation'
                   ? ContentDoctorEvaluation()
-                  : const ContentPrescription();
+                  :   const ContentPrescription();
             }),
           ),
         );

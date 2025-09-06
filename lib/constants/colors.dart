@@ -46,4 +46,6 @@ class AppColors {
   static const int colorSendDoctor = 0xff4B8EB2;
   static const int colorEndChat = 0xff808080;
   static const int colorCodePrescription = 0xff007BBDBD;
+  static const int colorTitleDoppler = 0xff005E73;
+  static const int colorTextPosition = 0xff005EA6;
 }
