@@ -201,7 +201,7 @@ class Analyses extends StatelessWidget {
                   SizedBox(width: DEVICE_WIDTH * 0.04),
                   Btn(
                     onPressed: () {
-                      Get.to(routeScreen);
+                      Get.offAllNamed(routeScreen);
                     },
                     text: 'home'.tr,
                     customWidth: 0.37,
