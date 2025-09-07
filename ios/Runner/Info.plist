@@ -48,19 +48,13 @@
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-<string>نحتاج الوصول للكاميرا للمكالمة</string>
-<key>NSCameraUsageDescription</key>
-<string>Need camera for video call</string>
-<key>NSMicrophoneUsageDescription</key>
-<string>Need microphone for voice call</string>
-<key>NSAppTransportSecurity</key>
-<dict>
-  <key>NSAllowsArbitraryLoads</key>
-  <true/>
-</dict>
-<string>We need access to the microphone for calls</string>
-<string>We need access to the camera for video calls</string>
-
-
+	<string>We need camera access for video calls.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>We need microphone access for calls and voice notes.</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+	  <key>NSAllowsArbitraryLoads</key>
+	  <true/>
+	</dict>
 </dict>
 </plist>
