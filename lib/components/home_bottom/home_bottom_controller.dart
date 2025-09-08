@@ -8,17 +8,17 @@ class BottomNavController extends GetxController {
 
   final List<String> labels = <String>[
     'personal_page'.tr,
-    'doctors'.tr,
-    'home'.tr,
     'reports'.tr,
+    'home'.tr,
+    'doctors'.tr,
     'settings'.tr,
   ];
 
   final List<Widget> pages = <Widget>[
     const HomePageContent(),
-    const HomePageContent(),
-    const HomePageContent(),
     const Reports(),
+    const HomePageContent(),
+    const HomePageContent(),
     const HomePageContent(),
   ];
 

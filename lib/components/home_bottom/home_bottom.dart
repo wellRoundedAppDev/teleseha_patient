@@ -21,7 +21,6 @@ class CustomBottomNavBar extends StatelessWidget {
             ],
           ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             // ignore: always_specify_types
             children: List.generate(controller.labels.length, (int index) {
               final bool isSelected =
@@ -31,7 +30,7 @@ class CustomBottomNavBar extends StatelessWidget {
                   controller.changeIndex(index);
                 },
                 child: Container(
-                  width: DEVICE_WIDTH * 0.18,
+                  width: DEVICE_WIDTH * 0.185,
                   // width: isSelected ? controller.widthSelected : 70,
                   decoration: BoxDecoration(
                     gradient: isSelected
@@ -39,7 +38,7 @@ class CustomBottomNavBar extends StatelessWidget {
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
                             colors: <Color>[
-                              Color(0xFFB8D9F1),
+                              Color(AppColors.colorCardNotificaion),
                               Color.fromARGB(111, 184, 217, 241),
                             ],
                           )
@@ -56,8 +55,8 @@ class CustomBottomNavBar extends StatelessWidget {
                     children: <Widget>[
                       SvgPicture.asset(
                         controller.icons[index],
-                        width: DEVICE_WIDTH * 0.1,
-                        height: DEVICE_HEIGHT * 0.025,
+                        width: DEVICE_WIDTH * 0.15,
+                        height: DEVICE_HEIGHT * 0.03,
                         fit: BoxFit.cover,
                         // ignore: deprecated_member_use
                         color: isSelected

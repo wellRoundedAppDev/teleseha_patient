@@ -48,4 +48,5 @@ class AppColors {
   static const int colorCodePrescription = 0xff007BBDBD;
   static const int colorTitleDoppler = 0xff005E73;
   static const int colorTextPosition = 0xff005EA6;
+  static const int colorCardNotificaion = 0xffFFB8D9F1;
 }

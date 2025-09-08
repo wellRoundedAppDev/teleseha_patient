@@ -71,6 +71,8 @@ const String iconHappy = '${iconsPath}happy.svg';
 const String iconCard = '${iconsPath}iconCard.svg';
 const String iconDownload = '${iconsPath}download.svg';
 const String iconLogoSeha = '${iconsPath}logoSeha.svg';
+const String iconTimeNotficion = '${iconsPath}iconTimeNotficion.svg';
+const String iconRotate = '${iconsPath}rotate.svg';
 
 // images
 const String imageDoctor = '${imagesPath}doctor.png';

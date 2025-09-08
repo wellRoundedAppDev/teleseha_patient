@@ -8,6 +8,8 @@ class StyleBtnHeader extends StatelessWidget {
     this.width = 0.21,
     this.height = 0.042,
     this.size = 8,
+    this.style,
+    this.color,
   });
 
   String? textBtn;
@@ -15,6 +17,8 @@ class StyleBtnHeader extends StatelessWidget {
   double? width;
   double? height;
   double? size;
+  final ButtonStyle? style;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -25,18 +29,20 @@ class StyleBtnHeader extends StatelessWidget {
         onPressed: () {
           onPressed?.call();
         },
-        style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.symmetric(horizontal: DEVICE_WIDTH * 0.01),
-          backgroundColor: const Color(AppColors.colorLineAndText),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-        ),
+        style:
+            style ??
+            ElevatedButton.styleFrom(
+              padding: EdgeInsets.symmetric(horizontal: DEVICE_WIDTH * 0.01),
+              backgroundColor: const Color(AppColors.colorLineAndText),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+            ),
         child: CustomText(
           text: textBtn,
           fontSize: size!,
           type: CustomTextType.title,
-          color: const Color(AppColors.colorWhiteSelectedType),
+          color: color ?? const Color(AppColors.colorWhiteSelectedType),
         ),
       ),
     );
