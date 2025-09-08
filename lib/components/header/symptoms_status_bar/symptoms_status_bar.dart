@@ -12,30 +12,37 @@ class SymptomsStatusBar extends StatelessWidget {
       init: ContentSymptomsController(),
       builder: (ContentSymptomsController controller) {
         return Container(
-          margin: EdgeInsets.symmetric(horizontal: DEVICE_WIDTH * 0.035),
+          margin: EdgeInsets.symmetric(horizontal: DEVICE_WIDTH * 0.05),
           child: Container(
             margin: EdgeInsets.only(top: DEVICE_HEIGHT * 0.09),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
                 // Text(change.knowNextPage.value),
-                GestureDetector(
-                  onTap: () {
-                    change.goToComponentHeader.value = 'HomePage';
-                    change.update();
-                  },
-                  child: SvgPicture.asset(
-                    iconArrow,
-                    width: DEVICE_WIDTH * 0.034,
-                    height: DEVICE_HEIGHT * 0.034,
-                    fit: BoxFit.cover,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    const LogoHome(),
+                    SizedBox(width: DEVICE_WIDTH * 0.22),
+                    GestureDetector(
+                      onTap: () {
+                        change.goToComponentHeader.value = 'HomePage';
+                        change.update();
+                      },
+                      child: SvgPicture.asset(
+                        iconArrow,
+                        width: DEVICE_WIDTH * 0.034,
+                        height: DEVICE_HEIGHT * 0.034,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 30),
                 Stack(
                   children: <Widget>[
                     TextField(
-                      controller: controller.filter,
+                      controller: controller.writingPresentation,
                       style: const TextStyle(color: Colors.black),
                       decoration: InputDecoration(
                         hintText: 'WritingUnavailableOffer'.tr,
@@ -59,9 +66,9 @@ class SymptomsStatusBar extends StatelessWidget {
                     // create post request when add symptoms
                     Positioned(
                       left: DEVICE_WIDTH * 0.05,
-                      top: DEVICE_HEIGHT * 0.013,
+                      top: DEVICE_HEIGHT * 0.017,
                       child: StyleBtnHeader(
-                        size: 9,
+                        size: 10,
                         textBtn: 'create'.tr,
                         onPressed: () {},
                       ),

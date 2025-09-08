@@ -12,40 +12,37 @@ class HomeStatusBar extends StatelessWidget {
         return Container(
           margin: EdgeInsets.symmetric(horizontal: DEVICE_WIDTH * 0.035),
           child: Container(
-            margin: EdgeInsets.only(top: DEVICE_HEIGHT * 0.09),
+            margin: EdgeInsets.only(top: DEVICE_HEIGHT * 0.06),
             child: Column(
               children: <Widget>[
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          SvgPicture.asset(
-                            iconUser,
-                            width: DEVICE_WIDTH * 0.034,
-                            height: DEVICE_HEIGHT * 0.034,
-                            fit: BoxFit.cover,
-                          ),
-                          SizedBox(height: DEVICE_HEIGHT * 0.015),
-                          CustomText(
-                            text:
-                                '${'say_welcome'.tr} ${controller.testNameUserData}!',
-                            fontSize: 20,
-                            type: CustomTextType.title,
-                            color: const Color(
-                              AppColors.colorWhiteSelectedType,
-                            ),
-                          ),
-                        ],
-                      ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        SvgPicture.asset(
+                          iconUser,
+                          width: DEVICE_WIDTH * 0.034,
+                          height: DEVICE_HEIGHT * 0.034,
+                          fit: BoxFit.cover,
+                        ),
+                      ],
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(bottom: DEVICE_HEIGHT * 0.02),
+                      child: const LogoHome(),
                     ),
                     Stack(
                       clipBehavior: Clip.none,
                       children: <Widget>[
-                        SvgPicture.asset(iconNotification),
+                        GestureDetector(
+                          onTap: () {
+                            Get.toNamed(routeNotifications);
+                          },
+                          child: SvgPicture.asset(iconNotification),
+                        ),
                         Positioned(
                           top: DEVICE_WIDTH * -0.025,
                           right: DEVICE_HEIGHT * -0.002,
@@ -70,11 +67,21 @@ class HomeStatusBar extends StatelessWidget {
                     ),
                   ],
                 ),
+                SizedBox(height: DEVICE_HEIGHT * 0.015),
+                Align(
+                  alignment: Alignment.topRight,
+                  child: CustomText(
+                    text: '${'say_welcome'.tr} ${controller.testNameUserData}!',
+                    fontSize: 20,
+                    type: CustomTextType.title,
+                    color: const Color(AppColors.colorWhiteSelectedType),
+                  ),
+                ),
                 SizedBox(height: DEVICE_HEIGHT * 0.027),
                 Container(
                   padding: EdgeInsets.symmetric(
                     horizontal: DEVICE_WIDTH * 0.04,
-                    vertical: DEVICE_HEIGHT * 0.01,
+                    vertical: DEVICE_HEIGHT * 0.012,
                   ),
                   decoration: BoxDecoration(
                     color: const Color(AppColors.colorReception),
@@ -87,61 +94,71 @@ class HomeStatusBar extends StatelessWidget {
                       ),
                     ],
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Stack(
                     children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Row(
-                            children: <Widget>[
-                              SvgPicture.asset(
-                                iconReception,
-                                width: DEVICE_WIDTH * 0.021,
-                                height: DEVICE_HEIGHT * 0.021,
-                                fit: BoxFit.cover,
-                              ),
-                              SizedBox(width: DEVICE_HEIGHT * 0.005),
-                              Container(
-                                margin: const EdgeInsets.only(top: 1),
-                                child: CustomText(
-                                  text: 'medical_reception'.tr,
-                                  fontSize: 13,
-                                  type: CustomTextType.title,
-                                  color: const Color(
-                                    AppColors.colorLineAndText,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          StyleBtnHeader(
-                            textBtn: 'start_now'.tr,
-                            size: 7,
-                            onPressed: () {
-                              final ChangeParamContentAndNextPage change =
-                                  Get.find();
-                              change.goToComponentHeader.value = 'Symptoms';
-                              change.knowNextPage.value =
-                                  'Comping from home going to reception';
-                              change.update();
-                            },
-                          ),
-                        ],
+                      Positioned(
+                        left: 0,
+                        child: StyleBtnHeader(
+                          textBtn: 'start_now'.tr,
+                          size: 12,
+                          width: 0.25,
+                          height: 0.06,
+                          onPressed: () {
+                            final ChangeParamContentAndNextPage change =
+                                Get.find();
+                            change.goToComponentHeader.value = 'Symptoms';
+                            change.knowNextPage.value =
+                                'Comping from home going to reception';
+                            change.update();
+                          },
+                        ),
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          CustomText(
-                            text: 'dont_know_subilshate'.tr,
-                            fontSize: 12,
-                            color: const Color(AppColors.colorTextSkep),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Row(
+                                children: <Widget>[
+                                  SvgPicture.asset(
+                                    iconReception,
+                                    width: DEVICE_WIDTH * 0.021,
+                                    height: DEVICE_HEIGHT * 0.021,
+                                    fit: BoxFit.cover,
+                                  ),
+                                  SizedBox(width: DEVICE_HEIGHT * 0.005),
+                                  Container(
+                                    margin: const EdgeInsets.only(top: 1),
+                                    child: CustomText(
+                                      text: 'medical_reception'.tr,
+                                      fontSize: 13,
+                                      type: CustomTextType.title,
+                                      color: const Color(
+                                        AppColors.colorLineAndText,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
-                          SizedBox(height: DEVICE_HEIGHT * 0.005),
-                          CustomText(
-                            text: 'selected_subilshate'.tr,
-                            fontSize: 12,
-                            color: const Color(AppColors.colorTextSkep),
+                          SizedBox(height: DEVICE_HEIGHT * 0.008),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              CustomText(
+                                text: 'dont_know_subilshate'.tr,
+                                fontSize: 12,
+                                color: const Color(AppColors.colorTextSkep),
+                              ),
+                              SizedBox(height: DEVICE_HEIGHT * 0.005),
+                              CustomText(
+                                text: 'selected_subilshate'.tr,
+                                fontSize: 12,
+                                color: const Color(AppColors.colorTextSkep),
+                              ),
+                            ],
                           ),
                         ],
                       ),

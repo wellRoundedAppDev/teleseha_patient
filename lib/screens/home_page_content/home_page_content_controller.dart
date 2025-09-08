@@ -142,7 +142,7 @@ class HomePageContentController extends GetxController {
     final ChangeParamContentAndNextPage changeParam = Get.find();
     if (index == 0) {
       final BottomNavController homeBottomController = Get.find();
-      homeBottomController.selectedIndexBottomNav = 1;
+      homeBottomController.selectedIndexBottomNav.value = 1;
       changeParam.goToComponentHeader.value = 'Doctors';
       selectedSpecialtyIndex = index;
       homeBottomController.update();

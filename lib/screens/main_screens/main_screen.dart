@@ -20,17 +20,19 @@ class MainScreen extends StatelessWidget {
       return Stack(
         children: <Widget>[
           Scaffold(
+            resizeToAvoidBottomInset: true,
             body: bottomNavController
-                .pages[bottomNavController.selectedIndexBottomNav],
+                .pages[bottomNavController.selectedIndexBottomNav.value],
             bottomNavigationBar:
                 changeParam.goToComponentHeader.value == 'HomePage' ||
                     changeParam.goToComponentHeader.value == 'RecentBookings' ||
                     changeParam.goToComponentHeader.value == 'Doctors' ||
                     changeParam.goToComponentHeader.value == 'Subspecialty'
                 ? Container(
-                    margin: EdgeInsets.symmetric(
-                      horizontal: bottomNavController.horizontalMargin,
-                    ),
+                    margin: const EdgeInsets.symmetric(horizontal: 10),
+                    // margin: EdgeInsets.symmetric(
+                    //   horizontal: bottomNavController.horizontalMargin,
+                    // ),
                     child: const CustomBottomNavBar(),
                   )
                 : const SizedBox(),

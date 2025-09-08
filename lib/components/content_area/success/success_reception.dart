@@ -38,7 +38,7 @@ class SuccessReception extends StatelessWidget {
                 )
               else
                 const SizedBox(),
-              SizedBox(height: DEVICE_HEIGHT * 0.11),
+              SizedBox(height: DEVICE_HEIGHT * 0.15),
               Column(
                 children: <Widget>[
                   SvgPicture.asset(
@@ -46,13 +46,14 @@ class SuccessReception extends StatelessWidget {
                     width: DEVICE_WIDTH * 0.135,
                     height: DEVICE_HEIGHT * 0.135,
                   ),
-                  SizedBox(height: DEVICE_HEIGHT * 0.05),
+                  SizedBox(height: DEVICE_HEIGHT * 0.065),
                   CustomText(
                     text: titleSpecializationSelected,
                     fontSize: 16,
                     type: CustomTextType.title,
                     color: const Color(AppColors.colorLineAndText),
                   ),
+                  // SizedBox(height: DEVICE_HEIGHT * 0.065),
                   const SizedBox(height: 11),
                   CustomText(
                     text: textSpecializationSelected,

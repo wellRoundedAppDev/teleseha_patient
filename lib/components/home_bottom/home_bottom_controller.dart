@@ -1,15 +1,15 @@
 import '../../general_exports.dart';
 
 class BottomNavController extends GetxController {
-  int selectedIndexBottomNav = 2;
+  RxInt selectedIndexBottomNav = 2.obs;
 
-  final double widthSelected = DEVICE_WIDTH <= 380 ? 75 : 85;
-  final double horizontalMargin = DEVICE_WIDTH <= 380 ? 0 : 8;
+  // final double widthSelected = DEVICE_WIDTH <= 380 ? 75 : 85;
+  // final double horizontalMargin = DEVICE_WIDTH <= 380 ? 0 : 8;
 
   final List<String> labels = <String>[
-    'home'.tr,
-    'doctors'.tr,
     'personal_page'.tr,
+    'doctors'.tr,
+    'home'.tr,
     'reports'.tr,
     'settings'.tr,
   ];
@@ -18,7 +18,7 @@ class BottomNavController extends GetxController {
     const HomePageContent(),
     const HomePageContent(),
     const HomePageContent(),
-    const HomePageContent(),
+    const Reports(),
     const HomePageContent(),
   ];
 
@@ -32,7 +32,7 @@ class BottomNavController extends GetxController {
   ];
 
   void changeIndex(int index) {
-    selectedIndexBottomNav = index;
+    selectedIndexBottomNav.value = index;
     final ChangeParamContentAndNextPage changeParam = Get.find();
 
     index == 2

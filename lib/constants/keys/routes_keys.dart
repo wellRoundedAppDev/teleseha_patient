@@ -8,3 +8,4 @@ const String routeDiagnosis = '/diagnosis-recipient';
 const String routeFormDiagnosis = '/form-diagnosis';
 const String routeScreen = '/main-screen';
 const String routeVideoCall = '/video-call';
+const String routeNotifications = '/notificaions';

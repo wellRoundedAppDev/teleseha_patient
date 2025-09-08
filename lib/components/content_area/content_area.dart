@@ -68,7 +68,7 @@ class ContentArea extends StatelessWidget {
                         'successSendToDoctor'
                   ? SuccessReception(
                       receptionTextStatus: false,
-                      textBtn: 'home'.tr,
+                      textBtn: 'home_page'.tr,
                       titleSpecializationSelected: 'thanks_booked_success'.tr,
                       textSpecializationSelected: 'please_arrive_on_time'.tr,
                       onPressed: () {
@@ -78,7 +78,7 @@ class ContentArea extends StatelessWidget {
 
                         HomePage.checkReservations = true;
                         controller.goToComponentHeader.value = 'HomePage';
-                        bottomNav.selectedIndexBottomNav = 2;
+                        bottomNav.selectedIndexBottomNav.value = 2;
 
                         HomePage.update();
                         controller.update();
@@ -97,7 +97,7 @@ class ContentArea extends StatelessWidget {
                   ? const ContentProfileDoctor()
                   : controller.goToComponentHeader.value == 'DoctorEvaluation'
                   ? ContentDoctorEvaluation()
-                  :   const ContentPrescription();
+                  : const ContentPrescription();
             }),
           ),
         );

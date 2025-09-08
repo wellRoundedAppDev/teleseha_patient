@@ -17,4 +17,8 @@ List<GetPage<dynamic>> appRoutes = <GetPage<dynamic>>[
   ),
   GetPage<MainScreen>(name: routeScreen, page: () => MainScreen()),
   // GetPage<VideoCall>(name: routeVideoCall, page: () => VideoCall()),
+  GetPage<Notifications>(
+    name: routeNotifications,
+    page: () => const Notifications(),
+  ),
 ];

@@ -3,6 +3,7 @@ import '../../../general_exports.dart';
 class ContentSymptomsController extends GetxController {
   // here create max length in filter add symptoms
   TextEditingController filter = TextEditingController();
+  TextEditingController writingPresentation = TextEditingController();
   bool isSelectedSymptoms = false;
 
   // this request about symptoms

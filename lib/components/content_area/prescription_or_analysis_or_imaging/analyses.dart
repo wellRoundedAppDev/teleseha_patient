@@ -203,7 +203,7 @@ class Analyses extends StatelessWidget {
                     onPressed: () {
                       Get.to(routeScreen);
                     },
-                    text: 'home'.tr,
+                    text: 'home_page'.tr,
                     customWidth: 0.37,
                     size: 10,
                     colorText: const Color(AppColors.colorLineAndText),

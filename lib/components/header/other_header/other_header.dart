@@ -27,7 +27,8 @@ class OtherHeader extends StatelessWidget {
                       ? change.goToComponentHeader.value = 'Doctors'
                       : change.goToComponentHeader.value == 'DoctorEvaluation'
                       ? change.goToComponentHeader.value = 'waitingForYourTurn'
-                      : change.goToComponentHeader.value == 'ContentPrescription'
+                      : change.goToComponentHeader.value ==
+                            'ContentPrescription'
                       ? change.goToComponentHeader.value = 'DoctorEvaluation'
                       : change.goToComponentHeader.value == 'Reception' ||
                             change.goToComponentHeader.value ==
@@ -36,12 +37,31 @@ class OtherHeader extends StatelessWidget {
                       : change.goToComponentHeader.value = 'HomePage';
                   change.update();
                 },
-                child: SvgPicture.asset(
-                  iconArrow,
-                  width: DEVICE_WIDTH * 0.034,
-                  height: DEVICE_HEIGHT * 0.034,
-                  fit: BoxFit.cover,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    const LogoHome(),
+                    SizedBox(width: DEVICE_WIDTH * 0.22),
+                    GestureDetector(
+                      onTap: () {
+                        change.goToComponentHeader.value = 'HomePage';
+                        change.update();
+                      },
+                      child: SvgPicture.asset(
+                        iconArrow,
+                        width: DEVICE_WIDTH * 0.034,
+                        height: DEVICE_HEIGHT * 0.034,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ],
                 ),
+                // child: SvgPicture.asset(
+                //   iconArrow,
+                //   width: DEVICE_WIDTH * 0.034,
+                //   height: DEVICE_HEIGHT * 0.034,
+                //   fit: BoxFit.cover,
+                // ),
               ),
             ],
           ),

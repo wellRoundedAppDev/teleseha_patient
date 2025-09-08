@@ -120,11 +120,17 @@ class ContentHome extends StatelessWidget {
               SizedBox(height: DEVICE_HEIGHT * 0.02)
             else
               const SizedBox(),
-            CustomText(
-              text: 'specialties'.tr,
-              fontSize: 18,
-              type: CustomTextType.title,
-              color: const Color(AppColors.colorSpecialties),
+            Container(
+              margin: EdgeInsets.only(
+                top: DEVICE_HEIGHT * 0.01,
+                left: DEVICE_WIDTH * 0.01,
+              ),
+              child: CustomText(
+                text: 'specialties'.tr,
+                fontSize: 16,
+                type: CustomTextType.title,
+                color: const Color(AppColors.colorSpecialties),
+              ),
             ),
             SizedBox(height: DEVICE_HEIGHT * 0.022),
             Expanded(
@@ -133,7 +139,7 @@ class ContentHome extends StatelessWidget {
                   child: Wrap(
                     spacing: controller.checkReservations
                         ? DEVICE_HEIGHT * 0.005
-                        : 6,
+                        : 1,
                     runSpacing: DEVICE_HEIGHT * 0.018,
                     children: <Widget>[
                       ...controller.specialtiesWithSub.asMap().map((
@@ -152,8 +158,10 @@ class ContentHome extends StatelessWidget {
                                 );
                               },
                               child: Container(
-                                width: DEVICE_WIDTH * 0.25,
-                                height: DEVICE_HEIGHT * 0.108,
+                                // width: DEVICE_WIDTH * 0.15,
+                                width: DEVICE_WIDTH * 0.252,
+                                height: DEVICE_HEIGHT * 0.147,
+                                // height: DEVICE_HEIGHT * 0.108,
                                 margin: const EdgeInsets.all(2),
                                 decoration: BoxDecoration(
                                   color: const Color(

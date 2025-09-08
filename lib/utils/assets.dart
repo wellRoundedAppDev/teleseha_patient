@@ -70,6 +70,7 @@ const String iconFolder = '${iconsPath}iconFolder.svg';
 const String iconHappy = '${iconsPath}happy.svg';
 const String iconCard = '${iconsPath}iconCard.svg';
 const String iconDownload = '${iconsPath}download.svg';
+const String iconLogoSeha = '${iconsPath}logoSeha.svg';
 
 // images
 const String imageDoctor = '${imagesPath}doctor.png';

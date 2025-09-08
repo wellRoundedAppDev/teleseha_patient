@@ -10,7 +10,8 @@ class CustomBottomNavBar extends StatelessWidget {
     return GetBuilder<BottomNavController>(
       builder: (BottomNavController controller) {
         return Container(
-          height: DEVICE_HEIGHT * 0.087,
+          // height: DEVICE_HEIGHT * 0.087,
+          height: DEVICE_HEIGHT * 0.1,
           margin: EdgeInsets.only(bottom: DEVICE_HEIGHT * 0.05),
           decoration: BoxDecoration(
             color: const Color(AppColors.colorWhiteSelectedType),
@@ -30,7 +31,8 @@ class CustomBottomNavBar extends StatelessWidget {
                   controller.changeIndex(index);
                 },
                 child: Container(
-                  width: isSelected ? controller.widthSelected : 70,
+                  width: DEVICE_WIDTH * 0.18,
+                  // width: isSelected ? controller.widthSelected : 70,
                   decoration: BoxDecoration(
                     gradient: isSelected
                         ? const LinearGradient(

@@ -26,6 +26,7 @@ class StyleBtnHeader extends StatelessWidget {
           onPressed?.call();
         },
         style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.symmetric(horizontal: DEVICE_WIDTH * 0.01),
           backgroundColor: const Color(AppColors.colorLineAndText),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
