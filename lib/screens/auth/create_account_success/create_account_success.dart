@@ -13,7 +13,7 @@ class CreateAccountSuccess extends StatelessWidget {
         margin: EdgeInsets.symmetric(vertical: DEVICE_HEIGHT * 0.11),
         child: Column(
           children: <Widget>[
-            const Logo(),
+            // const Logo(),
             SizedBox(height: DEVICE_HEIGHT * 0.058),
             SvgPicture.asset(
               successMark,

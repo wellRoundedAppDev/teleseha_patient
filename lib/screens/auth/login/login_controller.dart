@@ -20,6 +20,7 @@ class LoginController extends GetxController {
   int attemptId = 0;
   bool showForgetPatter = false;
   LocalStorage localStorage = LocalStorage();
+  bool isLoading = false;
 
   // check pass about data if true open the user and open response users and loop to users and view to list view
   final List<Map<String, dynamic>> profiles = <Map<String, dynamic>>[
@@ -38,7 +39,6 @@ class LoginController extends GetxController {
     <String, dynamic>{'mobile': '0592947000', 'role': 'Patient'},
   ];
 
-  bool isLoading = false;
   // end test request object is mobile registered
 
   bool handleLogin() {
@@ -70,12 +70,10 @@ class LoginController extends GetxController {
       linePercentage = 0.6;
       page = 'signIn';
       Get.to(() => const PatternLock());
-      consoleLog('response next action login');
     }
     // if number not here response 'nextAction': 'OtpConfirm'
     else {
       updatePage('signUp');
-      consoleLog('response next otp confirm');
       Get.to(() => CustomOtp());
     }
     isLoading = false;

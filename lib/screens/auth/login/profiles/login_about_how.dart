@@ -15,43 +15,33 @@ class Profiles extends StatelessWidget {
           textDirection: TextDirection.ltr,
           child: Scaffold(
             appBar: PreferredSize(
-              preferredSize: const Size.fromHeight(kToolbarHeight),
-              child: Directionality(
-                textDirection: TextDirection.ltr,
-                child: AppBar(
-                  leading: InkWell(
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    splashColor: Colors.transparent,
-                    onTap: () {
-                      Get.back();
-                    },
-                    child: Center(
+              preferredSize: const Size.fromHeight(60),
+              child: AppBar(
+                backgroundColor: const Color(AppColors.colorBackgroundScreen),
+                automaticallyImplyLeading: false,
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    SvgPicture.asset(
+                      iconBack,
+                      width: 24,
+                      height: 24,
+                      fit: BoxFit.cover,
+                      color: Colors.black,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Get.back();
+                      },
                       child: SvgPicture.asset(
-                        iconBack,
-                        width: DEVICE_WIDTH * 0.04,
-                        height: DEVICE_HEIGHT * 0.02,
+                        iconLogoLogin,
+                        width: 142,
+                        height: 44,
+                        fit: BoxFit.cover,
                       ),
                     ),
-                  ),
-                  backgroundColor: Colors.transparent,
-                  title: SizedBox(
-                    width: DEVICE_WIDTH * 0.425,
-                    height: DEVICE_HEIGHT * 0.0108,
-                    child: LinearProgressIndicator(
-                      value: 1,
-                      borderRadius: BorderRadius.circular(15),
-                      backgroundColor: const Color(
-                        AppColors.backgroundColorLine,
-                      ),
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        const Color(
-                          AppColors.colorLineAndText,
-                        ).withValues(alpha: 0.2),
-                      ),
-                    ),
-                  ),
-                  centerTitle: true,
+                    const SizedBox(width: 48),
+                  ],
                 ),
               ),
             ),
@@ -63,7 +53,7 @@ class Profiles extends StatelessWidget {
                 ),
                 child: Column(
                   children: <Widget>[
-                    const Logo(),
+                    // const Logo(),
                     SizedBox(height: DEVICE_HEIGHT * 0.0425),
                     CustomText(
                       text: 'create_account_me'.tr,

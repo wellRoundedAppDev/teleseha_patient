@@ -1,5 +1,4 @@
 import 'package:flutter/gestures.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:pattern_dots/pattern_dots.dart';
 
 import '../../general_exports.dart';
@@ -53,17 +52,21 @@ class PatternLock extends StatelessWidget {
           dotPainter: (_, __, ___) {},
         ),
         child: SizedBox(
-          width: DEVICE_WIDTH * 0.67,
-          height: DEVICE_HEIGHT * 0.24,
-          child: PatternView(
-            state: stepsController.state,
-            value: stepsController.inputPattern,
-            onStart: stepsController.startPattern,
-            onUpdate: stepsController.updatePattern,
-            onEnd: (List<int> pattern) {
-              stepsController.inputPattern = pattern;
-              stepsController.update();
-            },
+            width: DEVICE_WIDTH * 0.67,
+            height: DEVICE_HEIGHT * 0.24,
+          child: GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onPanStart: (_) => consoleLog('👆 touch detected'),
+            child: PatternView(
+              state: stepsController.state,
+              value: stepsController.inputPattern,
+              onStart: stepsController.startPattern,
+              onUpdate: stepsController.updatePattern,
+              onEnd: (List<int> pattern) {
+                stepsController.inputPattern = pattern;
+                stepsController.update();
+              },
+            ),
           ),
         ),
       ),
@@ -83,56 +86,6 @@ class PatternLock extends StatelessWidget {
           textDirection: TextDirection.ltr,
           child: controller.page != 'signUp'
               ? Scaffold(
-                  appBar: PreferredSize(
-                    preferredSize: const Size.fromHeight(kToolbarHeight),
-                    child: AppBar(
-                      leading: InkWell(
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        splashColor: Colors.transparent,
-                        onTap: () {
-                          if (controller.page == 'signIn') {
-                            Get.back();
-                          } else if (controller.page == 'update' ||
-                              controller.page == 'verifyPattern') {
-                            // ignore: always_specify_types
-                            Future.delayed(const Duration(seconds: 2), () {
-                              controller.updatePage('signIn');
-                            });
-                          }
-                        },
-                        child: Center(
-                          child: SvgPicture.asset(
-                            iconBack,
-                            width: DEVICE_WIDTH * 0.04,
-                            height: DEVICE_HEIGHT * 0.02,
-                          ),
-                        ),
-                      ),
-                      backgroundColor: Colors.transparent,
-                      title:
-                          controller.page == 'signIn' ||
-                              controller.page == 'update'
-                          ? SizedBox(
-                              width: DEVICE_WIDTH * 0.425,
-                              height: DEVICE_HEIGHT * 0.0108,
-                              child: LinearProgressIndicator(
-                                value: controller.linePercentage,
-                                borderRadius: BorderRadius.circular(15),
-                                backgroundColor: const Color(
-                                  AppColors.backgroundColorLine,
-                                ),
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  const Color(
-                                    AppColors.colorLineAndText,
-                                  ).withAlpha(50),
-                                ),
-                              ),
-                            )
-                          : const SizedBox(),
-                      centerTitle: true,
-                    ),
-                  ),
                   body: SingleChildScrollView(
                     child: Container(
                       margin: EdgeInsets.symmetric(
@@ -141,7 +94,6 @@ class PatternLock extends StatelessWidget {
                       ),
                       child: Column(
                         children: <Widget>[
-                          const Logo(),
                           SizedBox(height: DEVICE_HEIGHT * 0.0425),
                           if (controller.page == 'signIn')
                             CustomText(

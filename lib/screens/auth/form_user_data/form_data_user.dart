@@ -224,7 +224,7 @@ class FormDataUser extends StatelessWidget {
                             body: Column(
                               children: <Widget>[
                                 SizedBox(height: DEVICE_HEIGHT * 0.012),
-                                const Logo(),
+                                // const Logo(),
                                 if (controller.currentStep == 1) ...<Widget>[
                                   SizedBox(height: DEVICE_HEIGHT * 0.043),
                                   UserFormFields(

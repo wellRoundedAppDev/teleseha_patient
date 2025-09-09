@@ -14,56 +14,37 @@ class StartSteps extends StatelessWidget {
       init: StartStepsController(),
       builder: (StartStepsController controller) {
         return Scaffold(
-          appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(kToolbarHeight),
-            child: Directionality(
-              textDirection: TextDirection.ltr,
-              child: AppBar(
-                leading: InkWell(
-                  focusColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  splashColor: Colors.transparent,
-                  onTap: () {
-                    Get.back();
-                  },
-                  child: Center(
-                    child: SvgPicture.asset(
-                      iconBack,
-                      width: DEVICE_WIDTH * 0.04,
-                      height: DEVICE_HEIGHT * 0.02,
-                    ),
-                  ),
-                ),
-                backgroundColor: Colors.transparent,
-                title: SizedBox(
-                  width: DEVICE_WIDTH * 0.425,
-                  height: DEVICE_HEIGHT * 0.0108,
-                  child: LinearProgressIndicator(
-                    value: controller.currentStep == 1
-                        ? 0.4
-                        : controller.currentStep == 2
-                        ? 0.6
-                        : 1,
-                    borderRadius: BorderRadius.circular(15),
-                    backgroundColor:
-                        controller.currentStep != controller.numberOfStep
-                        ? const Color(AppColors.backgroundColorLine)
-                        : const Color(AppColors.colorSuccessLine),
-                    valueColor: AlwaysStoppedAnimation<Color>(
-                      const Color(
-                        AppColors.colorLineAndText,
-                      ).withValues(alpha: 0.2),
-                    ),
-                  ),
-                ),
-                centerTitle: true,
-              ),
-            ),
-          ),
           body: Column(
             children: <Widget>[
+              SizedBox(height: DEVICE_HEIGHT * 0.1),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: DEVICE_HEIGHT * 0.02),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    GestureDetector(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: SvgPicture.asset(
+                        iconBack,
+                        width: 24,
+                        height: 24,
+                        fit: BoxFit.cover,
+                        color: Colors.black,
+                      ),
+                    ),
+                    SvgPicture.asset(
+                      iconLogoLogin,
+                      width: 142,
+                      height: 44,
+                      fit: BoxFit.cover,
+                    ),
+                    const SizedBox(width: 48),
+                  ],
+                ),
+              ),
               SizedBox(height: DEVICE_HEIGHT * 0.012),
-              const Logo(),
               if (controller.currentStep == 1)
                 Column(
                   children: <Widget>[

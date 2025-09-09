@@ -81,6 +81,7 @@ const String iconLogOut = '${iconsPath}logOut.svg';
 const String iconTechnicalSupport = '${iconsPath}technicalSupport.svg';
 const String iconCopyRight = '${iconsPath}copyRight.svg';
 const String iconHowAreWe = '${iconsPath}howAreWe.svg';
+const String iconLogoLogin = '${iconsPath}logoLogin.svg';
 
 // images
 const String imageDoctor = '${imagesPath}doctor.png';

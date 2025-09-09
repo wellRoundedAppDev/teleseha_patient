@@ -15,216 +15,211 @@ class CustomOtp extends StatelessWidget {
       init: StartStepsController(),
       builder: (StartStepsController controller) {
         return Scaffold(
-          appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(kToolbarHeight),
-            child: Directionality(
-              textDirection: TextDirection.ltr,
-              child: AppBar(
-                leading: InkWell(
-                  focusColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  splashColor: Colors.transparent,
-                  onTap: () {
-                    login.updatePage('signIn');
-                    Get.back();
-                  },
-                  child: Center(
-                    child: SvgPicture.asset(
-                      iconBack,
-                      width: DEVICE_WIDTH * 0.04,
-                      height: DEVICE_HEIGHT * 0.02,
+          body: Column(
+            children: <Widget>[
+              SizedBox(height: DEVICE_HEIGHT * 0.1),
+              SizedBox(
+                width: DEVICE_WIDTH * 0.9,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    GestureDetector(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: SvgPicture.asset(
+                        iconBack,
+                        width: 24,
+                        height: 24,
+                        fit: BoxFit.cover,
+                        color: Colors.black,
+                      ),
                     ),
-                  ),
+                    SvgPicture.asset(
+                      iconLogoLogin,
+                      width: 142,
+                      height: 44,
+                      fit: BoxFit.cover,
+                    ),
+                    const SizedBox(width: 48),
+                  ],
                 ),
-                backgroundColor: Colors.transparent,
-                title: login.page == 'signUp'
-                    ? SizedBox(
-                        width: DEVICE_WIDTH * 0.425,
-                        height: DEVICE_HEIGHT * 0.0108,
-                        child: LinearProgressIndicator(
-                          value: 0.3,
-                          borderRadius: BorderRadius.circular(15),
-                          backgroundColor: const Color(
-                            AppColors.backgroundColorLine,
-                          ),
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                            const Color(
-                              AppColors.colorLineAndText,
-                            ).withValues(alpha: 0.2),
-                          ),
-                        ),
-                      )
-                    : const SizedBox(),
-                centerTitle: true,
               ),
-            ),
-          ),
-          body: SingleChildScrollView(
-            child: Center(
-              child: Column(
-                children: <Widget>[
-                  if (login.page == 'signUp')
-                    SizedBox(height: DEVICE_HEIGHT * 0.015)
-                  else
-                    const SizedBox(),
-                  const Logo(),
-                  SizedBox(height: DEVICE_HEIGHT * 0.014),
-                  SizedBox(
-                    width: DEVICE_WIDTH * 0.8,
-                    child: Column(
-                      children: <Widget>[
-                        CustomText(
-                          text: 'confirm'.tr,
-                          type: CustomTextType.title,
-                          fontSize: 24,
-                          color: const Color(AppColors.colorTextBlue),
-                        ),
-                        SizedBox(height: DEVICE_HEIGHT * 0.035),
-                        Text.rich(
-                          TextSpan(
-                            children: <InlineSpan>[
-                              TextSpan(
-                                text: '${'input_confirm'.tr} ',
-                                style: const TextStyle(
-                                  fontFamily: 'Cairo',
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                  color: Color(AppColors.colorInputConfirm),
-                                  height: 24 / 14,
-                                ),
-                              ),
-                              const TextSpan(
-                                text: '0123456890',
-                                style: TextStyle(
-                                  fontFamily: 'Cairo',
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(AppColors.colorLineAndText),
-                                  height: 24 / 14,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: DEVICE_HEIGHT * 0.018),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+              SizedBox(height: DEVICE_HEIGHT * 0.10),
+              SingleChildScrollView(
+                child: Center(
+                  child: Column(
+                    children: <Widget>[
+                      if (login.page == 'signUp')
+                        SizedBox(height: DEVICE_HEIGHT * 0.015)
+                      else
+                        const SizedBox(),
+                      // const Logo(),
+                      SizedBox(height: DEVICE_HEIGHT * 0.014),
+                      SizedBox(
+                        width: DEVICE_WIDTH * 0.9,
+                        child: Column(
                           children: <Widget>[
-                            if (controller.showOtpError)
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  bottom: DEVICE_HEIGHT * 0.012,
-                                ),
-                                child: CustomText(
-                                  text: 'valid_code'.tr,
-                                  type: CustomTextType.title,
-                                  fontSize: 11,
-                                  color: const Color(AppColors.colorError),
-                                ),
-                              ),
-                            Directionality(
-                              textDirection: TextDirection.ltr,
-                              child: Pinput(
-                                controller: controller.otpController,
-                                length: 6,
-                                defaultPinTheme: defaultPinTheme
-                                    .copyDecorationWith(
-                                      border: Border.all(
-                                        color: controller.showOtpError
-                                            ? const Color(AppColors.colorError)
-                                            : const Color(AppColors.colorWhite),
-                                      ),
-                                      color: const Color(
-                                        AppColors.colorWhiteSelectedType,
-                                      ),
-                                    ),
-                                submittedPinTheme: defaultPinTheme
-                                    .copyDecorationWith(
-                                      border: Border.all(
-                                        color: controller.showOtpError
-                                            ? const Color(AppColors.colorError)
-                                            : const Color(
-                                                AppColors.colorSuccessLine,
-                                              ),
-                                      ),
-                                      color: Colors.white,
-                                    ),
-                                pinAnimationType: PinAnimationType.slide,
-                                onChanged: (String value) {
-                                  controller.clearOtpError();
-                                },
-                                onCompleted: (String pin) {
-                                  controller.otpController.text = pin;
-                                },
-                              ),
+                            CustomText(
+                              text: 'confirm'.tr,
+                              type: CustomTextType.title,
+                              fontSize: 24,
+                              color: const Color(AppColors.colorTextBlue),
                             ),
-                          ],
-                        ),
-                        SizedBox(height: DEVICE_HEIGHT * 0.018),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
+                            SizedBox(height: DEVICE_HEIGHT * 0.035),
                             Text.rich(
                               TextSpan(
                                 children: <InlineSpan>[
                                   TextSpan(
-                                    text: '${'resend'.tr} ',
+                                    text: '${'input_confirm'.tr} ',
                                     style: const TextStyle(
                                       fontFamily: 'Cairo',
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.w700,
-                                      color: Color(AppColors.colorReset),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                      color: Color(AppColors.colorInputConfirm),
+                                      height: 24 / 14,
                                     ),
                                   ),
-                                  TextSpan(
-                                    text: 'again_resend'.tr,
+                                  const TextSpan(
+                                    text: '0123456890',
                                     style: TextStyle(
                                       fontFamily: 'Cairo',
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.w700,
-                                      color: const Color(
-                                        AppColors.colorLineAndText,
-                                      ).withValues(alpha: 60),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(AppColors.colorLineAndText),
+                                      height: 24 / 14,
                                     ),
-                                    recognizer: TapGestureRecognizer()
-                                      ..onTap = () {
-                                        controller.restartTimer();
-                                      },
                                   ),
                                 ],
                               ),
                             ),
-                            CustomText(
-                              text: controller.formattedTime,
-                              color: const Color(AppColors.colorNumber),
+                            SizedBox(height: DEVICE_HEIGHT * 0.018),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                if (controller.showOtpError)
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                      bottom: DEVICE_HEIGHT * 0.012,
+                                    ),
+                                    child: CustomText(
+                                      text: 'valid_code'.tr,
+                                      type: CustomTextType.title,
+                                      fontSize: 11,
+                                      color: const Color(AppColors.colorError),
+                                    ),
+                                  ),
+                                Directionality(
+                                  textDirection: TextDirection.ltr,
+                                  child: Pinput(
+                                    controller: controller.otpController,
+                                    length: 6,
+                                    defaultPinTheme: defaultPinTheme
+                                        .copyDecorationWith(
+                                          border: Border.all(
+                                            color: controller.showOtpError
+                                                ? const Color(
+                                                    AppColors.colorError,
+                                                  )
+                                                : const Color(
+                                                    AppColors.colorWhite,
+                                                  ),
+                                          ),
+                                          color: const Color(
+                                            AppColors.colorWhiteSelectedType,
+                                          ),
+                                        ),
+                                    submittedPinTheme: defaultPinTheme
+                                        .copyDecorationWith(
+                                          border: Border.all(
+                                            color: controller.showOtpError
+                                                ? const Color(
+                                                    AppColors.colorError,
+                                                  )
+                                                : const Color(
+                                                    AppColors.colorSuccessLine,
+                                                  ),
+                                          ),
+                                          color: Colors.white,
+                                        ),
+                                    pinAnimationType: PinAnimationType.slide,
+                                    onChanged: (String value) {
+                                      controller.clearOtpError();
+                                    },
+                                    onCompleted: (String pin) {
+                                      controller.otpController.text = pin;
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: DEVICE_HEIGHT * 0.018),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text.rich(
+                                  TextSpan(
+                                    children: <InlineSpan>[
+                                      TextSpan(
+                                        text: '${'resend'.tr} ',
+                                        style: const TextStyle(
+                                          fontFamily: 'Cairo',
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.w700,
+                                          color: Color(AppColors.colorReset),
+                                        ),
+                                      ),
+                                      TextSpan(
+                                        text: 'again_resend'.tr,
+                                        style: TextStyle(
+                                          fontFamily: 'Cairo',
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.w700,
+                                          color: const Color(
+                                            AppColors.colorLineAndText,
+                                          ).withValues(alpha: 60),
+                                        ),
+                                        recognizer: TapGestureRecognizer()
+                                          ..onTap = () {
+                                            controller.restartTimer();
+                                          },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                CustomText(
+                                  text: controller.formattedTime,
+                                  color: const Color(AppColors.colorNumber),
+                                ),
+                              ],
+                            ),
+                            if (login.page != 'signIn')
+                              SizedBox(height: DEVICE_HEIGHT * 0.07),
+                            if (login.page == 'signUp')
+                              StepIndicator(
+                                currentStep: controller.currentStep,
+                                totalSteps: controller.numberOfStep,
+                              )
+                            else
+                              const SizedBox(),
+                            if (login.page != 'signIn')
+                              SizedBox(height: DEVICE_HEIGHT * 0.048),
+                            if (login.page == 'signIn')
+                              SizedBox(height: DEVICE_HEIGHT * 0.085),
+                            Btn(
+                              onPressed: () {
+                                controller.checkOtpToNextPage();
+                              },
+                              text: 'confirm_otp'.tr,
                             ),
                           ],
                         ),
-                        if (login.page != 'signIn')
-                          SizedBox(height: DEVICE_HEIGHT * 0.07),
-                        if (login.page == 'signUp')
-                          StepIndicator(
-                            currentStep: controller.currentStep,
-                            totalSteps: controller.numberOfStep,
-                          )
-                        else
-                          const SizedBox(),
-                        if (login.page != 'signIn')
-                          SizedBox(height: DEVICE_HEIGHT * 0.048),
-                        if (login.page == 'signIn')
-                          SizedBox(height: DEVICE_HEIGHT * 0.085),
-                        Btn(
-                          onPressed: () {
-                            controller.checkOtpToNextPage();
-                          },
-                          text: 'confirm_otp'.tr,
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
         );
       },
