@@ -15,6 +15,8 @@ class HomePageContentController extends GetxController {
   RxBool isDrawerOpen = false.obs;
   RxDouble currentSliderValue = 100.0.obs;
 
+  final ChangeParamContentAndNextPage change = Get.find();
+
   final List<Map<String, dynamic>> specialtiesWithSub = <Map<String, dynamic>>[
     <String, dynamic>{
       'icon': iconGeneralSpecialty,
@@ -142,9 +144,10 @@ class HomePageContentController extends GetxController {
     final ChangeParamContentAndNextPage changeParam = Get.find();
     if (index == 0) {
       final BottomNavController homeBottomController = Get.find();
-      homeBottomController.selectedIndexBottomNav.value = 1;
+      homeBottomController.selectedIndexBottomNav.value = 3;
       changeParam.goToComponentHeader.value = 'Doctors';
       selectedSpecialtyIndex = index;
+      change.knowNextPage.value = '';
       homeBottomController.update();
       update();
     } else {

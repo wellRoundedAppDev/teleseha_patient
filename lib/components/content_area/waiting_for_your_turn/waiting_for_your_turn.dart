@@ -213,7 +213,7 @@ class WaitingForYourTurn extends StatelessWidget {
                         ),
                         if (index < controller.totalSteps - 1)
                           Container(
-                            width: DEVICE_WIDTH * 0.11,
+                            width: DEVICE_WIDTH * 0.10,
                             height: 4,
                             color: const Color(AppColors.colorLineAndText),
                           ),

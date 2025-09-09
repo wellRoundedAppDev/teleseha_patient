@@ -20,7 +20,6 @@ class OtherHeader extends StatelessWidget {
             children: <Widget>[
               GestureDetector(
                 onTap: () {
-                  consoleLog(change.goToComponentHeader.value);
                   change.goToComponentHeader.value == 'waitingForYourTurn'
                       ? change.goToComponentHeader.value = 'RecentBookings'
                       : change.goToComponentHeader.value == 'drSchedule'
@@ -38,30 +37,17 @@ class OtherHeader extends StatelessWidget {
                   change.update();
                 },
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
-                    const LogoHome(),
-                    SizedBox(width: DEVICE_WIDTH * 0.22),
-                    GestureDetector(
-                      onTap: () {
-                        change.goToComponentHeader.value = 'HomePage';
-                        change.update();
-                      },
-                      child: SvgPicture.asset(
-                        iconArrow,
-                        width: DEVICE_WIDTH * 0.034,
-                        height: DEVICE_HEIGHT * 0.034,
-                        fit: BoxFit.cover,
-                      ),
+                    SvgPicture.asset(
+                      iconBack,
+                      width: DEVICE_WIDTH * 0.034,
+                      height: DEVICE_HEIGHT * 0.034,
+                      fit: BoxFit.cover,
                     ),
+                    SizedBox(width: DEVICE_WIDTH * 0.22),
+                    const LogoHome(),
                   ],
                 ),
-                // child: SvgPicture.asset(
-                //   iconArrow,
-                //   width: DEVICE_WIDTH * 0.034,
-                //   height: DEVICE_HEIGHT * 0.034,
-                //   fit: BoxFit.cover,
-                // ),
               ),
             ],
           ),

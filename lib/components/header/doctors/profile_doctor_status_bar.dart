@@ -18,17 +18,23 @@ class ProfileDoctorStatusBar extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
-              GestureDetector(
-                onTap: () {
-                  change.goToComponentHeader.value = 'Doctors';
-                  change.update();
-                },
-                child: SvgPicture.asset(
-                  iconArrow,
-                  width: DEVICE_WIDTH * 0.034,
-                  height: DEVICE_HEIGHT * 0.034,
-                  fit: BoxFit.cover,
-                ),
+              Row(
+                children: <Widget>[
+                  GestureDetector(
+                    onTap: () {
+                      change.goToComponentHeader.value = 'Doctors';
+                      change.update();
+                    },
+                    child: SvgPicture.asset(
+                      iconBack,
+                      width: 24,
+                      height: 24,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  SizedBox(width: DEVICE_WIDTH * 0.22),
+                  const LogoHome(),
+                ],
               ),
             ],
           ),

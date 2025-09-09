@@ -175,6 +175,8 @@ class DoctorsController extends GetxController {
       'specialization': 'general_internal_affairs'.tr,
       'range': '4.9',
       'reveal': 'detection_times'.tr,
+      'priceExamination': 'price_examination'.tr,
+      'priceConsultation': 'price_consultation'.tr,    
       'skills': <String>['مستمع جيد', 'ودود', 'مستمع جيد'],
       'salary': '200 ج',
       'generalMedicineHeartDiseases': 'general_medicine_heart_diseases'.tr,
@@ -351,4 +353,31 @@ class DoctorsController extends GetxController {
   double calculateWidth(String text) {
     return text.length * 3 + 1;
   }
+
+  List commints = <dynamic>[
+    <String, Object>{
+      'icon': iconUser,
+      'name': 'name_field'.tr,
+      'title': 'good_rating'.tr,
+      'rating': 5.0,
+    },
+    <String, Object>{
+      'icon': iconUser,
+      'name': 'name_field'.tr,
+      'title': 'good_rating'.tr,
+      'rating': 3.0,
+    },
+    <String, Object>{
+      'icon': iconUser,
+      'name': 'name_field'.tr,
+      'title': 'good_rating'.tr,
+      'rating': 2.0,
+    },
+    <String, Object>{
+      'icon': iconUser,
+      'name': 'name_field'.tr,
+      'title': 'good_rating'.tr,
+      'rating': 1.0,
+    },
+  ];
 }

@@ -17,7 +17,7 @@ class HomePageContent extends StatelessWidget {
                 ? Stack(
                     children: <Widget>[
                       Positioned(
-                        top: 120,
+                        top: 140,
                         right: -50,
                         child: Container(
                           width: 309,
@@ -36,7 +36,7 @@ class HomePageContent extends StatelessWidget {
                         ),
                       ),
                       Positioned(
-                        top: 62,
+                        top: 82,
                         right: 28,
                         child: Image.asset(
                           imageDoctorDetails,

@@ -20,22 +20,21 @@ class SymptomsStatusBar extends StatelessWidget {
               children: <Widget>[
                 // Text(change.knowNextPage.value),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
-                    const LogoHome(),
-                    SizedBox(width: DEVICE_WIDTH * 0.22),
                     GestureDetector(
                       onTap: () {
                         change.goToComponentHeader.value = 'HomePage';
                         change.update();
                       },
                       child: SvgPicture.asset(
-                        iconArrow,
-                        width: DEVICE_WIDTH * 0.034,
-                        height: DEVICE_HEIGHT * 0.034,
+                        iconBack,
+                        width: 24,
+                        height: 24,
                         fit: BoxFit.cover,
                       ),
                     ),
+                    SizedBox(width: DEVICE_WIDTH * 0.22),
+                    const LogoHome(),
                   ],
                 ),
                 const SizedBox(height: 30),

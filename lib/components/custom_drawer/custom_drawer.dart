@@ -280,13 +280,14 @@ class CustomDrawer extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(height: DEVICE_HEIGHT * 0.032),
-                      Container(
-                        height: DEVICE_HEIGHT * 0.001,
-                        width: DEVICE_WIDTH,
-                        color: const Color(AppColors.colorFilterLine),
-                      ),
-                      SizedBox(height: DEVICE_HEIGHT * 0.017),
+                      // SizedBox(height: DEVICE_HEIGHT * 0.032),
+                      // Container(
+                      //   height: DEVICE_HEIGHT * 0.001,
+                      //   width: DEVICE_WIDTH,
+                      //   color: const Color(AppColors.colorFilterLine),
+                      // ),
+                      // SizedBox(height: DEVICE_HEIGHT * 0.017),
+                      const SizedBox(height: 25),
                       Container(
                         width: DEVICE_WIDTH,
                         padding: EdgeInsets.symmetric(
@@ -358,13 +359,14 @@ class CustomDrawer extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(height: DEVICE_HEIGHT * 0.032),
-                      Container(
-                        height: DEVICE_HEIGHT * 0.001,
-                        width: DEVICE_WIDTH,
-                        color: const Color(AppColors.colorFilterLine),
-                      ),
-                      SizedBox(height: DEVICE_HEIGHT * 0.017),
+                      // SizedBox(height: DEVICE_HEIGHT * 0.032),
+                      // Container(
+                      //   height: DEVICE_HEIGHT * 0.001,
+                      //   width: DEVICE_WIDTH,
+                      //   color: const Color(AppColors.colorFilterLine),
+                      // ),
+                      // SizedBox(height: DEVICE_HEIGHT * 0.017),
+                      const SizedBox(height: 25),
                       Container(
                         width: DEVICE_WIDTH,
                         padding: EdgeInsets.symmetric(

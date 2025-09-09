@@ -26,7 +26,7 @@ class RecentBookings extends StatelessWidget {
               ),
               SizedBox(height: DEVICE_HEIGHT * 0.02),
               SizedBox(
-                height: DEVICE_HEIGHT * 0.58,
+                height: DEVICE_HEIGHT * 0.536,
                 child: ListView.builder(
                   itemCount: controller.lastRecent.length,
                   shrinkWrap: true,
@@ -63,8 +63,8 @@ class RecentBookings extends StatelessWidget {
                                     ),
                                     child: Image.asset(
                                       controller.lastRecent[index]['image'],
-                                      width: DEVICE_WIDTH * 0.14,
-                                      height: DEVICE_HEIGHT * 0.063,
+                                      width: DEVICE_WIDTH * 0.17,
+                                      height: DEVICE_HEIGHT * 0.083,
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -196,7 +196,7 @@ class RecentBookings extends StatelessWidget {
                               ),
                               StyleBtnHeader(
                                 width: DEVICE_WIDTH * 0.00067,
-                                height: DEVICE_HEIGHT * 0.000055,
+                                height: DEVICE_HEIGHT * 0.00008,
                                 textBtn: 'entry_to_the_session'.tr,
                                 onPressed: () {
                                   final int lastRecentId =

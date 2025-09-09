@@ -150,13 +150,6 @@ class Notifications extends StatelessWidget {
                           ),
                         ),
                       ),
-                      // child: StyleBtnHeader(
-                      //   textBtn: 'join_now'.tr,
-                      //   size: 10,
-                      //   width: 0.19,
-                      //   height: 0.06,
-                      //   onPressed: () {},
-                      // ),
                     ),
                   ],
                 ),

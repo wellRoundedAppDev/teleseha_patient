@@ -23,24 +23,25 @@ class KnowledgeOfSpecialty extends StatelessWidget {
               type: CustomTextType.title,
               color: const Color(AppColors.colorLineAndText),
             ),
-            SizedBox(height: DEVICE_HEIGHT * 0.065),
+            SizedBox(height: DEVICE_HEIGHT * 0.1),
             Column(
               children: <Widget>[
                 Center(
                   child: Container(
-                    width: DEVICE_WIDTH * 0.56,
-                    height: DEVICE_HEIGHT * 0.22,
+                    width: DEVICE_WIDTH * 0.6,
+                    height: DEVICE_HEIGHT * 0.28,
                     decoration: BoxDecoration(
+                      // border: 1px solid rgba(218, 218, 218, 0.57);
                       border: Border.all(
-                        color: const Color(AppColors.colorSymptomsBorder),
+                        color: const Color.fromRGBO(218, 218, 218, 0.57),
                       ),
-                      color: const Color.fromARGB(118, 253, 253, 253),
+                      color: const Color.fromRGBO(0, 123, 189, 0.02),
                       borderRadius: BorderRadius.circular(20),
                       boxShadow: <BoxShadow>[
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.07),
-                          blurRadius: 20,
-                          offset: const Offset(0, 2),
+                        const BoxShadow(
+                          color: Color.fromRGBO(218, 218, 218, 0.50),
+                          blurRadius: 10,
+                          offset: Offset(0, 2),
                         ),
                       ],
                     ),
@@ -48,10 +49,23 @@ class KnowledgeOfSpecialty extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          SvgPicture.asset(
-                            iconHeart,
-                            width: DEVICE_WIDTH * 0.08,
-                            height: DEVICE_HEIGHT * 0.08,
+                          Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 2,
+                                color: const Color.fromRGBO(
+                                  218,
+                                  218,
+                                  218,
+                                  0.57,
+                                ),
+                              ),
+                            ),
+                            child: SvgPicture.asset(
+                              iconHeart,
+                              width: DEVICE_WIDTH * 0.08,
+                              height: DEVICE_HEIGHT * 0.08,
+                            ),
                           ),
                           CustomText(
                             text: '${'Specialization_is'.tr} ${'heart'.tr}',
@@ -64,15 +78,16 @@ class KnowledgeOfSpecialty extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: DEVICE_HEIGHT * 0.033),
+                SizedBox(height: DEVICE_HEIGHT * 0.043),
                 CustomText(
                   text: 'please_booking'.tr,
-                  fontSize: 16,
+                  fontSize: 14,
                   type: CustomTextType.title,
                   color: const Color(AppColors.colorLineAndText),
                 ),
-                SizedBox(height: DEVICE_HEIGHT * 0.065),
+                SizedBox(height: DEVICE_HEIGHT * 0.095),
                 Btn(
+                  
                   onPressed: () {
                     change.goToComponentHeader.value = 'HomePage';
                     homePage.checkReservations = true;

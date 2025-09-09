@@ -53,15 +53,14 @@ class SuccessReception extends StatelessWidget {
                     type: CustomTextType.title,
                     color: const Color(AppColors.colorLineAndText),
                   ),
-                  // SizedBox(height: DEVICE_HEIGHT * 0.065),
-                  const SizedBox(height: 11),
+                  SizedBox(height: DEVICE_HEIGHT * 0.015),
                   CustomText(
                     text: textSpecializationSelected,
                     fontSize: 13,
                     type: CustomTextType.title,
                     color: const Color.fromRGBO(0, 0, 0, 0.54),
                   ),
-                  SizedBox(height: DEVICE_HEIGHT * 0.055),
+                  SizedBox(height: DEVICE_HEIGHT * 0.075),
                   Btn(
                     onPressed: () {
                       onPressed?.call();

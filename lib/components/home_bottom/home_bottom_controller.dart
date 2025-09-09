@@ -15,11 +15,11 @@ class BottomNavController extends GetxController {
   ];
 
   final List<Widget> pages = <Widget>[
-    const HomePageContent(),
+    const Mypage(),
     const Reports(),
     const HomePageContent(),
     const HomePageContent(),
-    const HomePageContent(),
+    const Settings(),
   ];
 
   // ignore: always_specify_types
@@ -37,9 +37,8 @@ class BottomNavController extends GetxController {
 
     index == 2
         ? changeParam.goToComponentHeader.value = 'HomePage'
-        : index == 1
+        : index == 3
         ? changeParam.goToComponentHeader.value = 'Doctors'
-        // ignore: unnecessary_statements
         : '';
 
     changeParam.update();

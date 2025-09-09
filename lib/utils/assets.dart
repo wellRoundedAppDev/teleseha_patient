@@ -73,6 +73,14 @@ const String iconDownload = '${iconsPath}download.svg';
 const String iconLogoSeha = '${iconsPath}logoSeha.svg';
 const String iconTimeNotficion = '${iconsPath}iconTimeNotficion.svg';
 const String iconRotate = '${iconsPath}rotate.svg';
+const String iconArrowSmaill = '${iconsPath}arrowSmaill.svg';
+const String iconDataUser = '${iconsPath}iconDataUser.svg';
+const String iconSettings1 = '${iconsPath}settings1.svg';
+const String iconHistoryBuy = '${iconsPath}historyBuy.svg';
+const String iconLogOut = '${iconsPath}logOut.svg';
+const String iconTechnicalSupport = '${iconsPath}technicalSupport.svg';
+const String iconCopyRight = '${iconsPath}copyRight.svg';
+const String iconHowAreWe = '${iconsPath}howAreWe.svg';
 
 // images
 const String imageDoctor = '${imagesPath}doctor.png';
@@ -83,3 +91,4 @@ const String imageNostrils = '${imagesPath}nostrils.png';
 const String imageUnsplash = '${imagesPath}unsplash.png';
 const String imageCallPatient = '${imagesPath}callPatient.png';
 const String imageQr = '${imagesPath}qr.png';
+const String imageUser = '${imagesPath}imageUser.png';

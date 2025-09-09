@@ -1,14 +1,12 @@
 import 'package:flutter_svg/svg.dart';
+
 import '../../../general_exports.dart';
-import 'list_presciption_and_pdf.dart';
 import 'title_component.dart';
 
 class PrescriptionWidget extends StatelessWidget {
+  const PrescriptionWidget(this.controller, this.ChangeContent, {super.key});
   final ListPresciption controller;
   final RxString ChangeContent;
-
-  PrescriptionWidget(this.controller, this.ChangeContent, {Key? key})
-    : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -171,7 +169,7 @@ class PrescriptionWidget extends StatelessWidget {
                   },
                 ),
               ),
-              SizedBox(height: DEVICE_HEIGHT * 0.20),
+              SizedBox(height: DEVICE_HEIGHT * 0.05),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[

@@ -21,15 +21,9 @@ class DoctorsStatusBar extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    SvgPicture.asset(
-                      iconUser,
-                      width: DEVICE_WIDTH * 0.034,
-                      height: DEVICE_HEIGHT * 0.034,
-                      fit: BoxFit.cover,
-                    ),
                     GestureDetector(
                       onTap: () {
                         final BottomNavController findBottomController =
@@ -44,11 +38,21 @@ class DoctorsStatusBar extends StatelessWidget {
                         findBottomController.update();
                       },
                       child: SvgPicture.asset(
-                        iconArrow,
-                        width: DEVICE_WIDTH * 0.034,
-                        height: DEVICE_HEIGHT * 0.034,
+                        iconBack,
+                        width: 24,
+                        height: 24,
                         fit: BoxFit.cover,
                       ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(bottom: DEVICE_HEIGHT * 0.02),
+                      child: const LogoHome(),
+                    ),
+                    SvgPicture.asset(
+                      iconUser,
+                      width: DEVICE_WIDTH * 0.034,
+                      height: DEVICE_HEIGHT * 0.034,
+                      fit: BoxFit.cover,
                     ),
                   ],
                 ),
@@ -89,7 +93,7 @@ class DoctorsStatusBar extends StatelessWidget {
                           ),
                           margin: const EdgeInsets.only(top: 11),
                           padding: EdgeInsets.symmetric(
-                            vertical: DEVICE_HEIGHT * 0.0198,
+                            vertical: DEVICE_HEIGHT * 0.024,
                           ),
                           child: SvgPicture.asset(
                             iconFilter,

@@ -181,7 +181,7 @@ class Analyses extends StatelessWidget {
                   },
                 ),
               ),
-              SizedBox(height: DEVICE_HEIGHT * 0.20),
+              SizedBox(height: DEVICE_HEIGHT * 0.05),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[

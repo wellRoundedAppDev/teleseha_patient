@@ -99,7 +99,7 @@ class ContentHome extends StatelessWidget {
                           SizedBox(height: DEVICE_HEIGHT * 0.011),
                           CustomText(
                             text: 'click_view_details'.tr,
-                            fontSize: 10,
+                            fontSize: 12,
                             type: CustomTextType.button,
                             color: const Color(AppColors.colorTextSkep),
                           ),

@@ -43,12 +43,7 @@ class CustomBottomNavBar extends StatelessWidget {
                             ],
                           )
                         : null,
-                    borderRadius: BorderRadius.circular(
-                      controller.selectedIndexBottomNav == 0 ||
-                              controller.selectedIndexBottomNav == 4
-                          ? 20
-                          : 100,
-                    ),
+                    borderRadius: BorderRadius.circular(40),
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,

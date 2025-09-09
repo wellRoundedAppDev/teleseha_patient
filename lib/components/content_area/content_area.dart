@@ -88,7 +88,7 @@ class ContentArea extends StatelessWidget {
                         'KnowledgeOfSpecialty'
                   ? const KnowledgeOfSpecialty()
                   : controller.goToComponentHeader.value == 'Subspecialty'
-                  ? const ContentSubSpecialties()
+                  ? ContentSubSpecialties()
                   : controller.goToComponentHeader.value == 'drSchedule'
                   ? const DrSchedule()
                   : controller.goToComponentHeader.value == 'waitingForYourTurn'

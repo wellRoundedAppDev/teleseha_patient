@@ -5,7 +5,7 @@ import '../../../general_exports.dart';
 
 class ContentDoctorEvaluation extends StatelessWidget {
   ContentDoctorEvaluation({super.key});
-  
+
   final ChangeParamContentAndNextPage change = Get.find();
   BookingsController bookings = Get.put(BookingsController());
 

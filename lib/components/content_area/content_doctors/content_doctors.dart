@@ -15,21 +15,35 @@ class ContentDoctors extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            CustomText(
-              text: 'general_specialty_doctors'.tr,
-              type: CustomTextType.title,
-              fontSize: 16,
-              color: const Color(AppColors.colorTitle),
-            ),
-            SizedBox(height: DEVICE_HEIGHT * 0.027),
+            // Text(change.knowNextPage.value),
+            if (change.knowNextPage.value ==
+                'comping from subSpiecilaties going to profile doctor')
+              CustomText(
+                text: 'doctors'.tr,
+                type: CustomTextType.title,
+                fontSize: 16,
+                color: const Color(AppColors.colorTitle),
+              )
+            else
+              CustomText(
+                text: 'general_specialty_doctors'.tr,
+                type: CustomTextType.title,
+                fontSize: 16,
+                color: const Color(AppColors.colorTitle),
+              ),
+            SizedBox(height: DEVICE_HEIGHT * 0.033),
             SizedBox(
-              height: DEVICE_HEIGHT * controller.widthSelected,
+              // height: DEVICE_HEIGHT * controller.widthSelected,
+              height: 240,
               child: ListView.builder(
                 shrinkWrap: true,
                 padding: EdgeInsets.zero,
                 itemCount: controller.doctors.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
                     elevation: 0.01,
                     color: const Color(AppColors.colorWhiteSelectedType),
                     margin: EdgeInsets.only(bottom: DEVICE_HEIGHT * 0.02),
@@ -37,9 +51,8 @@ class ContentDoctors extends StatelessWidget {
                       children: <Widget>[
                         Padding(
                           padding: EdgeInsetsGeometry.only(
-                            top: DEVICE_HEIGHT * 0.016,
-                            left: DEVICE_WIDTH * 0.04,
-                            right: DEVICE_WIDTH * 0.04,
+                            top: DEVICE_HEIGHT * 0.03,
+                            right: DEVICE_WIDTH * 0.05,
                           ),
                           child: Column(
                             children: <Widget>[
@@ -52,14 +65,14 @@ class ContentDoctors extends StatelessWidget {
                                     ),
                                     child: Image.asset(
                                       controller.doctors[index]['image'],
-                                      width: DEVICE_WIDTH * 0.25,
+                                      width: DEVICE_WIDTH * 0.2,
                                       height: DEVICE_HEIGHT * 0.12,
                                       fit: BoxFit.cover,
                                     ),
                                   ),
-                                  SizedBox(width: DEVICE_WIDTH * 0.017),
+                                  SizedBox(width: DEVICE_WIDTH * 0.02),
                                   SizedBox(
-                                    width: DEVICE_WIDTH * 0.55,
+                                    width: DEVICE_WIDTH * 0.6,
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -166,8 +179,8 @@ class ContentDoctors extends StatelessWidget {
                                               ),
                                               StyleBtnHeader(
                                                 width: DEVICE_WIDTH * 0.00047,
-                                                size:
-                                                    controller.sizeTextSelected,
+                                                height: DEVICE_HEIGHT * 0.0001,
+                                                size: 12,
                                                 textBtn: 'reservation'.tr,
                                                 onPressed: () {
                                                   final int doctorId =
@@ -175,7 +188,6 @@ class ContentDoctors extends StatelessWidget {
                                                           .doctors[index]['id'];
                                                   controller.passedIndex =
                                                       doctorId;
-
                                                   change
                                                           .goToComponentHeader
                                                           .value =
@@ -187,57 +199,116 @@ class ContentDoctors extends StatelessWidget {
                                           ),
                                         ),
                                         SizedBox(height: DEVICE_HEIGHT * 0.01),
-                                        SizedBox(
-                                          width: DEVICE_WIDTH * 1,
-                                          child: Expanded(
-                                            child: Wrap(
-                                              spacing: 8,
-                                              runSpacing: 6,
+                                        Row(
+                                          children: <Widget>[
+                                            Wrap(
+                                              spacing: 5,
+                                              runSpacing: 8.0,
                                               // ignore: always_specify_types
-                                              children: List.generate(
-                                                controller
-                                                    .doctors[index]['skills']
-                                                    .length,
-                                                (int skillIndex) {
-                                                  return Container(
+                                              children: List.generate(controller.ratings.length, (
+                                                int index,
+                                              ) {
+                                                // ignore: always_specify_types
+                                                final rating =
+                                                    controller.ratings[index];
+                                                final bool isSelected =
+                                                    controller
+                                                        .selectedRatingIndex
+                                                        .value ==
+                                                    index;
+                                                return GestureDetector(
+                                                  onTap: () {
+                                                    controller
+                                                            .selectedRatingIndex
+                                                            .value =
+                                                        index;
+                                                    controller.update();
+                                                  },
+                                                  child: Container(
+                                                    alignment: Alignment.center,
+                                                    width: DEVICE_WIDTH * 0.19,
                                                     padding:
-                                                        EdgeInsets.symmetric(
-                                                          horizontal:
-                                                              DEVICE_WIDTH *
-                                                              0.03,
-                                                          vertical:
-                                                              DEVICE_HEIGHT *
-                                                              0.007,
+                                                        const EdgeInsets.symmetric(
+                                                          vertical: 7,
                                                         ),
                                                     decoration: BoxDecoration(
-                                                      color:
-                                                          const Color.fromARGB(
-                                                            64,
-                                                            195,
-                                                            218,
-                                                            235,
+                                                      boxShadow: <BoxShadow>[
+                                                        BoxShadow(
+                                                          color:
+                                                              const Color(
+                                                                0xFFD8DADC,
+                                                              ).withValues(
+                                                                alpha: 0.8,
+                                                              ),
+                                                          blurRadius: 3,
+                                                          spreadRadius: 2,
+                                                          offset: const Offset(
+                                                            0,
+                                                            2,
                                                           ),
+                                                        ),
+                                                      ],
+                                                      color: isSelected
+                                                          ? const Color(
+                                                              AppColors
+                                                                  .colorLineAndText,
+                                                            )
+                                                          : const Color(
+                                                              AppColors
+                                                                  .colorWhiteSelectedType,
+                                                            ),
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                            10,
+                                                            30,
                                                           ),
                                                     ),
-                                                    child: CustomText(
-                                                      text: controller
-                                                          .doctors[index]['skills'][skillIndex],
-                                                      type:
-                                                          CustomTextType.title,
-                                                      fontSize: 8,
-                                                      color: const Color(
-                                                        AppColors
-                                                            .colorLineAndText,
-                                                      ),
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      children: <Widget>[
+                                                        CustomText(
+                                                          text:
+                                                              rating['titleRatings'] ??
+                                                              'good_listen'.tr,
+                                                          fontSize: 8,
+                                                          type: CustomTextType
+                                                              .title,
+                                                          color: isSelected
+                                                              ? const Color(
+                                                                  AppColors
+                                                                      .colorWhiteSelectedType,
+                                                                )
+                                                              : const Color(
+                                                                  AppColors
+                                                                      .colorLineAndText,
+                                                                ),
+                                                        ),
+                                                        const SizedBox(
+                                                          width: 5,
+                                                        ),
+                                                        SvgPicture.asset(
+                                                          rating['icon'] ??
+                                                              iconGoodListen,
+                                                          width: 13,
+                                                          height: 13,
+                                                          // ignore: deprecated_member_use
+                                                          color: isSelected
+                                                              ? const Color(
+                                                                  AppColors
+                                                                      .colorWhiteSelectedType,
+                                                                )
+                                                              : const Color(
+                                                                  AppColors
+                                                                      .colorGoldRains,
+                                                                ),
+                                                        ),
+                                                      ],
                                                     ),
-                                                  );
-                                                },
-                                              ),
+                                                  ),
+                                                );
+                                              }),
                                             ),
-                                          ),
+                                          ],
                                         ),
                                       ],
                                     ),
