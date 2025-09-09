@@ -15,46 +15,45 @@ class CustomOtp extends StatelessWidget {
       init: StartStepsController(),
       builder: (StartStepsController controller) {
         return Scaffold(
-          body: Column(
-            children: <Widget>[
-              SizedBox(height: DEVICE_HEIGHT * 0.1),
-              SizedBox(
-                width: DEVICE_WIDTH * 0.9,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    GestureDetector(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: SvgPicture.asset(
-                        iconBack,
-                        width: 24,
-                        height: 24,
-                        fit: BoxFit.cover,
-                        color: Colors.black,
+          body: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                SizedBox(height: DEVICE_HEIGHT * 0.1),
+                SizedBox(
+                  width: DEVICE_WIDTH * 0.9,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: SvgPicture.asset(
+                          iconBack,
+                          width: 24,
+                          height: 24,
+                          fit: BoxFit.cover,
+                          color: Colors.black,
+                        ),
                       ),
-                    ),
-                    SvgPicture.asset(
-                      iconLogoLogin,
-                      width: 142,
-                      height: 44,
-                      fit: BoxFit.cover,
-                    ),
-                    const SizedBox(width: 48),
-                  ],
+                      SvgPicture.asset(
+                        iconLogoLogin,
+                        width: 142,
+                        height: 44,
+                        fit: BoxFit.cover,
+                      ),
+                      const SizedBox(width: 48),
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(height: DEVICE_HEIGHT * 0.10),
-              SingleChildScrollView(
-                child: Center(
+                SizedBox(height: DEVICE_HEIGHT * 0.10),
+                Center(
                   child: Column(
                     children: <Widget>[
                       if (login.page == 'signUp')
                         SizedBox(height: DEVICE_HEIGHT * 0.015)
                       else
                         const SizedBox(),
-                      // const Logo(),
                       SizedBox(height: DEVICE_HEIGHT * 0.014),
                       SizedBox(
                         width: DEVICE_WIDTH * 0.9,
@@ -218,8 +217,8 @@ class CustomOtp extends StatelessWidget {
                     ],
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },

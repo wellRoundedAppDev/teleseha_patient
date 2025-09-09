@@ -69,7 +69,7 @@ class LoginController extends GetxController {
     if (numberExists) {
       linePercentage = 0.6;
       page = 'signIn';
-      Get.to(() => const PatternLock());
+      Get.to(() =>  PatternLock());
     }
     // if number not here response 'nextAction': 'OtpConfirm'
     else {

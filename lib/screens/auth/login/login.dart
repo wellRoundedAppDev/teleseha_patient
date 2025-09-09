@@ -36,72 +36,74 @@ class Login extends StatelessWidget {
           //     ),
           //   ),
           // ),
-          body: Column(
-            children: <Widget>[
-              SizedBox(height: DEVICE_HEIGHT * 0.1),
-              GestureDetector(
-                onTap: () {
-                  Get.back();
-                },
-                child: SvgPicture.asset(
-                  iconLogoLogin,
-                  width: 142,
-                  height: 44,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              SizedBox(height: DEVICE_HEIGHT * 0.12),
-              Container(
-                margin: EdgeInsets.symmetric(
-                  vertical: DEVICE_HEIGHT * 0.035,
-                  horizontal: DEVICE_HEIGHT * 0.03,
-                ),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: <Widget>[
-                      // const Logo(),
-                      SizedBox(height: DEVICE_HEIGHT * 0.014),
-                      CustomText(
-                        text: 'login'.tr,
-                        fontSize: 24,
-                        type: CustomTextType.title,
-                        color: const Color(AppColors.colorTextBlue),
-                      ),
-                      Column(
-                        children: <Widget>[
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              SizedBox(height: DEVICE_HEIGHT * 0.053),
-                              CustomInput(
-                                title: 'number_phone'.tr,
-                                hint: 'number_phone_field'.tr,
-                                controller: controller.phoneNumberController,
-                                showValidMessage:
-                                    controller.showPhoneNumberError,
-                                textIsValid: 'is_valid_number'.tr,
-                                colorLabel: AppColors.colorLabel,
-                                keyboardType: TextInputType.number,
-                                suffixIconPath: iconNumber,
-                                bottomSpacing: DEVICE_HEIGHT * 0.0,
-                                sizespace: DEVICE_HEIGHT * 0.000018,
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: DEVICE_HEIGHT * 0.046),
-                          Btn(
-                            onPressed: () {
-                              controller.handleLogin();
-                            },
-                            text: 'next'.tr,
-                          ),
-                        ],
-                      ),
-                    ],
+          body: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                SizedBox(height: DEVICE_HEIGHT * 0.1),
+                GestureDetector(
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: SvgPicture.asset(
+                    iconLogoLogin,
+                    width: 142,
+                    height: 44,
+                    fit: BoxFit.cover,
                   ),
                 ),
-              ),
-            ],
+                SizedBox(height: DEVICE_HEIGHT * 0.12),
+                Container(
+                  margin: EdgeInsets.symmetric(
+                    vertical: DEVICE_HEIGHT * 0.035,
+                    horizontal: DEVICE_HEIGHT * 0.03,
+                  ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: <Widget>[
+                        // const Logo(),
+                        SizedBox(height: DEVICE_HEIGHT * 0.014),
+                        CustomText(
+                          text: 'login'.tr,
+                          fontSize: 24,
+                          type: CustomTextType.title,
+                          color: const Color(AppColors.colorTextBlue),
+                        ),
+                        Column(
+                          children: <Widget>[
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                SizedBox(height: DEVICE_HEIGHT * 0.053),
+                                CustomInput(
+                                  title: 'number_phone'.tr,
+                                  hint: 'number_phone_field'.tr,
+                                  controller: controller.phoneNumberController,
+                                  showValidMessage:
+                                      controller.showPhoneNumberError,
+                                  textIsValid: 'is_valid_number'.tr,
+                                  colorLabel: AppColors.colorLabel,
+                                  keyboardType: TextInputType.number,
+                                  suffixIconPath: iconNumber,
+                                  bottomSpacing: DEVICE_HEIGHT * 0.0,
+                                  sizespace: DEVICE_HEIGHT * 0.000018,
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: DEVICE_HEIGHT * 0.046),
+                            Btn(
+                              onPressed: () {
+                                controller.handleLogin();
+                              },
+                              text: 'next'.tr,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       },

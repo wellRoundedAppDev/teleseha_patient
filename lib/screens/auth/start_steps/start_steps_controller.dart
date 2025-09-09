@@ -104,7 +104,7 @@ class StartStepsController extends GetxController {
         consoleLog('${login.phoneNumberController.text} ${otpController.text}');
         controller.updatePage('update');
         otpController.clear();
-        Get.to(() => const PatternLock());
+        Get.to(() => PatternLock());
         update();
         controller.resetPattern();
         consoleLog(otpController);
@@ -130,6 +130,7 @@ class StartStepsController extends GetxController {
 
   void updatePattern(List<int> pattern) {
     inputPattern = pattern;
+    update();
   }
 
   void resetPattern() {
@@ -140,7 +141,6 @@ class StartStepsController extends GetxController {
 
   // create pattern
   bool canGoToStepTwo(List<int> pattern) {
-    consoleLog(pattern);
     if (pattern.isEmpty) {
       Get.snackbar(
         'error'.tr,

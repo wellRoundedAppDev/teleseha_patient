@@ -40,7 +40,8 @@ class CreateAccountSuccess extends StatelessWidget {
               text: 'next'.tr,
               color: const Color(AppColors.colorLineAndText),
               onPressed: () {
-                Get.toNamed(routeDiagnosis);
+                // Get.toNamed(routeDiagnosis);
+                Get.toNamed(routeScreen);
               },
             ),
           ],

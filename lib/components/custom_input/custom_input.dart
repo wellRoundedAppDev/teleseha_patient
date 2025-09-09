@@ -63,6 +63,8 @@ class CustomInput extends StatelessWidget {
             ),
           ),
           child: TextFormField(
+            scrollPadding: const EdgeInsets.only(bottom: 150),
+            keyboardAppearance: Brightness.light,
             onTap: () {
               onTap?.call();
             },

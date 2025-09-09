@@ -14,6 +14,7 @@ class StartSteps extends StatelessWidget {
       init: StartStepsController(),
       builder: (StartStepsController controller) {
         return Scaffold(
+          resizeToAvoidBottomInset: false,
           body: Column(
             children: <Widget>[
               SizedBox(height: DEVICE_HEIGHT * 0.1),
@@ -49,7 +50,7 @@ class StartSteps extends StatelessWidget {
                 Column(
                   children: <Widget>[
                     SizedBox(height: DEVICE_HEIGHT * 0.043),
-                    const PatternLock(),
+                    PatternLock(),
                     SizedBox(height: DEVICE_HEIGHT * 0.067),
                     StepIndicator(
                       currentStep: controller.currentStep,

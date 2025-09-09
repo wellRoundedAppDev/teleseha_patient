@@ -52,21 +52,17 @@ class PatternLock extends StatelessWidget {
           dotPainter: (_, __, ___) {},
         ),
         child: SizedBox(
-            width: DEVICE_WIDTH * 0.67,
-            height: DEVICE_HEIGHT * 0.24,
-          child: GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            onPanStart: (_) => consoleLog('👆 touch detected'),
-            child: PatternView(
-              state: stepsController.state,
-              value: stepsController.inputPattern,
-              onStart: stepsController.startPattern,
-              onUpdate: stepsController.updatePattern,
-              onEnd: (List<int> pattern) {
-                stepsController.inputPattern = pattern;
-                stepsController.update();
-              },
-            ),
+          width: DEVICE_WIDTH * 0.67,
+          height: DEVICE_HEIGHT * 0.24,
+          child: PatternView(
+            state: stepsController.state,
+            value: stepsController.inputPattern,
+            onStart: stepsController.startPattern,
+            onUpdate: stepsController.updatePattern,
+            onEnd: (List<int> pattern) {
+              stepsController.inputPattern = pattern;
+              stepsController.update();
+            },
           ),
         ),
       ),
