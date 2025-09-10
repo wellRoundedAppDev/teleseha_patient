@@ -1,5 +1,3 @@
-import 'package:flutter_svg/flutter_svg.dart';
-
 import '../../../../general_exports.dart';
 
 class MedicalHistory extends StatelessWidget {
@@ -7,52 +5,11 @@ class MedicalHistory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<DiagnosisRecipientController>(
-      init: DiagnosisRecipientController(),
-      builder: (DiagnosisRecipientController controller) {
+    return GetBuilder<MedicalHistoryController>(
+      init: MedicalHistoryController(),
+      builder: (MedicalHistoryController controller) {
         return Scaffold(
-          appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(kToolbarHeight),
-            child: Directionality(
-              textDirection: TextDirection.ltr,
-              child: AppBar(
-                leading: InkWell(
-                  focusColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  splashColor: Colors.transparent,
-                  onTap: () {
-                    controller.clearAllFields();
-                    Get.back();
-                  },
-                  child: Center(
-                    child: SvgPicture.asset(
-                      iconBack,
-                      width: DEVICE_WIDTH * 0.04,
-                      height: DEVICE_HEIGHT * 0.02,
-                    ),
-                  ),
-                ),
-                backgroundColor: Colors.transparent,
-                elevation: 0,
-                actions: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(right: DEVICE_WIDTH * 0.035),
-                    child: TextButton(
-                      onPressed: () {
-                        Get.toNamed(routeCreateAccountSuccess);
-                      },
-                      child: CustomText(
-                        text: 'skep'.tr,
-                        type: CustomTextType.title,
-                        fontSize: 10,
-                        color: const Color(AppColors.colorBlack),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+          appBar: AppBar(),
           body: SingleChildScrollView(
             child: SizedBox(
               width: DEVICE_WIDTH,
@@ -65,57 +22,168 @@ class MedicalHistory extends StatelessWidget {
                     type: CustomTextType.title,
                     color: const Color(AppColors.colorTextBlue),
                   ),
-                  SizedBox(height: DEVICE_HEIGHT * 0.05),
-                  CustomInput(
-                    title: 'chronic_diseases'.tr,
-                    hint: 'create_chronic_diseases'.tr,
-                    controller: controller.textfieldChronicDiseases,
-                    showValidMessage: controller.showChronicDiseases,
-                    textIsValid: 'is_valid_diseases'.tr,
-                    colorLabel: AppColors.colorLabel,
-                    keyboardType: TextInputType.number,
-                    sizespace: 0.005,
+                  SizedBox(height: DEVICE_HEIGHT * 0.08),
+                  Container(
+                    margin: EdgeInsets.symmetric(
+                      horizontal: DEVICE_WIDTH * 0.07,
+                    ),
+                    width: DEVICE_WIDTH,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text.rich(
+                          TextSpan(
+                            text: '1. ',
+                            style: const TextStyle(
+                              fontSize: 18,
+                              color: Color(AppColors.colorLineAndText),
+                              fontWeight: FontWeight.bold,
+                            ),
+                            children: <InlineSpan>[
+                              TextSpan(
+                                text: 'do_you_have_any_illnesses'.tr,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  color: Color(AppColors.colorLineAndText),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: DEVICE_HEIGHT * 0.035),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            // Container(
+                            //   padding: EdgeInsets.symmetric(
+                            //     horizontal: DEVICE_HEIGHT * 0.03,
+                            //     vertical: DEVICE_WIDTH * 0.005,
+                            //   ),
+                            //   decoration: BoxDecoration(
+                            //     color: Colors.white,
+                            //     borderRadius: BorderRadius.circular(25),
+                            //     border: Border.all(color: Colors.grey.shade300),
+                            //   ),
+                            //   child: Row(
+                            //     children: <Widget>[
+                            //       Radio<String>(
+                            //         value: 'yes',
+                            //         groupValue: controller.selectedOption,
+                            //         onChanged: controller.selectOption,
+                            //       ),
+                            //       const Text(
+                            //         'نعم',
+                            //         style: TextStyle(fontSize: 13),
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
+                            // SizedBox(width: DEVICE_WIDTH * 0.1),
+                            // Container(
+                            //   padding: EdgeInsets.symmetric(
+                            //     horizontal: DEVICE_HEIGHT * 0.03,
+                            //     vertical: DEVICE_WIDTH * 0.03,
+                            //   ),
+                            //   decoration: BoxDecoration(
+                            //     color: Colors.white,
+                            //     borderRadius: BorderRadius.circular(25),
+                            //     border: Border.all(color: Colors.grey.shade300),
+                            //   ),
+                            //   child: Row(
+                            //     children: <Widget>[
+                            //       Radio<String>(
+                            //         value: 'no',
+                            //         groupValue: controller.selectedOption,
+                            //         onChanged: controller.selectOption,
+                            //       ),
+                            //       const Text(
+                            //         'لا',
+                            //         style: TextStyle(
+                            //           fontSize: 10,
+                            //           color: Color(0xFF005EA2),
+                            //         ),
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
+                            _buildOption(
+                              label: 'نعم',
+                              value: 'yes',
+                              isSelected: controller.selectedOption == 'yes',
+                              onTap: () => controller.selectOption('yes'),
+                            ),
+                            _buildOption(
+                              label: 'نعم',
+                              value: 'yes',
+                              isSelected: controller.selectedOption == 'yes',
+                              onTap: () => controller.selectOption('yes'),
+                            ),
+
+                            // Container(
+                            //   padding: EdgeInsets.symmetric(
+                            //     horizontal: DEVICE_HEIGHT * 0.03,
+                            //     vertical: DEVICE_WIDTH * 0.03,
+                            //   ),
+                            //   decoration: BoxDecoration(
+                            //     color: Colors.white,
+                            //     borderRadius: BorderRadius.circular(25),
+                            //     border: Border.all(color: Colors.grey.shade300),
+                            //   ),
+                            //   child: Row(
+                            //     children: <Widget>[
+                            //       const Text('test'),
+                            //       SizedBox(width: DEVICE_WIDTH * 0.06),
+                            //       CustomText(
+                            //         text: 'yes'.tr,
+                            //         fontSize: 10,
+                            //         type: CustomTextType.title,
+                            //         color: const Color(
+                            //           AppColors.colorSelectDropDown,
+                            //         ),
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
+                            // SizedBox(width: DEVICE_WIDTH * 0.1),
+                            // Container(
+                            //   padding: EdgeInsets.symmetric(
+                            //     horizontal: DEVICE_HEIGHT * 0.03,
+                            //     vertical: DEVICE_WIDTH * 0.03,
+                            //   ),
+                            //   decoration: BoxDecoration(
+                            //     color: Colors.white,
+                            //     borderRadius: BorderRadius.circular(25),
+                            //     border: Border.all(color: Colors.grey.shade300),
+                            //   ),
+                            //   child: Row(
+                            //     children: <Widget>[
+                            //       const Text('test'),
+                            //       SizedBox(width: DEVICE_WIDTH * 0.06),
+                            //       CustomText(
+                            //         text: 'no'.tr,
+                            //         fontSize: 10,
+                            //         type: CustomTextType.title,
+                            //         color: const Color(
+                            //           AppColors.colorSelectDropDown,
+                            //         ),
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                  CustomInput(
-                    title: 'surgical_operations'.tr,
-                    hint: 'create_surgical_operations'.tr,
-                    controller: controller.textfieldSurgicalOperations,
-                    showValidMessage: controller.showSurgicalOperations,
-                    textIsValid: 'is_valid_surgical_operations'.tr,
-                    colorLabel: AppColors.colorLabel,
-                    keyboardType: TextInputType.number,
-                    sizespace: 0.005,
-                  ),
-                  CustomInput(
-                    title: 'continuous_medications'.tr,
-                    hint: 'create_continuous_medications'.tr,
-                    controller: controller.textfieldContinuousMedications,
-                    showValidMessage: controller.showContinuousMedications,
-                    textIsValid: 'is_valid_continuous_medications'.tr,
-                    colorLabel: AppColors.colorLabel,
-                    keyboardType: TextInputType.number,
-                    sizespace: 0.005,
-                  ),
-                  CustomInput(
-                    title: 'allergies'.tr,
-                    hint: 'create_allergies'.tr,
-                    controller: controller.textfieldAllergies,
-                    showValidMessage: controller.showAllergies,
-                    textIsValid: 'is_valid_allergies'.tr,
-                    colorLabel: AppColors.colorLabel,
-                    keyboardType: TextInputType.number,
-                    sizespace: 0.005,
-                    bottomSpacing: 0.058,
-                  ),
-                  Btn(
-                    text: 'next'.tr,
-                    color: const Color(AppColors.colorLineAndText),
-                    onPressed: () {
-                      controller.dedicalHistory()
-                          ? Get.to(CustomOtp())
-                          : const SizedBox();
-                    },
-                  ),
+                  // Btn(
+                  //   text: 'next'.tr,
+                  //   color: const Color(AppColors.colorLineAndText),
+                  //   onPressed: () {
+                  //     controller.dedicalHistory()
+                  //         ? Get.to(CustomOtp())
+                  //         : const SizedBox();
+                  //   },
+                  // ),
                 ],
               ),
             ),
@@ -124,4 +192,50 @@ class MedicalHistory extends StatelessWidget {
       },
     );
   }
+}
+
+Widget _buildOption({
+  required String label,
+  required String value,
+  required bool isSelected,
+  required VoidCallback onTap,
+}) {
+  return GestureDetector(
+    onTap: onTap,
+    child: Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25),
+        border: Border.all(color: Colors.grey.shade300),
+        color: Colors.white,
+      ),
+      child: Row(
+        children: <Widget>[
+          // ✅ دائرة الاختيار المخصصة
+          Container(
+            width: 24,
+            height: 24,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: isSelected ? Colors.blue : Colors.white,
+              border: Border.all(
+                color: isSelected ? Colors.blue : Colors.grey,
+                width: 2,
+              ),
+            ),
+            child: isSelected
+                ? const Icon(Icons.check, color: Colors.white, size: 16)
+                : null,
+          ),
+
+          const SizedBox(width: 10),
+
+          Text(
+            label,
+            style: const TextStyle(fontSize: 14, color: Colors.black),
+          ),
+        ],
+      ),
+    ),
+  );
 }

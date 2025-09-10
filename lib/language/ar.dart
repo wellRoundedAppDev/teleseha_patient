@@ -9,7 +9,7 @@ const Map<String, String> ar = <String, String>{
   'title_foot_print': 'سجل بصمة اصبعك للحماية',
   'text_foot_print':
       'سيتم استخدام بصمة اصبعك لتأمين حسابك وتسريع تسجيل ادخال لاحقاً',
-  'put_your_finger': 'ضع اصبعك علي المستشعر',
+  'put_your_finger': 'اضغط على الزر لعمل المستشعر',
   'save': 'حفظ',
   'again': 'إعادة المحاولة',
   'name': 'الاسم',
@@ -267,4 +267,7 @@ const Map<String, String> ar = <String, String>{
   'good_rating': 'ماشاء الله دكتور محترم وشاطر جدا',
   'price_examination': 'سعر الكشف: 200 ج',
   'price_consultation': 'سعر الاستشارة: 200 ج',
+  'do_you_have_any_illnesses': 'هل لديك أمراض مزمنة سابقة أوحالية',
+  'yes': 'نعم',
+  'no': 'لا',
 };

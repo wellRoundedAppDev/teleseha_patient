@@ -233,8 +233,8 @@ class VideoCall extends StatelessWidget {
                       final double bottomOffset = sheetSize * DEVICE_HEIGHT;
                       return Positioned(
                         bottom: controller.isShowTextfield
-                            ? bottomOffset - 55
-                            : bottomOffset - 390,
+                            ? bottomOffset - 50
+                            : bottomOffset - 300,
                         left: DEVICE_WIDTH * 0.075,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
