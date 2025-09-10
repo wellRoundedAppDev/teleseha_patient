@@ -195,18 +195,18 @@ class RecentBookings extends StatelessWidget {
                                 ],
                               ),
                               StyleBtnHeader(
-                                width: DEVICE_WIDTH * 0.00067,
-                                height: DEVICE_HEIGHT * 0.00008,
                                 textBtn: 'entry_to_the_session'.tr,
                                 onPressed: () {
                                   final int lastRecentId =
                                       controller.lastRecent[index]['id'];
                                   controller.passedIndex = lastRecentId;
+
                                   final ChangeParamContentAndNextPage change =
                                       Get.find();
                                   change.goToComponentHeader.value =
                                       'waitingForYourTurn';
                                   change.update();
+
                                   // import 'paymob_manager.dart';
                                   // import 'package:url_launcher/url_launcher.dart';
 

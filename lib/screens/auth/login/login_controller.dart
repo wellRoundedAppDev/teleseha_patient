@@ -69,7 +69,7 @@ class LoginController extends GetxController {
     if (numberExists) {
       linePercentage = 0.6;
       page = 'signIn';
-      Get.to(() =>  PatternLock());
+      Get.to(() => const PatternLock());
     }
     // if number not here response 'nextAction': 'OtpConfirm'
     else {
@@ -88,6 +88,7 @@ class LoginController extends GetxController {
 
   void updatePattern(List<int> pattern) {
     inputPattern = pattern;
+    update();
   }
 
   bool isLoginRequestValid(List<Map<String, dynamic>> loginData) {
@@ -162,13 +163,6 @@ class LoginController extends GetxController {
         updatePage('verifyPattern');
         state = PatternState.success;
         update();
-      } else {
-        Get.snackbar(
-          'error'.tr,
-          'error_pattern'.tr,
-          backgroundColor: const Color(AppColors.colorError),
-          colorText: const Color(AppColors.colorWhiteSelectedType),
-        );
       }
     } else if (page == 'verifyPattern') {
       if (listEquals(tempSavedPattern, inputPattern)) {
@@ -195,23 +189,35 @@ class LoginController extends GetxController {
       } else {
         state = PatternState.error;
         update();
-        Get.snackbar(
-          'error'.tr,
-          'error_pattern'.tr,
-          backgroundColor: const Color(AppColors.colorError),
-          colorText: const Color(AppColors.colorWhiteSelectedType),
-        );
         updatePage('update');
       }
     }
   }
 
   void startPattern() {
-    if (state == PatternState.error || state == PatternState.success) {
-      inputPattern.clear();
-      state = PatternState.normal;
-    }
-    state = PatternState.active;
+    inputPattern.clear();
+    state = PatternState.normal;
     update();
+
+    Future.delayed(const Duration(milliseconds: 50), () {
+      state = PatternState.active;
+      update();
+    });
   }
+
+  // void startPattern() {
+  //   inputPattern.clear();
+  //   state = PatternState.normal;
+  //   update();
+  //   Future.delayed(const Duration(milliseconds: 10), () {
+  //     state = PatternState.active;
+  //     update();
+  //   });
+  //   // if (state == PatternState.error || state == PatternState.success) {
+  //   //   inputPattern.clear();
+  //   //   state = PatternState.normal;
+  //   // }
+  //   // state = PatternState.active;
+  //   // update();
+  // }
 }

@@ -48,9 +48,7 @@ class ListPresciption extends GetxController {
 
   final List<Map<String, String>> analysesList = <Map<String, String>>[
     <String, String>{'title': 'Urea - Creatinine'},
-    <String, String>{
-      'title': 'Urea - Creatinine',
-    },
+    <String, String>{'title': 'Urea - Creatinine'},
   ];
 
   Future<Uint8List?> capturePng(GlobalKey key) async {
@@ -69,6 +67,13 @@ class ListPresciption extends GetxController {
   Future<void> savedPdf() async {
     final Uint8List? imageBytes = await capturePng(previewContainer);
     if (imageBytes == null) {
+      Get.snackbar(
+        'فشل الحفظ',
+        'حدث خطأ أثناء حفظ الروشتة!',
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.redAccent,
+        colorText: Colors.white,
+      );
       return;
     }
     final pw.Document pdf = pw.Document();
@@ -90,7 +95,6 @@ class ListPresciption extends GetxController {
     if (Platform.isAndroid) {
       final PermissionStatus status = await Permission.storage.request();
       if (!status.isGranted) {
-        print('❌ Storage permission denied');
         return null;
       }
 

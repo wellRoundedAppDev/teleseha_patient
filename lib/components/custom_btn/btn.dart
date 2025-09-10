@@ -11,6 +11,7 @@ class Btn extends StatelessWidget {
     this.style,
     this.colorText,
     this.customWidth = 0.9,
+    this.customHeight = 0.1,
     this.size = 20,
     this.icon,
   });
@@ -21,6 +22,7 @@ class Btn extends StatelessWidget {
   final ButtonStyle? style;
   final Color? colorText;
   final double? customWidth;
+  final double? customHeight;
   final double? size;
   final IconData? icon;
 
@@ -28,6 +30,7 @@ class Btn extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: DEVICE_WIDTH * customWidth!,
+      height: DEVICE_HEIGHT * customHeight!,
       child: ElevatedButton(
         style:
             style ??

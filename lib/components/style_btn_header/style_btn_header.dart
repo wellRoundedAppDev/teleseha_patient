@@ -35,7 +35,7 @@ class StyleBtnHeader extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: DEVICE_WIDTH * 0.01),
               backgroundColor: const Color(AppColors.colorLineAndText),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(DEVICE_HEIGHT * 0.1),
               ),
             ),
         child: CustomText(

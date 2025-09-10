@@ -19,29 +19,32 @@ class Profiles extends StatelessWidget {
               child: AppBar(
                 backgroundColor: const Color(AppColors.colorBackgroundScreen),
                 automaticallyImplyLeading: false,
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    SvgPicture.asset(
-                      iconBack,
-                      width: 24,
-                      height: 24,
-                      fit: BoxFit.cover,
-                      color: Colors.black,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: SvgPicture.asset(
+                title: Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: SvgPicture.asset(
+                          iconBack,
+                          width: 24,
+                          height: 24,
+                          fit: BoxFit.cover,
+                          color: Colors.black,
+                        ),
+                      ),
+                      SvgPicture.asset(
                         iconLogoLogin,
                         width: 142,
                         height: 44,
                         fit: BoxFit.cover,
                       ),
-                    ),
-                    const SizedBox(width: 48),
-                  ],
+                      const SizedBox(width: 48),
+                    ],
+                  ),
                 ),
               ),
             ),

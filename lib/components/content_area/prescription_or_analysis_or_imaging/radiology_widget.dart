@@ -1,7 +1,6 @@
 import 'package:flutter_svg/svg.dart';
 
 import '../../../general_exports.dart';
-import 'list_presciption_and_pdf.dart';
 import 'title_component.dart';
 
 class RadiologyWidget extends StatelessWidget {
@@ -11,7 +10,7 @@ class RadiologyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final BookingsController bookings = Get.put(BookingsController());
+    final BookingsController bookings = Get.find();
 
     return GetBuilder<ListPresciption>(
       init: ListPresciption(),
@@ -47,14 +46,24 @@ class RadiologyWidget extends StatelessWidget {
                             color: const Color(AppColors.colorTextBlue),
                           ),
                           SizedBox(width: DEVICE_WIDTH * 0.01),
-                          CustomText(
-                            text: bookings.selectedLastRecent?['name']
-                                .toString()
-                                .tr,
-                            fontSize: 10,
-                            type: CustomTextType.title,
-                            color: const Color.fromRGBO(0, 123, 189, 0.74),
-                          ),
+                          // CustomText(
+                          //   // text: bookings.selectedLastRecent?['name']
+                          //   //     .toString()
+                          //   //     .tr,
+                          //   text:
+                          //       bookings.selectedLastRecent != null &&
+                          //           bookings.selectedLastRecent!.containsKey(
+                          //             'name',
+                          //           )
+                          //       ? bookings.selectedLastRecent!['name']
+                          //             .toString()
+                          //             .tr
+                          //       : '',
+
+                          //   fontSize: 10,
+                          //   type: CustomTextType.title,
+                          //   color: const Color.fromRGBO(0, 123, 189, 0.74),
+                          // ),
                           SizedBox(width: DEVICE_WIDTH * 0.02),
                           SvgPicture.asset(
                             iconDoctors,
@@ -164,13 +173,13 @@ class RadiologyWidget extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                               ),
                               children: <InlineSpan>[
-                                TextSpan(
-                                  text: item['title'],
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    color: Color(AppColors.colorTitleDoppler),
-                                  ),
-                                ),
+                                // TextSpan(
+                                //   text: item['title'],
+                                //   style: const TextStyle(
+                                //     fontSize: 16,
+                                //     color: Color(AppColors.colorTitleDoppler),
+                                //   ),
+                                // ),
                               ],
                             ),
                             textDirection: TextDirection.ltr,
@@ -217,12 +226,13 @@ class RadiologyWidget extends StatelessWidget {
                     onPressed: controller.savedPdf,
                     text: 'download_x_ray'.tr,
                     customWidth: 0.37,
+                    customHeight: 0.075,
                     size: 10,
                     icon: Icons.arrow_forward_ios,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(AppColors.colorLineAndText),
                       padding: EdgeInsets.symmetric(
-                        vertical: DEVICE_HEIGHT * 0.04,
+                        vertical: DEVICE_HEIGHT * 0.03,
                       ),
                     ),
                   ),
@@ -233,6 +243,7 @@ class RadiologyWidget extends StatelessWidget {
                     },
                     text: 'next'.tr,
                     customWidth: 0.37,
+                    customHeight: 0.075,
                     size: 10,
                     colorText: const Color(AppColors.colorLineAndText),
                     style: ElevatedButton.styleFrom(
@@ -240,7 +251,7 @@ class RadiologyWidget extends StatelessWidget {
                         AppColors.colorWhiteSelectedType,
                       ),
                       padding: EdgeInsets.symmetric(
-                        vertical: DEVICE_HEIGHT * 0.04,
+                        vertical: DEVICE_HEIGHT * 0.03,
                       ),
                     ),
                   ),

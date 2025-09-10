@@ -21,7 +21,7 @@ Future<void> main() async {
   });
 
   Get.put(BookingsController());
-  // Get.put(VideoCallController(), permanent: true);
+  Get.put(VideoCallController(), permanent: true);
   consoleLogPretty(baseUrl, key: 'baseUrl');
   HttpOverrides.global = MyHttpOverrides();
   runApp(const MyApp());

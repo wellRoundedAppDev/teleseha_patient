@@ -65,7 +65,7 @@ class SymptomsStatusBar extends StatelessWidget {
                     // create post request when add symptoms
                     Positioned(
                       left: DEVICE_WIDTH * 0.05,
-                      top: DEVICE_HEIGHT * 0.017,
+                      top: 12,
                       child: StyleBtnHeader(
                         size: 10,
                         textBtn: 'create'.tr,

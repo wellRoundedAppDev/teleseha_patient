@@ -246,6 +246,7 @@ class ContentDoctorEvaluation extends StatelessWidget {
                       margin: const EdgeInsets.only(bottom: 66),
                       child: Align(
                         child: Btn(
+                          customHeight: 0.075,
                           onPressed: () {
                             change.goToComponentHeader.value =
                                 'ContentPrescription';

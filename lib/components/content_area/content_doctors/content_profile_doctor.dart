@@ -823,9 +823,10 @@ class ContentProfileDoctor extends StatelessWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(bottom: DEVICE_HEIGHT * 0.025),
+              margin: EdgeInsets.only(top: DEVICE_HEIGHT * 0.015, bottom: DEVICE_HEIGHT * 0.025),
               child: Align(
                 child: Btn(
+                  customHeight: 0.075,
                   onPressed: () {
                     change.goToComponentHeader.value = 'drSchedule';
                     change.update();

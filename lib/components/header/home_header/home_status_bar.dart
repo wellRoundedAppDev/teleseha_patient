@@ -101,8 +101,8 @@ class HomeStatusBar extends StatelessWidget {
                         child: StyleBtnHeader(
                           textBtn: 'start_now'.tr,
                           size: 12,
-                          width: 0.25,
-                          height: 0.06,
+                          width: 0.24,
+                          height: 0.05,
                           onPressed: () {
                             final ChangeParamContentAndNextPage change =
                                 Get.find();

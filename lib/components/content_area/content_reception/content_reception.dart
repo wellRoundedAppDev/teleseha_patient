@@ -88,6 +88,7 @@ class ContentReception extends StatelessWidget {
                 ),
                 SizedBox(height: DEVICE_HEIGHT * 0.055),
                 Btn(
+                  customHeight: 0.075,
                   onPressed: controller.isTimeUp
                       ? () {
                           change.goToComponentHeader.value = 'successReception';

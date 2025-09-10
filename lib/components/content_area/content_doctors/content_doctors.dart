@@ -8,7 +8,6 @@ class ContentDoctors extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ChangeParamContentAndNextPage change = Get.find();
-
     return GetBuilder<DoctorsController>(
       init: DoctorsController(),
       builder: (DoctorsController controller) {
@@ -33,8 +32,8 @@ class ContentDoctors extends StatelessWidget {
               ),
             SizedBox(height: DEVICE_HEIGHT * 0.033),
             SizedBox(
-              // height: DEVICE_HEIGHT * controller.widthSelected,
-              height: 240,
+              height: DEVICE_HEIGHT * controller.widthSelected,
+              // height: 240,
               child: ListView.builder(
                 shrinkWrap: true,
                 padding: EdgeInsets.zero,
@@ -178,8 +177,8 @@ class ContentDoctors extends StatelessWidget {
                                                 ],
                                               ),
                                               StyleBtnHeader(
-                                                width: DEVICE_WIDTH * 0.00047,
-                                                height: DEVICE_HEIGHT * 0.0001,
+                                                width: 0.15,
+                                                height: 0.033,
                                                 size: 12,
                                                 textBtn: 'reservation'.tr,
                                                 onPressed: () {

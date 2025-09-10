@@ -25,7 +25,7 @@ class PrescriptionOrAnalysisOrImaging extends StatelessWidget {
                 case 'The radiology':
                   return RadiologyWidget(controller, ChangeContent);
                 case 'analyses':
-                return Analyses(controller, ChangeContent);
+                  return Analyses(controller, ChangeContent);
                 default:
                   return const Center(child: Text('No content selected'));
               }

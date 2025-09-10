@@ -1,4 +1,5 @@
 import 'package:flutter/gestures.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:pattern_dots/pattern_dots.dart';
 
 import '../../general_exports.dart';
@@ -90,7 +91,44 @@ class PatternLock extends StatelessWidget {
                       ),
                       child: Column(
                         children: <Widget>[
-                          SizedBox(height: DEVICE_HEIGHT * 0.0425),
+                          Container(
+                            margin: EdgeInsets.symmetric(
+                              vertical: DEVICE_HEIGHT * 0.035,
+                              horizontal: DEVICE_HEIGHT * 0.03,
+                            ),
+                            child: Directionality(
+                              textDirection: TextDirection.rtl,
+                              child: SizedBox(
+                                width: DEVICE_WIDTH * 0.9,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    GestureDetector(
+                                      onTap: () {
+                                        Get.back();
+                                      },
+                                      child: SvgPicture.asset(
+                                        iconBack,
+                                        width: 24,
+                                        height: 24,
+                                        fit: BoxFit.cover,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    SvgPicture.asset(
+                                      iconLogoLogin,
+                                      width: 142,
+                                      height: 44,
+                                      fit: BoxFit.cover,
+                                    ),
+                                    const SizedBox(width: 48),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: DEVICE_HEIGHT * 0.13),
                           if (controller.page == 'signIn')
                             CustomText(
                               text: 'create_input_pattern'.tr,
@@ -119,7 +157,7 @@ class PatternLock extends StatelessWidget {
                               }
                             },
                           ),
-                          SizedBox(height: DEVICE_HEIGHT * 0.053),
+                          // SizedBox(height: DEVICE_HEIGHT * 0.0),
                           if (controller.page == 'signIn' &&
                               controller.showForgetPatter)
                             Text.rich(
@@ -157,18 +195,54 @@ class PatternLock extends StatelessWidget {
                                 ],
                               ),
                             ),
-                          SizedBox(height: DEVICE_HEIGHT * 0.10),
+                          SizedBox(height: DEVICE_HEIGHT * 0.05),
                           if (controller.page == 'update' ||
                               controller.page == 'verifyPattern')
-                            Btn(
-                              onPressed: () {
-                                controller.state = PatternState.active;
-                                controller.createVerificationForExistingUser();
-                                controller.update();
-                              },
-                              text: controller.page == 'update'
-                                  ? 'next'.tr
-                                  : 'save'.tr,
+                            Column(
+                              children: <Widget>[
+                                Btn(
+                                  onPressed: () {
+                                    controller.state = PatternState.active;
+                                    controller
+                                        .createVerificationForExistingUser();
+                                    controller.update();
+                                  },
+                                  text: controller.page == 'update'
+                                      ? 'next'.tr
+                                      : 'save'.tr,
+                                ),
+                                SizedBox(height: DEVICE_HEIGHT * 0.03),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      width: 2,
+                                      color: const Color(
+                                        AppColors.colorLineAndText,
+                                      ),
+                                    ),
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
+                                  child: Btn(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: const Color(
+                                        AppColors.colorWhiteSelectedType,
+                                      ),
+                                      padding: EdgeInsets.symmetric(
+                                        vertical: DEVICE_HEIGHT * 0.02,
+                                      ),
+                                    ),
+                                    colorText: const Color(
+                                      AppColors.colorLineAndText,
+                                    ),
+                                    onPressed: () {
+                                      controller.inputPattern = <int>[];
+                                      controller.state = PatternState.normal;
+                                      controller.update();
+                                    },
+                                    text: 'again'.tr,
+                                  ),
+                                ),
+                              ],
                             ),
                         ],
                       ),

@@ -10,7 +10,7 @@ class Analyses extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final BookingsController bookings = Get.put(BookingsController());
+    final BookingsController bookings = Get.find();
 
     return GetBuilder<ListPresciption>(
       init: ListPresciption(),
@@ -189,12 +189,13 @@ class Analyses extends StatelessWidget {
                     onPressed: controller.savedPdf,
                     text: 'download_the_analyses'.tr,
                     customWidth: 0.37,
+                    customHeight: 0.075,
                     size: 10,
                     icon: Icons.arrow_forward_ios,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(AppColors.colorLineAndText),
                       padding: EdgeInsets.symmetric(
-                        vertical: DEVICE_HEIGHT * 0.04,
+                        vertical: DEVICE_HEIGHT * 0.03,
                       ),
                     ),
                   ),
@@ -205,6 +206,7 @@ class Analyses extends StatelessWidget {
                     },
                     text: 'home_page'.tr,
                     customWidth: 0.37,
+                    customHeight: 0.075,
                     size: 10,
                     colorText: const Color(AppColors.colorLineAndText),
                     style: ElevatedButton.styleFrom(
@@ -212,7 +214,7 @@ class Analyses extends StatelessWidget {
                         AppColors.colorWhiteSelectedType,
                       ),
                       padding: EdgeInsets.symmetric(
-                        vertical: DEVICE_HEIGHT * 0.04,
+                        vertical: DEVICE_HEIGHT * 0.03,
                       ),
                     ),
                   ),

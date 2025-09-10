@@ -95,6 +95,5 @@ class BookingsController extends GetxController {
       (LastRecent) => LastRecent['id'] == selectedRecentBookingsId,
       orElse: () => <dynamic, dynamic>{},
     );
-    update();
   }
 }

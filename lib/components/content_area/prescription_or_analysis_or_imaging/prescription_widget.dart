@@ -10,10 +10,8 @@ class PrescriptionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final BookingsController bookings = Get.put(BookingsController());
-
+    final BookingsController bookings = Get.find();
     return GetBuilder<ListPresciption>(
-      init: ListPresciption(),
       builder: (ListPresciption controller) {
         return SingleChildScrollView(
           child: Column(
@@ -177,12 +175,13 @@ class PrescriptionWidget extends StatelessWidget {
                     onPressed: controller.savedPdf,
                     text: 'download_the_prescription'.tr,
                     customWidth: 0.37,
+                    customHeight: 0.075,
                     size: 10,
                     icon: Icons.arrow_forward_ios,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(AppColors.colorLineAndText),
                       padding: EdgeInsets.symmetric(
-                        vertical: DEVICE_HEIGHT * 0.04,
+                        vertical: DEVICE_HEIGHT * 0.03,
                       ),
                     ),
                   ),
@@ -193,6 +192,7 @@ class PrescriptionWidget extends StatelessWidget {
                     },
                     text: 'next'.tr,
                     customWidth: 0.37,
+                    customHeight: 0.075,
                     size: 10,
                     colorText: const Color(AppColors.colorLineAndText),
                     style: ElevatedButton.styleFrom(
@@ -200,7 +200,7 @@ class PrescriptionWidget extends StatelessWidget {
                         AppColors.colorWhiteSelectedType,
                       ),
                       padding: EdgeInsets.symmetric(
-                        vertical: DEVICE_HEIGHT * 0.04,
+                        vertical: DEVICE_HEIGHT * 0.02,
                       ),
                     ),
                   ),

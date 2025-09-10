@@ -16,7 +16,7 @@ class BottomNavController extends GetxController {
 
   final List<Widget> pages = <Widget>[
     const Mypage(),
-    const Reports(),
+    Reports(),
     const HomePageContent(),
     const HomePageContent(),
     const Settings(),

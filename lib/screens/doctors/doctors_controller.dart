@@ -19,7 +19,7 @@ class DoctorsController extends GetxController {
 
   bool showDoctors = false;
 
-  final double widthSelected = DEVICE_WIDTH <= 380 ? 0.45 : 0.48;
+  final double widthSelected = DEVICE_WIDTH <= 380 ? 0.38 : 0.4;
   final double sizeTextSelected = DEVICE_WIDTH <= 380 ? 11 : 15;
 
   int? passedIndex = 0;
@@ -176,7 +176,7 @@ class DoctorsController extends GetxController {
       'range': '4.9',
       'reveal': 'detection_times'.tr,
       'priceExamination': 'price_examination'.tr,
-      'priceConsultation': 'price_consultation'.tr,    
+      'priceConsultation': 'price_consultation'.tr,
       'skills': <String>['مستمع جيد', 'ودود', 'مستمع جيد'],
       'salary': '200 ج',
       'generalMedicineHeartDiseases': 'general_medicine_heart_diseases'.tr,

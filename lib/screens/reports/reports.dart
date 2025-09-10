@@ -3,14 +3,14 @@ import 'package:flutter_svg/svg.dart';
 import '../../general_exports.dart';
 
 class Reports extends StatelessWidget {
-  const Reports({super.key});
+   Reports({super.key});
+  final ChangeParamContentAndNextPage change = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ReportsController>(
       init: ReportsController(),
       builder: (ReportsController controller) {
-        final ChangeParamContentAndNextPage change = Get.find();
         return Scaffold(
           body: Container(
             margin: EdgeInsets.only(top: DEVICE_HEIGHT * 0.1),
@@ -321,19 +321,16 @@ class Reports extends StatelessWidget {
                                         Positioned(
                                           top: 20,
                                           left: 10,
-                                          child: GestureDetector(
-                                            onTap: () {
+                                          child: StyleBtnHeader(
+                                            width: DEVICE_WIDTH * 0.00068,
+                                            height: 0.05,
+                                            size: controller.sizeTextSelected,
+                                            textBtn: 'view_prescriptions'.tr,
+                                            onPressed: () {
                                               change.goToComponentHeader.value =
                                                   'ContentPrescription';
                                               change.update();
                                             },
-                                            child: StyleBtnHeader(
-                                              width: DEVICE_WIDTH * 0.00088,
-                                              height: 0.05,
-                                              size: controller.sizeTextSelected,
-                                              textBtn: 'view_prescriptions'.tr,
-                                              onPressed: () {},
-                                            ),
                                           ),
                                         ),
                                       ],

@@ -41,7 +41,7 @@ class ContentSymptoms extends StatelessWidget {
                   // create post request when add symptoms
                   Positioned(
                     left: DEVICE_WIDTH * 0.07,
-                    top: DEVICE_HEIGHT * 0.033,
+                    top: 22,
                     child: SvgPicture.asset(
                       iconSearch,
                       width: DEVICE_WIDTH * 0.025,
@@ -129,7 +129,9 @@ class ContentSymptoms extends StatelessWidget {
                   },
                 ),
               ),
+              SizedBox(height: DEVICE_HEIGHT * 0.02),
               Btn(
+                customHeight: 0.075,
                 onPressed: () {
                   controller.changeParamNextPage();
                 },

@@ -60,7 +60,6 @@ class Login extends StatelessWidget {
                   child: SingleChildScrollView(
                     child: Column(
                       children: <Widget>[
-                        // const Logo(),
                         SizedBox(height: DEVICE_HEIGHT * 0.014),
                         CustomText(
                           text: 'login'.tr,

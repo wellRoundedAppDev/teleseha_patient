@@ -325,6 +325,7 @@ class DrSchedule extends StatelessWidget {
               SizedBox(height: DEVICE_HEIGHT * 0.07),
               Align(
                 child: Btn(
+                  customHeight: 0.075,
                   onPressed: () {
                     controller.saveDateWithDay();
                     change.goToComponentHeader.value = 'enterSymptoms';
