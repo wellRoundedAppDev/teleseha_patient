@@ -62,7 +62,6 @@ class SuccessReception extends StatelessWidget {
                   ),
                   SizedBox(height: DEVICE_HEIGHT * 0.075),
                   Btn(
-                    customHeight: 0.075,
                     onPressed: () {
                       onPressed?.call();
                     },

@@ -19,33 +19,7 @@ class CustomOtp extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 SizedBox(height: DEVICE_HEIGHT * 0.1),
-                SizedBox(
-                  width: DEVICE_WIDTH * 0.9,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      GestureDetector(
-                        onTap: () {
-                          Get.back();
-                        },
-                        child: SvgPicture.asset(
-                          iconBack,
-                          width: 24,
-                          height: 24,
-                          fit: BoxFit.cover,
-                          color: Colors.black,
-                        ),
-                      ),
-                      SvgPicture.asset(
-                        iconLogoLogin,
-                        width: 142,
-                        height: 44,
-                        fit: BoxFit.cover,
-                      ),
-                      const SizedBox(width: 48),
-                    ],
-                  ),
-                ),
+                const Logo(),
                 SizedBox(height: DEVICE_HEIGHT * 0.10),
                 Center(
                   child: Column(

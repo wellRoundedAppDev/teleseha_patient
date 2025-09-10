@@ -1,5 +1,4 @@
 import 'package:flutter/gestures.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:pattern_dots/pattern_dots.dart';
 
 import '../../general_exports.dart';
@@ -93,39 +92,12 @@ class PatternLock extends StatelessWidget {
                         children: <Widget>[
                           Container(
                             margin: EdgeInsets.symmetric(
-                              vertical: DEVICE_HEIGHT * 0.035,
+                              vertical: DEVICE_HEIGHT * 0.038,
                               horizontal: DEVICE_HEIGHT * 0.03,
                             ),
-                            child: Directionality(
+                            child: const Directionality(
                               textDirection: TextDirection.rtl,
-                              child: SizedBox(
-                                width: DEVICE_WIDTH * 0.9,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    GestureDetector(
-                                      onTap: () {
-                                        Get.back();
-                                      },
-                                      child: SvgPicture.asset(
-                                        iconBack,
-                                        width: 24,
-                                        height: 24,
-                                        fit: BoxFit.cover,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    SvgPicture.asset(
-                                      iconLogoLogin,
-                                      width: 142,
-                                      height: 44,
-                                      fit: BoxFit.cover,
-                                    ),
-                                    const SizedBox(width: 48),
-                                  ],
-                                ),
-                              ),
+                              child: Logo(),
                             ),
                           ),
                           SizedBox(height: DEVICE_HEIGHT * 0.13),

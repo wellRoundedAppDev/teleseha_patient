@@ -131,7 +131,6 @@ class ContentSymptoms extends StatelessWidget {
               ),
               SizedBox(height: DEVICE_HEIGHT * 0.02),
               Btn(
-                customHeight: 0.075,
                 onPressed: () {
                   controller.changeParamNextPage();
                 },

@@ -175,7 +175,6 @@ class PrescriptionWidget extends StatelessWidget {
                     onPressed: controller.savedPdf,
                     text: 'download_the_prescription'.tr,
                     customWidth: 0.37,
-                    customHeight: 0.075,
                     size: 10,
                     icon: Icons.arrow_forward_ios,
                     style: ElevatedButton.styleFrom(
@@ -192,7 +191,6 @@ class PrescriptionWidget extends StatelessWidget {
                     },
                     text: 'next'.tr,
                     customWidth: 0.37,
-                    customHeight: 0.075,
                     size: 10,
                     colorText: const Color(AppColors.colorLineAndText),
                     style: ElevatedButton.styleFrom(

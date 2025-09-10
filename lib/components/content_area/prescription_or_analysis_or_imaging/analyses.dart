@@ -189,7 +189,6 @@ class Analyses extends StatelessWidget {
                     onPressed: controller.savedPdf,
                     text: 'download_the_analyses'.tr,
                     customWidth: 0.37,
-                    customHeight: 0.075,
                     size: 10,
                     icon: Icons.arrow_forward_ios,
                     style: ElevatedButton.styleFrom(
@@ -206,7 +205,6 @@ class Analyses extends StatelessWidget {
                     },
                     text: 'home_page'.tr,
                     customWidth: 0.37,
-                    customHeight: 0.075,
                     size: 10,
                     colorText: const Color(AppColors.colorLineAndText),
                     style: ElevatedButton.styleFrom(

@@ -1,5 +1,3 @@
-import 'package:flutter_svg/flutter_svg.dart';
-
 import '../../../general_exports.dart';
 import '../form_user_data/form_data_user.dart';
 
@@ -18,33 +16,7 @@ class StartSteps extends StatelessWidget {
           body: Column(
             children: <Widget>[
               SizedBox(height: DEVICE_HEIGHT * 0.1),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: DEVICE_HEIGHT * 0.02),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    GestureDetector(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: SvgPicture.asset(
-                        iconBack,
-                        width: 24,
-                        height: 24,
-                        fit: BoxFit.cover,
-                        color: Colors.black,
-                      ),
-                    ),
-                    SvgPicture.asset(
-                      iconLogoLogin,
-                      width: 142,
-                      height: 44,
-                      fit: BoxFit.cover,
-                    ),
-                    const SizedBox(width: 48),
-                  ],
-                ),
-              ),
+              const Logo(),
               SizedBox(height: DEVICE_HEIGHT * 0.012),
               if (controller.currentStep == 1)
                 Column(

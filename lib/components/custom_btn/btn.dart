@@ -11,7 +11,7 @@ class Btn extends StatelessWidget {
     this.style,
     this.colorText,
     this.customWidth = 0.9,
-    this.customHeight = 0.1,
+    this.customHeight = 0.085,
     this.size = 20,
     this.icon,
   });

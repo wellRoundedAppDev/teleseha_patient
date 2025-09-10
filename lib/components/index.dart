@@ -9,6 +9,7 @@ export 'header/index.dart';
 export 'home_bottom/index.dart';
 export 'is_valid/index.dart';
 export 'line_steps/index.dart';
+export 'logo/index.dart';
 export 'pattern_container/index.dart';
 export 'pattern_lock/index.dart';
 export 'step_indicator/index.dart';
