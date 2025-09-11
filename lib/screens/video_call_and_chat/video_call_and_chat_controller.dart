@@ -30,7 +30,7 @@ class ChatLog {
 class VideoCallController extends GetxController {
   String appId = '2c8437b9443e4607ad16973d4d4c2736';
   String token =
-      '007eJxTYFBSFo0sfL1L6k7F/UcbTziYZGbn3HzMd7S43/OCeeqtGAkFBqNkCxNj8yRLExPjVBMzA/PEFEMzS3PjFJMUk2Qjc2Oz3JIDGQ2BjAxpYhbMjAwQCOKzMJSkFpcwMAAAH1keMQ==';
+      '007eJxTYAjkPXHv+cSfES3OzGoSFbYbLy/IY/OwOda01yE33eOdfZICg1GyhYmxeZKliYlxqomZgXliiqGZpblxikmKSbKRubHZP/7DGQ2BjAyv65OZGBkgEMRnYShJLS5hYAAA7BAeVQ==';
   String channel = 'test';
   int? remoteUid;
   bool localUserJoined = false;

@@ -234,7 +234,7 @@ class VideoCall extends StatelessWidget {
                       return Positioned(
                         bottom: controller.isShowTextfield
                             ? bottomOffset - 50
-                            : bottomOffset - 300,
+                            : bottomOffset - 430,
                         left: DEVICE_WIDTH * 0.075,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.end,

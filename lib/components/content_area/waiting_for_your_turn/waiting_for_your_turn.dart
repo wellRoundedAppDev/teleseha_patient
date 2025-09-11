@@ -49,7 +49,7 @@ class WaitingForYourTurn extends StatelessWidget {
                         videoCall.signInChat(
                           userId: 'doctor',
                           token:
-                              '007eJxTYJjpu1/i57MDH3g/PZxTUBOz83iKy8NXt0wETv4qlJjxSmWbAoNRsoWJsXmSpYmJcaqJmYF5YoqhmaW5cYpJikmykbmxmbHawYyGQEaGtks3GBkZWBkYgRDEV2EwTEw2NE5MM9C1sEix0DU0BLEMUtN0jQ0NLJONzdIMjFJNAbGNKc4=',
+                              '007eJxTYJg2T/Dgg0VW13j+dCbwXe041/jFVnjRnI2Vs7bvbvKe/XmaAoNRsoWJsXmSpYmJcaqJmYF5YoqhmaW5cYpJikmykbmx2TWBwxkNgYwMk2adYGRkYGVgBEIQX4XBMDHZ0DgxzUDXwiLFQtfQEMQySE3TNTY0sEw2NkszMEo1BQBWlClE',
                         );
                       },
                       child: const Text('Join as first participant'),
@@ -288,7 +288,7 @@ class WaitingForYourTurn extends StatelessWidget {
                             videoCall.signInChat(
                               userId: 'patient',
                               token:
-                                  '007eJxTYGDxSNK9NePivmrWTU2LihYX9y2NyvU9ejjmctB7HXbu9T0KDEbJFibG5kmWJibGqSZmBuaJKYZmlubGKSYpJslG5sZmjmoHMxoCGRm8p75nYGRgBWJGBhBfhcHYMDk51djcQNfCIsVC19AwzUDXMi3RQNcwLcXCwsgg1SQtMREAHTMmjA==',
+                                  '007eJxTYDiQONfnhvcCB2fLk/4bfy3O+yd+iNFGX2y/eehrbb+PYSwKDEbJFibG5kmWJibGqSZmBuaJKYZmlubGKSYpJslG5sZmioKHMxoCGRnmOTuxMjKwMjACIYivwmBsmJycamxuoGthkWKha2iYZqBrmZZooGuYlmJhYWSQapKWmAgArAIk8A==',
                             );
                           }
                         : null,
