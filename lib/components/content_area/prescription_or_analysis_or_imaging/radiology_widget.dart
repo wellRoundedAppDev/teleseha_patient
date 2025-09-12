@@ -11,9 +11,7 @@ class RadiologyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final BookingsController bookings = Get.find();
-
     return GetBuilder<ListPresciption>(
-      init: ListPresciption(),
       builder: (ListPresciption controller) {
         return SingleChildScrollView(
           child: Column(
@@ -46,24 +44,21 @@ class RadiologyWidget extends StatelessWidget {
                             color: const Color(AppColors.colorTextBlue),
                           ),
                           SizedBox(width: DEVICE_WIDTH * 0.01),
-                          // CustomText(
-                          //   // text: bookings.selectedLastRecent?['name']
-                          //   //     .toString()
-                          //   //     .tr,
-                          //   text:
-                          //       bookings.selectedLastRecent != null &&
-                          //           bookings.selectedLastRecent!.containsKey(
-                          //             'name',
-                          //           )
-                          //       ? bookings.selectedLastRecent!['name']
-                          //             .toString()
-                          //             .tr
-                          //       : '',
+                          CustomText(
+                            text:
+                                bookings.selectedLastRecent != null &&
+                                    bookings.selectedLastRecent!.containsKey(
+                                      'name',
+                                    )
+                                ? bookings.selectedLastRecent!['name']
+                                      .toString()
+                                      .tr
+                                : '',
 
-                          //   fontSize: 10,
-                          //   type: CustomTextType.title,
-                          //   color: const Color.fromRGBO(0, 123, 189, 0.74),
-                          // ),
+                            fontSize: 10,
+                            type: CustomTextType.title,
+                            color: const Color.fromRGBO(0, 123, 189, 0.74),
+                          ),
                           SizedBox(width: DEVICE_WIDTH * 0.02),
                           SvgPicture.asset(
                             iconDoctors,
@@ -223,7 +218,12 @@ class RadiologyWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Btn(
-                    onPressed: controller.savedPdf,
+                    onPressed: () {
+                      controller.savedPdf(
+                        data: controller.radiologyList,
+                        fileName: 'radiology',
+                      );
+                    },
                     text: 'download_x_ray'.tr,
                     customWidth: 0.37,
                     size: 10,

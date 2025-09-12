@@ -1,17 +1,13 @@
 import 'dart:io';
-import 'dart:typed_data';
-import 'dart:ui' as ui;
 
-import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../../general_exports.dart';
 
 class ListPresciption extends GetxController {
-  final GlobalKey previewContainer = GlobalKey();
-  // RxString ChangeContent = 'The prescription'.obs;
-
   final List<Map<String, String>> prescriptionList = <Map<String, String>>[
     <String, String>{
       'title': 'Radiological Examination Request',
@@ -51,43 +47,63 @@ class ListPresciption extends GetxController {
     <String, String>{'title': 'Urea - Creatinine'},
   ];
 
-  Future<Uint8List?> capturePng(GlobalKey key) async {
-    try {
-      final RenderRepaintBoundary boundary =
-          key.currentContext!.findRenderObject() as RenderRepaintBoundary;
-      final ui.Image image = await boundary.toImage(pixelRatio: 3.0);
-      final ByteData? byteData = await image.toByteData(
-        format: ui.ImageByteFormat.png,
-      );
-      return byteData?.buffer.asUint8List();
-    } catch (e) {}
-    return null;
-  }
+  Future<void> savedPdf({
+    required List<Map<String, String>> data,
+    required String fileName,
+  }) async {
+    final font = await rootBundle.load('assets/fonts/Cairo-Regular.ttf');
+    final pw.Font ttf = pw.Font.ttf(font);
 
-  Future<void> savedPdf() async {
-    final Uint8List? imageBytes = await capturePng(previewContainer);
-    if (imageBytes == null) {
+    final pw.Document pdf = pw.Document();
+
+    pdf.addPage(
+      pw.Page(
+        build: (context) {
+          return pw.Directionality(
+            textDirection: pw.TextDirection.rtl,
+            child: pw.Column(
+              crossAxisAlignment: pw.CrossAxisAlignment.start,
+              children: data.map((item) {
+                return pw.Column(
+                  crossAxisAlignment: pw.CrossAxisAlignment.start,
+                  children: [
+                    pw.Text(
+                      item['title'] ?? '',
+                      style: pw.TextStyle(
+                        font: ttf,
+                        fontSize: 16,
+                        fontWeight: pw.FontWeight.bold,
+                      ),
+                    ),
+                    pw.Text(
+                      item['description'] ?? '',
+                      style: pw.TextStyle(font: ttf, fontSize: 14),
+                    ),
+                    pw.SizedBox(height: 10),
+                  ],
+                );
+              }).toList(),
+            ),
+          );
+        },
+      ),
+    );
+
+    final String? path = await getDownloadsPath();
+    if (path != null) {
+      final File file = File(
+        '$path/${fileName}_${DateTime.now().millisecondsSinceEpoch}.pdf',
+      );
+      await file.writeAsBytes(await pdf.save());
+      Get.snackbar('تم الحفظ', 'تم حفظ ملف PDF بنجاح في ${file.path}');
+    } else {
       Get.snackbar(
         'فشل الحفظ',
-        'حدث خطأ أثناء حفظ الروشتة!',
+        'لم يتم الحصول على صلاحيات التخزين',
         snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.redAccent,
         colorText: Colors.white,
       );
-      return;
-    }
-    final pw.Document pdf = pw.Document();
-    final pw.MemoryImage image = pw.MemoryImage(imageBytes);
-    pdf.addPage(
-      pw.Page(build: (pw.Context context) => pw.Center(child: pw.Image(image))),
-    );
-    final String? path = await getDownloadsPath();
-    if (path != null) {
-      final File file = File(
-        '$path/prescription_${DateTime.now().millisecondsSinceEpoch}.pdf',
-      );
-      await file.writeAsBytes(await pdf.save());
-      Get.snackbar('success_pattern'.tr, '${'pdf_saved'.tr} ${file.path}');
     }
   }
 
@@ -98,10 +114,13 @@ class ListPresciption extends GetxController {
         return null;
       }
 
-      final Directory directory = Directory('/storage/emulated/0/Download');
+      final Directory directory = Directory('/storage/emulated/0/Downloads');
       if (!(await directory.exists())) {
         await directory.create(recursive: true);
       }
+      return directory.path;
+    } else if (Platform.isIOS) {
+      final Directory directory = await getApplicationDocumentsDirectory();
       return directory.path;
     }
 

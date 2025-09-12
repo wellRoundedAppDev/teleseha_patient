@@ -13,7 +13,6 @@ class Analyses extends StatelessWidget {
     final BookingsController bookings = Get.find();
 
     return GetBuilder<ListPresciption>(
-      init: ListPresciption(),
       builder: (ListPresciption controller) {
         return SingleChildScrollView(
           child: Column(
@@ -186,7 +185,12 @@ class Analyses extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Btn(
-                    onPressed: controller.savedPdf,
+                    onPressed: () {
+                      controller.savedPdf(
+                        data: controller.radiologyList,
+                        fileName: 'analyses',
+                      );
+                    },
                     text: 'download_the_analyses'.tr,
                     customWidth: 0.37,
                     size: 10,

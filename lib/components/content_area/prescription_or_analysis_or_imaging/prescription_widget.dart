@@ -138,6 +138,8 @@ class PrescriptionWidget extends StatelessWidget {
               SizedBox(
                 height: 210,
                 child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
                   itemCount: controller.prescriptionList.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Column(
@@ -172,7 +174,12 @@ class PrescriptionWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Btn(
-                    onPressed: controller.savedPdf,
+                    onPressed: () {
+                      controller.savedPdf(
+                        data: controller.prescriptionList,
+                        fileName: 'prescription',
+                      );
+                    },
                     text: 'download_the_prescription'.tr,
                     customWidth: 0.37,
                     size: 10,

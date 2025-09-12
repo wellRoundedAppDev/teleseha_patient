@@ -145,12 +145,6 @@ class LoginController extends GetxController {
       state = PatternState.error;
       showForgetPatter = true;
       update();
-      Get.snackbar(
-        'error'.tr,
-        'error_pattern'.tr,
-        backgroundColor: const Color(AppColors.colorError),
-        colorText: const Color(AppColors.colorWhiteSelectedType),
-      );
     }
   }
 
