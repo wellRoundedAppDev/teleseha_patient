@@ -33,29 +33,6 @@ class WaitingForYourTurn extends StatelessWidget {
             children: <Widget>[
               Column(
                 children: <Widget>[
-                  Container(
-                    color: Colors.orange,
-                    child: GestureDetector(
-                      onTap: () {
-                        // change.goToComponentHeader.value = 'DoctorEvaluation';
-                        // Get.to(
-                        //   () => ContentDoctorEvaluation(),
-                        //   arguments: <String, int?>{
-                        //     'id': controller.passedIndex,
-                        //   },
-                        // );
-                        final VideoCallController videoCall =
-                            Get.find<VideoCallController>();
-                        videoCall.signInChat(
-                          userId: 'doctor',
-                          token:
-                              '007eJxTYJg2T/Dgg0VW13j+dCbwXe041/jFVnjRnI2Vs7bvbvKe/XmaAoNRsoWJsXmSpYmJcaqJmYF5YoqhmaW5cYpJikmykbmx2TWBwxkNgYwMk2adYGRkYGVgBEIQX4XBMDHZ0DgxzUDXwiLFQtfQEMQySE3TNTY0sEw2NkszMEo1BQBWlClE',
-                        );
-                      },
-                      child: const Text('Join as first participant'),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
                   Image.asset(
                     controller.selectedLastRecent?['image'],
                     width: 81,
