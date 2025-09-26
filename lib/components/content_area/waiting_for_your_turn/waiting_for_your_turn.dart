@@ -265,7 +265,7 @@ class WaitingForYourTurn extends StatelessWidget {
                             videoCall.signInChat(
                               userId: 'patient',
                               token:
-                                  '007eJxTYDiQONfnhvcCB2fLk/4bfy3O+yd+iNFGX2y/eehrbb+PYSwKDEbJFibG5kmWJibGqSZmBuaJKYZmlubGKSYpJslG5sZmioKHMxoCGRnmOTuxMjKwMjACIYivwmBsmJycamxuoGthkWKha2iYZqBrmZZooGuYlmJhYWSQapKWmAgArAIk8A==',
+                                  '007eJxTYIioO3hlQwXfmjdnsmcfMb3wYuvqz3fL6/7N394tOG2VxBIvBQajZAsTY/MkSxMT41QTMwPzxBRDM0tz4xSTFJNkI3NjswNsFzMaAhkZNNnfMTAysAIxIwOIr8JgbJicnGpsbqBrYZFioWtomGaga5mWaKBrmJZiYWFkkGqSlpgIALidKe8=',
                             );
                           }
                         : null,

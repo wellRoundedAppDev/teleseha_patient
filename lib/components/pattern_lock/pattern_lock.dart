@@ -12,13 +12,43 @@ class PatternLock extends StatelessWidget {
     required Function(List<int>) onUpdate,
     required Function(List<int>) onEnd,
   }) {
-    return Center(
-      child: PatternContainer(
-        pattern: pattern,
-        state: state,
-        onStart: onStart,
-        onUpdate: onUpdate,
-        onEnd: onEnd,
+    return PatternStyle(
+      data: PatternStyleData(
+        tapRange: 24,
+        linePaint: (PatternState state) => Paint()
+          ..strokeWidth = 2
+          ..color = switch (state) {
+            PatternState.normal => const Color(AppColors.colorPointer),
+            PatternState.active => Colors.blue,
+            PatternState.success => const Color(AppColors.colorSuccessLine),
+            PatternState.error => Colors.red,
+          }
+          ..style = PaintingStyle.stroke,
+        dotBuilder: (PatternState state) {
+          final Color color = switch (state) {
+            PatternState.normal => const Color(AppColors.colorPointer),
+            PatternState.active => Colors.blue,
+            PatternState.success => Colors.green,
+            PatternState.error => Colors.red,
+          };
+          return Container(
+            width: DEVICE_WIDTH * 0.04,
+            height: DEVICE_HEIGHT * 0.04,
+            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          );
+        },
+        dotPainter: (_, __, ___) {},
+      ),
+      child: SizedBox(
+        width: DEVICE_WIDTH * 0.67,
+        height: DEVICE_HEIGHT * 0.24,
+        child: PatternView(
+          state: state,
+          value: pattern,
+          onStart: onStart,
+          onUpdate: onUpdate,
+          onEnd: onEnd,
+        ),
       ),
     );
   }
@@ -27,6 +57,7 @@ class PatternLock extends StatelessWidget {
     return Center(
       child: PatternStyle(
         data: PatternStyleData(
+          tapRange: 24,
           linePaint: (PatternState state) => Paint()
             ..strokeWidth = 2
             ..color = switch (state) {
