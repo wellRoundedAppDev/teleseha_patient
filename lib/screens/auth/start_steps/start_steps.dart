@@ -52,6 +52,7 @@ class StartSteps extends StatelessWidget {
                     controller.onNextButtonPress();
                   },
                   text: 'next'.tr,
+                  isLoading: controller.isLoading,
                 ),
             ],
           ),

@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pattern_dots/pattern_dots.dart';
 
@@ -9,6 +10,8 @@ class LoginController extends GetxController {
   List<int> tempSavedPattern = <int>[];
 
   String page = 'signIn';
+  String phoneErrorMessage = '';
+  String passNumberPhone = '';
 
   bool showPhoneNumberError = false;
   double linePercentage = 0.0;
@@ -32,52 +35,85 @@ class LoginController extends GetxController {
     update();
   }
 
-  // start test request object is mobile registered
-  final List<Map<String, dynamic>> isMobileRegistered = <Map<String, dynamic>>[
-    <String, dynamic>{'mobile': '0592613795', 'role': 'Patient'},
-    <String, dynamic>{'mobile': '0597771256', 'role': 'Doctor'},
-    <String, dynamic>{'mobile': '0592947000', 'role': 'Patient'},
-  ];
-
   // end test request object is mobile registered
-
-  bool handleLogin() {
+  Future<void> handleLogin() async {
     isLoading = true;
+    update();
 
     final String phone = phoneNumberController.text.trim();
 
-    if (phone.isEmpty) {
-      showPhoneNumberError = true;
-      isLoading = false;
-      update();
-      return false;
-    }
-    if (phone.length < 7 || phone.length > 11) {
-      showPhoneNumberError = true;
-      isLoading = false;
-      update();
-      return false;
-    }
-    showPhoneNumberError = false;
-
-    final bool numberExists = isMobileRegistered.any(
-      (Map<String, dynamic> entry) =>
-          entry['mobile'] == phone && entry['role'] == 'Patient',
-    );
+    // if (phone.isEmpty) {
+    //   showPhoneNumberError = true;
+    //   isLoading = false;
+    //   update();
+    //   return false;
+    // }
+    // if (phone.length < 7 || phone.length > 11) {
+    //   showPhoneNumberError = true;
+    //   isLoading = false;
+    //   update();
+    //   return false;
+    // }
+    // showPhoneNumberError = false;
 
     // if number here true response 'nextAction': 'Login'
-    if (numberExists) {
-      linePercentage = 0.6;
-      page = 'signIn';
-      Get.to(() => const PatternLock());
-    }
+    await ApiRequest(
+      path: pathMobileRegistered,
+      className: '',
+      formatResponse: true,
+      method: ApiMethods.post,
+      body: <String, dynamic>{mobile: phone},
+    ).request(
+      onSuccess: (dynamic data, dynamic response) {
+        final String? nextStep = response['nextStepEnum']?.toString();
+        if (nextStep == 'Login') {
+          linePercentage = 0.6;
+          page = 'signIn';
+          Get.to(() => PatternLock());
+          update();
+        } else if (nextStep == 'OtpConfirm') {
+          updatePage('signUp');
+          Get.to(() => CustomOtp());
+        }
+
+        isLoading = false;
+        showPhoneNumberError = false;
+        passNumberPhone = phone;
+        phoneNumberController.clear();
+        update();
+      },
+      // ignore: always_specify_types
+      onError: (error) {
+        isLoading = false;
+
+        phone.isEmpty
+            ? phoneErrorMessage = 'is_emit_vaild'.tr
+            : !phone.startsWith('+')
+            ? phoneErrorMessage = 'is_emit_vaild_number_plus'.tr
+            : !RegExp(r'^\+\d{1,4}-\d{6,10}$').hasMatch(phone)
+            ? phoneErrorMessage = 'is_emit_vaild_check_number'.tr
+            : error is DioException && error.response?.statusCode == 404
+            ? phoneErrorMessage = 'is_emit_vaild_number_emit'.tr
+            : phoneErrorMessage = 'is_vaild_error'.tr;
+
+        showPhoneNumberError = true;
+        update();
+        return null;
+      },
+    );
+
+    // if (numberExists) {
+    //   linePercentage = 0.6;
+    //   page = 'signIn';
+    //   Get.to(() => const PatternLock());
+    // }
     // if number not here response 'nextAction': 'OtpConfirm'
-    else {
-      updatePage('signUp');
-      Get.to(() => CustomOtp());
-    }
-    isLoading = false;
-    return true;
+    // else {
+    //   updatePage('signUp');
+    //   Get.to(() => CustomOtp());
+    // }
+    // isLoading = false;
+    // return true;
   }
 
   void resetPattern() {
@@ -150,8 +186,8 @@ class LoginController extends GetxController {
 
   // create verification for existingUser about user
   void createVerificationForExistingUser() {
-    if (page == 'update') {
-      if (inputPattern.isNotEmpty) {
+    if (page == 'update') {      
+      if (inputPattern.isNotEmpty) {        
         tempSavedPattern = <int>[...inputPattern];
         resetPattern();
         updatePage('verifyPattern');
@@ -163,7 +199,6 @@ class LoginController extends GetxController {
         state = PatternState.success;
         update();
         consoleLog(tempSavedPattern);
-
         // here response user data and access token and refresh token
         // final List<Map<String, dynamic>> login = <Map<String, dynamic>>[
         //   <String, dynamic>{
@@ -172,7 +207,6 @@ class LoginController extends GetxController {
         //     'createPasswordToken': 'توكن الإنشاء (نص)',
         //   },
         // ];
-
         page = 'signIn';
         if (profiles.isEmpty) {
           page = 'signIn';

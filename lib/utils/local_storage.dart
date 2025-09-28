@@ -26,4 +26,6 @@ class LocalStorage {
   Future<void> erase() async {
     await GetStorage().erase();
   }
+
+  Future<String?> readFromStorage(String s) async {}
 }

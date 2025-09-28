@@ -11,31 +11,6 @@ class Login extends StatelessWidget {
       init: LoginController(),
       builder: (LoginController controller) {
         return Scaffold(
-          // appBar: PreferredSize(
-          //   preferredSize: const Size.fromHeight(kToolbarHeight),
-          //   child: Directionality(
-          //     textDirection: TextDirection.ltr,
-          //     child: AppBar(
-          //       leading: const SizedBox(),
-          //       backgroundColor: Colors.transparent,
-          //       title: SizedBox(
-          //         width: DEVICE_WIDTH * 0.425,
-          //         height: DEVICE_HEIGHT * 0.0108,
-          //         child: LinearProgressIndicator(
-          //           value: 0.3,
-          //           borderRadius: BorderRadius.circular(15),
-          //           backgroundColor: const Color(AppColors.backgroundColorLine),
-          //           valueColor: AlwaysStoppedAnimation<Color>(
-          //             const Color(
-          //               AppColors.colorLineAndText,
-          //             ).withValues(alpha: 0.2),
-          //           ),
-          //         ),
-          //       ),
-          //       centerTitle: true,
-          //     ),
-          //   ),
-          // ),
           body: SingleChildScrollView(
             child: Column(
               children: <Widget>[
@@ -79,9 +54,10 @@ class Login extends StatelessWidget {
                                   controller: controller.phoneNumberController,
                                   showValidMessage:
                                       controller.showPhoneNumberError,
-                                  textIsValid: 'is_valid_number'.tr,
+                                  textIsValid: controller.phoneErrorMessage,
+                                  // 'is_valid_number'.tr
                                   colorLabel: AppColors.colorLabel,
-                                  keyboardType: TextInputType.number,
+                                  keyboardType: TextInputType.phone,
                                   suffixIconPath: iconNumber,
                                   bottomSpacing: DEVICE_HEIGHT * 0.0,
                                   sizespace: DEVICE_HEIGHT * 0.000018,
@@ -90,10 +66,9 @@ class Login extends StatelessWidget {
                             ),
                             SizedBox(height: DEVICE_HEIGHT * 0.046),
                             Btn(
-                              onPressed: () {
-                                controller.handleLogin();
-                              },
                               text: 'next'.tr,
+                              onPressed: controller.handleLogin,
+                              isLoading: controller.isLoading,
                             ),
                           ],
                         ),

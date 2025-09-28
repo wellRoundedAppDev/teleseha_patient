@@ -1,5 +1,4 @@
 import 'package:flutter/gestures.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:pinput/pinput.dart';
 
 import '../../../general_exports.dart';
@@ -184,6 +183,7 @@ class CustomOtp extends StatelessWidget {
                                 controller.checkOtpToNextPage();
                               },
                               text: 'confirm_otp'.tr,
+                              isLoading: controller.isLoading,
                             ),
                           ],
                         ),

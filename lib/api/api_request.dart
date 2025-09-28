@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+
 import '../general_exports.dart';
 
 class ApiRequest {
@@ -45,15 +46,15 @@ class ApiRequest {
       BaseOptions(
         headers: <String, dynamic>{
           // 'Authorization': authorization(),
-          'Content-Type': '*/*',
+          'Content-Type': 'application/json',
           'Accept': '*/*',
           //  'sharedKey': sharedKey,
           ...(header ?? <String, dynamic>{}),
         },
-        // queryParameters: <String, dynamic>{
-        //   ...defaultQueryParams,
-        //   ...queryParameters ?? <String, dynamic>{},
-        // },
+        queryParameters: <String, dynamic>{
+          ...defaultQueryParams,
+          ...queryParameters ?? <String, dynamic>{},
+        },
       ),
     );
   }
@@ -62,8 +63,9 @@ class ApiRequest {
     Function()? beforeSend,
     Function(dynamic data, dynamic response)? onSuccess,
     Function(dynamic data, dynamic response, dynamic header)?
-    onSuccessWithHeader,
-    Function(dynamic error)? onError,
+    // onSuccessWithHeader,
+    Function(dynamic error)?
+    onError,
   }) async {
     // start request time
     final Dio dio = await _dio();
@@ -115,12 +117,14 @@ class ApiRequest {
       if (onSuccess != null) {
         onSuccess(response.data, response.data);
       }
-      if (onSuccessWithHeader != null) {
-        onSuccessWithHeader(response.data, response.data, response.headers.map);
-      }
+      // if (onSuccessWithHeader != null) {
+      //   onSuccessWithHeader(response.data, response.data, response.headers.map);
+      // }
     } on Exception catch (error) {
       dismissLoading();
-      // request time
+      if (onError != null) {
+        onError(error);
+      }
       if (error is DioException) {
         final dynamic errorData =
             error.response?.data ??

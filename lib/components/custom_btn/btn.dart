@@ -1,5 +1,4 @@
-import 'package:flutter_svg/svg.dart';
-
+import 'package:flutter_svg/flutter_svg.dart';
 import '../../general_exports.dart';
 
 class Btn extends StatelessWidget {
@@ -14,6 +13,7 @@ class Btn extends StatelessWidget {
     this.customHeight = 0.075,
     this.size = 20,
     this.icon,
+    this.isLoading = false,
   });
 
   final String? text;
@@ -25,6 +25,7 @@ class Btn extends StatelessWidget {
   final double? customHeight;
   final double? size;
   final IconData? icon;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -35,13 +36,22 @@ class Btn extends StatelessWidget {
         style:
             style ??
             ElevatedButton.styleFrom(
-              backgroundColor: color ?? const Color(AppColors.colorLineAndText),
+              backgroundColor: isLoading
+                  ? const Color.fromARGB(96, 0, 123, 189)
+                  : color ?? const Color(AppColors.colorLineAndText),
               padding: EdgeInsets.symmetric(vertical: DEVICE_HEIGHT * 0.02),
             ),
-        onPressed: () {
-          onPressed?.call();
-        },
-        child: icon != null
+        onPressed: isLoading ? null : () => onPressed?.call(),
+        child: isLoading
+            ? const SizedBox(
+                width: 24,
+                height: 24,
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                  strokeWidth: 2,
+                ),
+              )
+            : icon != null
             ? Row(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,

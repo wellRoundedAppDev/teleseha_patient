@@ -57,10 +57,15 @@ void showMessage({
     icon: withIcon
         ? Icon(Icons.info, color: fontColor)
         : const SizedBox(width: 0, height: 0),
+    // mainButton: TextButton(
+    //   onPressed: null,
+    //   child: GestureDetector(onTap: Get.closeCurrentSnackbar),
+    // ),
     mainButton: TextButton(
-      onPressed: null,
-      child: GestureDetector(onTap: Get.closeCurrentSnackbar),
+      onPressed: Get.closeCurrentSnackbar, // مباشرة
+      child: const Text('Close', style: TextStyle(color: Colors.white)),
     ),
+
     backgroundColor: backgroundColor,
     duration: Duration(seconds: duration),
   );

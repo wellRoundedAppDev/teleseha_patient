@@ -13,6 +13,8 @@ class StartStepsController extends GetxController {
   final bool isSignIn = false;
   List<int> tempSavedPattern = <int>[];
   List<int> inputPattern = <int>[];
+  bool isLoading = false;
+  String dataPassword = '';
 
   TextEditingController otpController = TextEditingController();
   DateTime selectedDate = DateTime.now();
@@ -90,31 +92,58 @@ class StartStepsController extends GetxController {
       return false;
     } else {
       clearOtpError();
-      consoleLog('OTP Entered: ${otpController.text}');
       return true;
     }
   }
 
   // request otp confirm
-  void checkOtpToNextPage() {
+  Future<void> checkOtpToNextPage() async {
     if (checkOtp()) {
+      isLoading = true;
+      update();
       final LoginController controller = Get.find<LoginController>();
       if (controller.page == 'signIn') {
         // if nextAction create password open patternLock and update page
-        consoleLog('${login.phoneNumberController.text} ${otpController.text}');
         controller.updatePage('update');
         otpController.clear();
-        Get.to(() => PatternLock());
+        Get.to(() => const PatternLock());
         update();
         controller.resetPattern();
-        consoleLog(otpController);
       } else if (controller.page == 'signUp') {
-        controller.updatePage('signUp');
-        otpController.clear();
-        update();
-        controller.resetPattern();
-        consoleLog(otpController);
-        Get.toNamed(routeSteps);
+        await ApiRequest(
+          path: otpConfirm,
+          className: '',
+          formatResponse: true,
+          method: ApiMethods.post,
+          body: <String, dynamic>{
+            mobile: login.passNumberPhone.trim(),
+            otp: otpController.text,
+          },
+        ).request(
+          onSuccess: (dynamic data, dynamic response) {
+            isLoading = false;
+            final String? data = response['data']?.toString();
+            final String? nextStep = response['nextStepEnum']?.toString();
+            if (nextStep == 'CreatePassword') {
+              controller.updatePage('signUp');
+              otpController.clear();
+              Get.toNamed(routeSteps);
+              dataPassword = data ?? '';
+            }
+            showOtpError = false;
+            clearOtpError();
+            update();
+          },
+          // ignore: always_specify_types
+          onError: (error) {
+            isLoading = false;
+            otpController.clear();
+            markOtpInvalid();
+            showOtpError = true;
+            update();
+            return null;
+          },
+        );
       }
     }
   }
@@ -178,11 +207,46 @@ class StartStepsController extends GetxController {
     }
   }
 
-  void onNextButtonPress() {
+  Future<void> onNextButtonPress() async {
     if (currentStep == 1) {
       if (canGoToStepTwo(inputPattern)) {
+        isLoading = true;
+        update();
+        await ApiRequest(
+          path: createPassword,
+          className: '',
+          formatResponse: true,
+          method: ApiMethods.post,
+          body: <String, dynamic>{
+            mobile: login.passNumberPhone.trim(),
+            password: inputPattern.join(),
+            createPasswordToken: dataPassword,
+          },
+        ).request(
+          onSuccess: (dynamic data, dynamic response) async {
+            isLoading = false;
+            final String? nextStep = response['nextStepEnum']?.toString();
+            if (nextStep == 'CompleteProfile') {
+              // final String? accessToken = response['accessToken']?.toString();
+              final String? refreshToken = response['refreshToken']?.toString();
+              await localStorage.saveToStorage(
+                key: 'refreshToken',
+                value: refreshToken,
+              );
+              await localStorage.readFromStorage('refreshToken');
+              update();
+            }
+            currentStep++;
+            update();
+          },
+          // ignore: always_specify_types
+          onError: (error) {
+            isLoading = false;
+            update();
+            return null;
+          },
+        );
         resetPattern();
-        currentStep++;
         update();
       }
     } else if (currentStep == 2) {
@@ -223,10 +287,6 @@ class StartStepsController extends GetxController {
     super.onClose();
     timer?.cancel();
     otpController.dispose();
-  }
-
-  void consoleLogOtp() {
-    consoleLog('📥 OTP Entered: ${otpController.text}');
   }
 
   void markOtpInvalid() {
