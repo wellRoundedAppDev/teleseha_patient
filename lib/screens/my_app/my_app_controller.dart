@@ -20,13 +20,14 @@ class MyAppController extends GetxController {
   Future<void> _loadRefreshToken() async {
     refreshToken = await localStorage.readFromStorage(storageRefreshToken);
     if (refreshToken != null) {
-      // await localStorage.removeFromStorage(key: storageRefreshToken);
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        Get.toNamed(routeSteps);
-        stepController.currentStep = 3;
-      });
+      await localStorage.removeFromStorage(key: storageRefreshToken);
+      // WidgetsBinding.instance.addPostFrameCallback((_) {
+      //   // Get.toNamed(routeSteps);
+      //   // stepController.currentStep = 3;
+      //   Get.toNamed(routeScreen);
+      //   update();
+      // });
     }
-    update();
   }
 
   void onSignOut() {

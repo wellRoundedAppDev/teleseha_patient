@@ -147,18 +147,21 @@ class PatternLock extends StatelessWidget {
                               color: const Color(AppColors.colorTextBlue),
                             ),
                           SizedBox(height: DEVICE_HEIGHT * 0.13),
-                          _buildPatternArea(
-                            state: controller.state,
-                            pattern: controller.inputPattern,
-                            onStart: controller.startPattern,
-                            onUpdate: controller.updatePattern,
-                            onEnd: (List<int> pattern) {
-                              controller.inputPattern = pattern;
-                              if (controller.page == 'signIn') {
-                                controller.validatePattern();
-                              }
-                            },
-                          ),
+                          if (controller.isLoading)
+                            const CircularProgressIndicator()
+                          else
+                            _buildPatternArea(
+                              state: controller.state,
+                              pattern: controller.inputPattern,
+                              onStart: controller.startPattern,
+                              onUpdate: controller.updatePattern,
+                              onEnd: (List<int> pattern) {
+                                controller.inputPattern = pattern;
+                                if (controller.page == 'signIn') {
+                                  controller.validatePattern();
+                                }
+                              },
+                            ),
                           // SizedBox(height: DEVICE_HEIGHT * 0.0),
                           if (controller.page == 'signIn' &&
                               controller.showForgetPatter)
@@ -251,7 +254,8 @@ class PatternLock extends StatelessWidget {
                     ),
                   ),
                 )
-              : Column(
+              : !controller.isLoading
+              ? Column(
                   children: <Widget>[
                     CustomText(
                       text: 'create_pattern'.tr,
@@ -263,7 +267,8 @@ class PatternLock extends StatelessWidget {
                     if (stepsController != null)
                       _buildStepsPattern(stepsController),
                   ],
-                ),
+                )
+              : const SizedBox.shrink(),
         );
       },
     );

@@ -12,6 +12,7 @@ class CustomOtp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<StartStepsController>(
       builder: (StartStepsController controller) {
+        controller.startCountdown();
         return Scaffold(
           body: SingleChildScrollView(
             child: Column(

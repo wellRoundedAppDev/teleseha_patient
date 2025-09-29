@@ -32,7 +32,6 @@ class StartStepsController extends GetxController {
   int secondsRemaining = 70;
   Timer? timer;
 
-  final List<int> passPattern = <int>[0, 1, 2, 3, 4];
   List<int> patterns = <int>[];
   PatternState state = PatternState.normal;
 
@@ -40,12 +39,6 @@ class StartStepsController extends GetxController {
     <String, String>{gender: 'female'.tr, icon: iconFemale, code: 'female'},
     <String, String>{gender: 'male'.tr, icon: iconMale, code: 'male'},
   ];
-
-  @override
-  void onReady() {
-    super.onReady();
-    startCountdown();
-  }
 
   void minusSelectedSteps() {
     currentStep--;
@@ -96,14 +89,22 @@ class StartStepsController extends GetxController {
     }
   }
 
-  // request otp confirm
   Future<void> checkOtpToNextPage() async {
+    if (secondsRemaining <= 0) {
+      Get.snackbar(
+        'error'.tr,
+        'otp_time_expired'.tr,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+      return; 
+    }
+
     if (checkOtp()) {
       isLoading = true;
       update();
       final LoginController controller = Get.find<LoginController>();
       if (controller.page == 'signIn') {
-        // if nextAction create password open patternLock and update page
         controller.updatePage('update');
         otpController.clear();
         Get.to(() => const PatternLock());
@@ -135,7 +136,6 @@ class StartStepsController extends GetxController {
             clearOtpError();
             update();
           },
-          // ignore: always_specify_types
           onError: (error) {
             isLoading = false;
             otpController.clear();
