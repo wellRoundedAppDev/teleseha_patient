@@ -9,6 +9,8 @@ class MyAppController extends GetxController {
   bool isInternetConnect = true;
   bool shouldShowNoInternetDialog = true;
 
+  final StartStepsController stepController = Get.find();
+
   @override
   void onInit() {
     super.onInit();
@@ -16,8 +18,14 @@ class MyAppController extends GetxController {
   }
 
   Future<void> _loadRefreshToken() async {
-    refreshToken = await localStorage.readFromStorage('refreshToken');
-    consoleLog('Loaded refreshToken: $refreshToken');
+    refreshToken = await localStorage.readFromStorage(storageRefreshToken);
+    if (refreshToken != null) {
+      // await localStorage.removeFromStorage(key: storageRefreshToken);
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Get.toNamed(routeSteps);
+        stepController.currentStep = 3;
+      });
+    }
     update();
   }
 

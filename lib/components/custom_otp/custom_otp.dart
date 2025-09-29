@@ -11,7 +11,6 @@ class CustomOtp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<StartStepsController>(
-      init: StartStepsController(),
       builder: (StartStepsController controller) {
         return Scaffold(
           body: SingleChildScrollView(

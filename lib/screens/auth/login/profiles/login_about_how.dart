@@ -9,7 +9,6 @@ class Profiles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<LoginController>(
-      init: LoginController(),
       builder: (LoginController controller) {
         return Directionality(
           textDirection: TextDirection.ltr,

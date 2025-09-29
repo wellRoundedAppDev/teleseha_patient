@@ -20,14 +20,12 @@ Future<void> main() async {
     }
   });
 
-  final MyAppController myAppController = Get.put(MyAppController());
+  Get.put(LoginController());
+  Get.put(StartStepsController());
+  Get.put(MyAppController());
   Get.put(BookingsController());
   Get.put(VideoCallController(), permanent: true);
   Get.put(ListPresciption(), permanent: true);
-
-  myAppController.refreshToken = await myAppController.localStorage
-      .readFromStorage('refreshToken');
-  consoleLog('Loaded refreshToken: ${myAppController.refreshToken}');
 
   consoleLogPretty(baseUrl, key: 'baseUrl');
   HttpOverrides.global = MyHttpOverrides();

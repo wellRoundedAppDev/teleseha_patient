@@ -103,7 +103,6 @@ class PatternLock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<LoginController>(
-      init: LoginController(),
       builder: (LoginController controller) {
         final bool isSignUp = controller.page == 'signUp';
         final StartStepsController? stepsController = isSignUp

@@ -131,6 +131,7 @@ class StartStepsController extends GetxController {
               dataPassword = data ?? '';
             }
             showOtpError = false;
+            ++currentStep;
             clearOtpError();
             update();
           },
@@ -208,7 +209,7 @@ class StartStepsController extends GetxController {
   }
 
   Future<void> onNextButtonPress() async {
-    if (currentStep == 1) {
+    if (currentStep == 2) {
       if (canGoToStepTwo(inputPattern)) {
         isLoading = true;
         update();
@@ -226,18 +227,18 @@ class StartStepsController extends GetxController {
           onSuccess: (dynamic data, dynamic response) async {
             isLoading = false;
             final String? nextStep = response['nextStepEnum']?.toString();
-            if (nextStep == 'CompleteProfile') {
+            if (nextStep == 'CreateProfile') {
               // final String? accessToken = response['accessToken']?.toString();
-              final String? refreshToken = response['refreshToken']?.toString();
+              final String? refreshToken = response['data']?['refreshToken']
+                  ?.toString();
               await localStorage.saveToStorage(
-                key: 'refreshToken',
+                key: storageRefreshToken,
                 value: refreshToken,
               );
-              await localStorage.readFromStorage('refreshToken');
+              await localStorage.readFromStorage(storageRefreshToken);
+              // currentStep++;
               update();
             }
-            currentStep++;
-            update();
           },
           // ignore: always_specify_types
           onError: (error) {
@@ -249,7 +250,7 @@ class StartStepsController extends GetxController {
         resetPattern();
         update();
       }
-    } else if (currentStep == 2) {
+    } else if (currentStep == 3) {
       if (canGoToStepOtp()) {
         Get.toNamed(routeFormDiagnosis);
         update();

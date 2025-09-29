@@ -1,1 +1,1 @@
-const String storageRefreshToken = 'refresh_token';
+const String storageRefreshToken = 'refreshToken';

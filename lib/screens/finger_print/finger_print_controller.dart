@@ -7,18 +7,19 @@ import '../../../general_exports.dart';
 class FingerPrintController extends GetxController {
   final LocalAuthentication auth = LocalAuthentication();
   LocalStorage localStorage = LocalStorage();
+  String? refreshToken;
+  final StartStepsController stepController = Get.find();
 
   Future<void> checkUserAndNavigate() async {
-    // userData = await localStorage.getFromStorage(key: storageRefreshToken);
-    // final String? refreshToken = await localStorage.getFromStorage(
-    //   key: storageRefreshToken,
-    // );
-    // check response and save and go to page when nextAction
-    // if (refreshToken != null && refreshToken.isNotEmpty) {
-    //   Get.offAllNamed(routeHome);
-    // } else {
-    Get.offAllNamed(routeLogin);
-    // }
+    refreshToken = await localStorage.readFromStorage(storageRefreshToken);
+    if (refreshToken != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Get.toNamed(routeSteps);
+        stepController.currentStep = 3;
+      });
+    } else {
+      Get.offAllNamed(routeLogin);
+    }
   }
 
   Future<void> startBiometricAuth() async {

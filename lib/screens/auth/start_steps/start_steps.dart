@@ -9,7 +9,6 @@ class StartSteps extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<StartStepsController>(
-      init: StartStepsController(),
       builder: (StartStepsController controller) {
         return Scaffold(
           resizeToAvoidBottomInset: false,
@@ -18,7 +17,7 @@ class StartSteps extends StatelessWidget {
               SizedBox(height: DEVICE_HEIGHT * 0.1),
               const Logo(),
               SizedBox(height: DEVICE_HEIGHT * 0.012),
-              if (controller.currentStep == 1)
+              if (controller.currentStep == 2)
                 Column(
                   children: <Widget>[
                     SizedBox(height: DEVICE_HEIGHT * 0.043),
@@ -32,7 +31,7 @@ class StartSteps extends StatelessWidget {
                   ],
                 )
               else
-                controller.currentStep == 2
+                controller.currentStep == 3
                     ? Column(
                         children: <Widget>[
                           SizedBox(height: DEVICE_HEIGHT * 0.053),
