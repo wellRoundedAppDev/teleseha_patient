@@ -24,7 +24,9 @@ class MyAppController extends GetxController {
       // WidgetsBinding.instance.addPostFrameCallback((_) {
       //   // Get.toNamed(routeSteps);
       //   // stepController.currentStep = 3;
-      //   Get.toNamed(routeScreen);
+      // final StartStepsController steps = Get.find();
+      // ++steps.currentStep;
+      // steps.update();
       //   update();
       // });
     }

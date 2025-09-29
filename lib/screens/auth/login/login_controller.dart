@@ -95,29 +95,6 @@ class LoginController extends GetxController {
     update();
   }
 
-  // bool isLoginRequestValid(List<Map<String, dynamic>> loginData) {
-  //   if (loginData.isEmpty) {
-  //     return false;
-  //   }
-
-  //   final Map<String, dynamic> data = loginData.first;
-  //   final String? mobile = data['mobile'];
-  //   final String? password = data['password'];
-  //   if (mobile == null || mobile.trim().isEmpty) {
-  //     return false;
-  //   }
-  //   if (password == null || password.trim().isEmpty) {
-  //     return false;
-  //   }
-  //   if (mobile.length < 7 || mobile.length > 11) {
-  //     return false;
-  //   }
-  //   if (password.length < 4) {
-  //     return false;
-  //   }
-  //   return true;
-  // }
-
   Future<void> validatePattern() async {
     isLoading = true;
     update();
@@ -145,7 +122,10 @@ class LoginController extends GetxController {
           );
           await localStorage.readFromStorage(storageRefreshToken);
         }
-        Get.toNamed(routeScreen);
+        final StartStepsController steps = Get.find();
+        ++steps.currentStep;
+        steps.update();
+        // Get.toNamed(routeScreen);
         showForgetPatter = false;
         update();
       },
@@ -158,35 +138,6 @@ class LoginController extends GetxController {
         return null;
       },
     );
-
-    // final List<Map<String, dynamic>> login = <Map<String, dynamic>>[
-    //   <String, dynamic>{
-    //     'mobile': phoneNumberController.text.trim(),
-    //     'password': inputPattern.join(),
-    //   },
-    // ];
-
-    // if (isLoginRequestValid(login)) {
-    // //   // if profiles not empty open page profiles and save refresh token in localstorage
-    // //   // if profiles empty open register name and type and date
-    // //   if (profiles.isEmpty) {
-    // //     // if response i have token save response refresh token in localstorage
-    // //     // localStorage.saveToStorage(
-    // //     //   key: storageRefreshToken,
-    // //     //   value: 'responseRefreshToken',
-    // //     // );
-    // //     Get.to(() => FormDataUser(isFromProfile: false));
-    // //   } else {
-    // //     Get.toNamed(routeProfiles);
-    // //   }
-    // //   consoleLog(
-    // //     'id: 1, mobile ${phoneNumberController.text} role $inputPattern status 1 and profiles access token refresh token',
-    // //   );
-    // } else {
-    //   state = PatternState.error;
-    //   showForgetPatter = true;
-    //   update();
-    // }
   }
 
   // create verification for existingUser about user
