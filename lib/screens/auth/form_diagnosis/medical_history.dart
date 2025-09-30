@@ -24,146 +24,245 @@ class MedicalHistory extends StatelessWidget {
                     color: const Color(AppColors.colorTextBlue),
                   ),
                   SizedBox(height: DEVICE_HEIGHT * 0.08),
-                  Column(
-                    children: controller.visibleQuestions.map((
-                      QuestionModel q,
-                    ) {
-                      final bool isMainQuestion = q.id == 'chronic';
-                      return Padding(
-                        padding: EdgeInsets.only(bottom: DEVICE_HEIGHT * 0.035),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Row(
-                              children: <Widget>[
-                                if (isMainQuestion)
-                                  const CustomText(
-                                    text: '1.',
-                                    fontSize: 16,
-                                    type: CustomTextType.title,
-                                    color: Color(AppColors.colorLineAndText),
-                                  ),
-                                if (!isMainQuestion)
-                                  Container(
-                                    margin: const EdgeInsets.only(top: 2.8),
-                                    width: DEVICE_WIDTH * 0.013,
-                                    height: DEVICE_HEIGHT * 0.007,
-                                    color: const Color(AppColors.colorLabel),
-                                  ),
-                                SizedBox(width: DEVICE_WIDTH * 0.03),
-                                CustomText(
-                                  text: q.questionText,
-                                  fontSize: 16,
-                                  type: CustomTextType.title,
-                                  color: const Color(
-                                    AppColors.colorLineAndText,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: DEVICE_HEIGHT * 0.02),
-                            if (q.type == QuestionType.radio)
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  _buildOption(
-                                    label: 'نعم',
-                                    value: 'yes',
-                                    isSelected: q.selectedAnswer == 'yes',
-                                    onTap: () => controller.selectRadioAnswer(
-                                      q.id,
-                                      'yes',
-                                    ),
-                                  ),
-                                  SizedBox(width: DEVICE_WIDTH * 0.1),
-                                  _buildOption(
-                                    label: 'لا',
-                                    value: 'no',
-                                    isSelected: q.selectedAnswer == 'no',
-                                    onTap: () => controller.selectRadioAnswer(
-                                      q.id,
-                                      'no',
-                                    ),
-                                  ),
-                                ],
+                  if (controller.isLoading)
+                    SizedBox(
+                      height: DEVICE_HEIGHT * 0.4,
+                      child: const Center(child: CircularProgressIndicator()),
+                    )
+                  else
+                    controller.questions.isEmpty
+                        ? SizedBox(
+                            height: DEVICE_HEIGHT * 0.4,
+                            child: const Center(child: Text('لا توجد بيانات')),
+                          )
+                        : SizedBox(
+                            height: DEVICE_HEIGHT * 0.4,
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                bottom: DEVICE_HEIGHT * 0.035,
                               ),
-                            if (q.type == QuestionType.checkboxList)
-                              Column(
-                                children: q.checkboxOptions!.map((
-                                  String option,
-                                ) {
-                                  final bool isChecked = q
-                                      .selectedCheckboxAnswers
-                                      .contains(option);
-                                  return GestureDetector(
-                                    onTap: () => controller
-                                        .toggleCheckboxAnswer(q.id, option),
-                                    child: Container(
-                                      margin: const EdgeInsets.symmetric(
-                                        vertical: 6,
-                                      ),
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 22,
-                                        vertical: 12,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(25),
-                                        border: Border.all(
-                                          color: Colors.grey.shade300,
-                                        ),
-                                        color: Colors.white,
-                                      ),
-                                      child: Row(
+                              child: ListView.builder(
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: 1,
+                                itemBuilder: (BuildContext context, int index) {
+                                  final item = controller
+                                      .questions[controller.currentStep - 1];
+                                  // ignore: always_specify_types
+                                  return Column(
+                                    children: <Widget>[
+                                      Row(
                                         children: <Widget>[
-                                          Container(
-                                            width: DEVICE_WIDTH * 0.06,
-                                            height: DEVICE_WIDTH * 0.06,
-                                            decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: isChecked
-                                                  ? const Color(
-                                                      AppColors
-                                                          .colorLineAndText,
-                                                    )
-                                                  : Colors.white,
-                                              border: Border.all(
-                                                color: isChecked
-                                                    ? const Color(
-                                                        AppColors
-                                                            .colorLineAndText,
-                                                      )
-                                                    : Colors.grey,
-                                                width: 2,
-                                              ),
-                                            ),
-                                            child: isChecked
-                                                ? const Icon(
-                                                    Icons.check,
-                                                    color: Colors.white,
-                                                    size: 16,
-                                                  )
-                                                : null,
-                                          ),
-                                          const SizedBox(width: 10),
                                           CustomText(
-                                            text: option,
-                                            fontSize: 10,
+                                            text: '${controller.currentStep}. ',
+                                            fontSize: 16,
                                             type: CustomTextType.title,
                                             color: const Color(
-                                              AppColors.colorTextBlue,
+                                              AppColors.colorLineAndText,
+                                            ),
+                                          ),
+                                          SizedBox(width: DEVICE_WIDTH * 0.03),
+                                          CustomText(
+                                            text: item['sectionName'] ?? '',
+                                            fontSize: 16,
+                                            type: CustomTextType.title,
+                                            color: const Color(
+                                              AppColors.colorLineAndText,
                                             ),
                                           ),
                                         ],
                                       ),
-                                    ),
+                                      SizedBox(height: DEVICE_HEIGHT * 0.02),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          _buildOption(
+                                            label: 'نعم',
+                                            value: 'yes',
+                                            isSelected:
+                                                item['isSelected'] == true,
+                                            onTap: () async {
+                                              final int sectionId = item['id'];
+                                              final String answer = 'yes';
+                                              item['isSelected'] = true;
+                                              controller.update();
+                                              await controller.sendAnswer(
+                                                1,
+                                                sectionId,
+                                                answer,
+                                              );
+                                            },
+                                          ),
+                                          SizedBox(width: DEVICE_WIDTH * 0.1),
+                                          _buildOption(
+                                            label: 'لا',
+                                            value: 'no',
+                                            isSelected:
+                                                item['isSelected'] == false,
+                                            onTap: () async {
+                                              final int sectionId = item['id'];
+                                              final String answer = 'no';
+                                              item['isSelected'] = false;
+                                              controller.update();
+
+                                              await controller.sendAnswer(
+                                                1,
+                                                sectionId,
+                                                answer,
+                                              );
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: DEVICE_HEIGHT * 0.02),
+                                    ],
                                   );
-                                }).toList(),
+                                },
                               ),
-                          ],
-                        ),
-                      );
-                    }).toList(),
-                  ),
+                            ),
+                          ),
+                  // Column(
+                  //   children: controller.visibleQuestions.map((
+                  //     QuestionModel q,
+                  //   ) {
+                  //     final bool isMainQuestion = q.id == 'chronic';
+                  //     return Padding(
+                  //       padding: EdgeInsets.only(bottom: DEVICE_HEIGHT * 0.035),
+                  //       child: Column(
+                  //         crossAxisAlignment: CrossAxisAlignment.start,
+                  //         children: <Widget>[
+                  //           Row(
+                  //             children: <Widget>[
+                  //               if (isMainQuestion)
+                  //                 const CustomText(
+                  //                   text: '1.',
+                  //                   fontSize: 16,
+                  //                   type: CustomTextType.title,
+                  //                   color: Color(AppColors.colorLineAndText),
+                  //                 ),
+                  //               if (!isMainQuestion)
+                  //                 Container(
+                  //                   margin: const EdgeInsets.only(top: 2.8),
+                  //                   width: DEVICE_WIDTH * 0.013,
+                  //                   height: DEVICE_HEIGHT * 0.007,
+                  //                   color: const Color(AppColors.colorLabel),
+                  //                 ),
+                  //               SizedBox(width: DEVICE_WIDTH * 0.03),
+                  //               CustomText(
+                  //                 text: q.questionText,
+                  //                 fontSize: 16,
+                  //                 type: CustomTextType.title,
+                  //                 color: const Color(
+                  //                   AppColors.colorLineAndText,
+                  //                 ),
+                  //               ),
+                  //             ],
+                  //           ),
+                  //           SizedBox(height: DEVICE_HEIGHT * 0.02),
+                  //           if (q.type == QuestionType.radio)
+                  //             Row(
+                  //               mainAxisAlignment: MainAxisAlignment.center,
+                  //               children: <Widget>[
+                  //                 _buildOption(
+                  //                   label: 'نعم',
+                  //                   value: 'yes',
+                  //                   isSelected: q.selectedAnswer == 'yes',
+                  //                   onTap: () => controller.selectRadioAnswer(
+                  //                     q.id,
+                  //                     'yes',
+                  //                   ),
+                  //                 ),
+                  //                 SizedBox(width: DEVICE_WIDTH * 0.1),
+                  //                 _buildOption(
+                  //                   label: 'لا',
+                  //                   value: 'no',
+                  //                   isSelected: q.selectedAnswer == 'no',
+                  //                   onTap: () => controller.selectRadioAnswer(
+                  //                     q.id,
+                  //                     'no',
+                  //                   ),
+                  //                 ),
+                  //               ],
+                  //             ),
+                  //           if (q.type == QuestionType.checkboxList)
+                  //             Column(
+                  //               children: q.checkboxOptions!.map((
+                  //                 String option,
+                  //               ) {
+                  //                 final bool isChecked = q
+                  //                     .selectedCheckboxAnswers
+                  //                     .contains(option);
+                  //                 return GestureDetector(
+                  //                   onTap: () => controller
+                  //                       .toggleCheckboxAnswer(q.id, option),
+                  //                   child: Container(
+                  //                     margin: const EdgeInsets.symmetric(
+                  //                       vertical: 6,
+                  //                     ),
+                  //                     padding: const EdgeInsets.symmetric(
+                  //                       horizontal: 22,
+                  //                       vertical: 12,
+                  //                     ),
+                  //                     decoration: BoxDecoration(
+                  //                       borderRadius: BorderRadius.circular(25),
+                  //                       border: Border.all(
+                  //                         color: Colors.grey.shade300,
+                  //                       ),
+                  //                       color: Colors.white,
+                  //                     ),
+                  //                     child: Row(
+                  //                       children: <Widget>[
+                  //                         Container(
+                  //                           width: DEVICE_WIDTH * 0.06,
+                  //                           height: DEVICE_WIDTH * 0.06,
+                  //                           decoration: BoxDecoration(
+                  //                             shape: BoxShape.circle,
+                  //                             color: isChecked
+                  //                                 ? const Color(
+                  //                                     AppColors
+                  //                                         .colorLineAndText,
+                  //                                   )
+                  //                                 : Colors.white,
+                  //                             border: Border.all(
+                  //                               color: isChecked
+                  //                                   ? const Color(
+                  //                                       AppColors
+                  //                                           .colorLineAndText,
+                  //                                     )
+                  //                                   : Colors.grey,
+                  //                               width: 2,
+                  //                             ),
+                  //                           ),
+                  //                           child: isChecked
+                  //                               ? const Icon(
+                  //                                   Icons.check,
+                  //                                   color: Colors.white,
+                  //                                   size: 16,
+                  //                                 )
+                  //                               : null,
+                  //                         ),
+                  //                         const SizedBox(width: 10),
+                  //                         CustomText(
+                  //                           text: option,
+                  //                           fontSize: 10,
+                  //                           type: CustomTextType.title,
+                  //                           color: const Color(
+                  //                             AppColors.colorTextBlue,
+                  //                           ),
+                  //                         ),
+                  //                       ],
+                  //                     ),
+                  //                   ),
+                  //                 );
+                  //               }).toList(),
+                  //             ),
+                  //         ],
+                  //       ),
+                  //     );
+                  //   }).toList(),
+                  // ),
                   SizedBox(height: DEVICE_HEIGHT * 0.05),
                   Column(
                     children: <Widget>[
@@ -174,13 +273,13 @@ class MedicalHistory extends StatelessWidget {
                       SizedBox(height: DEVICE_HEIGHT * 0.052),
                       Btn(
                         text: 'next'.tr,
-                        onPressed: controller.hasAnyAnswer
+                        onPressed: controller.hasSelectedAnswer
                             ? () {
-                                controller.goToNextStep();
+                                controller.nextStep();
                               }
                             : null,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: controller.hasAnyAnswer
+                          backgroundColor: controller.hasSelectedAnswer
                               ? const Color(AppColors.colorLineAndText)
                               : const Color.fromARGB(83, 0, 123, 189),
                           padding: EdgeInsets.symmetric(

@@ -10,6 +10,7 @@ const Map<String, String> ar = <String, String>{
   'put_your_finger': 'اضغط على الزر لعمل المستشعر',
   'save': 'حفظ',
   'again': 'إعادة المحاولة',
+  'not_found_medical_profile_section': 'الرجاء التحقق من الدخول او الأنترنت',
   'name': 'الاسم',
   'name_field': 'عبدالرحمن عبالله محمد',
   'is_valid_name_field': 'الرجاء ادخال الاسم',

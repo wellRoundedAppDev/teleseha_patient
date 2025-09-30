@@ -29,7 +29,7 @@ class LoginController extends GetxController {
 
   void updatePage(String newResolution) {
     page = newResolution;
-    update();
+    update(); 
   }
 
   Future<void> handleLogin() async {

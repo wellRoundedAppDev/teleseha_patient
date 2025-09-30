@@ -9,3 +9,4 @@ const String refreshLogin = '$basePath/refresh-login';
 
 // ********************  ********************
 const String patient = 'patient';
+const String pathMedicalProfileSection = 'medical-profile-section';
