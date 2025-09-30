@@ -106,9 +106,6 @@ class DoctorsController extends GetxController {
     ];
 
     final DateTime currentDate = selectedDate;
-    final int currentDayIndex = currentDate.weekday - 3;
-
-    // currentDay = days[currentDayIndex];
 
     weekDays.clear();
     for (int i = 0; i < 7; i++) {
@@ -140,6 +137,7 @@ class DoctorsController extends GetxController {
 
   void selectedDoctorFunction() {
     selectedDoctor = doctors.firstWhere(
+      // ignore: always_specify_types
       (doctor) => doctor['id'] == selectedDoctorId,
       orElse: () => <dynamic, dynamic>{},
     );
@@ -160,6 +158,7 @@ class DoctorsController extends GetxController {
 
   final List<String> tabs = <String>['practical_experiments'.tr, 'ratings'.tr];
 
+  // ignore: always_specify_types
   final List ratings = <dynamic>[
     <String, String>{'titleRatings': 'good_listen'.tr, 'icon': iconGoodListen},
     <String, String>{'titleRatings': 'friendly'.tr, 'icon': iconCalm},
@@ -354,6 +353,7 @@ class DoctorsController extends GetxController {
     return text.length * 3 + 1;
   }
 
+  // ignore: always_specify_types
   List commints = <dynamic>[
     <String, Object>{
       'icon': iconUser,

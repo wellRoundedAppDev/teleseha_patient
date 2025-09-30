@@ -24,6 +24,7 @@ class CustomBottomNavBar extends StatelessWidget {
             // ignore: always_specify_types
             children: List.generate(controller.labels.length, (int index) {
               final bool isSelected =
+                  // ignore: unrelated_type_equality_checks
                   controller.selectedIndexBottomNav == index;
               return GestureDetector(
                 onTap: () {

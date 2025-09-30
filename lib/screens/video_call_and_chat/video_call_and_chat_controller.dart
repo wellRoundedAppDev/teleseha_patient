@@ -242,6 +242,7 @@ class VideoCallController extends GetxController {
     );
 
     update();
+    // ignore: always_specify_types
     Future.delayed(const Duration(milliseconds: 100), () {
       if (scrollController.hasClients) {
         scrollController.jumpTo(scrollController.position.maxScrollExtent);
@@ -414,7 +415,9 @@ class VideoCallController extends GetxController {
   }
 
   void startTimer() {
-    if (!hasParticipant) return;
+    if (!hasParticipant) {
+      return;
+    }
 
     _timer?.cancel();
     _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
@@ -478,6 +481,7 @@ class VideoCallController extends GetxController {
   }
 
   Future<void> initAgora() async {
+    // ignore: always_specify_types
     await Future.delayed(const Duration(seconds: 2));
     await <Permission>[Permission.microphone, Permission.camera].request();
     final bool cameraGranted = await Permission.camera.isGranted;
@@ -612,7 +616,6 @@ class VideoCallController extends GetxController {
     localUserJoined = false;
 
     if (remoteUid == null || remoteUid == 0) {
-      print('🚪 User is alone in the call, going back');
       Get.back();
     } else {
       isCallEnded.value = false;
@@ -625,9 +628,7 @@ class VideoCallController extends GetxController {
       await engine.leaveChannel();
       await engine.stopPreview();
       await engine.release();
-    } catch (e) {
-      print('❌ Error leaving channel: $e');
-    }
+    } catch (e) {}
 
     isCallStarted.value = false;
     isCallEnded.value = true;
@@ -664,81 +665,79 @@ class VideoCallController extends GetxController {
   ];
 
   // data chat
-  List<ChatLog> dummyMessages = [
+  List<ChatLog> dummyMessages = <ChatLog>[
     ChatLog(
       message:
-          "كيف حالك عبدالرحمن متقلقش كل حاجه محلوله باذن الله ولكن قولي بتشتكي من اي ",
+          'كيف حالك عبدالرحمن متقلقش كل حاجه محلوله باذن الله ولكن قولي بتشتكي من اي ',
       timestamp: DateTime.now().subtract(const Duration(minutes: 1)),
-      msgId: "1",
+      msgId: '1',
       isSentByMe: true,
       isDelivered: true,
     ),
     ChatLog(
       message:
-          "كيف حالك عبدالرحمن متقلقش كل حاجه محلوله باذن الله ولكن قولي بتشتكي من اي ",
+          'كيف حالك عبدالرحمن متقلقش كل حاجه محلوله باذن الله ولكن قولي بتشتكي من اي ',
       timestamp: DateTime.now().subtract(const Duration(minutes: 1)),
-      msgId: "2",
+      msgId: '2',
       isSentByMe: false,
       isDelivered: true,
     ),
     ChatLog(
       message:
-          "كيف حالك عبدالرحمن متقلقش كل حاجه محلوله باذن الله ولكن قولي بتشتكي من اي ",
+          'كيف حالك عبدالرحمن متقلقش كل حاجه محلوله باذن الله ولكن قولي بتشتكي من اي ',
       timestamp: DateTime.now().subtract(const Duration(minutes: 2)),
-      msgId: "3",
+      msgId: '3',
       isSentByMe: true,
-      isDelivered: false,
     ),
     ChatLog(
-      message: "كويس الحمد لله",
+      message: 'كويس الحمد لله',
       // filePath: "assets/files/report.pdf", // ملف PDF
       timestamp: DateTime.now().subtract(const Duration(minutes: 3)),
-      msgId: "4",
+      msgId: '4',
       isSentByMe: false,
       isDelivered: true,
     ),
     ChatLog(
-      message: "تم رفع الصورة المطلوبة.",
+      message: 'تم رفع الصورة المطلوبة.',
       // filePath: "assets/images/test_image.jpg", // صورة
       timestamp: DateTime.now().subtract(const Duration(minutes: 4)),
-      msgId: "5",
+      msgId: '5',
       isSentByMe: true,
       isDelivered: true,
     ),
     ChatLog(
-      message: "هذا الفيديو مهم للمراجعة.",
+      message: 'هذا الفيديو مهم للمراجعة.',
       // filePath: "assets/videos/demo_video.mp4", // فيديو
       timestamp: DateTime.now().subtract(const Duration(minutes: 5)),
-      msgId: "6",
+      msgId: '6',
       isSentByMe: false,
       isDelivered: true,
     ),
     ChatLog(
-      message: "هل وصلتك الصورة؟",
+      message: 'هل وصلتك الصورة؟',
       timestamp: DateTime.now().subtract(const Duration(minutes: 6)),
-      msgId: "7",
+      msgId: '7',
       isSentByMe: true,
-      isDelivered: false,
     ),
     ChatLog(
-      message: "",
-      filePath: "assets/files/test.docx", // ملف وورد
+      message: '',
+      filePath: 'assets/files/test.docx', // ملف وورد
       timestamp: DateTime.now().subtract(const Duration(minutes: 7)),
-      msgId: "8",
+      msgId: '8',
       isSentByMe: false,
       isDelivered: true,
     ),
     ChatLog(
-      message: "شكرًا، وصلت كل الملفات 🙏",
+      message: 'شكرًا، وصلت كل الملفات 🙏',
       timestamp: DateTime.now().subtract(const Duration(minutes: 8)),
-      msgId: "9",
+      msgId: '9',
       isSentByMe: false,
       isDelivered: true,
     ),
     ChatLog(
-      message: "تمام، سأتحدث معك لاحقًا.",
+      message: 'تمام، سأتحدث معك لاحقًا.',
       timestamp: DateTime.now().subtract(const Duration(minutes: 9)),
-      msgId: "10",
+      msgId: '10',
       isSentByMe: true,
       isDelivered: true,
     ),

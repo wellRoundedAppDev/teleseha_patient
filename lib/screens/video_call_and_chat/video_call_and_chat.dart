@@ -400,7 +400,6 @@ Widget _defaultPageWidget(ScrollController scrollController) {
       final Map<String, List<ChatLog>> logsGrouped = controller.groupLogsByDate(
         controller.logText,
       );
-      final BookingsController bookings = Get.find();
 
       return Stack(
         children: <Widget>[
@@ -547,7 +546,6 @@ Widget _defaultPageWidget(ScrollController scrollController) {
                                     borderRadius: BorderRadius.circular(30),
                                     child: Image.asset(
                                       imageUnsplash,
-                                      // bookings.selectedLastRecent?['image'],
                                       width: DEVICE_WIDTH * 0.08,
                                       height: DEVICE_HEIGHT * 0.04,
                                       fit: BoxFit.cover,

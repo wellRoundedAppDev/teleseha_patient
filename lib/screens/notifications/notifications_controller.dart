@@ -1,6 +1,7 @@
 import '../../general_exports.dart';
 
 class NotificationsController extends GetxController {
+  // ignore: always_specify_types
   List notifications = <dynamic>[
     <String, String>{
       'title': 'appointment_for_examination'.tr,

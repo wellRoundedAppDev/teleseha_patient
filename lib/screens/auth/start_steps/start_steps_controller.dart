@@ -8,13 +8,15 @@ import '../../../general_exports.dart';
 class StartStepsController extends GetxController {
   int currentStep = 1;
   int numberOfStep = 3;
-  String? selectedMaleCode = 'male';
   bool? checkSignInOrSignUp = false;
   final bool isSignIn = false;
   List<int> tempSavedPattern = <int>[];
   List<int> inputPattern = <int>[];
   bool isLoading = false;
   String dataPassword = '';
+  bool selectedMaleCode = true;
+  String? accessToken;
+  String? apiDate;
 
   TextEditingController otpController = TextEditingController();
   DateTime selectedDate = DateTime.now();
@@ -35,9 +37,10 @@ class StartStepsController extends GetxController {
   List<int> patterns = <int>[];
   PatternState state = PatternState.normal;
 
-  List<Map<String, String>> typeGenerate = <Map<String, String>>[
-    <String, String>{gender: 'female'.tr, icon: iconFemale, code: 'female'},
-    <String, String>{gender: 'male'.tr, icon: iconMale, code: 'male'},
+  // ignore: always_specify_types
+  List typeGenerate = <dynamic>[
+    <String, Object>{'gender': 'انثى'.tr, 'icon': iconFemale, 'code': false},
+    <String, Object>{'gender': 'ذكر'.tr, 'icon': iconMale, 'code': true},
   ];
 
   void minusSelectedSteps() {
@@ -45,7 +48,8 @@ class StartStepsController extends GetxController {
     update();
   }
 
-  void changeTypeGenerate(String typeCode) {
+  // ignore: always_specify_types
+  void changeTypeGenerate(typeCode) {
     selectedMaleCode = typeCode;
     update();
   }
@@ -60,24 +64,30 @@ class StartStepsController extends GetxController {
 
     if (picked != null) {
       selectedDate = picked;
+
       final String formattedDate =
           '${picked.day.toString().padLeft(2, '0')}-'
           '${picked.month.toString().padLeft(2, '0')}-'
           '${picked.year}';
+
+      final String formattedApiDate =
+          '${picked.year}-${picked.month.toString().padLeft(2, '0')}-${picked.day.toString().padLeft(2, '0')}';
+
       dateController.text = formattedDate;
+      apiDate = formattedApiDate;
+
       update();
     } else {
       consoleLog('❌ Date picker dismissed');
     }
   }
 
-  bool canGoToStepOtp() {
-    showNameError = textFieldName.text.isEmpty;
-    showdateControllerError = dateController.text.isEmpty;
-    consoleLog(textFieldName.text + dateController.text);
-    update();
-    return !showNameError && !showdateControllerError;
-  }
+  // bool canGoToStepOtp() {
+  //   showNameError = textFieldName.text.isEmpty;
+  //   showdateControllerError = dateController.text.isEmpty;
+  //   update();
+  //   return !showNameError && !showdateControllerError;
+  // }
 
   bool checkOtp() {
     if (!isValidOtpIsValid()) {
@@ -97,7 +107,7 @@ class StartStepsController extends GetxController {
         backgroundColor: Colors.red,
         colorText: Colors.white,
       );
-      return; 
+      return;
     }
 
     if (checkOtp()) {
@@ -136,6 +146,7 @@ class StartStepsController extends GetxController {
             clearOtpError();
             update();
           },
+          // ignore: always_specify_types
           onError: (error) {
             isLoading = false;
             otpController.clear();
@@ -228,15 +239,21 @@ class StartStepsController extends GetxController {
             isLoading = false;
             final String? nextStep = response['nextStepEnum']?.toString();
             if (nextStep == 'CreateProfile') {
-              // final String? accessToken = response['accessToken']?.toString();
+              final String? accessToken = response['data']?['accessToken']
+                  ?.toString();
               final String? refreshToken = response['data']?['refreshToken']
                   ?.toString();
+              await localStorage.saveToStorage(
+                key: storageAccessToken,
+                value: accessToken,
+              );
+              await localStorage.readFromStorage(storageAccessToken);
               await localStorage.saveToStorage(
                 key: storageRefreshToken,
                 value: refreshToken,
               );
               await localStorage.readFromStorage(storageRefreshToken);
-              // currentStep++;
+              currentStep++;
               update();
             }
           },
@@ -251,10 +268,63 @@ class StartStepsController extends GetxController {
         update();
       }
     } else if (currentStep == 3) {
-      if (canGoToStepOtp()) {
-        Get.toNamed(routeFormDiagnosis);
-        update();
-      }
+      isLoading = true;
+      update();
+      accessToken = await localStorage.readFromStorage(storageAccessToken);
+      await ApiRequest(
+        path: patient,
+        className: '',
+        formatResponse: true,
+        method: ApiMethods.post,
+        header: <String, dynamic>{
+          'Content-Type': 'application/json',
+          'Accept': '*/*',
+          'Authorization': 'Bearer $accessToken',
+        },
+        body: <String, Object>{
+          keyName: textFieldName.text.trim(),
+          date: ?apiDate,
+          isMale: selectedMaleCode,
+          maritalStatus: '',
+          jobTitle: '',
+          myState: '',
+          city: '',
+          cityId: 0,
+        },
+      ).request(
+        onSuccess: (dynamic data, dynamic response) async {
+          isLoading = false;
+          // Get.toNamed(routeFormDiagnosis);
+          update();
+        },
+        // ignore: always_specify_types
+        onError: (error) {
+          final int? statusCode = error.response?.statusCode;
+          isLoading = false;
+          update();
+          if (statusCode == 401) {
+            final MyAppController appController = Get.find();
+            appController.futureRefreshLogin();
+          } else {
+            Get.toNamed(routeFormDiagnosis);
+            if (textFieldName.text.isEmpty) {
+              showNameError = true;
+              update();
+            } else {
+              showNameError = false;
+              update();
+            }
+            if (dateController.text.isEmpty) {
+              showdateControllerError = true;
+              update();
+            } else {
+              showdateControllerError = false;
+              update();
+            }
+          }
+          return null;
+        },
+      );
     }
   }
 

@@ -14,22 +14,48 @@ class MyAppController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _loadRefreshToken();
+    futureRefreshLogin();
   }
 
-  Future<void> _loadRefreshToken() async {
+  Future<void> futureRefreshLogin() async {
+    // await localStorage.removeFromStorage(key: storageAccessToken);
+    // await localStorage.removeFromStorage(key: storageRefreshToken);
     refreshToken = await localStorage.readFromStorage(storageRefreshToken);
-    if (refreshToken != null) {
-      await localStorage.removeFromStorage(key: storageRefreshToken);
-      // WidgetsBinding.instance.addPostFrameCallback((_) {
-      //   // Get.toNamed(routeSteps);
-      //   // stepController.currentStep = 3;
-      // final StartStepsController steps = Get.find();
-      // ++steps.currentStep;
-      // steps.update();
-      //   update();
-      // });
-    }
+    await ApiRequest(
+      path: refreshLogin,
+      className: '',
+      formatResponse: true,
+      method: ApiMethods.post,
+      body: <String, dynamic>{myRefreshToken: refreshToken},
+    ).request(
+      onSuccess: (dynamic data, dynamic response) async {
+        final String? nextStep = response['nextStepEnum']?.toString();
+        if (nextStep == 'CreateProfile') {
+          final String? accessToken = response['data']?['accessToken']
+              ?.toString();
+          final String? refreshToken = response['data']?['refreshToken']
+              ?.toString();
+          await localStorage.saveToStorage(
+            key: storageAccessToken,
+            value: accessToken,
+          );
+          await localStorage.readFromStorage(storageAccessToken);
+          await localStorage.saveToStorage(
+            key: storageRefreshToken,
+            value: refreshToken,
+          );
+          await localStorage.readFromStorage(storageRefreshToken);
+          stepController.currentStep = 3;
+          stepController.update();
+          update();
+        }
+      },
+      // ignore: always_specify_types
+      onError: (error) {
+        Get.toNamed(routeFingerPrint);
+        return null;
+      },
+    );
   }
 
   void onSignOut() {
@@ -39,7 +65,6 @@ class MyAppController extends GetxController {
 
   void onUserAuthenticated(dynamic userDataValue) {
     userData = userDataValue;
-    consoleLog('onUserAuthenticated$userData');
     update();
   }
 }

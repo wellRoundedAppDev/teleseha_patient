@@ -2,10 +2,12 @@ import '../../../general_exports.dart';
 
 class PrescriptionOrAnalysisOrImaging extends StatelessWidget {
   const PrescriptionOrAnalysisOrImaging({
+    // ignore: non_constant_identifier_names
     required this.ChangeContent,
     super.key,
   });
 
+  // ignore: non_constant_identifier_names
   final RxString ChangeContent;
 
   @override

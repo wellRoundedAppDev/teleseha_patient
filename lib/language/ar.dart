@@ -3,8 +3,6 @@ const Map<String, String> ar = <String, String>{
   'enter_date_age': '08/27',
   'is_valid_enter_age': 'الرجاء ادخال تاريخ الميلاد',
   'type': 'النوع',
-  'male': 'ذكر',
-  'female': 'انثى',
   'next': 'التالي',
   'title_foot_print': 'سجل بصمة اصبعك للحماية',
   'text_foot_print':

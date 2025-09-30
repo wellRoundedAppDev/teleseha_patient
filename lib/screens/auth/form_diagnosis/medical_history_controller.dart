@@ -118,7 +118,9 @@ class MedicalHistoryController extends GetxController {
 
   List<QuestionModel> get visibleQuestions {
     return questions.where((QuestionModel q) {
-      if (q.parentId == null) return true;
+      if (q.parentId == null) {
+        return true;
+      }
       final QuestionModel parent = questions.firstWhere(
         (QuestionModel p) => p.id == q.parentId,
       );

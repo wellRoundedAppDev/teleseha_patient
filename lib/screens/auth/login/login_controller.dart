@@ -113,20 +113,25 @@ class LoginController extends GetxController {
         isLoading = false;
         final String? nextStep = response['nextStepEnum']?.toString();
         if (nextStep == 'CreateProfile') {
-          // final String? accessToken = response['accessToken']?.toString();
+          final String? accessToken = response['data']?['accessToken']
+              ?.toString();
           final String? refreshToken = response['data']?['refreshToken']
               ?.toString();
+          await localStorage.saveToStorage(
+            key: storageAccessToken,
+            value: accessToken,
+          );
+          await localStorage.readFromStorage(storageAccessToken);
           await localStorage.saveToStorage(
             key: storageRefreshToken,
             value: refreshToken,
           );
           await localStorage.readFromStorage(storageRefreshToken);
+          final StartStepsController steps = Get.find();
+          steps.currentStep = 3;
+          steps.update();
+          Get.toNamed(routeSteps);
         }
-        final StartStepsController steps = Get.find();
-        ++steps.currentStep;
-        steps.update();
-        // Get.toNamed(routeScreen);
-        showForgetPatter = false;
         update();
       },
       // ignore: always_specify_types
@@ -154,15 +159,6 @@ class LoginController extends GetxController {
       if (listEquals(tempSavedPattern, inputPattern)) {
         state = PatternState.success;
         update();
-        consoleLog(tempSavedPattern);
-        // here response user data and access token and refresh token
-        // final List<Map<String, dynamic>> login = <Map<String, dynamic>>[
-        //   <String, dynamic>{
-        //     'mobile': PhoneNumberController.text.trim(),
-        //     'password': inputPattern.join(),
-        //     'createPasswordToken': 'توكن الإنشاء (نص)',
-        //   },
-        // ];
         page = 'signIn';
         if (profiles.isEmpty) {
           page = 'signIn';
@@ -183,6 +179,7 @@ class LoginController extends GetxController {
     state = PatternState.normal;
     update();
 
+    // ignore: always_specify_types
     Future.delayed(const Duration(milliseconds: 50), () {
       state = PatternState.active;
       update();

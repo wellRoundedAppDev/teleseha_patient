@@ -11,7 +11,7 @@ class FingerPrintController extends GetxController {
   final StartStepsController stepController = Get.find();
 
   Future<void> checkUserAndNavigate() async {
-    refreshToken = await localStorage.readFromStorage(storageRefreshToken);
+    refreshToken = await localStorage.readFromStorage(storageAccessToken);
     if (refreshToken != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         Get.toNamed(routeSteps);

@@ -6,6 +6,7 @@ import 'title_component.dart';
 class PrescriptionWidget extends StatelessWidget {
   const PrescriptionWidget(this.controller, this.ChangeContent, {super.key});
   final ListPresciption controller;
+  // ignore: non_constant_identifier_names
   final RxString ChangeContent;
 
   @override
@@ -58,6 +59,7 @@ class PrescriptionWidget extends StatelessWidget {
                             width: DEVICE_WIDTH * 0.035,
                             height: DEVICE_HEIGHT * 0.025,
                             fit: BoxFit.cover,
+                            // ignore: deprecated_member_use
                             color: const Color.fromRGBO(0, 123, 189, 0.74),
                           ),
                         ],

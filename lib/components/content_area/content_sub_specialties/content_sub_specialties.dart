@@ -31,6 +31,7 @@ class ContentSubSpecialties extends StatelessWidget {
                           .selectedSpecialtyIndex]['subSpecialties']
                       .length,
                   itemBuilder: (BuildContext context, int index) {
+                    // ignore: always_specify_types
                     final subSpecialty =
                         controller.specialtiesWithSub[controller
                             .selectedSpecialtyIndex]['subSpecialties'][index];

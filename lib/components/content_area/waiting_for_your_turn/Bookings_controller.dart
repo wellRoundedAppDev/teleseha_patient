@@ -25,7 +25,7 @@ class BookingsController extends GetxController {
 
   // ignore: always_specify_types
   List lastRecent = [
-    {
+    <String, Object>{
       'id': 1,
       'image': imageDoctor,
       'name': 'name_doctor1',
@@ -35,7 +35,7 @@ class BookingsController extends GetxController {
       'date': 'accosts'.tr,
       'time': '2:00',
     },
-    {
+    <String, Object>{
       'id': 2,
       'image': imageDoctorDetails,
       'name': 'name_doctor2',
@@ -45,7 +45,7 @@ class BookingsController extends GetxController {
       'date': 'accosts'.tr,
       'time': '2:00',
     },
-    {
+    <String, Object>{
       'id': 3,
       'image': imageDoctor,
       'name': 'name_doctor1',
@@ -55,8 +55,7 @@ class BookingsController extends GetxController {
       'date': 'accosts'.tr,
       'time': '2:00',
     },
-
-    {
+    <String, Object>{
       'id': 4,
       'image': imageDoctor,
       'name': 'name_doctor1',
@@ -66,8 +65,7 @@ class BookingsController extends GetxController {
       'date': 'accosts'.tr,
       'time': '2:00',
     },
-
-    {
+    <String, Object>{
       'id': 5,
       'image': imageDoctor,
       'name': 'name_doctor1',
@@ -77,7 +75,7 @@ class BookingsController extends GetxController {
       'date': 'accosts'.tr,
       'time': '2:00',
     },
-    {
+    <String, Object>{
       'id': 6,
       'image': imageDoctor,
       'name': 'name_doctor1',

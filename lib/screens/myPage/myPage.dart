@@ -33,6 +33,7 @@ class Mypage extends StatelessWidget {
                     iconBack,
                     width: 24,
                     height: 24,
+                    // ignore: deprecated_member_use
                     color: Colors.black,
                   ),
                 ),

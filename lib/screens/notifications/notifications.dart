@@ -24,6 +24,7 @@ class Notifications extends StatelessWidget {
                     iconBack,
                     width: 24,
                     height: 24,
+                    // ignore: deprecated_member_use
                     color: Colors.black,
                   ),
                 ),
@@ -41,6 +42,7 @@ class Notifications extends StatelessWidget {
                       iconNotification,
                       width: 24,
                       height: 26,
+                      // ignore: deprecated_member_use
                       color: const Color(AppColors.colorLineAndText),
                     ),
                   ],
@@ -106,6 +108,7 @@ class Notifications extends StatelessWidget {
                                             iconNotification,
                                             width: DEVICE_WIDTH * 0.025,
                                             height: DEVICE_HEIGHT * 0.025,
+                                            // ignore: deprecated_member_use
                                             color: const Color(
                                               AppColors.colorTitleDoppler,
                                             ),
@@ -141,6 +144,7 @@ class Notifications extends StatelessWidget {
                                             iconTime,
                                             width: DEVICE_WIDTH * 0.022,
                                             height: DEVICE_HEIGHT * 0.022,
+                                            // ignore: deprecated_member_use
                                             color: const Color(
                                               AppColors.colorEndChat,
                                             ),
@@ -322,6 +326,7 @@ class Notifications extends StatelessWidget {
                                               iconTime,
                                               width: DEVICE_WIDTH * 0.022,
                                               height: DEVICE_HEIGHT * 0.021,
+                                              // ignore: deprecated_member_use
                                               color: const Color(
                                                 AppColors.colorEndChat,
                                               ),

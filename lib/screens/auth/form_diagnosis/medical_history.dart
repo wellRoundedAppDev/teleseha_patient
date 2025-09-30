@@ -37,12 +37,11 @@ class MedicalHistory extends StatelessWidget {
                             Row(
                               children: <Widget>[
                                 if (isMainQuestion)
-                                  const Text(
-                                    '1.',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                  const CustomText(
+                                    text: '1.',
+                                    fontSize: 16,
+                                    type: CustomTextType.title,
+                                    color: Color(AppColors.colorLineAndText),
                                   ),
                                 if (!isMainQuestion)
                                   Container(
@@ -56,12 +55,13 @@ class MedicalHistory extends StatelessWidget {
                                   text: q.questionText,
                                   fontSize: 16,
                                   type: CustomTextType.title,
-                                  color: const Color(AppColors.colorLabel),
+                                  color: const Color(
+                                    AppColors.colorLineAndText,
+                                  ),
                                 ),
                               ],
                             ),
                             SizedBox(height: DEVICE_HEIGHT * 0.02),
-
                             if (q.type == QuestionType.radio)
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,

@@ -34,6 +34,7 @@ class Settings extends StatelessWidget {
                         iconSettings1,
                         width: 24,
                         height: 26,
+                        // ignore: deprecated_member_use
                         color: const Color(AppColors.colorLineAndText),
                       ),
                     ],

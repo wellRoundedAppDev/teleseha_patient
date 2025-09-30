@@ -51,22 +51,22 @@ class ListPresciption extends GetxController {
     required List<Map<String, String>> data,
     required String fileName,
   }) async {
-    final font = await rootBundle.load('assets/fonts/Cairo-Regular.ttf');
+    final ByteData font = await rootBundle.load('assets/fonts/Cairo-Regular.ttf');
     final pw.Font ttf = pw.Font.ttf(font);
 
     final pw.Document pdf = pw.Document();
 
     pdf.addPage(
       pw.Page(
-        build: (context) {
+        build: (pw.Context context) {
           return pw.Directionality(
             textDirection: pw.TextDirection.rtl,
             child: pw.Column(
               crossAxisAlignment: pw.CrossAxisAlignment.start,
-              children: data.map((item) {
+              children: data.map((Map<String, String> item) {
                 return pw.Column(
                   crossAxisAlignment: pw.CrossAxisAlignment.start,
-                  children: [
+                  children: <pw.Widget>[
                     pw.Text(
                       item['title'] ?? '',
                       style: pw.TextStyle(

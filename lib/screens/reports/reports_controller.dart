@@ -18,6 +18,7 @@ class ReportsController extends GetxController {
     return text.length * 3 + 1;
   }
 
+  // ignore: always_specify_types
   List doctors = <dynamic>[
     <String, Object>{
       'id': 1,

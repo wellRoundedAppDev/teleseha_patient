@@ -32,6 +32,7 @@ class Profiles extends StatelessWidget {
                           width: 24,
                           height: 24,
                           fit: BoxFit.cover,
+                          // ignore: deprecated_member_use
                           color: Colors.black,
                         ),
                       ),

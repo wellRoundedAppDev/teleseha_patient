@@ -15,6 +15,7 @@ class StepIndicator extends StatelessWidget {
       alignment: WrapAlignment.center,
       spacing: DEVICE_HEIGHT * 0.01,
       runSpacing: DEVICE_HEIGHT * 0.02,
+      // ignore: always_specify_types
       children: List.generate(totalSteps, (int index) {
         final int stepNumber = totalSteps - index;
         return ContainerSteps(alpha: currentStep == stepNumber ? 250 : 80);

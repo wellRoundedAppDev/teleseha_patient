@@ -47,6 +47,7 @@ class ContentReception extends StatelessWidget {
                                   height: DEVICE_WIDTH * 0.16,
                                   child: CircularProgressIndicator(
                                     strokeWidth: 8,
+                                    // ignore: deprecated_member_use
                                     backgroundColor: Colors.white.withOpacity(
                                       0.2,
                                     ),
@@ -60,6 +61,7 @@ class ContentReception extends StatelessWidget {
                                 iconDoctors,
                                 width: DEVICE_WIDTH * 0.035,
                                 height: DEVICE_HEIGHT * 0.035,
+                                // ignore: deprecated_member_use
                                 color: Colors.white,
                               ),
                             ],
@@ -97,6 +99,7 @@ class ContentReception extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: controller.isTimeUp
                         ? const Color(AppColors.colorLineAndText)
+                        // ignore: deprecated_member_use
                         : Colors.blue.withOpacity(0.3),
                     padding: EdgeInsets.symmetric(
                       vertical: DEVICE_HEIGHT * 0.02,

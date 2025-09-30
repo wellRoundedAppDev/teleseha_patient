@@ -39,6 +39,7 @@ class BottomNavController extends GetxController {
         ? changeParam.goToComponentHeader.value = 'HomePage'
         : index == 3
         ? changeParam.goToComponentHeader.value = 'Doctors'
+        // ignore: unnecessary_statements
         : '';
 
     changeParam.update();
