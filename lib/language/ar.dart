@@ -235,6 +235,8 @@ const Map<String, String> ar = <String, String>{
   'your_expected_entry_time': 'الوقت المتوقع لدخولك.............',
   'remain': 'تبقى',
   'minute': 'دقيقة',
+  'recent_bookings_not_found': 'الحجوزات الاخيرة غير موجودة',
+  'not_found_doctors': 'لا يوجد اطباء',
   'dont_worry': 'لا تقلق سيتم ارسال تنبيه لك عندما يأتي دورك',
   'its_your_turn': 'جاء دورك يجب الدخول الآن... ',
   'enter_the_session': 'دخول الجلسه',

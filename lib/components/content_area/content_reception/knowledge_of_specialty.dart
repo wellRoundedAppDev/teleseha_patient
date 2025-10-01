@@ -90,7 +90,7 @@ class KnowledgeOfSpecialty extends StatelessWidget {
                   
                   onPressed: () {
                     change.goToComponentHeader.value = 'HomePage';
-                    homePage.checkReservations = true;
+                    // homePage.checkReservations = true;
                     homePage.update();
                     change.update();
                   },

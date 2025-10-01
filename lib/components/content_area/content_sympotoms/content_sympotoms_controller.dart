@@ -40,11 +40,11 @@ class ContentSymptomsController extends GetxController {
       final HomePageContentController changePage = Get.find();
       if (changeParam.knowNextPage.value ==
           'Comping from home going to reception') {
-        changePage.checkReservations = false;
+        // changePage.checkReservations = false;
         changeParam.goToComponentHeader.value = 'Reception';
         changeParam.update();
       } else {
-        changePage.checkReservations = true;
+        // changePage.checkReservations = true;
         changeParam.goToComponentHeader.value = 'successSendToDoctor';
         changeParam.update();
       }

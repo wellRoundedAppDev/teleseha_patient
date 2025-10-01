@@ -49,6 +49,7 @@ class ContentProfileDoctor extends StatelessWidget {
                             children: <Widget>[
                               CustomText(
                                 text: controller.selectedDoctor?['range'],
+                                // text: controller.doctorsProfile?['range'],
                                 fontSize: 12,
                                 type: CustomTextType.title,
                                 color: const Color(AppColors.colorBlack),
@@ -62,6 +63,7 @@ class ContentProfileDoctor extends StatelessWidget {
                               SizedBox(width: DEVICE_WIDTH * 0.025),
                               CustomText(
                                 text: controller.selectedDoctor?['reveal'],
+                                // text: controller.doctorsProfile?['reveal'],
                                 fontSize: 11,
                                 type: CustomTextType.inputTitle,
                                 color: const Color(
@@ -95,6 +97,9 @@ class ContentProfileDoctor extends StatelessWidget {
                                       text: controller
                                           .selectedDoctor?['descriptionDoctor']
                                           .replaceAll('\n', '\n'),
+                                      // text: controller
+                                      //     .doctorsProfile?['descriptionDoctor']
+                                      //     .replaceAll('\n', '\n'),
                                     ),
                                   ],
                                 ),
@@ -166,6 +171,8 @@ class ContentProfileDoctor extends StatelessWidget {
                                     CustomText(
                                       text:
                                           controller.selectedDoctor?['address'],
+                                      // text:
+                                      //     controller.doctorsProfile?['address'],
                                       fontSize: 14,
                                       type: CustomTextType.button,
                                       color: const Color(
@@ -823,7 +830,10 @@ class ContentProfileDoctor extends StatelessWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: DEVICE_HEIGHT * 0.015, bottom: DEVICE_HEIGHT * 0.025),
+              margin: EdgeInsets.only(
+                top: DEVICE_HEIGHT * 0.015,
+                bottom: DEVICE_HEIGHT * 0.025,
+              ),
               child: Align(
                 child: Btn(
                   onPressed: () {

@@ -15,7 +15,7 @@ class ContentHome extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            if (controller.checkReservations)
+            if (controller.checkComming.isNotEmpty)
               GestureDetector(
                 onTap: () {
                   change.goToComponentHeader.value = 'RecentBookings';
@@ -116,7 +116,7 @@ class ContentHome extends StatelessWidget {
               )
             else
               const SizedBox(),
-            if (controller.checkReservations)
+            if (controller.checkComming.isNotEmpty)
               SizedBox(height: DEVICE_HEIGHT * 0.02)
             else
               const SizedBox(),
@@ -136,66 +136,75 @@ class ContentHome extends StatelessWidget {
             Expanded(
               child: SingleChildScrollView(
                 child: Align(
-                  child: Wrap(
-                    spacing: controller.checkReservations
-                        ? DEVICE_HEIGHT * 0.005
-                        : 1,
-                    runSpacing: DEVICE_HEIGHT * 0.018,
-                    children: <Widget>[
-                      ...controller.specialtiesWithSub.asMap().map((
-                        int index,
-                        Map<String, dynamic> e,
-                      ) {
-                        // ignore: always_specify_types
-                        return MapEntry(
-                          index,
-                          Card(
-                            elevation: 1,
-                            child: GestureDetector(
-                              onTap: () {
-                                controller.openContentDoctorsAboutSelected(
-                                  index,
-                                );
-                              },
-                              child: Container(
-                                // width: DEVICE_WIDTH * 0.15,
-                                width: DEVICE_WIDTH * 0.252,
-                                height: DEVICE_HEIGHT * 0.147,
-                                // height: DEVICE_HEIGHT * 0.108,
-                                margin: const EdgeInsets.all(2),
-                                decoration: BoxDecoration(
-                                  color: const Color(
-                                    AppColors.colorWhiteSelectedType,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    SvgPicture.asset(
-                                      e['icon'],
-                                      width: DEVICE_WIDTH * 0.05,
-                                      height: DEVICE_HEIGHT * 0.05,
-                                      fit: BoxFit.cover,
-                                    ),
-                                    SizedBox(height: DEVICE_HEIGHT * 0.013),
-                                    CustomText(
-                                      text: e['title'],
-                                      fontSize: 12,
-                                      type: CustomTextType.button,
-                                      color: const Color(
-                                        AppColors.colorSpecialtiesTitle,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
+                  child: controller.isLoading
+                      ? SizedBox(
+                          height: DEVICE_HEIGHT * 0.4,
+                          child: const Center(
+                            child: CircularProgressIndicator(),
                           ),
-                        );
-                      }).values,
-                    ],
-                  ),
+                        )
+                      : Wrap(
+                          spacing: controller.checkComming.isNotEmpty
+                              ? DEVICE_HEIGHT * 0.005
+                              : 1,
+                          runSpacing: DEVICE_HEIGHT * 0.018,
+                          children: List.generate(
+                            controller.specialtiesWithSub.length,
+                            (int index) {
+                              // ignore: always_specify_types
+                              final e = controller.specialtiesWithSub[index];
+
+                              final String iconPath =
+                                  e['icon'] as String? ?? iconGeneralSpecialty;
+                              final String specialityName =
+                                  e['specialityName'] as String? ?? 'غير معروف';
+
+                              return Card(
+                                elevation: 1,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    controller.openContentDoctorsAboutSelected(
+                                      index,
+                                    );
+                                  },
+                                  child: Container(
+                                    width: DEVICE_WIDTH * 0.252,
+                                    height: DEVICE_HEIGHT * 0.147,
+                                    margin: const EdgeInsets.all(2),
+                                    decoration: BoxDecoration(
+                                      color: const Color(
+                                        AppColors.colorWhiteSelectedType,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        SvgPicture.asset(
+                                          iconPath,
+                                          width: DEVICE_WIDTH * 0.05,
+                                          height: DEVICE_HEIGHT * 0.05,
+                                          fit: BoxFit.cover,
+                                        ),
+                                        SizedBox(height: DEVICE_HEIGHT * 0.013),
+                                        CustomText(
+                                          textAlign: TextAlign.center,
+                                          text: specialityName,
+                                          fontSize: 12,
+                                          type: CustomTextType.button,
+                                          color: const Color(
+                                            AppColors.colorSpecialtiesTitle,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
                 ),
               ),
             ),

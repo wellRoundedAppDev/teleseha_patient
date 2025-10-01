@@ -824,7 +824,8 @@ Widget _componentSend() {
             child: Row(
               children: <Widget>[
                 GestureDetector(
-                  onTap: controller.sendMessage,
+                  // onTap: controller.sendMessage,
+                  onTap: controller.chatPostRequest,
                   child: Container(
                     padding: EdgeInsets.all(DEVICE_HEIGHT * 0.015),
                     decoration: BoxDecoration(
@@ -921,64 +922,115 @@ Widget _componentSend() {
           SizedBox(height: DEVICE_HEIGHT * 0.025),
           Column(
             children: <Widget>[
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: DEVICE_HEIGHT * 0.03),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    GestureDetector(
-                      onTap: () {
-                        if (controller.selectedIndex == 0) {
-                          return;
-                        } else {
-                          controller.scrollController.animateTo(
-                            controller.scrollController.offset - 100,
-                            duration: const Duration(milliseconds: 300),
-                            curve: Curves.easeInOut,
+              Expanded(
+                child: controller.isLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : controller.lastChatMeeting.isEmpty
+                    ? const Center(
+                        child: Text(
+                          'لا يوجد محادثات',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      )
+                    : ListView.builder(
+                        itemCount: controller.lastChatMeeting.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          final chat = controller.lastChatMeeting[index];
+                          // افترض إن الـ chat يحتوي keys: 'userName', 'message', 'time'
+                          return Card(
+                            margin: EdgeInsets.symmetric(
+                              vertical: DEVICE_HEIGHT * 0.008,
+                              horizontal: DEVICE_WIDTH * 0.03,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: ListTile(
+                              leading: CircleAvatar(
+                                radius: DEVICE_WIDTH * 0.06,
+                                backgroundColor: Colors.grey[300],
+                                child: Text(
+                                  chat['userName'][0] ?? '', // أول حرف من الاسم
+                                  style: const TextStyle(color: Colors.white),
+                                ),
+                              ),
+                              title: Text(
+                                chat['userName'] ?? '',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              subtitle: Text(chat['message'] ?? ''),
+                              trailing: Text(
+                                chat['time'] ?? '',
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ),
                           );
-                          controller.selectedIndex--;
-                          controller.update();
-                        }
-                      },
-                      child: SvgPicture.asset(
-                        iconCarouselRight,
-                        width: DEVICE_WIDTH * 0.04,
-                        height: DEVICE_HEIGHT * 0.04,
-                        // ignore: deprecated_member_use
-                        color: controller.selectedIndex == 0
-                            ? const Color(AppColors.colorBlack)
-                            : const Color(AppColors.colorLineAndText),
+                        },
                       ),
-                    ),
-                    SizedBox(width: DEVICE_WIDTH * 0.02),
-                    GestureDetector(
-                      onTap: () {
-                        if (controller.selectedIndex <
-                            controller.symptomImages.length - 1) {
-                          controller.scrollController.animateTo(
-                            controller.scrollController.offset + 100,
-                            duration: const Duration(milliseconds: 300),
-                            curve: Curves.easeInOut,
-                          );
-                          controller.selectedIndex++;
-                          controller.update();
-                        }
-                      },
-                      child: SvgPicture.asset(
-                        iconCarouselLeft,
-                        width: DEVICE_WIDTH * 0.04,
-                        height: DEVICE_HEIGHT * 0.04,
-                        // ignore: deprecated_member_use
-                        color:
-                            controller.selectedIndex <
-                                controller.symptomImages.length - 1
-                            ? const Color(AppColors.colorLineAndText)
-                            : const Color(AppColors.colorBlack),
-                      ),
-                    ),
-                  ],
-                ),
               ),
+              // Padding(
+              //   padding: EdgeInsets.symmetric(horizontal: DEVICE_HEIGHT * 0.03),
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.end,
+              //     children: <Widget>[
+              //       GestureDetector(
+              //         onTap: () {
+              //           if (controller.selectedIndex == 0) {
+              //             return;
+              //           } else {
+              //             controller.scrollController.animateTo(
+              //               controller.scrollController.offset - 100,
+              //               duration: const Duration(milliseconds: 300),
+              //               curve: Curves.easeInOut,
+              //             );
+              //             controller.selectedIndex--;
+              //             controller.update();
+              //           }
+              //         },
+              //         child: SvgPicture.asset(
+              //           iconCarouselRight,
+              //           width: DEVICE_WIDTH * 0.04,
+              //           height: DEVICE_HEIGHT * 0.04,
+              //           // ignore: deprecated_member_use
+              //           color: controller.selectedIndex == 0
+              //               ? const Color(AppColors.colorBlack)
+              //               : const Color(AppColors.colorLineAndText),
+              //         ),
+              //       ),
+              //       SizedBox(width: DEVICE_WIDTH * 0.02),
+              //       GestureDetector(
+              //         onTap: () {
+              //           if (controller.selectedIndex <
+              //               controller.symptomImages.length - 1) {
+              //             controller.scrollController.animateTo(
+              //               controller.scrollController.offset + 100,
+              //               duration: const Duration(milliseconds: 300),
+              //               curve: Curves.easeInOut,
+              //             );
+              //             controller.selectedIndex++;
+              //             controller.update();
+              //           }
+              //         },
+              //         child: SvgPicture.asset(
+              //           iconCarouselLeft,
+              //           width: DEVICE_WIDTH * 0.04,
+              //           height: DEVICE_HEIGHT * 0.04,
+              //           // ignore: deprecated_member_use
+              //           color:
+              //               controller.selectedIndex <
+              //                   controller.symptomImages.length - 1
+              //               ? const Color(AppColors.colorLineAndText)
+              //               : const Color(AppColors.colorBlack),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
               SizedBox(height: DEVICE_HEIGHT * 0.02),
               SizedBox(
                 width: DEVICE_WIDTH,

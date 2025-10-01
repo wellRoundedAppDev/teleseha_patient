@@ -64,6 +64,10 @@ class VideoCallController extends GetxController {
   RxDouble bottomSheetSizePageChat = 0.0.obs;
   bool hasNavigatedToDoctorInfo = false;
   bool isShowTextfield = true;
+  bool isLoading = false;
+  String? accessToken;
+
+  LocalStorage localStorage = LocalStorage();
 
   // start picker
   final Rxn<File> selectedImage = Rxn<File>();
@@ -99,6 +103,103 @@ class VideoCallController extends GetxController {
         stopTimer();
       }
     });
+
+    _sessionMeeting();
+    _chatMeeting();
+  }
+
+  // ignore: always_specify_types
+  List lastMettingData = <dynamic>[];
+  Future<void> _sessionMeeting() async {
+    isLoading = true;
+    update();
+    accessToken = await localStorage.readFromStorage(storageAccessToken);
+    await ApiRequest(
+      path: '$meeting/1',
+      className: '',
+      formatResponse: true,
+      header: <String, dynamic>{
+        'Content-Type': 'application/json',
+        'Accept': '*/*',
+        'Authorization': 'Bearer $accessToken',
+      },
+    ).request(
+      onSuccess: (dynamic data, dynamic response) async {
+        lastMettingData = response ?? <dynamic>[];
+        update();
+      },
+      // ignore: always_specify_types
+      onError: (error) {
+        // specialtiesWithSub = 'not_found_medical_profile_section'.tr;
+        update();
+        return null;
+      },
+    );
+    isLoading = false;
+    update();
+  }
+
+  // ignore: always_specify_types
+  List lastChatMeeting = <dynamic>[];
+  Future<void> _chatMeeting() async {
+    isLoading = true;
+    update();
+    accessToken = await localStorage.readFromStorage(storageAccessToken);
+    await ApiRequest(
+      path: '$chatMessage/1',
+      className: '',
+      formatResponse: true,
+      header: <String, dynamic>{
+        'Content-Type': 'application/json',
+        'Accept': '*/*',
+        'Authorization': 'Bearer $accessToken',
+      },
+    ).request(
+      onSuccess: (dynamic data, dynamic response) async {
+        lastChatMeeting = response ?? <dynamic>[];
+        update();
+      },
+      // ignore: always_specify_types
+      onError: (error) {
+        // specialtiesWithSub = 'not_found_medical_profile_section'.tr;
+        update();
+        return null;
+      },
+    );
+    isLoading = false;
+    update();
+  }
+
+  Future<void> chatPostRequest() async {
+    await ApiRequest(
+      path: chatMessage,
+      className: '',
+      formatResponse: true,
+      method: ApiMethods.post,
+      header: <String, dynamic>{
+        'Content-Type': 'application/json',
+        'Accept': '*/*',
+        'Authorization': 'Bearer $accessToken',
+      },
+      body: {
+        message: messageContent,
+        file: 'string',
+        messageType: 'string',
+        checkUpId: 0,
+      },
+    ).request(
+      onSuccess: (dynamic data, dynamic response) async {
+        isLoading = false;
+        // Get.toNamed(details);
+        update();
+      },
+      // ignore: always_specify_types
+      onError: (error) {
+        isLoading = false;
+        update();
+        return null;
+      },
+    );
   }
 
   // start chat function
@@ -167,38 +268,38 @@ class VideoCallController extends GetxController {
     }
   }
 
-  Future<void> sendMessage() async {
-    if (chatId == null ||
-        messageContent == null ||
-        messageContent!.trim().isEmpty) {
-      addLogToConsole('single chat id or message content is null');
-      return;
-    }
+  // Future<void> sendMessage() async {
+  //   if (chatId == null ||
+  //       messageContent == null ||
+  //       messageContent!.trim().isEmpty) {
+  //     addLogToConsole('single chat id or message content is null');
+  //     return;
+  //   }
 
-    final String content = messageContent!;
-    final ChatMessage msg = ChatMessage.createTxtSendMessage(
-      targetId: chatId!,
-      content: content,
-    );
+  //   final String content = messageContent!;
+  //   final ChatMessage msg = ChatMessage.createTxtSendMessage(
+  //     targetId: chatId!,
+  //     content: content,
+  //   );
 
-    try {
-      await ChatClient.getInstance.chatManager.sendMessage(msg);
+  //   try {
+  //     await ChatClient.getInstance.chatManager.sendMessage(msg);
 
-      final ChatLog log = ChatLog(
-        message: content,
-        timestamp: DateTime.now(),
-        msgId: msg.msgId,
-        isSentByMe: true,
-      );
+  //     final ChatLog log = ChatLog(
+  //       message: content,
+  //       timestamp: DateTime.now(),
+  //       msgId: msg.msgId,
+  //       isSentByMe: true,
+  //     );
 
-      logText.add(log);
-      update();
-    } on ChatError catch (e) {
-      addLogToConsole(
-        'send message failed, code: ${e.code}, desc: ${e.description}',
-      );
-    }
-  }
+  //     logText.add(log);
+  //     update();
+  //   } on ChatError catch (e) {
+  //     addLogToConsole(
+  //       'send message failed, code: ${e.code}, desc: ${e.description}',
+  //     );
+  //   }
+  // }
 
   void onMessagesReceived(List<ChatMessage> messages) {
     for (ChatMessage msg in messages) {

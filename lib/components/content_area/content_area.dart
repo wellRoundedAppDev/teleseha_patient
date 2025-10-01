@@ -76,7 +76,7 @@ class ContentArea extends StatelessWidget {
                         final HomePageContentController HomePage = Get.find();
                         final BottomNavController bottomNav = Get.find();
 
-                        HomePage.checkReservations = true;
+                        // HomePage.checkReservations = true;
                         controller.goToComponentHeader.value = 'HomePage';
                         bottomNav.selectedIndexBottomNav.value = 2;
 

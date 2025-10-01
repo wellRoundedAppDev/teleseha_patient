@@ -77,94 +77,94 @@ class HomeStatusBar extends StatelessWidget {
                     color: const Color(AppColors.colorWhiteSelectedType),
                   ),
                 ),
-                SizedBox(height: DEVICE_HEIGHT * 0.027),
-                Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: DEVICE_WIDTH * 0.04,
-                    vertical: DEVICE_HEIGHT * 0.012,
-                  ),
-                  decoration: BoxDecoration(
-                    color: const Color(AppColors.colorReception),
-                    borderRadius: BorderRadius.circular(DEVICE_HEIGHT * 0.024),
-                    boxShadow: <BoxShadow>[
-                      BoxShadow(
-                        color: const Color(0xFFDADADA).withValues(alpha: 0.5),
-                        offset: const Offset(0, 2),
-                        blurRadius: 6,
-                      ),
-                    ],
-                  ),
-                  child: Stack(
-                    children: <Widget>[
-                      Positioned(
-                        left: 0,
-                        child: StyleBtnHeader(
-                          textBtn: 'start_now'.tr,
-                          size: 12,
-                          width: 0.24,
-                          height: 0.05,
-                          onPressed: () {
-                            final ChangeParamContentAndNextPage change =
-                                Get.find();
-                            change.goToComponentHeader.value = 'Symptoms';
-                            change.knowNextPage.value =
-                                'Comping from home going to reception';
-                            change.update();
-                          },
-                        ),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Row(
-                                children: <Widget>[
-                                  SvgPicture.asset(
-                                    iconReception,
-                                    width: DEVICE_WIDTH * 0.021,
-                                    height: DEVICE_HEIGHT * 0.021,
-                                    fit: BoxFit.cover,
-                                  ),
-                                  SizedBox(width: DEVICE_HEIGHT * 0.005),
-                                  Container(
-                                    margin: const EdgeInsets.only(top: 1),
-                                    child: CustomText(
-                                      text: 'medical_reception'.tr,
-                                      fontSize: 13,
-                                      type: CustomTextType.title,
-                                      color: const Color(
-                                        AppColors.colorLineAndText,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: DEVICE_HEIGHT * 0.008),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              CustomText(
-                                text: 'dont_know_subilshate'.tr,
-                                fontSize: 12,
-                                color: const Color(AppColors.colorTextSkep),
-                              ),
-                              SizedBox(height: DEVICE_HEIGHT * 0.005),
-                              CustomText(
-                                text: 'selected_subilshate'.tr,
-                                fontSize: 12,
-                                color: const Color(AppColors.colorTextSkep),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
+                // SizedBox(height: DEVICE_HEIGHT * 0.027),
+                // Container(
+                //   padding: EdgeInsets.symmetric(
+                //     horizontal: DEVICE_WIDTH * 0.04,
+                //     vertical: DEVICE_HEIGHT * 0.012,
+                //   ),
+                //   decoration: BoxDecoration(
+                //     color: const Color(AppColors.colorReception),
+                //     borderRadius: BorderRadius.circular(DEVICE_HEIGHT * 0.024),
+                //     boxShadow: <BoxShadow>[
+                //       BoxShadow(
+                //         color: const Color(0xFFDADADA).withValues(alpha: 0.5),
+                //         offset: const Offset(0, 2),
+                //         blurRadius: 6,
+                //       ),
+                //     ],
+                //   ),
+                //   child: Stack(
+                //     children: <Widget>[
+                //       Positioned(
+                //         left: 0,
+                //         child: StyleBtnHeader(
+                //           textBtn: 'start_now'.tr,
+                //           size: 12,
+                //           width: 0.24,
+                //           height: 0.05,
+                //           onPressed: () {
+                //             final ChangeParamContentAndNextPage change =
+                //                 Get.find();
+                //             change.goToComponentHeader.value = 'Symptoms';
+                //             change.knowNextPage.value =
+                //                 'Comping from home going to reception';
+                //             change.update();
+                //           },
+                //         ),
+                //       ),
+                //       Column(
+                //         crossAxisAlignment: CrossAxisAlignment.start,
+                //         children: <Widget>[
+                //           Row(
+                //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //             children: <Widget>[
+                //               Row(
+                //                 children: <Widget>[
+                //                   SvgPicture.asset(
+                //                     iconReception,
+                //                     width: DEVICE_WIDTH * 0.021,
+                //                     height: DEVICE_HEIGHT * 0.021,
+                //                     fit: BoxFit.cover,
+                //                   ),
+                //                   SizedBox(width: DEVICE_HEIGHT * 0.005),
+                //                   Container(
+                //                     margin: const EdgeInsets.only(top: 1),
+                //                     child: CustomText(
+                //                       text: 'medical_reception'.tr,
+                //                       fontSize: 13,
+                //                       type: CustomTextType.title,
+                //                       color: const Color(
+                //                         AppColors.colorLineAndText,
+                //                       ),
+                //                     ),
+                //                   ),
+                //                 ],
+                //               ),
+                //             ],
+                //           ),
+                //           SizedBox(height: DEVICE_HEIGHT * 0.008),
+                //           Column(
+                //             crossAxisAlignment: CrossAxisAlignment.start,
+                //             children: <Widget>[
+                //               CustomText(
+                //                 text: 'dont_know_subilshate'.tr,
+                //                 fontSize: 12,
+                //                 color: const Color(AppColors.colorTextSkep),
+                //               ),
+                //               SizedBox(height: DEVICE_HEIGHT * 0.005),
+                //               CustomText(
+                //                 text: 'selected_subilshate'.tr,
+                //                 fontSize: 12,
+                //                 color: const Color(AppColors.colorTextSkep),
+                //               ),
+                //             ],
+                //           ),
+                //         ],
+                //       ),
+                //     ],
+                //   ),
+                // ),
               ],
             ),
           ),

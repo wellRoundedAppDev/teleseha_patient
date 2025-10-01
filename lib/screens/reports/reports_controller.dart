@@ -8,6 +8,11 @@ class ReportsController extends GetxController {
   int? passedIndex = 0;
   int? get selectedDoctorId => passedIndex;
 
+  bool isLoading = false;
+  String? accessToken;
+
+  LocalStorage localStorage = LocalStorage();
+
   final List<String> tabs = <String>[
     'prescriptions'.tr,
     'the_radiology'.tr,
@@ -16,6 +21,43 @@ class ReportsController extends GetxController {
 
   double calculateWidth(String text) {
     return text.length * 3 + 1;
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    _reportsData();
+  }
+
+  // ignore: always_specify_types
+  List lastReportsData = <dynamic>[];
+  Future<void> _reportsData() async {
+    isLoading = true;
+    update();
+    accessToken = await localStorage.readFromStorage(storageAccessToken);
+    await ApiRequest(
+      path: '$reportsMeeting/1',
+      className: '',
+      formatResponse: true,
+      header: <String, dynamic>{
+        'Content-Type': 'application/json',
+        'Accept': '*/*',
+        'Authorization': 'Bearer $accessToken',
+      },
+    ).request(
+      onSuccess: (dynamic data, dynamic response) async {
+        lastReportsData = response ?? <dynamic>[];
+        update();
+      },
+      // ignore: always_specify_types
+      onError: (error) {
+        // specialtiesWithSub = 'not_found_medical_profile_section'.tr;
+        update();
+        return null;
+      },
+    );
+    isLoading = false;
+    update();
   }
 
   // ignore: always_specify_types
