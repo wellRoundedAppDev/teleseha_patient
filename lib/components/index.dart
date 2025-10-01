@@ -5,6 +5,7 @@ export 'custom_drawer/index.dart';
 export 'custom_input/index.dart';
 export 'custom_otp/index.dart';
 export 'custom_text/index.dart';
+export 'details_about_you/index.dart';
 export 'header/index.dart';
 export 'home_bottom/index.dart';
 export 'is_valid/index.dart';

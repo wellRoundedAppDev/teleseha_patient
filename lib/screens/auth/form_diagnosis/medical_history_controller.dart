@@ -58,12 +58,10 @@ class MedicalHistoryController extends GetxController {
       path: '$pathMedicalProfileSection/$patientId/$sectionId',
       className: '',
       formatResponse: true,
-      method: ApiMethods.post,
       header: <String, dynamic>{
         'Authorization': 'Bearer $accessToken',
         'Content-Type': 'application/json',
       },
-      body: <String, String>{'answer': answer},
     ).request(
       onSuccess: (data, response) {
         consoleLog('Answer sent successfully for section $sectionId');
@@ -77,10 +75,61 @@ class MedicalHistoryController extends GetxController {
     update();
   }
 
-  void nextStep() {
+  Future<void> patientMedicalProfileSectionPost() async {
+    await ApiRequest(
+      path: pathPatientMedicalProfileSection,
+      className: '',
+      formatResponse: true,
+      method: ApiMethods.post,
+      header: <String, dynamic>{
+        'Content-Type': 'application/json',
+        'Accept': '*/*',
+        'Authorization': 'Bearer $accessToken',
+      },
+      body: <String, Object>{
+        patientId: 124,
+        section: <String, Object>{
+          id: 2,
+          title: 'string',
+          subSection: <Map<String, Object>>[
+            <String, Object>{
+              id: 1,
+              title: 'string',
+              items: <Map<String, Object>>[
+                <String, Object>{id: 1, item: 'string'},
+              ],
+            },
+          ],
+        },
+      },
+    ).request(
+      onSuccess: (dynamic data, dynamic response) async {
+        isLoading = false;
+        // Get.toNamed(details);
+        update();
+      },
+      // ignore: always_specify_types
+      onError: (error) {
+        final int? statusCode = error.response?.statusCode;
+        isLoading = false;
+        update();
+        if (statusCode == 401) {
+          final MyAppController appController = Get.find();
+          appController.futureRefreshLogin();
+        } else {
+          Get.toNamed(details);
+        }
+        return null;
+      },
+    );
+  }
+
+  Future<void> nextStep() async {
     if (currentStep < questions.length) {
       currentStep++;
       update();
+    } else {
+      await patientMedicalProfileSectionPost();
     }
   }
 

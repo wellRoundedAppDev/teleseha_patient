@@ -53,7 +53,7 @@ class Login extends StatelessWidget {
                                   controller: controller.phoneNumberController,
                                   showValidMessage:
                                       controller.showPhoneNumberError,
-                                  textIsValid: controller.phoneErrorMessage,                                  
+                                  textIsValid: controller.phoneErrorMessage,
                                   colorLabel: AppColors.colorLabel,
                                   keyboardType: TextInputType.phone,
                                   suffixIconPath: iconNumber,

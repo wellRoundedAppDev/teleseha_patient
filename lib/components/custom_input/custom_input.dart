@@ -21,6 +21,7 @@ class CustomInput extends StatelessWidget {
     this.onTap,
     this.sizespace = 0.021,
     this.paddingVertical = 0.051,
+    this.textType = CustomTextType.inputTitle,
   });
 
   final String? title;
@@ -39,6 +40,7 @@ class CustomInput extends StatelessWidget {
   final Function? onTap;
   final double? sizespace;
   final double paddingVertical;
+  final CustomTextType textType; 
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +49,7 @@ class CustomInput extends StatelessWidget {
       children: <Widget>[
         CustomText(
           text: title,
-          type: CustomTextType.inputTitle,
+          type: textType,
           fontSize: fontSize,
           color: Color(colorLabel!),
         ),
