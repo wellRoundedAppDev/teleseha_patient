@@ -9,13 +9,21 @@ class FingerPrintController extends GetxController {
   LocalStorage localStorage = LocalStorage();
   String? refreshToken;
   final StartStepsController stepController = Get.find();
+  final MyAppController appController = Get.find();
 
   Future<void> checkUserAndNavigate() async {
     refreshToken = await localStorage.readFromStorage(storageAccessToken);
     if (refreshToken != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        Get.toNamed(routeSteps);
-        stepController.currentStep = 3;
+        if (appController.myNextStep == 'CreateProfile') {
+          stepController.currentStep = 3;
+          stepController.update();
+          Get.toNamed(routeSteps);
+        } else if (appController.myNextStep == 'SelectProfile') {
+          Get.toNamed(routeProfiles);
+        } else if (appController.myNextStep == 'OpenHome') {
+          Get.toNamed(routeScreen);
+        }
       });
     } else {
       Get.offAllNamed(routeLogin);

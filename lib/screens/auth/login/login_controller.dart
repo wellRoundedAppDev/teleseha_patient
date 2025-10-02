@@ -29,7 +29,7 @@ class LoginController extends GetxController {
 
   void updatePage(String newResolution) {
     page = newResolution;
-    update(); 
+    update();
   }
 
   Future<void> handleLogin() async {
@@ -111,7 +111,7 @@ class LoginController extends GetxController {
     ).request(
       onSuccess: (dynamic data, dynamic response) async {
         isLoading = false;
-        final String? nextStep = response['nextStepEnum']?.toString();
+        final String? nextStep = response['nextStepEnum']?.toString();        
         if (nextStep == 'CreateProfile') {
           final String? accessToken = response['data']?['accessToken']
               ?.toString();
@@ -131,6 +131,38 @@ class LoginController extends GetxController {
           steps.currentStep = 3;
           steps.update();
           Get.toNamed(routeSteps);
+        } else if (nextStep == 'SelectProfile') {
+          final String? accessToken = response['data']?['accessToken']
+              ?.toString();
+          final String? refreshToken = response['data']?['refreshToken']
+              ?.toString();
+          await localStorage.saveToStorage(
+            key: storageAccessToken,
+            value: accessToken,
+          );
+          await localStorage.readFromStorage(storageAccessToken);
+          await localStorage.saveToStorage(
+            key: storageRefreshToken,
+            value: refreshToken,
+          );
+          await localStorage.readFromStorage(storageRefreshToken);
+          Get.toNamed(routeProfiles);
+        } else if (nextStep == 'OpenHome') {
+          final String? accessToken = response['data']?['accessToken']
+              ?.toString();
+          final String? refreshToken = response['data']?['refreshToken']
+              ?.toString();
+          await localStorage.saveToStorage(
+            key: storageAccessToken,
+            value: accessToken,
+          );
+          await localStorage.readFromStorage(storageAccessToken);
+          await localStorage.saveToStorage(
+            key: storageRefreshToken,
+            value: refreshToken,
+          );
+          await localStorage.readFromStorage(storageRefreshToken);
+          Get.toNamed(routeScreen);
         }
         update();
       },

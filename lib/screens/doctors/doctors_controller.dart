@@ -95,7 +95,7 @@ class DoctorsController extends GetxController {
     final DateTime currentDate = DateTime.now();
     selectedDayIndex = currentDate.weekday - 3;
     _doctorsRequest();
-    _doctorsProfileRequest();
+    // _doctorsProfileRequest();
     _doctorsProfileSesscions();
     update();
   }
@@ -188,11 +188,13 @@ class DoctorsController extends GetxController {
       },
     ).request(
       onSuccess: (dynamic data, dynamic response) async {
-        doctors = response ?? <dynamic>[];
+        // doctors = response ?? <dynamic>[];
+        consoleLog('true doctor');
         update();
       },
       // ignore: always_specify_types
       onError: (error) {
+        consoleLog('false doctor');
         // doctors = 'not_found_medical_profile_section'.tr;
         update();
         return null;
@@ -203,36 +205,35 @@ class DoctorsController extends GetxController {
   }
 
   // ignore: always_specify_types
-  List doctorsProfile = <dynamic>[];
-  Future<void> _doctorsProfileRequest() async {
-    isLoading = true;
-    update();
-    accessToken = await localStorage.readFromStorage(storageAccessToken);
-    await ApiRequest(
-      // path: doctorProfile,'
-      path: '$doctorProfile/$selectedDoctorId',
-      className: '',
-      formatResponse: true,
-      header: <String, dynamic>{
-        'Content-Type': 'application/json',
-        'Accept': '*/*',
-        'Authorization': 'Bearer $accessToken',
-      },
-    ).request(
-      onSuccess: (dynamic data, dynamic response) async {
-        doctorsProfile = response ?? <dynamic>[];
-        update();
-      },
-      // ignore: always_specify_types
-      onError: (error) {
-        // doctors = 'not_found_medical_profile_section'.tr;
-        update();
-        return null;
-      },
-    );
-    isLoading = false;
-    update();
-  }
+  // List doctorsProfile = <dynamic>[];
+  // Future<void> _doctorsProfileRequest() async {
+  //   isLoading = true;
+  //   update();
+  //   accessToken = await localStorage.readFromStorage(storageAccessToken);
+  //   await ApiRequest(
+  //     path: '$doctorProfile/$selectedDoctorId',
+  //     className: '',
+  //     formatResponse: true,
+  //     header: <String, dynamic>{
+  //       'Content-Type': 'application/json',
+  //       'Accept': '*/*',
+  //       'Authorization': 'Bearer $accessToken',
+  //     },
+  //   ).request(
+  //     onSuccess: (dynamic data, dynamic response) async {
+  //       doctorsProfile = response ?? <dynamic>[];
+  //       update();
+  //     },
+  //     // ignore: always_specify_types
+  //     onError: (error) {
+  //       // doctors = 'not_found_medical_profile_section'.tr;
+  //       update();
+  //       return null;
+  //     },
+  //   );
+  //   isLoading = false;
+  //   update();
+  // }
 
   // ignore: always_specify_types
   List doctorsProfileSessions = <dynamic>[];
@@ -241,7 +242,8 @@ class DoctorsController extends GetxController {
     update();
     accessToken = await localStorage.readFromStorage(storageAccessToken);
     await ApiRequest(
-      path: '$doctor/$selectedDoctorId/$doctorProfileSessions',
+      path: '$doctor/8/$doctorProfileSessions',
+      // path: '$doctor/$selectedDoctorId/$doctorProfileSessions',
       className: '',
       formatResponse: true,
       header: <String, dynamic>{

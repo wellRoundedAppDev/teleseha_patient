@@ -8,6 +8,7 @@ class MyAppController extends GetxController {
   String? refreshToken;
   bool isInternetConnect = true;
   bool shouldShowNoInternetDialog = true;
+  String? myNextStep;
 
   final StartStepsController stepController = Get.find();
 
@@ -20,6 +21,7 @@ class MyAppController extends GetxController {
   Future<void> futureRefreshLogin() async {
     // await localStorage.removeFromStorage(key: storageAccessToken);
     // await localStorage.removeFromStorage(key: storageRefreshToken);
+
     refreshToken = await localStorage.readFromStorage(storageRefreshToken);
     await ApiRequest(
       path: refreshLogin,
@@ -45,14 +47,51 @@ class MyAppController extends GetxController {
             value: refreshToken,
           );
           await localStorage.readFromStorage(storageRefreshToken);
-          stepController.currentStep = 3;
-          stepController.update();
+          myNextStep = response['nextStepEnum']?.toString();
+          update();
+        } else if (nextStep == 'SelectProfile') {
+          final String? accessToken = response['data']?['accessToken']
+              ?.toString();
+          final String? refreshToken = response['data']?['refreshToken']
+              ?.toString();
+          await localStorage.saveToStorage(
+            key: storageAccessToken,
+            value: accessToken,
+          );
+          await localStorage.readFromStorage(storageAccessToken);
+          await localStorage.saveToStorage(
+            key: storageRefreshToken,
+            value: refreshToken,
+          );
+          await localStorage.readFromStorage(storageRefreshToken);
+          myNextStep = response['nextStepEnum']?.toString();
+          update();
+        } else if (nextStep == 'OpenHome') {
+          final String? accessToken = response['data']?['accessToken']
+              ?.toString();
+          final String? refreshToken = response['data']?['refreshToken']
+              ?.toString();
+          await localStorage.saveToStorage(
+            key: storageAccessToken,
+            value: accessToken,
+          );
+          await localStorage.readFromStorage(storageAccessToken);
+          await localStorage.saveToStorage(
+            key: storageRefreshToken,
+            value: refreshToken,
+          );
+          await localStorage.readFromStorage(storageRefreshToken);
+          myNextStep = response['nextStepEnum']?.toString();
           update();
         }
       },
       // ignore: always_specify_types
       onError: (error) {
-        Get.toNamed(routeFingerPrint);
+        localStorage.removeFromStorage(key: storageAccessToken).then((_) {
+          localStorage.removeFromStorage(key: storageRefreshToken).then((_) {
+            Get.toNamed(routeFingerPrint);
+          });
+        });
         return null;
       },
     );

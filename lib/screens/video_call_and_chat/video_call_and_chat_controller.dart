@@ -104,103 +104,103 @@ class VideoCallController extends GetxController {
       }
     });
 
-    _sessionMeeting();
-    _chatMeeting();
+    // _sessionMeeting();
+    // _chatMeeting();
   }
 
   // ignore: always_specify_types
-  List lastMettingData = <dynamic>[];
-  Future<void> _sessionMeeting() async {
-    isLoading = true;
-    update();
-    accessToken = await localStorage.readFromStorage(storageAccessToken);
-    await ApiRequest(
-      path: '$meeting/1',
-      className: '',
-      formatResponse: true,
-      header: <String, dynamic>{
-        'Content-Type': 'application/json',
-        'Accept': '*/*',
-        'Authorization': 'Bearer $accessToken',
-      },
-    ).request(
-      onSuccess: (dynamic data, dynamic response) async {
-        lastMettingData = response ?? <dynamic>[];
-        update();
-      },
-      // ignore: always_specify_types
-      onError: (error) {
-        // specialtiesWithSub = 'not_found_medical_profile_section'.tr;
-        update();
-        return null;
-      },
-    );
-    isLoading = false;
-    update();
-  }
+  // List lastMettingData = <dynamic>[];
+  // Future<void> _sessionMeeting() async {
+  //   isLoading = true;
+  //   update();
+  //   accessToken = await localStorage.readFromStorage(storageAccessToken);
+  //   await ApiRequest(
+  //     path: '$meeting/1',
+  //     className: '',
+  //     formatResponse: true,
+  //     header: <String, dynamic>{
+  //       'Content-Type': 'application/json',
+  //       'Accept': '*/*',
+  //       'Authorization': 'Bearer $accessToken',
+  //     },
+  //   ).request(
+  //     onSuccess: (dynamic data, dynamic response) async {
+  //       lastMettingData = response ?? <dynamic>[];
+  //       update();
+  //     },
+  //     // ignore: always_specify_types
+  //     onError: (error) {
+  //       // specialtiesWithSub = 'not_found_medical_profile_section'.tr;
+  //       update();
+  //       return null;
+  //     },
+  //   );
+  //   isLoading = false;
+  //   update();
+  // }
 
   // ignore: always_specify_types
-  List lastChatMeeting = <dynamic>[];
-  Future<void> _chatMeeting() async {
-    isLoading = true;
-    update();
-    accessToken = await localStorage.readFromStorage(storageAccessToken);
-    await ApiRequest(
-      path: '$chatMessage/1',
-      className: '',
-      formatResponse: true,
-      header: <String, dynamic>{
-        'Content-Type': 'application/json',
-        'Accept': '*/*',
-        'Authorization': 'Bearer $accessToken',
-      },
-    ).request(
-      onSuccess: (dynamic data, dynamic response) async {
-        lastChatMeeting = response ?? <dynamic>[];
-        update();
-      },
-      // ignore: always_specify_types
-      onError: (error) {
-        // specialtiesWithSub = 'not_found_medical_profile_section'.tr;
-        update();
-        return null;
-      },
-    );
-    isLoading = false;
-    update();
-  }
+  // List lastChatMeeting = <dynamic>[];
+  // Future<void> _chatMeeting() async {
+  //   isLoading = true;
+  //   update();
+  //   accessToken = await localStorage.readFromStorage(storageAccessToken);
+  //   await ApiRequest(
+  //     path: '$chatMessage/1',
+  //     className: '',
+  //     formatResponse: true,
+  //     header: <String, dynamic>{
+  //       'Content-Type': 'application/json',
+  //       'Accept': '*/*',
+  //       'Authorization': 'Bearer $accessToken',
+  //     },
+  //   ).request(
+  //     onSuccess: (dynamic data, dynamic response) async {
+  //       lastChatMeeting = response ?? <dynamic>[];
+  //       update();
+  //     },
+  //     // ignore: always_specify_types
+  //     onError: (error) {
+  //       // specialtiesWithSub = 'not_found_medical_profile_section'.tr;
+  //       update();
+  //       return null;
+  //     },
+  //   );
+  //   isLoading = false;
+  //   update();
+  // }
 
-  Future<void> chatPostRequest() async {
-    await ApiRequest(
-      path: chatMessage,
-      className: '',
-      formatResponse: true,
-      method: ApiMethods.post,
-      header: <String, dynamic>{
-        'Content-Type': 'application/json',
-        'Accept': '*/*',
-        'Authorization': 'Bearer $accessToken',
-      },
-      body: {
-        message: messageContent,
-        file: 'string',
-        messageType: 'string',
-        checkUpId: 0,
-      },
-    ).request(
-      onSuccess: (dynamic data, dynamic response) async {
-        isLoading = false;
-        // Get.toNamed(details);
-        update();
-      },
-      // ignore: always_specify_types
-      onError: (error) {
-        isLoading = false;
-        update();
-        return null;
-      },
-    );
-  }
+  // Future<void> chatPostRequest() async {
+  //   await ApiRequest(
+  //     path: chatMessage,
+  //     className: '',
+  //     formatResponse: true,
+  //     method: ApiMethods.post,
+  //     header: <String, dynamic>{
+  //       'Content-Type': 'application/json',
+  //       'Accept': '*/*',
+  //       'Authorization': 'Bearer $accessToken',
+  //     },
+  //     body: {
+  //       message: messageContent,
+  //       file: 'string',
+  //       messageType: 'string',
+  //       checkUpId: 0,
+  //     },
+  //   ).request(
+  //     onSuccess: (dynamic data, dynamic response) async {
+  //       isLoading = false;
+  //       // Get.toNamed(details);
+  //       update();
+  //     },
+  //     // ignore: always_specify_types
+  //     onError: (error) {
+  //       isLoading = false;
+  //       update();
+  //       return null;
+  //     },
+  //   );
+  // }
 
   // start chat function
   Future<void> initSDK() async {

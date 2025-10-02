@@ -1,9 +1,10 @@
 import 'dart:async';
+import 'package:dio/dio.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:pattern_dots/pattern_dots.dart';
 
-import '../../../general_exports.dart';
+import '../../../general_exports.dart' hide FormData;
 
 class StartStepsController extends GetxController {
   int currentStep = 1;
@@ -271,6 +272,13 @@ class StartStepsController extends GetxController {
       isLoading = true;
       update();
       accessToken = await localStorage.readFromStorage(storageAccessToken);
+
+      final FormData formData = FormData.fromMap(<String, dynamic>{
+        keyName: textFieldName.text.trim(),
+        isMale: selectedMaleCode,
+        date: apiDate,
+      });
+
       await ApiRequest(
         path: patient,
         className: '',
@@ -281,20 +289,11 @@ class StartStepsController extends GetxController {
           'Accept': '*/*',
           'Authorization': 'Bearer $accessToken',
         },
-        body: <String, Object>{
-          keyName: textFieldName.text.trim(),
-          date: ?apiDate,
-          isMale: selectedMaleCode,
-          maritalStatus: '',
-          jobTitle: '',
-          myState: '',
-          city: '',
-          cityId: 0,
-        },
+        body: formData,
       ).request(
         onSuccess: (dynamic data, dynamic response) async {
           isLoading = false;
-          // Get.toNamed(routeFormDiagnosis);
+          Get.toNamed(routeFormDiagnosis);
           update();
         },
         // ignore: always_specify_types
@@ -306,7 +305,6 @@ class StartStepsController extends GetxController {
             final MyAppController appController = Get.find();
             appController.futureRefreshLogin();
           } else {
-            Get.toNamed(routeFormDiagnosis);
             if (textFieldName.text.isEmpty) {
               showNameError = true;
               update();

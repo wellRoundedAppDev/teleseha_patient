@@ -20,7 +20,7 @@ class WaitingForYourTurn extends StatelessWidget {
           });
         }
 
-        controller.selectedLastRecentFunction();
+        // controller.selectedLastRecentFunction();
         return Container(
           alignment: Alignment.center,
           margin: EdgeInsets.only(

@@ -15,7 +15,7 @@ class VideoCall extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<VideoCallController>(
       builder: (VideoCallController controller) {
-        bookings.selectedLastRecentFunction();
+        // bookings.selectedLastRecentFunction();
 
         final String minutes = (controller.secondsLeft ~/ 60)
             .toString()
@@ -823,22 +823,22 @@ Widget _componentSend() {
             padding: EdgeInsets.symmetric(horizontal: DEVICE_HEIGHT * 0.03),
             child: Row(
               children: <Widget>[
-                GestureDetector(
-                  // onTap: controller.sendMessage,
-                  onTap: controller.chatPostRequest,
-                  child: Container(
-                    padding: EdgeInsets.all(DEVICE_HEIGHT * 0.015),
-                    decoration: BoxDecoration(
-                      color: const Color(AppColors.colorLineAndText),
-                      borderRadius: BorderRadius.circular(14),
-                    ),
-                    child: SvgPicture.asset(
-                      iconSend,
-                      width: DEVICE_WIDTH * 0.04,
-                      height: DEVICE_HEIGHT * 0.04,
-                    ),
-                  ),
-                ),
+                // GestureDetector(
+                //   // onTap: controller.sendMessage,
+                //   onTap: controller.chatPostRequest,
+                //   child: Container(
+                //     padding: EdgeInsets.all(DEVICE_HEIGHT * 0.015),
+                //     decoration: BoxDecoration(
+                //       color: const Color(AppColors.colorLineAndText),
+                //       borderRadius: BorderRadius.circular(14),
+                //     ),
+                //     child: SvgPicture.asset(
+                //       iconSend,
+                //       width: DEVICE_WIDTH * 0.04,
+                //       height: DEVICE_HEIGHT * 0.04,
+                //     ),
+                //   ),
+                // ),
                 SizedBox(width: DEVICE_WIDTH * 0.05),
                 Expanded(
                   child: Stack(
@@ -922,57 +922,57 @@ Widget _componentSend() {
           SizedBox(height: DEVICE_HEIGHT * 0.025),
           Column(
             children: <Widget>[
-              Expanded(
-                child: controller.isLoading
-                    ? const Center(child: CircularProgressIndicator())
-                    : controller.lastChatMeeting.isEmpty
-                    ? const Center(
-                        child: Text(
-                          'لا يوجد محادثات',
-                          style: TextStyle(fontSize: 16),
-                        ),
-                      )
-                    : ListView.builder(
-                        itemCount: controller.lastChatMeeting.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          final chat = controller.lastChatMeeting[index];
-                          // افترض إن الـ chat يحتوي keys: 'userName', 'message', 'time'
-                          return Card(
-                            margin: EdgeInsets.symmetric(
-                              vertical: DEVICE_HEIGHT * 0.008,
-                              horizontal: DEVICE_WIDTH * 0.03,
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: ListTile(
-                              leading: CircleAvatar(
-                                radius: DEVICE_WIDTH * 0.06,
-                                backgroundColor: Colors.grey[300],
-                                child: Text(
-                                  chat['userName'][0] ?? '', // أول حرف من الاسم
-                                  style: const TextStyle(color: Colors.white),
-                                ),
-                              ),
-                              title: Text(
-                                chat['userName'] ?? '',
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              subtitle: Text(chat['message'] ?? ''),
-                              trailing: Text(
-                                chat['time'] ?? '',
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-              ),
+              // Expanded(
+              //   child: controller.isLoading
+              //       ? const Center(child: CircularProgressIndicator())
+              //       : controller.lastChatMeeting.isEmpty
+              //       ? const Center(
+              //           child: Text(
+              //             'لا يوجد محادثات',
+              //             style: TextStyle(fontSize: 16),
+              //           ),
+              //         )
+              //       : ListView.builder(
+              //           itemCount: controller.lastChatMeeting.length,
+              //           itemBuilder: (BuildContext context, int index) {
+              //             final chat = controller.lastChatMeeting[index];
+              //             // افترض إن الـ chat يحتوي keys: 'userName', 'message', 'time'
+              //             return Card(
+              //               margin: EdgeInsets.symmetric(
+              //                 vertical: DEVICE_HEIGHT * 0.008,
+              //                 horizontal: DEVICE_WIDTH * 0.03,
+              //               ),
+              //               shape: RoundedRectangleBorder(
+              //                 borderRadius: BorderRadius.circular(12),
+              //               ),
+              //               child: ListTile(
+              //                 leading: CircleAvatar(
+              //                   radius: DEVICE_WIDTH * 0.06,
+              //                   backgroundColor: Colors.grey[300],
+              //                   child: Text(
+              //                     chat['userName'][0] ?? '', // أول حرف من الاسم
+              //                     style: const TextStyle(color: Colors.white),
+              //                   ),
+              //                 ),
+              //                 title: Text(
+              //                   chat['userName'] ?? '',
+              //                   style: const TextStyle(
+              //                     fontWeight: FontWeight.bold,
+              //                   ),
+              //                 ),
+              //                 subtitle: Text(chat['message'] ?? ''),
+              //                 trailing: Text(
+              //                   chat['time'] ?? '',
+              //                   style: const TextStyle(
+              //                     fontSize: 12,
+              //                     color: Colors.grey,
+              //                   ),
+              //                 ),
+              //               ),
+              //             );
+              //           },
+              //         ),
+              // ),
               // Padding(
               //   padding: EdgeInsets.symmetric(horizontal: DEVICE_HEIGHT * 0.03),
               //   child: Row(

@@ -26,39 +26,39 @@ class ReportsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _reportsData();
+    // _reportsData();
   }
 
   // ignore: always_specify_types
-  List lastReportsData = <dynamic>[];
-  Future<void> _reportsData() async {
-    isLoading = true;
-    update();
-    accessToken = await localStorage.readFromStorage(storageAccessToken);
-    await ApiRequest(
-      path: '$reportsMeeting/1',
-      className: '',
-      formatResponse: true,
-      header: <String, dynamic>{
-        'Content-Type': 'application/json',
-        'Accept': '*/*',
-        'Authorization': 'Bearer $accessToken',
-      },
-    ).request(
-      onSuccess: (dynamic data, dynamic response) async {
-        lastReportsData = response ?? <dynamic>[];
-        update();
-      },
-      // ignore: always_specify_types
-      onError: (error) {
-        // specialtiesWithSub = 'not_found_medical_profile_section'.tr;
-        update();
-        return null;
-      },
-    );
-    isLoading = false;
-    update();
-  }
+  // List lastReportsData = <dynamic>[];
+  // Future<void> _reportsData() async {
+  //   isLoading = true;
+  //   update();
+  //   accessToken = await localStorage.readFromStorage(storageAccessToken);
+  //   await ApiRequest(
+  //     path: '$reportsMeeting/1',
+  //     className: '',
+  //     formatResponse: true,
+  //     header: <String, dynamic>{
+  //       'Content-Type': 'application/json',
+  //       'Accept': '*/*',
+  //       'Authorization': 'Bearer $accessToken',
+  //     },
+  //   ).request(
+  //     onSuccess: (dynamic data, dynamic response) async {
+  //       lastReportsData = response ?? <dynamic>[];
+  //       update();
+  //     },
+  //     // ignore: always_specify_types
+  //     onError: (error) {
+  //       // specialtiesWithSub = 'not_found_medical_profile_section'.tr;
+  //       update();
+  //       return null;
+  //     },
+  //   );
+  //   isLoading = false;
+  //   update();
+  // }
 
   // ignore: always_specify_types
   List doctors = <dynamic>[

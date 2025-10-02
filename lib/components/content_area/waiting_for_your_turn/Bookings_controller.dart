@@ -26,71 +26,71 @@ class BookingsController extends GetxController {
       update();
     });
 
-    _comming();
-    _sessionWaitingData();
+    // _comming();
+    // _sessionWaitingData();
   }
 
   // ignore: always_specify_types
-  List lastRecent = <dynamic>[];
-  Future<void> _comming() async {
-    isLoading = true;
-    update();
-    accessToken = await localStorage.readFromStorage(storageAccessToken);
-    await ApiRequest(
-      path: comming,
-      className: '',
-      formatResponse: true,
-      header: <String, dynamic>{
-        'Content-Type': 'application/json',
-        'Accept': '*/*',
-        'Authorization': 'Bearer $accessToken',
-      },
-    ).request(
-      onSuccess: (dynamic data, dynamic response) async {
-        lastRecent = response ?? <dynamic>[];
-        update();
-      },
-      // ignore: always_specify_types
-      onError: (error) {
-        // specialtiesWithSub = 'not_found_medical_profile_section'.tr;
-        update();
-        return null;
-      },
-    );
-    isLoading = false;
-    update();
-  }
+  // List lastRecent = <dynamic>[];
+  // Future<void> _comming() async {
+  //   isLoading = true;
+  //   update();
+  //   accessToken = await localStorage.readFromStorage(storageAccessToken);
+  //   await ApiRequest(
+  //     path: comming,
+  //     className: '',
+  //     formatResponse: true,
+  //     header: <String, dynamic>{
+  //       'Content-Type': 'application/json',
+  //       'Accept': '*/*',
+  //       'Authorization': 'Bearer $accessToken',
+  //     },
+  //   ).request(
+  //     onSuccess: (dynamic data, dynamic response) async {
+  //       lastRecent = response ?? <dynamic>[];
+  //       update();
+  //     },
+  //     // ignore: always_specify_types
+  //     onError: (error) {
+  //       // specialtiesWithSub = 'not_found_medical_profile_section'.tr;
+  //       update();
+  //       return null;
+  //     },
+  //   );
+  //   isLoading = false;
+  //   update();
+  // }
 
   // ignore: always_specify_types
-  List lastWatingData = <dynamic>[];
-  Future<void> _sessionWaitingData() async {
-    isLoading = true;
-    update();
-    accessToken = await localStorage.readFromStorage(storageAccessToken);
-    await ApiRequest(
-      path: '$session/$selectedRecentBookingsId',
-      className: '',
-      formatResponse: true,
-      header: <String, dynamic>{
-        'Content-Type': 'application/json',
-        'Accept': '*/*',
-        'Authorization': 'Bearer $accessToken',
-      },
-    ).request(
-      onSuccess: (dynamic data, dynamic response) async {
-        lastWatingData = response ?? <dynamic>[];
-        update();
-      },
-      // ignore: always_specify_types
-      onError: (error) {
-        // specialtiesWithSub = 'not_found_medical_profile_section'.tr;
-        update();
-        return null;
-      },
-    );
-    isLoading = false;
-    update();
-  }
+  // List lastWatingData = <dynamic>[];
+  // Future<void> _sessionWaitingData() async {
+  //   isLoading = true;
+  //   update();
+  //   accessToken = await localStorage.readFromStorage(storageAccessToken);
+  //   await ApiRequest(
+  //     path: '$session/$selectedRecentBookingsId',
+  //     className: '',
+  //     formatResponse: true,
+  //     header: <String, dynamic>{
+  //       'Content-Type': 'application/json',
+  //       'Accept': '*/*',
+  //       'Authorization': 'Bearer $accessToken',
+  //     },
+  //   ).request(
+  //     onSuccess: (dynamic data, dynamic response) async {
+  //       lastWatingData = response ?? <dynamic>[];
+  //       update();
+  //     },
+  //     // ignore: always_specify_types
+  //     onError: (error) {
+  //       // specialtiesWithSub = 'not_found_medical_profile_section'.tr;
+  //       update();
+  //       return null;
+  //     },
+  //   );
+  //   isLoading = false;
+  //   update();
+  // }
 
   Future<void> chatPostRequest() async {
     await ApiRequest(
@@ -192,11 +192,11 @@ class BookingsController extends GetxController {
   //   },
   // ];
 
-  void selectedLastRecentFunction() {
-    selectedLastRecent = lastRecent.firstWhere(
-      // ignore: non_constant_identifier_names, always_specify_types
-      (LastRecent) => LastRecent['id'] == selectedRecentBookingsId,
-      orElse: () => <dynamic, dynamic>{},
-    );
-  }
+  // void selectedLastRecentFunction() {
+  //   selectedLastRecent = lastRecent.firstWhere(
+  //     // ignore: non_constant_identifier_names, always_specify_types
+  //     (LastRecent) => LastRecent['id'] == selectedRecentBookingsId,
+  //     orElse: () => <dynamic, dynamic>{},
+  //   );
+  // }
 }
