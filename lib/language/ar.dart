@@ -237,6 +237,7 @@ const Map<String, String> ar = <String, String>{
   'minute': 'دقيقة',
   'recent_bookings_not_found': 'الحجوزات الاخيرة غير موجودة',
   'not_found_doctors': 'لا يوجد اطباء',
+  'not_found_sub_specialties': 'لا يوجد تخصصات فرعية',
   'dont_worry': 'لا تقلق سيتم ارسال تنبيه لك عندما يأتي دورك',
   'its_your_turn': 'جاء دورك يجب الدخول الآن... ',
   'enter_the_session': 'دخول الجلسه',

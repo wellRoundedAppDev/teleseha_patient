@@ -189,12 +189,10 @@ class DoctorsController extends GetxController {
     ).request(
       onSuccess: (dynamic data, dynamic response) async {
         // doctors = response ?? <dynamic>[];
-        consoleLog('true doctor');
         update();
       },
       // ignore: always_specify_types
       onError: (error) {
-        consoleLog('false doctor');
         // doctors = 'not_found_medical_profile_section'.tr;
         update();
         return null;

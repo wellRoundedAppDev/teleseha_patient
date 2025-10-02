@@ -118,7 +118,7 @@ class StartStepsController extends GetxController {
       if (controller.page == 'signIn') {
         controller.updatePage('update');
         otpController.clear();
-        Get.to(() => const PatternLock());
+        Get.to(() => PatternLock());
         update();
         controller.resetPattern();
       } else if (controller.page == 'signUp') {

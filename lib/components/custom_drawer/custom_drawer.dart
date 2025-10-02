@@ -106,7 +106,7 @@ class CustomDrawer extends StatelessWidget {
                                 GestureDetector(
                                   onTap: () {
                                     if (controller.selectedIndex <
-                                        controller.specialtiesWithSub.length -
+                                        controller.specialties.length -
                                             1) {
                                       controller.scrollController.animateTo(
                                         controller.scrollController.offset +
@@ -128,7 +128,7 @@ class CustomDrawer extends StatelessWidget {
                                     color:
                                         controller.selectedIndex <
                                             controller
-                                                    .specialtiesWithSub
+                                                    .specialties
                                                     .length -
                                                 1
                                         ? const Color(
@@ -152,7 +152,7 @@ class CustomDrawer extends StatelessWidget {
                             controller: controller.scrollController,
                             scrollDirection: Axis.horizontal,
                             padding: const EdgeInsets.symmetric(horizontal: 16),
-                            itemCount: controller.specialtiesWithSub.length,
+                            itemCount: controller.specialties.length,
                             itemBuilder: (BuildContext context, int index) {
                               final bool isSelected =
                                   controller.selectedIndex == index;
@@ -186,7 +186,7 @@ class CustomDrawer extends StatelessWidget {
                                     ),
                                     child: CustomText(
                                       text: controller
-                                          .specialtiesWithSub[index]['title'],
+                                          .specialties[index]['title'],
                                       fontSize: 12,
                                       type: CustomTextType.button,
                                       color: isSelected

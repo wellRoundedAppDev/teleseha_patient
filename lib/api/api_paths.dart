@@ -8,6 +8,7 @@ const String otpConfirm = '$basePath/otp-confirm';
 const String createPassword = '$basePath/create-password';
 const String login = '$basePath/login';
 const String refreshLogin = '$basePath/refresh-login';
+const String logout = '$basePath/logout';
 
 // ********************  ********************
 const String patient = 'patient';
@@ -15,6 +16,7 @@ const String pathMedicalProfileSection = 'medical-profile-section';
 const String pathPatientMedicalProfileSection =
     'patient-medical-profile-section';
 const String speciality = 'speciality';
+const String subSpeciality = 'sub-speciality/for';
 const String doctor = 'doctor';
 const String doctorProfile = 'doctor-profile';
 const String doctorProfileSessions = 'sessions';

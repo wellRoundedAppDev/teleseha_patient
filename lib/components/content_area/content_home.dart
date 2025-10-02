@@ -148,11 +148,12 @@ class ContentHome extends StatelessWidget {
                               ? DEVICE_HEIGHT * 0.005
                               : 1,
                           runSpacing: DEVICE_HEIGHT * 0.018,
+                          // ignore: always_specify_types
                           children: List.generate(
-                            controller.specialtiesWithSub.length,
+                            controller.specialties.length,
                             (int index) {
                               // ignore: always_specify_types
-                              final e = controller.specialtiesWithSub[index];
+                              final e = controller.specialties[index];
 
                               final String iconPath =
                                   e['icon'] as String? ?? iconGeneralSpecialty;
