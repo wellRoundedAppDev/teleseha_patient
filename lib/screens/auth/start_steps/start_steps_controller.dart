@@ -18,6 +18,7 @@ class StartStepsController extends GetxController {
   bool selectedMaleCode = true;
   String? accessToken;
   String? apiDate;
+  int? patientId;
 
   TextEditingController otpController = TextEditingController();
   DateTime selectedDate = DateTime.now();
@@ -82,13 +83,6 @@ class StartStepsController extends GetxController {
       consoleLog('❌ Date picker dismissed');
     }
   }
-
-  // bool canGoToStepOtp() {
-  //   showNameError = textFieldName.text.isEmpty;
-  //   showdateControllerError = dateController.text.isEmpty;
-  //   update();
-  //   return !showNameError && !showdateControllerError;
-  // }
 
   bool checkOtp() {
     if (!isValidOtpIsValid()) {
@@ -285,7 +279,7 @@ class StartStepsController extends GetxController {
         formatResponse: true,
         method: ApiMethods.post,
         header: <String, dynamic>{
-          'Content-Type': 'application/json',
+          'Content-Type': 'multipart/form-data',
           'Accept': '*/*',
           'Authorization': 'Bearer $accessToken',
         },
@@ -294,6 +288,7 @@ class StartStepsController extends GetxController {
         onSuccess: (dynamic data, dynamic response) async {
           isLoading = false;
           Get.toNamed(routeFormDiagnosis);
+          patientId = response['patientId'];
           update();
         },
         // ignore: always_specify_types

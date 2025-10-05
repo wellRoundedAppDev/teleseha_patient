@@ -19,35 +19,54 @@ class DetailsAboutYou extends StatelessWidget {
                   SizedBox(height: DEVICE_HEIGHT * 0.055),
                   DetailsAboutYouComp(
                     title: 'country'.tr,
-                    myListCountry: controller.listCountry,
+                    myListCountry: controller.countrys
+                        // ignore: always_specify_types
+                        .map<String>((e) => e['countryName'])
+                        .toList(),
                     value: controller.selectedValue,
                     onChanged: (String? newValue) {
                       if (newValue != null) {
-                        controller.updateSelectedCountry(newValue);
+                        controller.selectedValue = newValue;
+                        controller.update();
                       }
                     },
                     subTitle: 'enter_your_country'.tr,
                   ),
                   SizedBox(height: DEVICE_HEIGHT * 0.04),
                   DetailsAboutYouComp(
-                    title: 'governorate'.tr,
-                    myListCountry: controller.listGovernorate,
-                    value: controller.selectedValueGovernorate,
+                    title: 'country'.tr,
+                    myListCountry: controller.countrys
+                        // ignore: always_specify_types
+                        .map<String>((e) => e['stateName'])
+                        .toList(),
+                    value: controller.selectedValue,
                     onChanged: (String? newValue) {
                       if (newValue != null) {
-                        controller.updateSelectedGovernorate(newValue);
+                        controller.selectedValue = newValue;
+                        controller.update();
                       }
                     },
-                    subTitle: 'enter_your_governorate'.tr,
+                    subTitle: 'enter_your_country'.tr,
                   ),
+                  // DetailsAboutYouComp(
+                  //   title: 'governorate'.tr,
+                  //   // myListCountry: controller.listGovernorate,
+                  //   // value: controller.selectedValueGovernorate,
+                  //   onChanged: (String? newValue) {
+                  //     if (newValue != null) {
+                  //       // controller.updateSelectedGovernorate(newValue);
+                  //     }
+                  //   },
+                  //   subTitle: 'enter_your_governorate'.tr,
+                  // ),
                   SizedBox(height: DEVICE_HEIGHT * 0.04),
                   DetailsAboutYouComp(
                     title: 'city'.tr,
-                    myListCountry: controller.listCity,
-                    value: controller.selectedCity,
+                    // myListCountry: controller.listCity,
+                    // value: controller.selectedCity,
                     onChanged: (String? newValue) {
                       if (newValue != null) {
-                        controller.updateSelectedCity(newValue);
+                        // controller.updateSelectedCity(newValue);
                       }
                     },
                     subTitle: 'enter_your_city'.tr,
@@ -55,11 +74,11 @@ class DetailsAboutYou extends StatelessWidget {
                   SizedBox(height: DEVICE_HEIGHT * 0.04),
                   DetailsAboutYouComp(
                     title: 'marital_status'.tr,
-                    myListCountry: controller.listsMaritalStatus,
-                    value: controller.maritalStatus,
+                    // myListCountry: controller.listsMaritalStatus,
+                    // value: controller.maritalStatus,
                     onChanged: (String? newValue) {
                       if (newValue != null) {
-                        controller.updateSelectedMaritalStatus(newValue);
+                        // controller.updateSelectedMaritalStatus(newValue);
                       }
                     },
                     subTitle: 'enter_marital_status'.tr,
@@ -110,12 +129,7 @@ class DetailsAboutYou extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: DEVICE_HEIGHT * 0.04),
-                  Btn(
-                    text: 'next'.tr,
-                    onPressed: () {
-                      Get.toNamed(routeScreen);
-                    },
-                  ),
+                  Btn(text: 'next'.tr, onPressed: () {}),
                 ],
               ),
             ),

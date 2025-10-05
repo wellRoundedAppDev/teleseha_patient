@@ -19,8 +19,8 @@ class MyAppController extends GetxController {
   }
 
   Future<void> futureRefreshLogin() async {
-    // await localStorage.removeFromStorage(key: storageAccessToken);
-    // await localStorage.removeFromStorage(key: storageRefreshToken);
+    await localStorage.removeFromStorage(key: storageAccessToken);
+    await localStorage.removeFromStorage(key: storageRefreshToken);
 
     refreshToken = await localStorage.readFromStorage(storageRefreshToken);
     await ApiRequest(

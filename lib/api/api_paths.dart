@@ -23,6 +23,7 @@ const String doctorProfileSessions = 'sessions';
 const String session = 'session/wating-data';
 const String chatMessage = 'chat-message';
 const String ratingReview = 'rating-review';
+const String infoLists = 'general/info-lists';
 
 // ******************** appotntmentControllersPath ********************
 const String checkCommingPath = '$appotntmentControllersPath/check-comming';

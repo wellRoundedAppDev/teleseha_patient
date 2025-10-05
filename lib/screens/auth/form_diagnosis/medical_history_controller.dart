@@ -1,4 +1,8 @@
-import '../../../general_exports.dart';
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
+
+import '../../../general_exports.dart' hide FormData;
 
 class MedicalHistoryController extends GetxController {
   int currentStep = 1;
@@ -7,6 +11,7 @@ class MedicalHistoryController extends GetxController {
   String? showIsError;
   bool isLoading = false;
   bool isSendingAnswer = false;
+  String? sectionName;
 
   LocalStorage localStorage = LocalStorage();
 
@@ -35,6 +40,9 @@ class MedicalHistoryController extends GetxController {
     ).request(
       onSuccess: (dynamic data, dynamic response) async {
         questions = response ?? <dynamic>[];
+        if (questions.isNotEmpty) {
+          sectionName = questions.first['sectionName'];
+        }
         update();
       },
       // ignore: always_specify_types
@@ -48,14 +56,18 @@ class MedicalHistoryController extends GetxController {
     update();
   }
 
-  Future<void> sendAnswer(int patientId, int sectionId, String answer) async {
+  Future<void> sendAnswer() async {
     isSendingAnswer = true;
     update();
+
+    final StartStepsController stepsController =
+        Get.find<StartStepsController>();
 
     accessToken = await localStorage.readFromStorage(storageAccessToken);
 
     await ApiRequest(
-      path: '$pathMedicalProfileSection/$patientId/$sectionId',
+      path:
+          '$pathPatientMedicalProfileSection/${stepsController.patientId}/$currentStep',
       className: '',
       formatResponse: true,
       header: <String, dynamic>{
@@ -63,11 +75,12 @@ class MedicalHistoryController extends GetxController {
         'Content-Type': 'application/json',
       },
     ).request(
+      // ignore: always_specify_types
       onSuccess: (data, response) {
-        consoleLog('Answer sent successfully for section $sectionId');
+        currentStep = response['sectionId'];
+        sectionName = response['sectionName'];
       },
       onError: (error) {
-        consoleLog('Failed to send answer for section $sectionId');
         return null;
       },
     );
@@ -76,39 +89,64 @@ class MedicalHistoryController extends GetxController {
   }
 
   Future<void> patientMedicalProfileSectionPost() async {
+    final StartStepsController stepsController =
+        Get.find<StartStepsController>();
+    final currentQuestion = questions[currentStep - 1];
+
+    final List<Map<String, dynamic>> selectedSubSections =
+        <Map<String, dynamic>>[];
+    final subSections = currentQuestion['subSection'] ?? <dynamic>[];
+
+    final bool isSectionSelected = currentQuestion['isSelected'] == true;
+
+    if (isSectionSelected) {
+      for (final sub in subSections) {
+        selectedSubSections.add(<String, dynamic>{
+          'subSectionId': sub['subSectionId'] ?? 0,
+          'subSectionName': sub['subSectionName'] ?? '',
+          'items': sub['items'] ?? <dynamic>[],
+        });
+      }
+    }
+
+    final FormData formData = FormData();
+
+    formData.fields.add(
+      MapEntry(myPatientId, stepsController.patientId.toString()),
+    );
+    formData.fields.add(MapEntry(sectionSectionId, currentStep.toString()));
+    formData.fields.add(
+      MapEntry(sectionSectionName, currentQuestion['sectionName'] ?? ''),
+    );
+
+    formData.fields.add(
+      MapEntry(
+        'Section.SubSections',
+        selectedSubSections.isNotEmpty ? jsonEncode(selectedSubSections) : '[]',
+      ),
+    );
+
+    for (final MapEntry<String, String> field in formData.fields) {
+      consoleLog('FormData field: ${field.key} = ${field.value}');
+    }
+
     await ApiRequest(
       path: pathPatientMedicalProfileSection,
       className: '',
       formatResponse: true,
       method: ApiMethods.post,
       header: <String, dynamic>{
-        'Content-Type': 'application/json',
+        'Content-Type': 'multipart/form-data',
         'Accept': '*/*',
         'Authorization': 'Bearer $accessToken',
       },
-      body: <String, Object>{
-        patientId: 124,
-        section: <String, Object>{
-          id: 2,
-          title: 'string',
-          subSection: <Map<String, Object>>[
-            <String, Object>{
-              id: 1,
-              title: 'string',
-              items: <Map<String, Object>>[
-                <String, Object>{id: 1, item: 'string'},
-              ],
-            },
-          ],
-        },
-      },
+      body: formData,
     ).request(
-      onSuccess: (dynamic data, dynamic response) async {
+      onSuccess: (data, response) async {
         isLoading = false;
-        // Get.toNamed(details);
+        await sendAnswer();
         update();
       },
-      // ignore: always_specify_types
       onError: (error) {
         final int? statusCode = error.response?.statusCode;
         isLoading = false;
@@ -127,9 +165,10 @@ class MedicalHistoryController extends GetxController {
   Future<void> nextStep() async {
     if (currentStep < questions.length) {
       currentStep++;
+      await patientMedicalProfileSectionPost();
       update();
     } else {
-      await patientMedicalProfileSectionPost();
+      Get.toNamed(details);
     }
   }
 

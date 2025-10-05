@@ -55,6 +55,11 @@ class LoginController extends GetxController {
         } else if (nextStep == 'OtpConfirm') {
           updatePage('signUp');
           Get.to(() => CustomOtp());
+        } else if (nextStep == 'CreatePassword') {
+          final StartStepsController steps = Get.find();
+          steps.currentStep = 2;
+          updatePage('signUp');
+          Get.toNamed(routeSteps);
         }
 
         isLoading = false;
@@ -111,7 +116,7 @@ class LoginController extends GetxController {
     ).request(
       onSuccess: (dynamic data, dynamic response) async {
         isLoading = false;
-        final String? nextStep = response['nextStepEnum']?.toString();        
+        final String? nextStep = response['nextStepEnum']?.toString();
         if (nextStep == 'CreateProfile') {
           final String? accessToken = response['data']?['accessToken']
               ?.toString();

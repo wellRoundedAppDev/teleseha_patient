@@ -45,7 +45,7 @@ class StartSteps extends StatelessWidget {
                           SizedBox(height: DEVICE_HEIGHT * 0.04),
                         ],
                       )
-                    : const Text('test'),
+                    : const SizedBox.shrink(),
               if (controller.currentStep <= controller.numberOfStep)
                 Btn(
                   onPressed: () {
