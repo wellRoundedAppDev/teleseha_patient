@@ -127,7 +127,7 @@ const Map<String, String> ar = <String, String>{
   'name_doctor2': 'د.محمد احمد',
   'name_doctor3': 'د.مؤمن الزبدة',
   'general_internal_affairs': 'الباطنه العامه',
-  'detection_times': '(85 مرات الكشف)',
+  'detection_times': 'مرات الكشف',
   'reservation': 'حجز',
   'viewProfilesDoctor': 'مشاهدة الملف الشخصي',
   'good_listen': 'مستمع جيد',

@@ -96,7 +96,7 @@ class DoctorsController extends GetxController {
     selectedDayIndex = currentDate.weekday - 3;
     _doctorsRequest();
     // _doctorsProfileRequest();
-    _doctorsProfileSesscions();
+    // _doctorsProfileSesscions();
     update();
   }
 
@@ -125,7 +125,7 @@ class DoctorsController extends GetxController {
         WeekDay(dayName: dayName, isAvailable: isAvailable, date: dayOfMonth),
       );
     }
-  }
+  }  
 
   void selectDay(int index) {
     selectedDayIndex = index;
@@ -140,27 +140,28 @@ class DoctorsController extends GetxController {
     selectedMonthName = DateFormat('MMMM yyyy', 'ar').format(selectedDate);
     update();
   }
+  
 
-  void selectedDoctorFunction() {
-    selectedDoctor = doctors.firstWhere(
-      // ignore: always_specify_types
-      (doctor) => doctor['id'] == selectedDoctorId,
-      orElse: () => <dynamic, dynamic>{},
-    );
+  // void selectedDoctorFunction() {
+  //   // selectedDoctor = doctors.firstWhere(
+  //   //   // ignore: always_specify_types
+  //   //   (doctor) => doctor['id'] == selectedDoctorId,
+  //   //   orElse: () => <dynamic, dynamic>{},
+  //   // );
 
-    availableTimes.value = List<Map<String, dynamic>>.from(
-      selectedDoctor?['available_times'] ?? <dynamic>[],
-    );
-    qualifications.value = List<Map<String, dynamic>>.from(
-      selectedDoctor?['qualifications'] ?? <dynamic>[],
-    );
-    heHasExperienceIn.value = List<String>.from(
-      selectedDoctor?['practicalExperienceIn'] ?? <dynamic>[],
-    );
-    clinicalExperience.value = List<String>.from(
-      selectedDoctor?['clinicalExperience'] ?? <dynamic>[],
-    );
-  }
+  //   availableTimes.value = List<Map<String, dynamic>>.from(
+  //     selectedDoctor?['available_times'] ?? <dynamic>[],
+  //   );
+  //   qualifications.value = List<Map<String, dynamic>>.from(
+  //     selectedDoctor?['qualifications'] ?? <dynamic>[],
+  //   );
+  //   heHasExperienceIn.value = List<String>.from(
+  //     selectedDoctor?['practicalExperienceIn'] ?? <dynamic>[],
+  //   );
+  //   clinicalExperience.value = List<String>.from(
+  //     selectedDoctor?['clinicalExperience'] ?? <dynamic>[],
+  //   );
+  // }
 
   final List<String> tabs = <String>['practical_experiments'.tr, 'ratings'.tr];
 
@@ -188,7 +189,7 @@ class DoctorsController extends GetxController {
       },
     ).request(
       onSuccess: (dynamic data, dynamic response) async {
-        // doctors = response ?? <dynamic>[];
+        doctors = response ?? <dynamic>[];
         update();
       },
       // ignore: always_specify_types
@@ -234,36 +235,36 @@ class DoctorsController extends GetxController {
   // }
 
   // ignore: always_specify_types
-  List doctorsProfileSessions = <dynamic>[];
-  Future<void> _doctorsProfileSesscions() async {
-    isLoading = true;
-    update();
-    accessToken = await localStorage.readFromStorage(storageAccessToken);
-    await ApiRequest(
-      path: '$doctor/8/$doctorProfileSessions',
-      // path: '$doctor/$selectedDoctorId/$doctorProfileSessions',
-      className: '',
-      formatResponse: true,
-      header: <String, dynamic>{
-        'Content-Type': 'application/json',
-        'Accept': '*/*',
-        'Authorization': 'Bearer $accessToken',
-      },
-    ).request(
-      onSuccess: (dynamic data, dynamic response) async {
-        doctorsProfileSessions = response ?? <dynamic>[];
-        update();
-      },
-      // ignore: always_specify_types
-      onError: (error) {
-        // doctors = 'not_found_medical_profile_section'.tr;
-        update();
-        return null;
-      },
-    );
-    isLoading = false;
-    update();
-  }
+  // List doctorsProfileSessions = <dynamic>[];
+  // Future<void> _doctorsProfileSesscions() async {
+  //   isLoading = true;
+  //   update();
+  //   accessToken = await localStorage.readFromStorage(storageAccessToken);
+  //   await ApiRequest(
+  //     path: '$doctor/8/$doctorProfileSessions',
+  //     // path: '$doctor/$selectedDoctorId/$doctorProfileSessions',
+  //     className: '',
+  //     formatResponse: true,
+  //     header: <String, dynamic>{
+  //       'Content-Type': 'application/json',
+  //       'Accept': '*/*',
+  //       'Authorization': 'Bearer $accessToken',
+  //     },
+  //   ).request(
+  //     onSuccess: (dynamic data, dynamic response) async {
+  //       doctorsProfileSessions = response ?? <dynamic>[];
+  //       update();
+  //     },
+  //     // ignore: always_specify_types
+  //     onError: (error) {
+  //       // doctors = 'not_found_medical_profile_section'.tr;
+  //       update();
+  //       return null;
+  //     },
+  //   );
+  //   isLoading = false;
+  //   update();
+  // }
 
   // ignore: always_specify_types
   // List doctors = <dynamic>[

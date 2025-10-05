@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import '../../general_exports.dart';
 
 class MyAppController extends GetxController {
@@ -19,8 +21,9 @@ class MyAppController extends GetxController {
   }
 
   Future<void> futureRefreshLogin() async {
-    await localStorage.removeFromStorage(key: storageAccessToken);
-    await localStorage.removeFromStorage(key: storageRefreshToken);
+    // await localStorage.removeFromStorage(key: storageAccessToken);
+    // await localStorage.removeFromStorage(key: storageRefreshToken);
+    // await localStorage.removeFromStorage(key: storageUserData);
 
     refreshToken = await localStorage.readFromStorage(storageRefreshToken);
     await ApiRequest(
@@ -37,6 +40,12 @@ class MyAppController extends GetxController {
               ?.toString();
           final String? refreshToken = response['data']?['refreshToken']
               ?.toString();
+          final String? userData = response['data']?['user']?.toString();
+          await localStorage.saveToStorage(
+            key: storageUserData,
+            value: userData,
+          );
+          await localStorage.readFromStorage(storageUserData);
           await localStorage.saveToStorage(
             key: storageAccessToken,
             value: accessToken,
@@ -71,6 +80,13 @@ class MyAppController extends GetxController {
               ?.toString();
           final String? refreshToken = response['data']?['refreshToken']
               ?.toString();
+          final Map<String, dynamic>? userDataMap = response['data']?['user'];
+          final String userDataJson = jsonEncode(userDataMap);
+          await localStorage.saveToStorage(
+            key: storageUserData,
+            value: userDataJson,
+          );
+          await localStorage.readFromStorage(storageUserData);
           await localStorage.saveToStorage(
             key: storageAccessToken,
             value: accessToken,

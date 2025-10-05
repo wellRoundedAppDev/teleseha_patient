@@ -162,9 +162,9 @@ class PatternLock extends StatelessWidget {
                                 }
                               },
                             ),
-                          // SizedBox(height: DEVICE_HEIGHT * 0.0),
                           if (controller.page == 'signIn' &&
-                              controller.showForgetPatter)
+                              controller.showForgetPatter &&
+                              !controller.isLoading)
                             Text.rich(
                               TextSpan(
                                 children: <InlineSpan>[
@@ -192,7 +192,10 @@ class PatternLock extends StatelessWidget {
                                         Future.delayed(
                                           const Duration(seconds: 2),
                                           () {
-                                            Get.to(() => CustomOtp());
+                                            Get.toNamed(routeLogin);
+                                            controller.showPage =
+                                                'forgetPassword';
+                                            controller.update();
                                           },
                                         );
                                       },

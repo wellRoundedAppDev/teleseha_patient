@@ -21,6 +21,8 @@ class LoginController extends GetxController {
   bool showForgetPatter = false;
   LocalStorage localStorage = LocalStorage();
   bool isLoading = false;
+  String? showPage;
+  String? showPathMobileRegistered;
 
   // check pass about data if true open the user and open response users and loop to users and view to list view
   final List<Map<String, dynamic>> profiles = <Map<String, dynamic>>[
@@ -38,8 +40,15 @@ class LoginController extends GetxController {
 
     final String phone = phoneNumberController.text.trim();
 
+    if (showPage == 'forgetPassword') {
+      showPathMobileRegistered = forgotPassword;
+      update();
+    } else {
+      showPathMobileRegistered = pathMobileRegistered;
+      update();
+    }
     await ApiRequest(
-      path: pathMobileRegistered,
+      path: showPathMobileRegistered,
       className: '',
       formatResponse: true,
       method: ApiMethods.post,
@@ -122,6 +131,12 @@ class LoginController extends GetxController {
               ?.toString();
           final String? refreshToken = response['data']?['refreshToken']
               ?.toString();
+          final String? userData = response['data']?['user']?.toString();
+          await localStorage.saveToStorage(
+            key: storageUserData,
+            value: userData,
+          );
+          await localStorage.readFromStorage(storageUserData);
           await localStorage.saveToStorage(
             key: storageAccessToken,
             value: accessToken,
@@ -157,6 +172,12 @@ class LoginController extends GetxController {
               ?.toString();
           final String? refreshToken = response['data']?['refreshToken']
               ?.toString();
+          final String? userData = response['data']?['user']?.toString();
+          await localStorage.saveToStorage(
+            key: storageUserData,
+            value: userData,
+          );
+          await localStorage.readFromStorage(storageUserData);
           await localStorage.saveToStorage(
             key: storageAccessToken,
             value: accessToken,

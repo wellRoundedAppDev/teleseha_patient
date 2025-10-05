@@ -1,7 +1,11 @@
-import '../../../general_exports.dart';
+import 'dart:async';
+
+import 'package:dio/dio.dart';
+
+import '../../../general_exports.dart' hide FormData;
 
 class DetailsAboutYouController extends GetxController {
-  final TextEditingController jobTitle = TextEditingController();
+  final TextEditingController myJobTitle = TextEditingController();
   bool showjobTitleError = false;
   String jobTitleErrorMessage = '';
 
@@ -17,84 +21,32 @@ class DetailsAboutYouController extends GetxController {
 
   String? selectedValue;
 
+  // ignore: always_specify_types
+  List countrys = <dynamic>[];
+  // ignore: always_specify_types
+  List states = <dynamic>[];
+  List<dynamic> myCity = <dynamic>[];
+  List<dynamic> myMaritalStatus = <dynamic>[];
+
+  String? selectedCountry;
+  String? selectedState;
+  String? selectedCity;
+  String? selectedMaritalStatus;
+  int? selectedCityId;
+  String? accessToken;
+
+  LocalStorage localStorage = LocalStorage();
+
   @override
   void onInit() {
     super.onInit();
     _patient();
   }
-  // final List<String> listCountry = <String>[
-  //   'الأردن',
-  //   'فلسطين',
-  //   'مصر',
-  //   'السعودية',
-  //   'الإمارات',
-  //   'قطر',
-  //   'الكويت',
-  //   'البحرين',
-  //   'عُمان',
-  //   'لبنان',
-  //   'سوريا',
-  //   'العراق',
-  //   'اليمن',
-  //   'ليبيا',
-  //   'تونس',
-  //   'الجزائر',
-  //   'المغرب',
-  //   'موريتانيا',
-  //   'السودان',
-  // ];
-  // void updateSelectedCountry(String newValue) {
-  //   selectedValue = newValue;
-  //   update();
-  // }
-
-  // String selectedValueGovernorate = 'اختر محافظتك';
-  // final List<String> listGovernorate = <String>[
-  //   'عمان',
-  //   'نابلس',
-  //   'القاهرة',
-  //   'الرياض',
-  //   'دبي',
-  //   'الدوحة',
-  //   'الكويت',
-  //   'البحرين',
-  //   'صلالة',
-  //   'بيروت',
-  //   'دمشق',
-  // ];
-  // void updateSelectedGovernorate(String newValue) {
-  //   selectedValueGovernorate = newValue;
-  //   update();
-  // }
-
-  // String selectedCity = 'اختر محافظتك';
-  // final List<String> listCity = <String>[
-  //   'عمان',
-  //   'رام الله',
-  //   'القاهرة',
-  //   'الرياض',
-  //   'دبي',
-  //   'الدوحة',
-  //   'الكويت',
-  //   'المنامة',
-  // ];
-  // void updateSelectedCity(String newValue) {
-  //   selectedCity = newValue;
-  //   update();
-  // }
-
-  // String maritalStatus = 'اختر محافظتك';
-  // final List<String> listsMaritalStatus = <String>['اعزب', 'متزوج'];
-  // void updateSelectedMaritalStatus(String newValue) {
-  //   maritalStatus = newValue;
-  //   update();
-  // }
-
-  // ignore: always_specify_types
-  List countrys = <dynamic>[];
-  List states = <dynamic>[];
 
   Future<void> _patient() async {
+    isLoading = true;
+    update();
+
     await ApiRequest(
       path: infoLists,
       className: '',
@@ -103,12 +55,138 @@ class DetailsAboutYouController extends GetxController {
       onSuccess: (dynamic data, dynamic response) {
         isLoading = false;
         countrys = response['countries'] ?? <dynamic>[];
-        states = response['countries']?['states'] ?? <dynamic>[];
+        myMaritalStatus = response['maritalStatus'] ?? <dynamic>[];
         update();
       },
       // ignore: always_specify_types
       onError: (error) {
         isLoading = false;
+        update();
+        return null;
+      },
+    );
+  }
+
+  void selectCountry(String newCountryName) {
+    selectedCountry = newCountryName;
+
+    // ignore: always_specify_types
+    final selectedCountryObj = countrys.firstWhere(
+      // ignore: always_specify_types
+      (country) => country['countryName'] == newCountryName,
+      orElse: () => null,
+    );
+
+    if (selectedCountryObj != null) {
+      states = selectedCountryObj['states'] ?? <dynamic>[];
+      selectedState = null;
+    }
+
+    update();
+  }
+
+  void selectState(String newStateName) {
+    selectedState = newStateName;
+    myCity = <dynamic>[];
+
+    // ignore: always_specify_types
+    for (var country in countrys) {
+      // ignore: always_specify_types
+      final countryStates = country['states'] ?? <dynamic>[];
+      // ignore: always_specify_types
+      final foundState = countryStates.firstWhere(
+        // ignore: always_specify_types
+        (state) => state['stateName'] == newStateName,
+        orElse: () => null,
+      );
+      if (foundState != null) {
+        selectedCountry = country['countryName'];
+        states = countryStates;
+        myCity = foundState['cities'] ?? <dynamic>[];
+        break;
+      }
+    }
+    selectedCity = null;
+    update();
+  }
+
+  void selectCity(String newCityName) {
+    selectedCity = newCityName;
+
+    // ignore: always_specify_types
+    final selectedCityObj = myCity.firstWhere(
+      // ignore: always_specify_types
+      (city) => city['cityName'] == newCityName,
+      orElse: () => null,
+    );
+
+    if (selectedCityObj != null) {
+      selectedCityId = selectedCityObj['cityId'];
+    }
+
+    update();
+  }
+
+  void updateSelectedMaritalStatus(String newValue) {
+    selectedMaritalStatus = newValue;
+    update();
+  }
+
+  Future<void> putPatient() async {
+    final StartStepsController stepsController =
+        Get.find<StartStepsController>();
+
+    accessToken = await localStorage.readFromStorage(storageAccessToken);
+
+    isLoading = true;
+    update();
+
+    consoleLog('Name: ${stepsController.name}');
+    consoleLog('IsMale: ${stepsController.myIsMale}');
+    consoleLog('BirthDate: ${stepsController.barthDay}');
+
+    final FormData formData = FormData.fromMap(<String, dynamic>{
+      keyName: stepsController.name,
+      isMale: stepsController.myIsMale,
+      maritalStatus: selectedMaritalStatus,
+      date: stepsController.barthDay,
+      jobTitle: myJobTitle.text.trim(),
+      myState: selectedState,
+      city: selectedCity,
+      cityId: selectedCityId,
+    });
+
+    for (final MapEntry<String, String> field in formData.fields) {
+      consoleLog('keys: ${field.key}: value: ${field.value}');
+    }
+
+    await ApiRequest(
+      path: '$patient/${stepsController.patientId}',
+      className: '',
+      formatResponse: true,
+      method: ApiMethods.put,
+      body: formData,
+      header: <String, dynamic>{
+        'Content-Type': 'multipart/from-data',
+        'Accept': '*/*',
+        'Authorization': 'Bearer $accessToken',
+      },
+    ).request(
+      onSuccess: (dynamic data, dynamic response) {
+        isLoading = false;
+        Get.toNamed(routeScreen);
+        update();
+      },
+      // ignore: always_specify_types
+      onError: (error) {
+        isLoading = false;
+        Get.snackbar(
+          'فشل الحفظ',
+          'لم يتم التخزين',
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.redAccent,
+          colorText: Colors.white,
+        );
         update();
         return null;
       },

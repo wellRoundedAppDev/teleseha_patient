@@ -72,11 +72,27 @@ class ContentDoctors extends StatelessWidget {
                                         ClipRRect(
                                           borderRadius:
                                               BorderRadiusGeometry.circular(10),
-                                          child: Image.asset(
-                                            controller.doctors[index]['image'],
+                                          child: Image.network(
+                                            controller
+                                                    .doctors[index]['imageUrl'] ??
+                                                '',
                                             width: DEVICE_WIDTH * 0.2,
                                             height: DEVICE_HEIGHT * 0.12,
                                             fit: BoxFit.cover,
+                                            errorBuilder:
+                                                (
+                                                  BuildContext context,
+                                                  Object error,
+                                                  StackTrace? stackTrace,
+                                                ) {
+                                                  return Image.asset(
+                                                    imageDoctor,
+                                                    width: DEVICE_WIDTH * 0.2,
+                                                    height:
+                                                        DEVICE_HEIGHT * 0.12,
+                                                    fit: BoxFit.cover,
+                                                  );
+                                                },
                                           ),
                                         ),
                                         SizedBox(width: DEVICE_WIDTH * 0.02),
@@ -100,27 +116,11 @@ class ContentDoctors extends StatelessWidget {
                                                           CrossAxisAlignment
                                                               .start,
                                                       children: <Widget>[
-                                                        SizedBox(
+                                                        const SizedBox(
                                                           child: Row(
                                                             mainAxisAlignment:
                                                                 MainAxisAlignment
                                                                     .spaceBetween,
-                                                            children: <Widget>[
-                                                              CustomText(
-                                                                text: controller
-                                                                    .doctors[index]['name']
-                                                                    .toString()
-                                                                    .tr,
-                                                                type:
-                                                                    CustomTextType
-                                                                        .title,
-                                                                fontSize: 13,
-                                                                color: const Color(
-                                                                  AppColors
-                                                                      .colorTitle,
-                                                                ),
-                                                              ),
-                                                            ],
                                                           ),
                                                         ),
                                                         SizedBox(
@@ -131,8 +131,10 @@ class ContentDoctors extends StatelessWidget {
                                                         Row(
                                                           children: <Widget>[
                                                             CustomText(
-                                                              text: controller
-                                                                  .doctors[index]['specialization'],
+                                                              text:
+                                                                  controller
+                                                                      .doctors[index]['specialty'] ??
+                                                                  '',
                                                               type: CustomTextType
                                                                   .inputTitle,
                                                               fontSize: 13,
@@ -147,8 +149,11 @@ class ContentDoctors extends StatelessWidget {
                                                                   0.015,
                                                             ),
                                                             CustomText(
-                                                              text: controller
-                                                                  .doctors[index]['range'],
+                                                              text:
+                                                                  controller
+                                                                      .doctors[index]['ratingCount']
+                                                                      ?.toString() ??
+                                                                  '0',
                                                               type:
                                                                   CustomTextType
                                                                       .title,
@@ -180,8 +185,8 @@ class ContentDoctors extends StatelessWidget {
                                                               0.003,
                                                         ),
                                                         CustomText(
-                                                          text: controller
-                                                              .doctors[index]['reveal'],
+                                                          text:
+                                                              '(${controller.doctors[index]['ratingValue']?.toString() ?? ''} ${'detection_times'.tr})',
                                                           type: CustomTextType
                                                               .inputTitle,
                                                           fontSize: 11,
@@ -198,16 +203,16 @@ class ContentDoctors extends StatelessWidget {
                                                       size: 12,
                                                       textBtn: 'reservation'.tr,
                                                       onPressed: () {
-                                                        final int
-                                                        doctorId = controller
-                                                            .doctors[index]['id'];
-                                                        controller.passedIndex =
-                                                            doctorId;
-                                                        change
-                                                                .goToComponentHeader
-                                                                .value =
-                                                            'drSchedule';
-                                                        change.update();
+                                                        // final int
+                                                        // doctorId = controller
+                                                        //     .doctors[index]['id'];
+                                                        // controller.passedIndex =
+                                                        //     doctorId;
+                                                        // change
+                                                        //         .goToComponentHeader
+                                                        //         .value =
+                                                        //     'drSchedule';
+                                                        // change.update();
                                                       },
                                                     ),
                                                   ],
@@ -372,7 +377,7 @@ class ContentDoctors extends StatelessWidget {
                                       ),
                                       child: CustomText(
                                         text:
-                                            controller.doctors[index]['salary'],
+                                            '${controller.doctors[index]['price']} ج',
                                         type: CustomTextType.title,
                                         fontSize: 14,
                                         color: const Color(
@@ -382,8 +387,8 @@ class ContentDoctors extends StatelessWidget {
                                     ),
                                     GestureDetector(
                                       onTap: () {
-                                        final int doctorId =
-                                            controller.doctors[index]['id'];
+                                        final int doctorId = controller
+                                            .doctors[index]['doctorId'];
 
                                         controller.passedIndex = doctorId;
 

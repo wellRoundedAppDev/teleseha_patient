@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:dio/dio.dart';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pattern_dots/pattern_dots.dart';
 
@@ -19,6 +19,9 @@ class StartStepsController extends GetxController {
   String? accessToken;
   String? apiDate;
   int? patientId;
+  String? name;
+  String? barthDay;
+  bool? myIsMale;
 
   TextEditingController otpController = TextEditingController();
   DateTime selectedDate = DateTime.now();
@@ -289,6 +292,18 @@ class StartStepsController extends GetxController {
           isLoading = false;
           Get.toNamed(routeFormDiagnosis);
           patientId = response['patientId'];
+          name = response['name'];
+          barthDay = response['birthDate'];
+          final String? genderStr = response['gender']
+              ?.toString()
+              .toLowerCase();
+          if (genderStr == 'male') {
+            myIsMale = true;
+          } else if (genderStr == 'female') {
+            myIsMale = false;
+          } else {
+            myIsMale = null;
+          }
           update();
         },
         // ignore: always_specify_types

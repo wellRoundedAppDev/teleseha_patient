@@ -9,7 +9,7 @@ class DrSchedule extends StatelessWidget {
     final ChangeParamContentAndNextPage change = Get.find();
     return GetBuilder<DoctorsController>(
       builder: (DoctorsController controller) {
-        controller.selectedDoctorFunction();
+        // controller.selectedDoctorFunction();
         return SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
