@@ -106,8 +106,7 @@ class CustomDrawer extends StatelessWidget {
                                 GestureDetector(
                                   onTap: () {
                                     if (controller.selectedIndex <
-                                        controller.specialties.length -
-                                            1) {
+                                        controller.specialties.length - 1) {
                                       controller.scrollController.animateTo(
                                         controller.scrollController.offset +
                                             100,
@@ -127,10 +126,7 @@ class CustomDrawer extends StatelessWidget {
                                     // ignore: deprecated_member_use
                                     color:
                                         controller.selectedIndex <
-                                            controller
-                                                    .specialties
-                                                    .length -
-                                                1
+                                            controller.specialties.length - 1
                                         ? const Color(
                                             AppColors.colorLineAndText,
                                           )
@@ -186,7 +182,7 @@ class CustomDrawer extends StatelessWidget {
                                     ),
                                     child: CustomText(
                                       text: controller
-                                          .specialties[index]['title'],
+                                          .specialties[index]['specialityName'],
                                       fontSize: 12,
                                       type: CustomTextType.button,
                                       color: isSelected
@@ -229,16 +225,21 @@ class CustomDrawer extends StatelessWidget {
                             Wrap(
                               spacing: 9,
                               runSpacing: 11,
-                              // ignore: always_specify_types
                               children: List.generate(
                                 controller.academicDegree.length,
                                 (int index) {
+                                  final String degreeKey =
+                                      controller.academicDegree[index]['key'];
+                                  final String degreeTitle =
+                                      controller.academicDegree[index]['title'];
                                   final bool isSelected =
                                       controller.selectedacademicDegree ==
-                                      index;
+                                      degreeKey;
+
                                   return GestureDetector(
                                     onTap: () {
-                                      controller.selectedacademicDegree = index;
+                                      controller.selectedacademicDegree =
+                                          degreeKey;
                                       controller.update();
                                     },
                                     child: Container(
@@ -259,8 +260,7 @@ class CustomDrawer extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(20),
                                       ),
                                       child: CustomText(
-                                        text: controller
-                                            .academicDegree[index]['title'],
+                                        text: degreeTitle,
                                         type: CustomTextType.title,
                                         fontSize: 12,
                                         color: isSelected
@@ -280,13 +280,12 @@ class CustomDrawer extends StatelessWidget {
                           ],
                         ),
                       ),
-                      // SizedBox(height: DEVICE_HEIGHT * 0.032),
-                      // Container(
-                      //   height: DEVICE_HEIGHT * 0.001,
-                      //   width: DEVICE_WIDTH,
-                      //   color: const Color(AppColors.colorFilterLine),
-                      // ),
-                      // SizedBox(height: DEVICE_HEIGHT * 0.017),
+                      SizedBox(height: DEVICE_HEIGHT * 0.032),
+                      Container(
+                        height: DEVICE_HEIGHT * 0.001,
+                        width: DEVICE_WIDTH,
+                        color: const Color(AppColors.colorFilterLine),
+                      ),
                       const SizedBox(height: 25),
                       Container(
                         width: DEVICE_WIDTH,
@@ -359,13 +358,12 @@ class CustomDrawer extends StatelessWidget {
                           ],
                         ),
                       ),
-                      // SizedBox(height: DEVICE_HEIGHT * 0.032),
-                      // Container(
-                      //   height: DEVICE_HEIGHT * 0.001,
-                      //   width: DEVICE_WIDTH,
-                      //   color: const Color(AppColors.colorFilterLine),
-                      // ),
-                      // SizedBox(height: DEVICE_HEIGHT * 0.017),
+                      SizedBox(height: DEVICE_HEIGHT * 0.032),
+                      Container(
+                        height: DEVICE_HEIGHT * 0.001,
+                        width: DEVICE_WIDTH,
+                        color: const Color(AppColors.colorFilterLine),
+                      ),
                       const SizedBox(height: 25),
                       Container(
                         width: DEVICE_WIDTH,
@@ -432,13 +430,22 @@ class CustomDrawer extends StatelessWidget {
                             SizedBox(height: DEVICE_HEIGHT * 0.03),
                             Btn(
                               onPressed: () {
-                                // post request filter
-                                consoleLog(controller.selectedIndex);
-                                consoleLog(controller.selectedacademicDegree);
-                                consoleLog(
-                                  controller.selectedAppointmentsAvailable,
+                                // ignore: always_specify_types
+                                final selectedSpecialityId =
+                                    controller.specialties[controller
+                                        .selectedIndex]['id'];
+                                final DoctorsController doctor = Get.find();
+
+                                final String selectedAppointmentKey =
+                                    controller.appointmentsAvailable[controller
+                                        .selectedAppointmentsAvailable!]['key'];
+
+                                doctor.doctorsRequest(
+                                  selectedSpecialityId,
+                                  controller.selectedacademicDegree,
+                                  controller.currentSliderValue.value,
+                                  selectedAppointmentKey,
                                 );
-                                consoleLog(controller.currentSliderValue.value);
                                 controller.isDrawerOpen.value = false;
                               },
                               text: 'search'.tr,

@@ -101,77 +101,77 @@ class ContentDoctorEvaluation extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: DEVICE_HEIGHT * 0.04),
-                    Wrap(
-                      spacing: 18,
-                      runSpacing: 8.0,
-                      // ignore: always_specify_types
-                      children: List.generate(controller.ratings.length, (
-                        int index,
-                      ) {
-                        // ignore: always_specify_types
-                        final rating = controller.ratings[index];
-                        final bool isSelected =
-                            controller.selectedRatingIndex.value == index;
-                        return GestureDetector(
-                          onTap: () {
-                            controller.selectedRatingIndex.value = index;
-                            controller.update();
-                          },
-                          child: Container(
-                            alignment: Alignment.center,
-                            width: DEVICE_WIDTH * 0.260,
-                            padding: const EdgeInsets.symmetric(vertical: 7),
-                            decoration: BoxDecoration(
-                              boxShadow: <BoxShadow>[
-                                BoxShadow(
-                                  color: const Color(
-                                    0xFFD8DADC,
-                                  ).withValues(alpha: 0.8),
-                                  blurRadius: 3,
-                                  spreadRadius: 2,
-                                  offset: const Offset(0, 2),
-                                ),
-                              ],
-                              color: isSelected
-                                  ? const Color(AppColors.colorLineAndText)
-                                  : const Color(
-                                      AppColors.colorWhiteSelectedType,
-                                    ),
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                CustomText(
-                                  text:
-                                      rating['titleRatings'] ??
-                                      'good_listen'.tr,
-                                  fontSize: 10,
-                                  type: CustomTextType.title,
-                                  color: isSelected
-                                      ? const Color(
-                                          AppColors.colorWhiteSelectedType,
-                                        )
-                                      : const Color(AppColors.colorLineAndText),
-                                ),
-                                const SizedBox(width: 5),
-                                SvgPicture.asset(
-                                  rating['icon'] ?? iconGoodListen,
-                                  width: 30,
-                                  height: 30,
-                                  // ignore: deprecated_member_use
-                                  color: isSelected
-                                      ? const Color(
-                                          AppColors.colorWhiteSelectedType,
-                                        )
-                                      : const Color(AppColors.colorGoldRains),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      }),
-                    ),
+                    // Wrap(
+                    //   spacing: 18,
+                    //   runSpacing: 8.0,
+                    //   // ignore: always_specify_types
+                    //   children: List.generate(controller.ratings.length, (
+                    //     int index,
+                    //   ) {
+                    //     // ignore: always_specify_types
+                    //     final rating = controller.ratings[index];
+                    //     final bool isSelected =
+                    //         controller.selectedRatingIndex.value == index;
+                    //     return GestureDetector(
+                    //       onTap: () {
+                    //         controller.selectedRatingIndex.value = index;
+                    //         controller.update();
+                    //       },
+                    //       child: Container(
+                    //         alignment: Alignment.center,
+                    //         width: DEVICE_WIDTH * 0.260,
+                    //         padding: const EdgeInsets.symmetric(vertical: 7),
+                    //         decoration: BoxDecoration(
+                    //           boxShadow: <BoxShadow>[
+                    //             BoxShadow(
+                    //               color: const Color(
+                    //                 0xFFD8DADC,
+                    //               ).withValues(alpha: 0.8),
+                    //               blurRadius: 3,
+                    //               spreadRadius: 2,
+                    //               offset: const Offset(0, 2),
+                    //             ),
+                    //           ],
+                    //           color: isSelected
+                    //               ? const Color(AppColors.colorLineAndText)
+                    //               : const Color(
+                    //                   AppColors.colorWhiteSelectedType,
+                    //                 ),
+                    //           borderRadius: BorderRadius.circular(30),
+                    //         ),
+                    //         child: Row(
+                    //           mainAxisSize: MainAxisSize.min,
+                    //           children: <Widget>[
+                    //             CustomText(
+                    //               text:
+                    //                   rating['titleRatings'] ??
+                    //                   'good_listen'.tr,
+                    //               fontSize: 10,
+                    //               type: CustomTextType.title,
+                    //               color: isSelected
+                    //                   ? const Color(
+                    //                       AppColors.colorWhiteSelectedType,
+                    //                     )
+                    //                   : const Color(AppColors.colorLineAndText),
+                    //             ),
+                    //             const SizedBox(width: 5),
+                    //             SvgPicture.asset(
+                    //               rating['icon'] ?? iconGoodListen,
+                    //               width: 30,
+                    //               height: 30,
+                    //               // ignore: deprecated_member_use
+                    //               color: isSelected
+                    //                   ? const Color(
+                    //                       AppColors.colorWhiteSelectedType,
+                    //                     )
+                    //                   : const Color(AppColors.colorGoldRains),
+                    //             ),
+                    //           ],
+                    //         ),
+                    //       ),
+                    //     );
+                    //   }),
+                    // ),
                     SizedBox(height: DEVICE_HEIGHT * 0.043),
                     CustomText(
                       text: 'what_is_your_comment_on_the_session'.tr,

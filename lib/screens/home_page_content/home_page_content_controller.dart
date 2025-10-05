@@ -10,8 +10,8 @@ class HomePageContentController extends GetxController {
   int nextReservation = 3;
   int selectedSpecialtyIndex = 0;
   int selectedIndex = 2;
-  int selectedacademicDegree = 1;
-  int selectedAppointmentsAvailable = 1;
+  String selectedacademicDegree = 'Consultant';
+  int? selectedAppointmentsAvailable = 1;
   final ScrollController scrollController = ScrollController();
   RxBool isDrawerOpen = false.obs;
   RxDouble currentSliderValue = 100.0.obs;
@@ -30,6 +30,7 @@ class HomePageContentController extends GetxController {
     // _checkCommingRequest();
     // _subSpecialityRequest();
   }
+
 
   Future<void> _loadUserName() async {
     final String? userJson = await localStorage.readFromStorage(
@@ -156,17 +157,27 @@ class HomePageContentController extends GetxController {
   }
 
   final List<Map<String, dynamic>> academicDegree = <Map<String, dynamic>>[
-    <String, dynamic>{'title': 'general_practitioner'.tr},
-    <String, dynamic>{'title': 'specialist'.tr},
-    <String, dynamic>{'title': 'consultative'.tr},
-    <String, dynamic>{'title': 'teacher'.tr},
-    <String, dynamic>{'title': 'mr'.tr},
+    // <String, dynamic>{'title': 'bachelora'.tr},
+    // <String, dynamic>{'title': 'master'.tr},
+    // <String, dynamic>{'title': 'doctorate'.tr},
+    // <String, dynamic>{'title': 'consultant'.tr},
+    // <String, dynamic>{'title': 'associateProfessor'.tr},
+    // <String, dynamic>{'title': 'professor'.tr},
+    <String, dynamic>{'key': 'Bachelora', 'title': 'bachelora'.tr},
+    <String, dynamic>{'key': 'Master', 'title': 'master'.tr},
+    <String, dynamic>{'key': 'Doctorate', 'title': 'doctorate'.tr},
+    <String, dynamic>{'key': 'Consultant', 'title': 'consultant'.tr},
+    <String, dynamic>{
+      'key': 'AssociateProfessor',
+      'title': 'associateProfessor'.tr,
+    },
+    <String, dynamic>{'key': 'Professor', 'title': 'professor'.tr},
   ];
 
   final List<Map<String, dynamic>> appointmentsAvailable =
       <Map<String, dynamic>>[
-        <String, dynamic>{'title': 'today'.tr},
-        <String, dynamic>{'title': 'tomorrow'.tr},
-        <String, dynamic>{'title': 'this_week'.tr},
+        <String, dynamic>{'key': 'today', 'title': 'today'.tr},
+        <String, dynamic>{'key': 'tomorrow', 'title': 'tomorrow'.tr},
+        <String, dynamic>{'key': 'thisWeek', 'title': 'this_week'.tr},
       ];
 }

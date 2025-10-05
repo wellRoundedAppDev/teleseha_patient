@@ -258,65 +258,65 @@ class DrSchedule extends StatelessWidget {
                     SizedBox(
                       height: DEVICE_HEIGHT * 0.25,
                       child: SingleChildScrollView(
-                        child: Wrap(
-                          spacing: DEVICE_WIDTH * 0.04,
-                          runSpacing: DEVICE_HEIGHT * 0.013,
-                          children:
-                              (controller.availableTimes
-                                      as List<Map<String, dynamic>>)
-                                  .expand<Widget>((Map<String, dynamic> time) {
-                                    // ignore: always_specify_types
-                                    final List times = time['times'] as List;
-                                    // ignore: always_specify_types
-                                    return times.map<Widget>((timeItem) {
-                                      return GestureDetector(
-                                        onTap: () {
-                                          controller.selectedTime =
-                                              timeItem['time'];
-                                          controller.update();
-                                        },
-                                        child: Container(
-                                          alignment: Alignment.center,
-                                          width: DEVICE_WIDTH * 0.415,
-                                          decoration: BoxDecoration(
-                                            color:
-                                                controller.selectedTime ==
-                                                    timeItem['time']
-                                                ? const Color(
-                                                    AppColors.colorLineAndText,
-                                                  )
-                                                : const Color.fromRGBO(
-                                                    171,
-                                                    211,
-                                                    233,
-                                                    0.50,
-                                                  ),
-                                            borderRadius: BorderRadius.circular(
-                                              20,
-                                            ),
-                                          ),
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: DEVICE_WIDTH * 0.033,
-                                            vertical: DEVICE_HEIGHT * 0.013,
-                                          ),
-                                          child: CustomText(
-                                            text: timeItem['time'],
-                                            type: CustomTextType.title,
-                                            fontSize: 12,
-                                            color:
-                                                controller.selectedTime ==
-                                                    timeItem['time']
-                                                ? Colors.white
-                                                : const Color(
-                                                    AppColors.colorLineAndText,
-                                                  ),
-                                          ),
-                                        ),
-                                      );
-                                    }).toList();
-                                  })
-                                  .toList(),
-                        ),
+                        // child: Wrap(
+                        //   spacing: DEVICE_WIDTH * 0.04,
+                        //   runSpacing: DEVICE_HEIGHT * 0.013,
+                        //   children:
+                        //       (controller.availableTimes
+                        //               as List<Map<String, dynamic>>)
+                        //           .expand<Widget>((Map<String, dynamic> time) {
+                        //             // ignore: always_specify_types
+                        //             final List times = time['times'] as List;
+                        //             // ignore: always_specify_types
+                        //             return times.map<Widget>((timeItem) {
+                        //               return GestureDetector(
+                        //                 onTap: () {
+                        //                   controller.selectedTime =
+                        //                       timeItem['time'];
+                        //                   controller.update();
+                        //                 },
+                        //                 child: Container(
+                        //                   alignment: Alignment.center,
+                        //                   width: DEVICE_WIDTH * 0.415,
+                        //                   decoration: BoxDecoration(
+                        //                     color:
+                        //                         controller.selectedTime ==
+                        //                             timeItem['time']
+                        //                         ? const Color(
+                        //                             AppColors.colorLineAndText,
+                        //                           )
+                        //                         : const Color.fromRGBO(
+                        //                             171,
+                        //                             211,
+                        //                             233,
+                        //                             0.50,
+                        //                           ),
+                        //                     borderRadius: BorderRadius.circular(
+                        //                       20,
+                        //                     ),
+                        //                   ),
+                        //                   padding: EdgeInsets.symmetric(
+                        //                     horizontal: DEVICE_WIDTH * 0.033,
+                        //                     vertical: DEVICE_HEIGHT * 0.013,
+                        //                   ),
+                        //                   child: CustomText(
+                        //                     text: timeItem['time'],
+                        //                     type: CustomTextType.title,
+                        //                     fontSize: 12,
+                        //                     color:
+                        //                         controller.selectedTime ==
+                        //                             timeItem['time']
+                        //                         ? Colors.white
+                        //                         : const Color(
+                        //                             AppColors.colorLineAndText,
+                        //                           ),
+                        //                   ),
+                        //                 ),
+                        //               );
+                        //             }).toList();
+                        //           })
+                        //           .toList(),
+                        // ),
                       ),
                     ),
                   ],

@@ -48,12 +48,6 @@ class DoctorsStatusBar extends StatelessWidget {
                       margin: EdgeInsets.only(bottom: DEVICE_HEIGHT * 0.02),
                       child: const LogoHome(),
                     ),
-                    SvgPicture.asset(
-                      iconUser,
-                      width: DEVICE_WIDTH * 0.034,
-                      height: DEVICE_HEIGHT * 0.034,
-                      fit: BoxFit.cover,
-                    ),
                   ],
                 ),
                 Row(
@@ -69,6 +63,10 @@ class DoctorsStatusBar extends StatelessWidget {
                         colorLabel: AppColors.colorLineAndText,
                         keyboardType: TextInputType.text,
                         suffixIconPath: iconSearch,
+                        onSuffixIconTap: () {
+                          final DoctorsController doctor = Get.find();
+                          doctor.doctorsRequest();
+                        },
                         sizespace: 0.01,
                         paddingVertical: 0.037,
                       ),
@@ -91,9 +89,9 @@ class DoctorsStatusBar extends StatelessWidget {
                               width: 0.8,
                             ),
                           ),
-                          margin: const EdgeInsets.only(top: 11),
+                          margin: const EdgeInsets.only(top: 13),
                           padding: EdgeInsets.symmetric(
-                            vertical: DEVICE_HEIGHT * 0.024,
+                            vertical: DEVICE_HEIGHT * 0.025,
                           ),
                           child: SvgPicture.asset(
                             iconFilter,

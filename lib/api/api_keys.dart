@@ -3,6 +3,10 @@ String baseUrl = 'https://teleseha.com/api/';
 // ******************** KEYS ********************
 
 const String keyName = 'Name';
+const String specialityId = 'SpecialityId';
+const String scientificDegree = 'ScientificDegree';
+const String maxPrice = 'MaxPrice';
+const String availableDate = 'AvailableDate';
 const String keySelectedIcon = 'selected_icon';
 const String keyTitle = 'title';
 const String mobile = 'mobile';

@@ -94,7 +94,7 @@ class DoctorsController extends GetxController {
     generateWeekDays();
     final DateTime currentDate = DateTime.now();
     selectedDayIndex = currentDate.weekday - 3;
-    _doctorsRequest();
+    doctorsRequest();
     // _doctorsProfileRequest();
     // _doctorsProfileSesscions();
     update();
@@ -125,7 +125,7 @@ class DoctorsController extends GetxController {
         WeekDay(dayName: dayName, isAvailable: isAvailable, date: dayOfMonth),
       );
     }
-  }  
+  }
 
   void selectDay(int index) {
     selectedDayIndex = index;
@@ -140,46 +140,25 @@ class DoctorsController extends GetxController {
     selectedMonthName = DateFormat('MMMM yyyy', 'ar').format(selectedDate);
     update();
   }
-  
-
-  // void selectedDoctorFunction() {
-  //   // selectedDoctor = doctors.firstWhere(
-  //   //   // ignore: always_specify_types
-  //   //   (doctor) => doctor['id'] == selectedDoctorId,
-  //   //   orElse: () => <dynamic, dynamic>{},
-  //   // );
-
-  //   availableTimes.value = List<Map<String, dynamic>>.from(
-  //     selectedDoctor?['available_times'] ?? <dynamic>[],
-  //   );
-  //   qualifications.value = List<Map<String, dynamic>>.from(
-  //     selectedDoctor?['qualifications'] ?? <dynamic>[],
-  //   );
-  //   heHasExperienceIn.value = List<String>.from(
-  //     selectedDoctor?['practicalExperienceIn'] ?? <dynamic>[],
-  //   );
-  //   clinicalExperience.value = List<String>.from(
-  //     selectedDoctor?['clinicalExperience'] ?? <dynamic>[],
-  //   );
-  // }
-
-  final List<String> tabs = <String>['practical_experiments'.tr, 'ratings'.tr];
-
-  // ignore: always_specify_types
-  final List ratings = <dynamic>[
-    <String, String>{'titleRatings': 'good_listen'.tr, 'icon': iconGoodListen},
-    <String, String>{'titleRatings': 'friendly'.tr, 'icon': iconCalm},
-    <String, String>{'titleRatings': 'explains_clearly'.tr, 'icon': iconHappy},
-  ];
 
   // ignore: always_specify_types
   List doctors = <dynamic>[];
-  Future<void> _doctorsRequest() async {
+  // ignore: always_specify_types
+  Future<void> doctorsRequest([
+    int? selectedSpecialityId,
+    String? selectedacademicDegree,
+    double? currentSliderValue,
+    String? selectedAppointmentKey,
+  ]) async {
     isLoading = true;
     update();
     accessToken = await localStorage.readFromStorage(storageAccessToken);
+    // &$availableDate=${selectedAppointmentKey ?? ''}
+    final String query =
+        '$doctor?$keyName=${filterDoctors.text.trim()}&$specialityId=${selectedSpecialityId ?? ''}&$scientificDegree=${selectedacademicDegree ?? ''}&$maxPrice=${currentSliderValue ?? ''}';
+
     await ApiRequest(
-      path: doctor,
+      path: query,
       className: '',
       formatResponse: true,
       header: <String, dynamic>{
@@ -190,6 +169,11 @@ class DoctorsController extends GetxController {
     ).request(
       onSuccess: (dynamic data, dynamic response) async {
         doctors = response ?? <dynamic>[];
+        for (int i = 0; i < doctors.length; i++) {
+          doctors[i]['availableAdvantages'] = _getAdvantagesFromDoctorData(
+            doctors[i],
+          );
+        }
         update();
       },
       // ignore: always_specify_types
@@ -203,252 +187,62 @@ class DoctorsController extends GetxController {
     update();
   }
 
-  // ignore: always_specify_types
-  // List doctorsProfile = <dynamic>[];
-  // Future<void> _doctorsProfileRequest() async {
-  //   isLoading = true;
-  //   update();
-  //   accessToken = await localStorage.readFromStorage(storageAccessToken);
-  //   await ApiRequest(
-  //     path: '$doctorProfile/$selectedDoctorId',
-  //     className: '',
-  //     formatResponse: true,
-  //     header: <String, dynamic>{
-  //       'Content-Type': 'application/json',
-  //       'Accept': '*/*',
-  //       'Authorization': 'Bearer $accessToken',
-  //     },
-  //   ).request(
-  //     onSuccess: (dynamic data, dynamic response) async {
-  //       doctorsProfile = response ?? <dynamic>[];
-  //       update();
-  //     },
-  //     // ignore: always_specify_types
-  //     onError: (error) {
-  //       // doctors = 'not_found_medical_profile_section'.tr;
-  //       update();
-  //       return null;
-  //     },
-  //   );
-  //   isLoading = false;
-  //   update();
-  // }
+  List<Map<String, String>> _getAdvantagesFromDoctorData(
+    Map<String, dynamic> doctorData,
+  ) {
+    final List<Map<String, String>> advantages = <Map<String, String>>[];
+
+    if ((doctorData['firstAdvantageValue'] ?? 0) > 0.5) {
+      advantages.add(<String, String>{
+        'title': 'explains_clearly'.tr,
+        'icon': iconGoodListen,
+      });
+    }
+
+    if ((doctorData['firstAdvantageValue'] ?? 0) > 0.5) {
+      advantages.add(<String, String>{'title': 'wd'.tr, 'icon': iconCalm});
+    }
+
+    if ((doctorData['thirdAdvantageValue'] ?? 0) > 0.5) {
+      advantages.add(<String, String>{
+        'title': 'good_listen'.tr,
+        'icon': iconHappy,
+      });
+    }
+
+    return advantages;
+  }
 
   // ignore: always_specify_types
-  // List doctorsProfileSessions = <dynamic>[];
-  // Future<void> _doctorsProfileSesscions() async {
-  //   isLoading = true;
-  //   update();
-  //   accessToken = await localStorage.readFromStorage(storageAccessToken);
-  //   await ApiRequest(
-  //     path: '$doctor/8/$doctorProfileSessions',
-  //     // path: '$doctor/$selectedDoctorId/$doctorProfileSessions',
-  //     className: '',
-  //     formatResponse: true,
-  //     header: <String, dynamic>{
-  //       'Content-Type': 'application/json',
-  //       'Accept': '*/*',
-  //       'Authorization': 'Bearer $accessToken',
-  //     },
-  //   ).request(
-  //     onSuccess: (dynamic data, dynamic response) async {
-  //       doctorsProfileSessions = response ?? <dynamic>[];
-  //       update();
-  //     },
-  //     // ignore: always_specify_types
-  //     onError: (error) {
-  //       // doctors = 'not_found_medical_profile_section'.tr;
-  //       update();
-  //       return null;
-  //     },
-  //   );
-  //   isLoading = false;
-  //   update();
-  // }
-
-  // ignore: always_specify_types
-  // List doctors = <dynamic>[
-  //   <String, Object>{
-  //     'id': 1,
-  //     'image': imageDoctor,
-  //     'name': 'name_doctor1'.tr,
-  //     'specialization': 'general_internal_affairs'.tr,
-  //     'range': '4.9',
-  //     'reveal': 'detection_times'.tr,
-  //     'priceExamination': 'price_examination'.tr,
-  //     'priceConsultation': 'price_consultation'.tr,
-  //     'skills': <String>['مستمع جيد', 'ودود', 'مستمع جيد'],
-  //     'salary': '200 ج',
-  //     'generalMedicineHeartDiseases': 'general_medicine_heart_diseases'.tr,
-  //     'descriptionDoctor': 'description_doctor1'.tr,
-  //     'address': 'title_address'.tr,
-  //     'available_times': <Map<String, List<Object>>>[
-  //       <String, List<Object>>{
-  //         'days': <String>['السبت', 'الإثنين'],
-  //         'times': <Map<String, String>>[
-  //           <String, String>{'time': '1:00 - 6:00 مساءً'},
-  //           <String, String>{'time': '2:00 - 3:00 مساءً'},
-  //           <String, String>{'time': '3:00 - 7:00 مساءً'},
-  //           <String, String>{'time': '5:00 - 4:00 مساءً'},
-  //           <String, String>{'time': '6:00 - 1:00 مساءً'},
-  //           <String, String>{'time': '2:00 - 4:00 مساءً'},
-  //           <String, String>{'time': '1:00 - 8:00 مساءً'},
-  //           <String, String>{'time': '1:00 - 3:00 مساءً'},
-  //         ],
-  //       },
-  //       <String, List<Object>>{
-  //         'days': <String>['السبت', 'الإثنين'],
-  //         'times': <Map<String, String>>[
-  //           <String, String>{'time': '1:00 - 4:00 مساءً'},
-  //         ],
-  //       },
-  //     ],
-  //     'qualifications': <Map<String, String>>[
-  //       <String, String>{
-  //         'icon': iconUniversity,
-  //         'title': 'university'.tr,
-  //         'university': 'al_azhar_al_sharif'.tr,
-  //       },
-  //       <String, String>{
-  //         'icon': iconAcademicDegree,
-  //         'title': 'academic_degree'.tr,
-  //         'university': 'bachelor_of_medicine_and_surgery'.tr,
-  //       },
-  //     ],
-  //     'practicalExperienceIn': <String>[
-  //       'list_experience_in_1'.tr,
-  //       'list_experience_in_2'.tr,
-  //       'list_experience_in_3'.tr,
-  //       'list_experience_in_4'.tr,
-  //     ],
-  //     'clinicalExperience': <String>['clinical_experience_deception'.tr],
-  //   },
-  //   <String, Object>{
-  //     'id': 2,
-  //     'image': imageDoctor,
-  //     'name': 'name_doctor2'.tr,
-  //     'specialization': 'general_internal_affairs'.tr,
-  //     'range': '4.9',
-  //     'reveal': 'detection_times'.tr,
-  //     'skills': <String>['مستمع جيد', 'ودود', 'مستمع جيد'],
-  //     'salary': '200 ج',
-  //     'generalMedicineHeartDiseases': 'general_specialization_with_minor'.tr,
-  //     'descriptionDoctor': 'description_doctor2'.tr,
-  //     'address': 'title_address1'.tr,
-  //     'available_times': <Map<String, List<Object>>>[
-  //       <String, List<Object>>{
-  //         'days': <String>['السبت', 'الإثنين'],
-  //         'times': <Map<String, String>>[
-  //           <String, String>{'time': '1:00 - 6:00 مساءً'},
-  //           <String, String>{'time': '2:00 - 3:00 مساءً'},
-  //         ],
-  //       },
-  //       <String, List<Object>>{
-  //         'days': <String>['الاحد'],
-  //         'times': <Map<String, String>>[
-  //           <String, String>{'time': '1:00 - 6:00 مساءً'},
-  //         ],
-  //       },
-  //       <String, List<Object>>{
-  //         'days': <String>['السبت', 'الإثنين'],
-  //         'times': <Map<String, String>>[
-  //           <String, String>{'time': '1:00 - 4:00 مساءً'},
-  //         ],
-  //       },
-  //       <String, List<Object>>{
-  //         'days': <String>['السبت', 'الإثنين', 'الخميس', 'الاربعاء', 'الجمعة'],
-  //         'times': <Map<String, String>>[
-  //           <String, String>{'time': '1:00 - 4:00 مساءً'},
-  //         ],
-  //       },
-  //     ],
-  //     'qualifications': <Map<String, String>>[
-  //       <String, String>{
-  //         'icon': iconUniversity,
-  //         'title': 'university'.tr,
-  //         'university': 'al_azhar_al_sharif'.tr,
-  //       },
-  //       <String, String>{
-  //         'icon': iconAcademicDegree,
-  //         'title': 'academic_degree'.tr,
-  //         'university': 'bachelor_of_medicine_and_surgery'.tr,
-  //       },
-  //     ],
-  //     'practicalExperienceIn': <String>[
-  //       'list_experience_in_1'.tr,
-  //       'list_experience_in_2'.tr,
-  //       'list_experience_in_3'.tr,
-  //       'list_experience_in_4'.tr,
-  //     ],
-  //     'clinicalExperience': <String>['clinical_experience_deception'.tr],
-  //   },
-  //   <String, Object>{
-  //     'id': 3,
-  //     'image': imageDoctor,
-  //     'name': 'name_doctor3'.tr,
-  //     'specialization': 'general_internal_affairs'.tr,
-  //     'range': '4.9',
-  //     'reveal': 'detection_times'.tr,
-  //     'skills': <String>['مستمع جيد', 'ودود', 'مستمع جيد'],
-  //     'salary': '200 ج',
-  //     'generalMedicineHeartDiseases': 'general_medicine_neurology'.tr,
-  //     'descriptionDoctor': 'description_doctor3'.tr,
-  //     'address': 'title_address2'.tr,
-  //     'available_times': <Map<String, List<Object>>>[
-  //       <String, List<Object>>{
-  //         'days': <String>['السبت', 'الإثنين'],
-  //         'times': <Map<String, String>>[
-  //           <String, String>{'time': '1:00 - 6:00 مساءً'},
-  //           <String, String>{'time': '2:00 - 3:00 مساءً'},
-  //         ],
-  //       },
-  //       <String, List<Object>>{
-  //         'days': <String>['الاحد'],
-  //         'times': <Map<String, String>>[
-  //           <String, String>{'time': '1:00 - 6:00 مساءً'},
-  //         ],
-  //       },
-  //       <String, List<Object>>{
-  //         'days': <String>['السبت', 'الإثنين'],
-  //         'times': <Map<String, String>>[
-  //           <String, String>{'time': '1:00 - 4:00 مساءً'},
-  //         ],
-  //       },
-  //     ],
-  //     'qualifications': <Map<String, String>>[
-  //       <String, String>{
-  //         'icon': iconUniversity,
-  //         'title': 'university'.tr,
-  //         'university': 'al_azhar_al_sharif'.tr,
-  //       },
-  //       <String, String>{
-  //         'icon': iconAcademicDegree,
-  //         'title': 'academic_degree'.tr,
-  //         'university': 'bachelor_of_medicine_and_surgery'.tr,
-  //       },
-  //       <String, String>{
-  //         'icon': iconAcademicDegree,
-  //         'title': 'academic_degree'.tr,
-  //         'university': 'bachelor_of_medicine_and_surgery'.tr,
-  //       },
-  //       <String, String>{
-  //         'icon': iconAcademicDegree,
-  //         'title': 'academic_degree'.tr,
-  //         'university': 'bachelor_of_medicine_and_surgery'.tr,
-  //       },
-  //     ],
-  //     'practicalExperienceIn': <String>[
-  //       'list_experience_in_1'.tr,
-  //       'list_experience_in_2'.tr,
-  //       'list_experience_in_3'.tr,
-  //       'list_experience_in_4'.tr,
-  //     ],
-  //     'clinicalExperience': <String>[
-  //       'clinical_experience_deception'.tr,
-  //       'clinical_experience_deception'.tr,
-  //     ],
-  //   },
-  // ];
+  Map<String, dynamic> doctorsProfile = {};
+  Future<void> doctorsProfileRequest() async {
+    isLoading = true;
+    update();
+    accessToken = await localStorage.readFromStorage(storageAccessToken);
+    await ApiRequest(
+      path: '$doctorProfile/$selectedDoctorId',
+      className: '',
+      formatResponse: true,
+      header: <String, dynamic>{
+        'Content-Type': 'application/json',
+        'Accept': '*/*',
+        'Authorization': 'Bearer $accessToken',
+      },
+    ).request(
+      onSuccess: (dynamic data, dynamic response) async {
+        doctorsProfile = response ?? <String, dynamic>{};
+        update();
+      },
+      // ignore: always_specify_types
+      onError: (error) {
+        // doctors = 'not_found_medical_profile_section'.tr;
+        update();
+        return null;
+      },
+    );
+    isLoading = false;
+    update();
+  }
 
   double calculateWidth(String text) {
     return text.length * 3 + 1;
@@ -480,5 +274,13 @@ class DoctorsController extends GetxController {
       'title': 'good_rating'.tr,
       'rating': 1.0,
     },
+  ];
+
+  final List<String> tabs = <String>['practical_experiments'.tr, 'ratings'.tr];
+
+  final List ratings = <dynamic>[
+    <String, String>{'titleRatings': 'good_listen'.tr, 'icon': iconGoodListen},
+    <String, String>{'titleRatings': 'friendly'.tr, 'icon': iconCalm},
+    <String, String>{'titleRatings': 'explains_clearly'.tr, 'icon': iconHappy},
   ];
 }

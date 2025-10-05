@@ -22,6 +22,7 @@ class CustomInput extends StatelessWidget {
     this.sizespace = 0.021,
     this.paddingVertical = 0.051,
     this.textType = CustomTextType.inputTitle,
+    this.onSuffixIconTap,
   });
 
   final String? title;
@@ -40,7 +41,8 @@ class CustomInput extends StatelessWidget {
   final Function? onTap;
   final double? sizespace;
   final double paddingVertical;
-  final CustomTextType textType; 
+  final CustomTextType textType;
+  final VoidCallback? onSuffixIconTap;
 
   @override
   Widget build(BuildContext context) {
@@ -75,13 +77,16 @@ class CustomInput extends StatelessWidget {
             controller: controller,
             decoration: InputDecoration(
               suffixIcon: suffixIconPath != null
-                  ? SizedBox(
-                      width: DEVICE_WIDTH * 0.1,
-                      child: Center(
-                        child: SvgPicture.asset(
-                          suffixIconPath!,
-                          width: DEVICE_WIDTH * 0.02,
-                          height: DEVICE_HEIGHT * 0.02,
+                  ? GestureDetector(
+                      onTap: onSuffixIconTap,
+                      child: SizedBox(
+                        width: DEVICE_WIDTH * 0.1,
+                        child: Center(
+                          child: SvgPicture.asset(
+                            suffixIconPath!,
+                            width: DEVICE_WIDTH * 0.02,
+                            height: DEVICE_HEIGHT * 0.02,
+                          ),
                         ),
                       ),
                     )

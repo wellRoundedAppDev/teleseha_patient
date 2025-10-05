@@ -25,9 +25,9 @@ class BottomNavController extends GetxController {
   // ignore: always_specify_types
   final List icons = <dynamic>[
     iconPersonal,
-    iconDoctors,
-    iconHome,
     iconReports,
+    iconHome,
+    iconDoctors,
     iconSettings,
   ];
 
