@@ -3,38 +3,38 @@ import 'package:flutter_svg/svg.dart';
 import '../../../general_exports.dart';
 
 class ContentDoctors extends StatelessWidget {
-  const ContentDoctors({super.key});
+  ContentDoctors({super.key});
+
+  HomePageContentController homeController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     final ChangeParamContentAndNextPage change = Get.find();
     return GetBuilder<DoctorsController>(
-      init: DoctorsController(),
       builder: (DoctorsController controller) {
         return SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              // Text(change.knowNextPage.value),
-              if (change.knowNextPage.value ==
-                  'comping from subSpiecilaties going to profile doctor')
-                CustomText(
-                  text: 'doctors'.tr,
-                  type: CustomTextType.title,
-                  fontSize: 16,
-                  color: const Color(AppColors.colorTitle),
-                )
-              else
-                CustomText(
-                  text: 'general_specialty_doctors'.tr,
-                  type: CustomTextType.title,
-                  fontSize: 16,
-                  color: const Color(AppColors.colorTitle),
-                ),
+              // if (change.knowNextPage.value ==
+              //     'comping from subSpiecilaties going to profile doctor')
+              CustomText(
+                text: controller.showText,
+                type: CustomTextType.title,
+                fontSize: 16,
+                color: const Color(AppColors.colorTitle),
+              ),
+              // else
+              //   CustomText(
+              //     text: 'general_specialty_doctors'.tr,
+              //     type: CustomTextType.title,
+              //     fontSize: 16,
+              //     color: const Color(AppColors.colorTitle),
+              //   ),
               SizedBox(height: DEVICE_HEIGHT * 0.033),
               SizedBox(
                 height: DEVICE_HEIGHT * controller.widthSelected,
-                child: controller.isLoading
+                child: controller.isLoadingDoctor
                     ? const Center(child: CircularProgressIndicator())
                     : controller.doctors.isEmpty
                     ? Center(
@@ -231,35 +231,23 @@ class ContentDoctors extends StatelessWidget {
                                                         size: 12,
                                                         textBtn:
                                                             'reservation'.tr,
-                                                        onPressed: () {
-                                                          // final int
-                                                          // doctorId = controller
-                                                          //     .doctors[index]['doctorId'];
+                                                        onPressed: () async {
+                                                          final int
+                                                          doctorId = controller
+                                                              .doctors[index]['doctorId'];
 
-                                                          // controller.passedIndex =
-                                                          //     doctorId;
+                                                          controller
+                                                                  .passedIndex =
+                                                              doctorId;
 
-                                                          // controller
-                                                          //     .doctorsProfileRequest();
+                                                          await controller
+                                                              .doctorsProfileRequest();
 
-                                                          // change
-                                                          //         .goToComponentHeader
-                                                          //         .value =
-                                                          //     'drSchedule';
-                                                          // change.update();
-                                                          // ------------------------------------------
-                                                          // controller
-                                                          //     .doctorsProfileRequest();
-                                                          // final int
-                                                          // doctorId = controller
-                                                          //     .doctors[index]['id'];
-                                                          // controller.passedIndex =
-                                                          //     doctorId;
-                                                          // change
-                                                          //         .goToComponentHeader
-                                                          //         .value =
-                                                          //     'drSchedule';
-                                                          // change.update();
+                                                          change
+                                                                  .goToComponentHeader
+                                                                  .value =
+                                                              'drSchedule';
+                                                          change.update();
                                                         },
                                                       ),
                                                     ],

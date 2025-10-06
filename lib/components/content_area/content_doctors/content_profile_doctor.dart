@@ -1,6 +1,7 @@
 // import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 // import 'package:flutter_svg/svg.dart';
 
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../general_exports.dart';
@@ -10,11 +11,9 @@ class ContentProfileDoctor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final ChangeParamContentAndNextPage change = Get.find();
-    final DoctorsController doctor = Get.find();
+    final ChangeParamContentAndNextPage change = Get.find();
     return GetBuilder<DoctorsController>(
       builder: (DoctorsController controller) {
-        // controller.selectedDoctorFunction();
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -22,7 +21,7 @@ class ContentProfileDoctor extends StatelessWidget {
             Container(
               margin: EdgeInsets.symmetric(horizontal: DEVICE_WIDTH * 0.055),
               child: CustomText(
-                text: doctor.doctorsProfile['name'] ?? '',
+                text: controller.doctorsProfile['name'] ?? '',
                 fontSize: 24,
                 type: CustomTextType.title,
                 color: const Color(AppColors.colorBlack),
@@ -42,7 +41,7 @@ class ContentProfileDoctor extends StatelessWidget {
                         children: <Widget>[
                           SizedBox(height: DEVICE_HEIGHT * 0.014),
                           CustomText(
-                            text: doctor.doctorsProfile['specialty'] ?? '',
+                            text: controller.doctorsProfile['specialty'] ?? '',
                             fontSize: 12,
                             type: CustomTextType.title,
                             color: const Color(AppColors.colorLineAndText),
@@ -52,7 +51,7 @@ class ContentProfileDoctor extends StatelessWidget {
                             children: <Widget>[
                               CustomText(
                                 text:
-                                    doctor.doctorsProfile['ratingCount']
+                                    controller.doctorsProfile['ratingCount']
                                         ?.toString() ??
                                     '0',
                                 fontSize: 12,
@@ -68,7 +67,7 @@ class ContentProfileDoctor extends StatelessWidget {
                               SizedBox(width: DEVICE_WIDTH * 0.025),
                               CustomText(
                                 text:
-                                    '(${doctor.doctorsProfile['ratingValue']?.toString() ?? ''} ${'detection_times'.tr})',
+                                    '(${controller.doctorsProfile['ratingValue']?.toString() ?? ''} ${'detection_times'.tr})',
                                 fontSize: 11,
                                 type: CustomTextType.inputTitle,
                                 color: const Color(
@@ -76,6 +75,22 @@ class ContentProfileDoctor extends StatelessWidget {
                                 ),
                               ),
                             ],
+                          ),
+                          SizedBox(height: DEVICE_HEIGHT * 0.025),
+                          CustomText(
+                            text:
+                                '${'price_examination'.tr} ${controller.doctorsProfile['price']?.toString() ?? ''} ج',
+                            fontSize: 12,
+                            type: CustomTextType.title,
+                            color: const Color(AppColors.colorLineAndText),
+                          ),
+                          SizedBox(height: DEVICE_HEIGHT * 0.025),
+                          CustomText(
+                            text:
+                                '${'price_consultation'.tr} ${controller.doctorsProfile['followUpCount']?.toString() ?? ''} ج',
+                            fontSize: 12,
+                            type: CustomTextType.title,
+                            color: const Color(AppColors.colorLineAndText),
                           ),
                           SizedBox(height: DEVICE_HEIGHT * 0.025),
                           Column(
@@ -100,7 +115,7 @@ class ContentProfileDoctor extends StatelessWidget {
                                   children: <InlineSpan>[
                                     TextSpan(
                                       text:
-                                          doctor
+                                          controller
                                               .doctorsProfile['doctorProfile']?['description']
                                               ?.toString() ??
                                           '0',
@@ -174,7 +189,7 @@ class ContentProfileDoctor extends StatelessWidget {
                                     SizedBox(height: DEVICE_HEIGHT * 0.015),
                                     CustomText(
                                       text:
-                                          doctor
+                                          controller
                                               .doctorsProfile['doctorProfile']?['address']
                                               ?.toString() ??
                                           '0',
@@ -214,7 +229,7 @@ class ContentProfileDoctor extends StatelessWidget {
                                       child: Wrap(
                                         runSpacing: DEVICE_HEIGHT * 0.01,
                                         children:
-                                            (doctor.doctorsProfile['schedules']
+                                            (controller.doctorsProfile['schedules']
                                                     as List<dynamic>?)
                                                 ?.map<Widget>((scheduleItem) {
                                                   final Map<String, dynamic>
@@ -335,9 +350,7 @@ class ContentProfileDoctor extends StatelessWidget {
                                                   );
                                                 })
                                                 .toList() ??
-                                            <
-                                              Widget
-                                            >[], // في حال كانت schedules null
+                                            <Widget>[],
                                       ),
                                     ),
                                   ],
@@ -401,7 +414,7 @@ class ContentProfileDoctor extends StatelessWidget {
                                   SizedBox(height: DEVICE_HEIGHT * 0.007),
                                   CustomText(
                                     text:
-                                        doctor
+                                        controller
                                             .doctorsProfile['doctorProfile']?['university']
                                             ?.toString() ??
                                         'university'.tr,
@@ -443,7 +456,7 @@ class ContentProfileDoctor extends StatelessWidget {
                                   SizedBox(height: DEVICE_HEIGHT * 0.007),
                                   CustomText(
                                     text:
-                                        doctor
+                                        controller
                                             .doctorsProfile['scientificDegree']
                                             ?.toString() ??
                                         'academic_degree'.tr,
@@ -579,7 +592,7 @@ class ContentProfileDoctor extends StatelessWidget {
                                   SizedBox(height: DEVICE_HEIGHT * 0.03),
                                   CustomText(
                                     text:
-                                        '${doctor.doctorsProfile['name']?.toString() ?? '0'} ${'he_has_experience_in'.tr}',
+                                        '${controller.doctorsProfile['name']?.toString() ?? '0'} ${'he_has_experience_in'.tr}',
                                     fontSize: 16,
                                     type: CustomTextType.title,
                                     color: const Color(AppColors.colorBlack),
@@ -587,7 +600,7 @@ class ContentProfileDoctor extends StatelessWidget {
                                   SizedBox(height: DEVICE_HEIGHT * 0.012),
                                   CustomText(
                                     text:
-                                        doctor
+                                        controller
                                             .doctorsProfile['doctorProfile']?['experiences']
                                             ?.toString() ??
                                         '0',
@@ -639,180 +652,122 @@ class ContentProfileDoctor extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            // SizedBox(height: DEVICE_HEIGHT * 0.012),
-                            // Container(
-                            //   height: DEVICE_HEIGHT * 0.001,
-                            //   width: DEVICE_WIDTH,
-                            //   color: const Color.fromARGB(78, 128, 128, 31),
-                            // ),
-                            // SizedBox(height: DEVICE_HEIGHT * 0.012),
-                            // Container(
-                            //   margin: EdgeInsets.symmetric(
-                            //     horizontal: DEVICE_WIDTH * 0.055,
-                            //   ),
-                            //   child: Column(
-                            //     crossAxisAlignment: CrossAxisAlignment.start,
-                            //     children: <Widget>[
-                            //       CustomText(
-                            //         text: 'clinical_experience'.tr,
-                            //         fontSize: 16,
-                            //         type: CustomTextType.title,
-                            //         color: const Color(AppColors.colorBlack),
-                            //       ),
-                            //       SizedBox(height: DEVICE_HEIGHT * 0.012),
-                            //       // Column(
-                            //       //   crossAxisAlignment:
-                            //       //       CrossAxisAlignment.start,
-                            //       //   children: controller.clinicalExperience.map((
-                            //       //     String e,
-                            //       //   ) {
-                            //       //     return Padding(
-                            //       //       padding: EdgeInsets.symmetric(
-                            //       //         vertical: DEVICE_HEIGHT * 0.005,
-                            //       //       ),
-                            //       //       child: Row(
-                            //       //         children: <Widget>[
-                            //       //           Container(
-                            //       //             width: DEVICE_WIDTH * 0.01,
-                            //       //             height: DEVICE_HEIGHT * 0.005,
-                            //       //             color: const Color(
-                            //       //               AppColors
-                            //       //                   .colorNameSpecialization,
-                            //       //             ),
-                            //       //           ),
-                            //       //           SizedBox(
-                            //       //             width: DEVICE_WIDTH * 0.025,
-                            //       //           ),
-                            //       //           Expanded(
-                            //       //             child: CustomText(
-                            //       //               text: e,
-                            //       //               fontSize: 12,
-                            //       //               type: CustomTextType.button,
-                            //       //               color: const Color(
-                            //       //                 AppColors
-                            //       //                     .colorNameSpecialization,
-                            //       //               ),
-                            //       //             ),
-                            //       //           ),
-                            //       //         ],
-                            //       //       ),
-                            //       //     );
-                            //       //   }).toList(),
-                            //       // ),
-                            //       SizedBox(height: DEVICE_HEIGHT * 0.055),
-                            //     ],
-                            //   ),
-                            // ),
                           ],
                         ),
                         // start commints
-                        Container(
-                          margin: EdgeInsets.symmetric(
-                            vertical: DEVICE_HEIGHT * 0.04,
-                            horizontal: DEVICE_WIDTH * 0.055,
-                          ),
-                          height: DEVICE_HEIGHT * 0.5,
-                          child: ListView.builder(
-                            padding: EdgeInsets.zero,
-                            itemCount: controller.commints.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return Column(
-                                children: <Widget>[
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      // SvgPicture.asset(
-                                      //   controller.commints[index]['icon'],
-                                      //   width: DEVICE_WIDTH * 0.03,
-                                      //   height: DEVICE_HEIGHT * 0.03,
-                                      // ),
-                                      SizedBox(width: DEVICE_WIDTH * 0.03),
-                                      Container(
-                                        width: DEVICE_WIDTH * 0.7,
-                                        decoration: BoxDecoration(
-                                          color: const Color.fromRGBO(
-                                            101,
-                                            196,
-                                            226,
-                                            0.11,
+                        if (controller.isSelected == 1)
+                          Container(
+                            margin: EdgeInsets.symmetric(
+                              vertical: DEVICE_HEIGHT * 0.04,
+                              horizontal: DEVICE_WIDTH * 0.055,
+                            ),
+                            height: DEVICE_HEIGHT * 0.4,
+                            child: ListView.builder(
+                              padding: EdgeInsets.zero,
+                              // itemCount: controller.commints.length,
+                              itemCount:
+                                  controller.doctorsProfile['reviews'].length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Column(
+                                  children: <Widget>[
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Container(
+                                          width: DEVICE_WIDTH * 0.7,
+                                          decoration: BoxDecoration(
+                                            color: const Color.fromRGBO(
+                                              101,
+                                              196,
+                                              226,
+                                              0.11,
+                                            ),
+                                            borderRadius: BorderRadius.circular(
+                                              10,
+                                            ),
                                           ),
-                                          borderRadius: BorderRadius.circular(
-                                            10,
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: DEVICE_WIDTH * 0.045,
+                                            vertical: DEVICE_HEIGHT * 0.015,
+                                          ),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                              CustomText(
+                                                text:
+                                                    controller
+                                                        .doctorsProfile['reviews'][index]?['doctor']
+                                                        ?.toString() ??
+                                                    'تعليق الطبيب',
+                                                fontSize: 12,
+                                                type: CustomTextType.title,
+                                                color: const Color(
+                                                  AppColors.colorLineAndText,
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: DEVICE_HEIGHT * 0.01,
+                                              ),
+                                              CustomText(
+                                                text:
+                                                    controller
+                                                        .doctorsProfile['reviews'][index]?['review']
+                                                        ?.toString() ??
+                                                    'تعليق',
+                                                fontSize: 12,
+                                                type: CustomTextType.title,
+                                                color: const Color(
+                                                  AppColors.colorLineAndText,
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: DEVICE_HEIGHT * 0.01,
+                                              ),
+                                              RatingBar.builder(
+                                                itemSize: 17,
+                                                initialRating:
+                                                    (controller.doctorsProfile['reviews'][index]?['callTimeRating'] ??
+                                                            0)
+                                                        .toDouble(),
+                                                minRating: 1,
+                                                ignoreGestures: true,
+                                                allowHalfRating: true,
+                                                itemPadding:
+                                                    const EdgeInsets.symmetric(
+                                                      horizontal: 1.5,
+                                                    ),
+                                                unratedColor: const Color(
+                                                  AppColors.colorWhite,
+                                                ),
+                                                itemBuilder:
+                                                    (
+                                                      BuildContext context,
+                                                      _,
+                                                    ) => const Icon(
+                                                      Icons.star,
+                                                      color: Color(
+                                                        AppColors
+                                                            .colorGoldRainsStar,
+                                                      ),
+                                                    ),
+                                                onRatingUpdate:
+                                                    (double rating) {
+                                                      consoleLog(rating);
+                                                    },
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal: DEVICE_WIDTH * 0.045,
-                                          vertical: DEVICE_HEIGHT * 0.015,
-                                        ),
-                                        // child: Column(
-                                        //   crossAxisAlignment:
-                                        //       CrossAxisAlignment.start,
-                                        //   children: <Widget>[
-                                        //     CustomText(
-                                        //       text: controller
-                                        //           .commints[index]['name'],
-                                        //       fontSize: 12,
-                                        //       type: CustomTextType.title,
-                                        //       color: const Color(
-                                        //         AppColors.colorLineAndText,
-                                        //       ),
-                                        //     ),
-                                        //     SizedBox(
-                                        //       height: DEVICE_HEIGHT * 0.01,
-                                        //     ),
-                                        //     CustomText(
-                                        //       text: controller
-                                        //           .commints[index]['title'],
-                                        //       fontSize: 12,
-                                        //       type: CustomTextType.title,
-                                        //       color: const Color(
-                                        //         AppColors.colorLineAndText,
-                                        //       ),
-                                        //     ),
-                                        //     SizedBox(
-                                        //       height: DEVICE_HEIGHT * 0.01,
-                                        //     ),
-                                        //     RatingBar.builder(
-                                        //       itemSize: 17,
-                                        //       initialRating: controller
-                                        //           .commints[index]['rating'],
-                                        //       minRating: 1,
-                                        //       ignoreGestures: true,
-                                        //       allowHalfRating: true,
-                                        //       itemPadding:
-                                        //           const EdgeInsets.symmetric(
-                                        //             horizontal: 1.5,
-                                        //           ),
-                                        //       unratedColor: const Color(
-                                        //         AppColors.colorWhite,
-                                        //       ),
-                                        //       itemBuilder:
-                                        //           (
-                                        //             BuildContext context,
-                                        //             _,
-                                        //           ) => const Icon(
-                                        //             Icons.star,
-                                        //             color: Color(
-                                        //               AppColors
-                                        //                   .colorGoldRainsStar,
-                                        //             ),
-                                        //           ),
-                                        //       onRatingUpdate: (double rating) {
-                                        //         consoleLog(rating);
-                                        //       },
-                                        //     ),
-                                        //   ],
-                                        // ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(height: DEVICE_HEIGHT * 0.02),
-                                ],
-                              );
-                            },
+                                      ],
+                                    ),
+                                    SizedBox(height: DEVICE_HEIGHT * 0.02),
+                                  ],
+                                );
+                              },
+                            ),
                           ),
-                        ),
                       ],
                     ),
                   ],
@@ -826,9 +781,15 @@ class ContentProfileDoctor extends StatelessWidget {
               ),
               child: Align(
                 child: Btn(
-                  onPressed: () {
-                    // change.goToComponentHeader.value = 'drSchedule';
-                    // change.update();
+                  onPressed: () async {
+                    final int doctorId = controller.doctorsProfile['doctorId'];
+
+                    controller.passedIndex = doctorId;
+
+                    await controller.doctorsProfileRequest();
+
+                    change.goToComponentHeader.value = 'drSchedule';
+                    change.update();
                   },
                   text: 'reservation'.tr,
                 ),

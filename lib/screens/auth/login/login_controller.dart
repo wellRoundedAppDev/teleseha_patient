@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pattern_dots/pattern_dots.dart';
@@ -24,10 +26,33 @@ class LoginController extends GetxController {
   String? showPage;
   String? showPathMobileRegistered;
 
+  @override
+  Future<void> onInit() async {
+    super.onInit();
+    await loadPatientsFromStorage();
+  }
+
   // check pass about data if true open the user and open response users and loop to users and view to list view
-  final List<Map<String, dynamic>> profiles = <Map<String, dynamic>>[
-    <String, dynamic>{'id': 1, 'icon': iconUser, 'name': 'name_user'.tr},
-  ];
+  // final List<Map<String, dynamic>> profiles = <Map<String, dynamic>>[
+  //   <String, dynamic>{'id': 1, 'icon': iconUser, 'name': 'name_user'.tr},
+  // ];
+
+  List<dynamic> profiles = <dynamic>[];
+
+  // final List<Map<String, dynamic>> profiles = <Map<String, dynamic>>[
+  //   <String, dynamic>{'id': 1, 'icon': iconUser, 'name': 'name_user'.tr},
+  // ];
+
+  Future<void> loadPatientsFromStorage() async {
+    final String? userJson = await localStorage.readFromStorage(
+      storageUserData,
+    );
+    if (userJson != null) {
+      final Map<String, dynamic> userMap = jsonDecode(userJson);
+      profiles = userMap['patients'] ?? <dynamic>[];
+      update();
+    }
+  }
 
   void updatePage(String newResolution) {
     page = newResolution;
@@ -59,7 +84,7 @@ class LoginController extends GetxController {
         if (nextStep == 'Login') {
           linePercentage = 0.6;
           page = 'signIn';
-          Get.to(() => PatternLock());
+          Get.to(() => const PatternLock());
           update();
         } else if (nextStep == 'OtpConfirm') {
           updatePage('signUp');
@@ -218,11 +243,6 @@ class LoginController extends GetxController {
         state = PatternState.success;
         update();
         page = 'signIn';
-        if (profiles.isEmpty) {
-          page = 'signIn';
-        } else {
-          Get.toNamed(routeLogin);
-        }
         resetPattern();
       } else {
         state = PatternState.error;

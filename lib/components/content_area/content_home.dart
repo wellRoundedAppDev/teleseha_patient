@@ -5,12 +5,12 @@ import '../../general_exports.dart';
 class ContentHome extends StatelessWidget {
   ContentHome({super.key});
   final BottomNavController bottomController = Get.put(BottomNavController());
-  // final DoctorsController doctors = Get.put(DoctorsController());
   final ChangeParamContentAndNextPage change = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomePageContentController>(
+      init: HomePageContentController(),
       builder: (HomePageContentController controller) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -144,9 +144,6 @@ class ContentHome extends StatelessWidget {
                           ),
                         )
                       : Wrap(
-                          // spacing: controller.checkComming.isNotEmpty
-                          //     ? DEVICE_HEIGHT * 0.005
-                          //     : 1,
                           runSpacing: DEVICE_HEIGHT * 0.018,
                           // ignore: always_specify_types
                           children: List.generate(
@@ -165,7 +162,7 @@ class ContentHome extends StatelessWidget {
                                 child: GestureDetector(
                                   onTap: () {
                                     controller.openContentDoctorsAboutSelected(
-                                      index,
+                                      e['id'],
                                     );
                                   },
                                   child: Container(

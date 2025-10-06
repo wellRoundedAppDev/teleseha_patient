@@ -33,7 +33,11 @@ class OtherHeader extends StatelessWidget {
                     case 'ContentPrescription':
                       change.goToComponentHeader.value = 'DoctorEvaluation';
                       break;
-                    case 'Reception':
+                    case 'Subspecialty':
+                      final HomePageContentController homePage = Get.find();
+                      homePage.specialityRequest();
+                      change.goToComponentHeader.value = 'HomePage';
+                      break;
                     case 'successReception':
                       change.goToComponentHeader.value = 'Symptoms';
                       break;

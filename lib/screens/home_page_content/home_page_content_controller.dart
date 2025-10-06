@@ -17,6 +17,7 @@ class HomePageContentController extends GetxController {
   RxDouble currentSliderValue = 100.0.obs;
   bool isLoading = false;
   String? accessToken;
+  bool? isShowPage = true;
 
   LocalStorage localStorage = LocalStorage();
 
@@ -25,12 +26,9 @@ class HomePageContentController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _specialityRequest();
+    specialityRequest();
     _loadUserName();
-    // _checkCommingRequest();
-    // _subSpecialityRequest();
   }
-
 
   Future<void> _loadUserName() async {
     final String? userJson = await localStorage.readFromStorage(
@@ -42,14 +40,13 @@ class HomePageContentController extends GetxController {
       final String? name = userMap['patients']?[0]?['name'];
       if (name != null && name.isNotEmpty) {
         testNameUserData = name;
-        update();
       }
     }
   }
 
   // ignore: always_specify_types
   List specialties = <dynamic>[];
-  Future<void> _specialityRequest() async {
+  Future<void> specialityRequest() async {
     isLoading = true;
     update();
     accessToken = await localStorage.readFromStorage(storageAccessToken);
@@ -79,39 +76,54 @@ class HomePageContentController extends GetxController {
   }
 
   // ignore: always_specify_types
-  // List subSpecialties = <dynamic>[];
-  // Future<void> _subSpecialityRequest() async {
-  //   isLoading = true;
-  //   update();
-  //   accessToken = await localStorage.readFromStorage(storageAccessToken);
-  //   await ApiRequest(
-  //     path: '$subSpeciality/3',
-  //     className: '',
-  //     formatResponse: true,
-  //     header: <String, dynamic>{
-  //       'Content-Type': 'application/json',
-  //       'Accept': '*/*',
-  //       'Authorization': 'Bearer $accessToken',
-  //     },
-  //   ).request(
-  //     onSuccess: (dynamic data, dynamic response) async {
-  //       subSpecialties = response ?? <dynamic>[];
-  //       update();
-  //     },
-  //     // ignore: always_specify_types
-  //     onError: (error) {
-  //       // specialties = 'not_found_medical_profile_section'.tr;
-  //       update();
-  //       return null;
-  //     },
-  //   );
-  //   isLoading = false;
-  //   update();
-  // }
+  List subSpecialties = <dynamic>[];
+  // ignore: always_specify_types
+  Future<void> _subSpecialityRequest(id) async {
+    isLoading = true;
+    update();
+    accessToken = await localStorage.readFromStorage(storageAccessToken);
+
+    try {
+      await ApiRequest(
+        path: '$subSpeciality/$id',
+        className: '',
+        formatResponse: true,
+        header: <String, dynamic>{
+          'Content-Type': 'application/json',
+          'Accept': '*/*',
+          'Authorization': 'Bearer $accessToken',
+        },
+      ).request(
+        onSuccess: (dynamic data, dynamic response) async {
+          if (response is List) {
+            subSpecialties = response;
+            isShowPage = true;
+          } else {
+            subSpecialties = <dynamic>[];
+            isShowPage = false;
+          }
+          update();
+        },
+        onError: (error) {
+          subSpecialties = <dynamic>[];
+          isShowPage = false;
+          update();
+          return null;
+        },
+      );
+    } catch (e) {
+      subSpecialties = <dynamic>[];
+      isShowPage = false;
+      update();
+    }
+
+    isLoading = false;
+    update();
+  }
 
   // ignore: always_specify_types
   // List checkComming = <dynamic>[];
-  // Future<void> _checkCommingRequest() async {
+  // Future<void> checkCommingRequest() async {
   //   isLoading = true;
   //   update();
   //   accessToken = await localStorage.readFromStorage(storageAccessToken);
@@ -139,30 +151,35 @@ class HomePageContentController extends GetxController {
   //   update();
   // }
 
-  void openContentDoctorsAboutSelected(int index) {
+  Future<void> openContentDoctorsAboutSelected(int index) async {
     final ChangeParamContentAndNextPage changeParam = Get.find();
-    if (index == 0) {
-      final BottomNavController homeBottomController = Get.find();
+    final BottomNavController homeBottomController = Get.find();
+    await _subSpecialityRequest(index);
+
+    if (isShowPage == true) {
+      changeParam.goToComponentHeader.value = 'Subspecialty';
+      change.knowNextPage.value = '';
+      // showText = 'doctors'.tr;
+      change.update();
+      changeParam.update();
+      update();
+    } else {
+      change.knowNextPage.value =
+          'comping from subSpiecilaties going to profile doctor';
+      Get.put(DoctorsController(), permanent: true);
+      final DoctorsController doctor = Get.find();
+      doctor.doctorsRequest(index);
+      // showText = 'general_specialty_doctors'.tr;
       homeBottomController.selectedIndexBottomNav.value = 3;
       changeParam.goToComponentHeader.value = 'Doctors';
       selectedSpecialtyIndex = index;
-      change.knowNextPage.value = '';
       homeBottomController.update();
-      update();
-    } else {
-      changeParam.goToComponentHeader.value = 'Subspecialty';
-      selectedSpecialtyIndex = index;
+      change.update();
       update();
     }
   }
 
   final List<Map<String, dynamic>> academicDegree = <Map<String, dynamic>>[
-    // <String, dynamic>{'title': 'bachelora'.tr},
-    // <String, dynamic>{'title': 'master'.tr},
-    // <String, dynamic>{'title': 'doctorate'.tr},
-    // <String, dynamic>{'title': 'consultant'.tr},
-    // <String, dynamic>{'title': 'associateProfessor'.tr},
-    // <String, dynamic>{'title': 'professor'.tr},
     <String, dynamic>{'key': 'Bachelora', 'title': 'bachelora'.tr},
     <String, dynamic>{'key': 'Master', 'title': 'master'.tr},
     <String, dynamic>{'key': 'Doctorate', 'title': 'doctorate'.tr},

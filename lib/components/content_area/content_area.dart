@@ -37,7 +37,7 @@ class ContentArea extends StatelessWidget {
                   : controller.goToComponentHeader.value == 'Symptoms'
                   ? const ContentSymptoms()
                   : controller.goToComponentHeader.value == 'Doctors'
-                  ? const ContentDoctors()
+                  ? ContentDoctors()
                   : controller.goToComponentHeader.value == 'Reception'
                   ? const ContentReception()
                   : controller.goToComponentHeader.value == 'enterSymptoms'

@@ -9,8 +9,7 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {    
-
+  Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: GetMaterialApp(
@@ -26,7 +25,7 @@ class MyApp extends StatelessWidget {
           GlobalCupertinoLocalizations.delegate,
         ],
         translations: Translation(),
-        debugShowCheckedModeBanner: false,
+        debugShowCheckedModeBanner: false,        
         initialRoute: routeFingerPrint,
         // initialRoute: routeScreen,
         getPages: appRoutes,

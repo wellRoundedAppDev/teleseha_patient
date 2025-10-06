@@ -10,9 +10,9 @@ class DoctorsStatusBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final HomePageContentController contentHomePage = Get.find();
+    Get.put(DoctorsController(), permanent: true);
 
     return GetBuilder<DoctorsController>(
-      init: DoctorsController(),
       builder: (DoctorsController controller) {
         return Container(
           margin: EdgeInsets.symmetric(horizontal: DEVICE_WIDTH * 0.035),

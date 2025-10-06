@@ -127,23 +127,14 @@ class Profiles extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(width: DEVICE_WIDTH * 0.02),
-                                Row(
-                                  children: <Widget>[
-                                    CustomText(
-                                      text: 'name_user'.tr,
-                                      fontSize: 15,
-                                      type: CustomTextType.title,
-                                      color: const Color(
-                                        AppColors.colorSelectDropDown,
-                                      ),
-                                    ),
-                                    SizedBox(width: DEVICE_WIDTH * 0.03),
-                                    SvgPicture.asset(
-                                      iconUser,
-                                      width: DEVICE_WIDTH * 0.035,
-                                      height: DEVICE_HEIGHT * 0.035,
-                                    ),
-                                  ],
+                                CustomText(
+                                  text:
+                                      controller.profiles[index]['name'] ?? '',
+                                  fontSize: 15,
+                                  type: CustomTextType.title,
+                                  color: const Color(
+                                    AppColors.colorSelectDropDown,
+                                  ),
                                 ),
                               ],
                             ),

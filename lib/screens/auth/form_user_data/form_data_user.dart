@@ -5,8 +5,6 @@ import '../../../general_exports.dart';
 // ignore: camel_case_types
 class FormDataUser extends StatelessWidget {
   FormDataUser({super.key});
-  // required this.isFromProfile,
-  // final bool isFromProfile;
 
   LoginController login = Get.put(LoginController());
 

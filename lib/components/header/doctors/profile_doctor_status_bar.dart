@@ -9,7 +9,6 @@ class ProfileDoctorStatusBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final ChangeParamContentAndNextPage change = Get.find();
     return GetBuilder<DoctorsController>(
-      init: DoctorsController(),
       builder: (DoctorsController controller) {
         return Container(
           width: DEVICE_WIDTH,
