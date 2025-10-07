@@ -34,8 +34,8 @@ class ContentArea extends StatelessWidget {
                   ? ContentHome()
                   : controller.goToComponentHeader.value == 'RecentBookings'
                   ? const RecentBookings()
-                  : controller.goToComponentHeader.value == 'Symptoms'
-                  ? const ContentSymptoms()
+                  : controller.goToComponentHeader.value == 'gemini'
+                  ? const Gemini()
                   : controller.goToComponentHeader.value == 'Doctors'
                   ? ContentDoctors()
                   : controller.goToComponentHeader.value == 'Reception'

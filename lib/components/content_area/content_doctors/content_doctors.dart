@@ -110,10 +110,8 @@ class ContentDoctors extends StatelessWidget {
                                           SizedBox(
                                             width: DEVICE_WIDTH * 0.6,
                                             child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
                                               children: <Widget>[
-                                                SizedBox(
+                                                Container(
                                                   width: 300,
                                                   child: Row(
                                                     mainAxisAlignment:
@@ -128,13 +126,6 @@ class ContentDoctors extends StatelessWidget {
                                                             CrossAxisAlignment
                                                                 .start,
                                                         children: <Widget>[
-                                                          const SizedBox(
-                                                            child: Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
-                                                            ),
-                                                          ),
                                                           SizedBox(
                                                             height:
                                                                 DEVICE_HEIGHT *
@@ -156,56 +147,57 @@ class ContentDoctors extends StatelessWidget {
                                                                 DEVICE_HEIGHT *
                                                                 0.010,
                                                           ),
-                                                          Row(
-                                                            children: <Widget>[
-                                                              CustomText(
-                                                                text:
-                                                                    controller
-                                                                        .doctors[index]['specialty'] ??
-                                                                    '',
-                                                                type: CustomTextType
-                                                                    .inputTitle,
-                                                                fontSize: 13,
-                                                                color: const Color(
-                                                                  AppColors
-                                                                      .colorNameSpecialization,
-                                                                ),
+                                                          Container(
+                                                            width:
+                                                                DEVICE_WIDTH *
+                                                                0.3,
+                                                            child: Text.rich(
+                                                              TextSpan(
+                                                                children: <InlineSpan>[
+                                                                  TextSpan(
+                                                                    text:
+                                                                        controller
+                                                                            .doctors[index]['specialty'] ??
+                                                                        '',
+                                                                    style: const TextStyle(
+                                                                      color: Color(
+                                                                        AppColors
+                                                                            .colorNameSpecialization,
+                                                                      ),
+                                                                      fontSize:
+                                                                          13,
+                                                                    ),
+                                                                  ),
+                                                                  const TextSpan(
+                                                                    text: '  ',
+                                                                  ),
+                                                                  TextSpan(
+                                                                    text:
+                                                                        controller
+                                                                            .doctors[index]['ratingCount']
+                                                                            ?.toString() ??
+                                                                        '0',
+                                                                    style: const TextStyle(
+                                                                      color: Color(
+                                                                        AppColors
+                                                                            .colorSelectDropDown,
+                                                                      ),
+                                                                      fontSize:
+                                                                          13,
+                                                                    ),
+                                                                  ),
+                                                                  const TextSpan(
+                                                                    text: '  ⭐',
+                                                                    style: TextStyle(
+                                                                      color: Colors
+                                                                          .amber,
+                                                                      fontSize:
+                                                                          13,
+                                                                    ),
+                                                                  ),
+                                                                ],
                                                               ),
-                                                              SizedBox(
-                                                                width:
-                                                                    DEVICE_WIDTH *
-                                                                    0.015,
-                                                              ),
-                                                              CustomText(
-                                                                text:
-                                                                    controller
-                                                                        .doctors[index]['ratingCount']
-                                                                        ?.toString() ??
-                                                                    '0',
-                                                                type:
-                                                                    CustomTextType
-                                                                        .title,
-                                                                fontSize: 13,
-                                                                color: const Color(
-                                                                  AppColors
-                                                                      .colorSelectDropDown,
-                                                                ),
-                                                              ),
-                                                              SizedBox(
-                                                                width:
-                                                                    DEVICE_WIDTH *
-                                                                    0.008,
-                                                              ),
-                                                              SvgPicture.asset(
-                                                                iconStar,
-                                                                width:
-                                                                    DEVICE_WIDTH *
-                                                                    0.025,
-                                                                height:
-                                                                    DEVICE_HEIGHT *
-                                                                    0.015,
-                                                              ),
-                                                            ],
+                                                            ),
                                                           ),
                                                           SizedBox(
                                                             height:

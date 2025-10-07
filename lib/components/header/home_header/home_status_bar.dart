@@ -95,7 +95,7 @@ class HomeStatusBar extends StatelessWidget {
                           onPressed: () {
                             final ChangeParamContentAndNextPage change =
                                 Get.find();
-                            change.goToComponentHeader.value = 'Symptoms';
+                            change.goToComponentHeader.value = 'gemini';
                             change.knowNextPage.value =
                                 'Comping from home going to reception';
                             change.update();

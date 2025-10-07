@@ -10,8 +10,6 @@ class Header extends StatelessWidget {
     return Obx(() {
       return controller.goToComponentHeader.value == 'HomePage'
           ? const HomeStatusBar()
-          : controller.goToComponentHeader.value == 'Symptoms'
-          ? const SymptomsStatusBar()
           : controller.goToComponentHeader.value == 'Doctors'
           ? DoctorsStatusBar()
           : controller.goToComponentHeader.value == 'ProfileDoctor'
