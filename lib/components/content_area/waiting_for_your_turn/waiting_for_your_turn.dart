@@ -13,10 +13,10 @@ class WaitingForYourTurn extends StatelessWidget {
       builder: (BookingsController controller) {
         if (controller.currentStep == 2) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            final VideoCallController videoCall = Get.find();
-            if (!videoCall.isCallStarted.value) {
-              videoCall.initAgora();
-            }
+            // final VideoCallController videoCall = Get.find();
+            // if (!videoCall.isCallStarted.value) {
+            //   videoCall.initAgora();
+            // }
           });
         }
 
@@ -33,12 +33,12 @@ class WaitingForYourTurn extends StatelessWidget {
             children: <Widget>[
               Column(
                 children: <Widget>[
-                  Image.asset(
-                    controller.selectedLastRecent?['image'],
-                    width: 81,
-                    height: 87,
-                    fit: BoxFit.cover,
-                  ),
+                  // Image.asset(
+                  //   controller.selectedLastRecent?['image'],
+                  //   width: 81,
+                  //   height: 87,
+                  //   fit: BoxFit.cover,
+                  // ),
                   SizedBox(height: DEVICE_HEIGHT * 0.012),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -52,25 +52,25 @@ class WaitingForYourTurn extends StatelessWidget {
                         color: const Color(AppColors.colorLineAndText),
                       ),
                       SizedBox(width: DEVICE_WIDTH * 0.012),
-                      CustomText(
-                        text: controller.selectedLastRecent?['name']
-                            .toString()
-                            .tr,
-                        fontSize: 16,
-                        type: CustomTextType.title,
-                        color: const Color(AppColors.colorLineAndText),
-                      ),
+                      // CustomText(
+                      //   text: controller.selectedLastRecent?['name']
+                      //       .toString()
+                      //       .tr,
+                      //   fontSize: 16,
+                      //   type: CustomTextType.title,
+                      //   color: const Color(AppColors.colorLineAndText),
+                      // ),
                     ],
                   ),
                   SizedBox(height: DEVICE_HEIGHT * 0.007),
-                  CustomText(
-                    text: controller.selectedLastRecent?['specialization']
-                        .toString()
-                        .tr,
-                    fontSize: 12,
-                    type: CustomTextType.inputTitle,
-                    color: const Color(AppColors.colorLineAndText),
-                  ),
+                  // CustomText(
+                  //   text: controller.selectedLastRecent?['specialization']
+                  //       .toString()
+                  //       .tr,
+                  //   fontSize: 12,
+                  //   type: CustomTextType.inputTitle,
+                  //   color: const Color(AppColors.colorLineAndText),
+                  // ),
                   SizedBox(height: DEVICE_HEIGHT * 0.007),
                   Center(
                     child: RatingBar.builder(
@@ -247,32 +247,32 @@ class WaitingForYourTurn extends StatelessWidget {
               else
                 const SizedBox(),
               SizedBox(height: DEVICE_HEIGHT * 0.07),
-              GetBuilder<VideoCallController>(
-                id: 'participantButton',
-                builder: (VideoCallController videoCall) {
-                  final bool hasParticipant = videoCall.hasParticipant;
-                  return Btn(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: hasParticipant
-                          ? const Color(AppColors.colorLineAndText)
-                          : const Color.fromRGBO(0, 123, 189, 0.49),
-                      padding: EdgeInsets.symmetric(
-                        vertical: DEVICE_HEIGHT * 0.02,
-                      ),
-                    ),
-                    onPressed: hasParticipant
-                        ? () async {
-                            videoCall.signInChat(
-                              userId: 'patient',
-                              token:
-                                  '007eJxTYIioO3hlQwXfmjdnsmcfMb3wYuvqz3fL6/7N394tOG2VxBIvBQajZAsTY/MkSxMT41QTMwPzxBRDM0tz4xSTFJNkI3NjswNsFzMaAhkZNNnfMTAysAIxIwOIr8JgbJicnGpsbqBrYZFioWtomGaga5mWaKBrmJZiYWFkkGqSlpgIALidKe8=',
-                            );
-                          }
-                        : null,
-                    text: hasParticipant ? 'enter_the_session'.tr : 'wait'.tr,
-                  );
-                },
-              ),
+              // GetBuilder<VideoCallController>(
+              //   id: 'participantButton',
+              //   builder: (VideoCallController videoCall) {
+              //     final bool hasParticipant = videoCall.hasParticipant;
+              //     return Btn(
+              //       style: ElevatedButton.styleFrom(
+              //         backgroundColor: hasParticipant
+              //             ? const Color(AppColors.colorLineAndText)
+              //             : const Color.fromRGBO(0, 123, 189, 0.49),
+              //         padding: EdgeInsets.symmetric(
+              //           vertical: DEVICE_HEIGHT * 0.02,
+              //         ),
+              //       ),
+              //       onPressed: hasParticipant
+              //           ? () async {
+              //               videoCall.signInChat(
+              //                 userId: 'patient',
+              //                 token:
+              //                     '007eJxTYIioO3hlQwXfmjdnsmcfMb3wYuvqz3fL6/7N394tOG2VxBIvBQajZAsTY/MkSxMT41QTMwPzxBRDM0tz4xSTFJNkI3NjswNsFzMaAhkZNNnfMTAysAIxIwOIr8JgbJicnGpsbqBrYZFioWtomGaga5mWaKBrmJZiYWFkkGqSlpgIALidKe8=',
+              //               );
+              //             }
+              //           : null,
+              //       text: hasParticipant ? 'enter_the_session'.tr : 'wait'.tr,
+              //     );
+              //   },
+              // ),
             ],
           ),
         );

@@ -661,112 +661,244 @@ class ContentProfileDoctor extends StatelessWidget {
                               vertical: DEVICE_HEIGHT * 0.04,
                               horizontal: DEVICE_WIDTH * 0.055,
                             ),
-                            height: DEVICE_HEIGHT * 0.4,
-                            child: ListView.builder(
-                              padding: EdgeInsets.zero,
-                              // itemCount: controller.commints.length,
-                              itemCount:
-                                  controller.doctorsProfile['reviews'].length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return Column(
-                                  children: <Widget>[
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Container(
-                                          width: DEVICE_WIDTH * 0.7,
-                                          decoration: BoxDecoration(
-                                            color: const Color.fromRGBO(
-                                              101,
-                                              196,
-                                              226,
-                                              0.11,
-                                            ),
-                                            borderRadius: BorderRadius.circular(
-                                              10,
-                                            ),
-                                          ),
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: DEVICE_WIDTH * 0.045,
-                                            vertical: DEVICE_HEIGHT * 0.015,
-                                          ),
-                                          child: Column(
+                            height:
+                                controller.doctorsProfile['reviews'].isNotEmpty
+                                ? DEVICE_HEIGHT * 0.4
+                                : DEVICE_HEIGHT * 0.1,
+                            child:
+                                controller.doctorsProfile['reviews'] != null &&
+                                    controller
+                                        .doctorsProfile['reviews']
+                                        .isNotEmpty
+                                ? ListView.builder(
+                                    padding: EdgeInsets.zero,
+                                    itemCount: controller
+                                        .doctorsProfile['reviews']
+                                        .length,
+                                    itemBuilder: (BuildContext context, int index) {
+                                      // ignore: always_specify_types
+                                      final review = controller
+                                          .doctorsProfile['reviews'][index];
+                                      return Column(
+                                        children: <Widget>[
+                                          Row(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: <Widget>[
-                                              CustomText(
-                                                text:
-                                                    controller
-                                                        .doctorsProfile['reviews'][index]?['doctor']
-                                                        ?.toString() ??
-                                                    'تعليق الطبيب',
-                                                fontSize: 12,
-                                                type: CustomTextType.title,
-                                                color: const Color(
-                                                  AppColors.colorLineAndText,
+                                              Container(
+                                                width: DEVICE_WIDTH * 0.7,
+                                                decoration: BoxDecoration(
+                                                  color: const Color.fromRGBO(
+                                                    101,
+                                                    196,
+                                                    226,
+                                                    0.11,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
                                                 ),
-                                              ),
-                                              SizedBox(
-                                                height: DEVICE_HEIGHT * 0.01,
-                                              ),
-                                              CustomText(
-                                                text:
-                                                    controller
-                                                        .doctorsProfile['reviews'][index]?['review']
-                                                        ?.toString() ??
-                                                    'تعليق',
-                                                fontSize: 12,
-                                                type: CustomTextType.title,
-                                                color: const Color(
-                                                  AppColors.colorLineAndText,
+                                                padding: EdgeInsets.symmetric(
+                                                  horizontal:
+                                                      DEVICE_WIDTH * 0.045,
+                                                  vertical:
+                                                      DEVICE_HEIGHT * 0.015,
                                                 ),
-                                              ),
-                                              SizedBox(
-                                                height: DEVICE_HEIGHT * 0.01,
-                                              ),
-                                              RatingBar.builder(
-                                                itemSize: 17,
-                                                initialRating:
-                                                    (controller.doctorsProfile['reviews'][index]?['callTimeRating'] ??
-                                                            0)
-                                                        .toDouble(),
-                                                minRating: 1,
-                                                ignoreGestures: true,
-                                                allowHalfRating: true,
-                                                itemPadding:
-                                                    const EdgeInsets.symmetric(
-                                                      horizontal: 1.5,
-                                                    ),
-                                                unratedColor: const Color(
-                                                  AppColors.colorWhite,
-                                                ),
-                                                itemBuilder:
-                                                    (
-                                                      BuildContext context,
-                                                      _,
-                                                    ) => const Icon(
-                                                      Icons.star,
-                                                      color: Color(
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: <Widget>[
+                                                    CustomText(
+                                                      text:
+                                                          review?['doctor']
+                                                              ?.toString() ??
+                                                          'تعليق الطبيب',
+                                                      fontSize: 12,
+                                                      type:
+                                                          CustomTextType.title,
+                                                      color: const Color(
                                                         AppColors
-                                                            .colorGoldRainsStar,
+                                                            .colorLineAndText,
                                                       ),
                                                     ),
-                                                onRatingUpdate:
-                                                    (double rating) {
-                                                      consoleLog(rating);
-                                                    },
+                                                    SizedBox(
+                                                      height:
+                                                          DEVICE_HEIGHT * 0.01,
+                                                    ),
+                                                    CustomText(
+                                                      text:
+                                                          review?['review']
+                                                              ?.toString() ??
+                                                          'تعليق',
+                                                      fontSize: 12,
+                                                      type:
+                                                          CustomTextType.title,
+                                                      color: const Color(
+                                                        AppColors
+                                                            .colorLineAndText,
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height:
+                                                          DEVICE_HEIGHT * 0.01,
+                                                    ),
+                                                    RatingBar.builder(
+                                                      itemSize: 17,
+                                                      initialRating:
+                                                          (review?['callTimeRating'] ??
+                                                                  0)
+                                                              .toDouble(),
+                                                      minRating: 1,
+                                                      ignoreGestures: true,
+                                                      allowHalfRating: true,
+                                                      itemPadding:
+                                                          const EdgeInsets.symmetric(
+                                                            horizontal: 1.5,
+                                                          ),
+                                                      unratedColor: const Color(
+                                                        AppColors.colorWhite,
+                                                      ),
+                                                      itemBuilder:
+                                                          (
+                                                            BuildContext
+                                                            context,
+                                                            _,
+                                                          ) => const Icon(
+                                                            Icons.star,
+                                                            color: Color(
+                                                              AppColors
+                                                                  .colorGoldRainsStar,
+                                                            ),
+                                                          ),
+                                                      onRatingUpdate:
+                                                          (double rating) =>
+                                                              consoleLog(
+                                                                rating,
+                                                              ),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ],
                                           ),
-                                        ),
-                                      ],
+                                          SizedBox(
+                                            height: DEVICE_HEIGHT * 0.02,
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  )
+                                : const Center(
+                                    child: CustomText(
+                                      text: 'dont_have_commint',
+                                      fontSize: 14,
+                                      type: CustomTextType.title,
+                                      color: Colors.grey,
                                     ),
-                                    SizedBox(height: DEVICE_HEIGHT * 0.02),
-                                  ],
-                                );
-                              },
-                            ),
+                                  ),
+                            // child: ListView.builder(
+                            //   padding: EdgeInsets.zero,
+                            //   itemCount:
+                            //       controller.doctorsProfile['reviews'].length,
+                            //   itemBuilder: (BuildContext context, int index) {
+                            //     return Column(
+                            //       children: <Widget>[
+                            //         Row(
+                            //           crossAxisAlignment:
+                            //               CrossAxisAlignment.start,
+                            //           children: <Widget>[
+                            //             Container(
+                            //               width: DEVICE_WIDTH * 0.7,
+                            //               decoration: BoxDecoration(
+                            //                 color: const Color.fromRGBO(
+                            //                   101,
+                            //                   196,
+                            //                   226,
+                            //                   0.11,
+                            //                 ),
+                            //                 borderRadius: BorderRadius.circular(
+                            //                   10,
+                            //                 ),
+                            //               ),
+                            //               padding: EdgeInsets.symmetric(
+                            //                 horizontal: DEVICE_WIDTH * 0.045,
+                            //                 vertical: DEVICE_HEIGHT * 0.015,
+                            //               ),
+                            //               child: Column(
+                            //                 crossAxisAlignment:
+                            //                     CrossAxisAlignment.start,
+                            //                 children: <Widget>[
+                            //                   CustomText(
+                            //                     text:
+                            //                         controller
+                            //                             .doctorsProfile['reviews'][index]?['doctor']
+                            //                             ?.toString() ??
+                            //                         'تعليق الطبيب',
+                            //                     fontSize: 12,
+                            //                     type: CustomTextType.title,
+                            //                     color: const Color(
+                            //                       AppColors.colorLineAndText,
+                            //                     ),
+                            //                   ),
+                            //                   SizedBox(
+                            //                     height: DEVICE_HEIGHT * 0.01,
+                            //                   ),
+                            //                   CustomText(
+                            //                     text:
+                            //                         controller
+                            //                             .doctorsProfile['reviews'][index]?['review']
+                            //                             ?.toString() ??
+                            //                         'تعليق',
+                            //                     fontSize: 12,
+                            //                     type: CustomTextType.title,
+                            //                     color: const Color(
+                            //                       AppColors.colorLineAndText,
+                            //                     ),
+                            //                   ),
+                            //                   SizedBox(
+                            //                     height: DEVICE_HEIGHT * 0.01,
+                            //                   ),
+                            //                   RatingBar.builder(
+                            //                     itemSize: 17,
+                            //                     initialRating:
+                            //                         (controller.doctorsProfile['reviews'][index]?['callTimeRating'] ??
+                            //                                 0)
+                            //                             .toDouble(),
+                            //                     minRating: 1,
+                            //                     ignoreGestures: true,
+                            //                     allowHalfRating: true,
+                            //                     itemPadding:
+                            //                         const EdgeInsets.symmetric(
+                            //                           horizontal: 1.5,
+                            //                         ),
+                            //                     unratedColor: const Color(
+                            //                       AppColors.colorWhite,
+                            //                     ),
+                            //                     itemBuilder:
+                            //                         (
+                            //                           BuildContext context,
+                            //                           _,
+                            //                         ) => const Icon(
+                            //                           Icons.star,
+                            //                           color: Color(
+                            //                             AppColors
+                            //                                 .colorGoldRainsStar,
+                            //                           ),
+                            //                         ),
+                            //                     onRatingUpdate:
+                            //                         (double rating) {
+                            //                           consoleLog(rating);
+                            //                         },
+                            //                   ),
+                            //                 ],
+                            //               ),
+                            //             ),
+                            //           ],
+                            //         ),
+                            //         SizedBox(height: DEVICE_HEIGHT * 0.02),
+                            //       ],
+                            //     );
+                            //   },
+                            // ),
                           ),
                       ],
                     ),

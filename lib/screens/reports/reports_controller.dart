@@ -3,7 +3,7 @@ import '../../general_exports.dart';
 class ReportsController extends GetxController {
   int isSelected = 0;
   final double widthSelected = DEVICE_WIDTH <= 380 ? 0.45 : 0.48;
-  final double sizeTextSelected = DEVICE_WIDTH <= 380 ? 11 : 15;
+  final double sizeTextSelected = DEVICE_WIDTH <= 380 ? 11 : 12;
   RxList<String> heHasExperienceIn = <String>[].obs;
   int? passedIndex = 0;
   int? get selectedDoctorId => passedIndex;

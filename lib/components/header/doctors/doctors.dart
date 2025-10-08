@@ -89,10 +89,8 @@ class DoctorsStatusBar extends StatelessWidget {
                               width: 0.8,
                             ),
                           ),
-                          margin: const EdgeInsets.only(top: 13),
-                          padding: EdgeInsets.symmetric(
-                            vertical: DEVICE_HEIGHT * 0.025,
-                          ),
+                          margin: const EdgeInsets.only(top: 12),
+                          padding: const EdgeInsets.symmetric(vertical: 17),
                           child: SvgPicture.asset(
                             iconFilter,
                             width: DEVICE_WIDTH * 0.018,

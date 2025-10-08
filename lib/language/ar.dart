@@ -11,6 +11,7 @@ const Map<String, String> ar = <String, String>{
   'save': 'حفظ',
   'dont_have_times': 'لا توجد مواعيد متاحة',
   'again': 'إعادة المحاولة',
+  'dont_have_commint': 'لا يوجد تعليقات',
   'not_found_medical_profile_section': 'الرجاء التحقق من الدخول او الأنترنت',
   'name': 'الاسم',
   'details_about_you': 'تفاصيل عامة عنك',

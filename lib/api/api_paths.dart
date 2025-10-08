@@ -1,5 +1,5 @@
 const String basePath = 'authentication';
-const String appotntmentControllersPath = 'appointment-controllers';
+const String appotntmentControllersPath = 'appointment';
 const String meetingPath = 'meeting';
 
 // ******************** authentication ********************

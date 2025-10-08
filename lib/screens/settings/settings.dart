@@ -16,7 +16,7 @@ class Settings extends StatelessWidget {
             children: <Widget>[
               Container(
                 padding: EdgeInsets.symmetric(
-                  horizontal: DEVICE_HEIGHT * 0.027,
+                  horizontal: DEVICE_HEIGHT * 0.007,
                 ),
                 margin: EdgeInsets.only(top: DEVICE_HEIGHT * 0.1),
                 child: Column(

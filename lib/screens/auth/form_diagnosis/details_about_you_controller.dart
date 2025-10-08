@@ -141,10 +141,6 @@ class DetailsAboutYouController extends GetxController {
     isLoading = true;
     update();
 
-    consoleLog('Name: ${stepsController.name}');
-    consoleLog('IsMale: ${stepsController.myIsMale}');
-    consoleLog('BirthDate: ${stepsController.barthDay}');
-
     final FormData formData = FormData.fromMap(<String, dynamic>{
       keyName: stepsController.name,
       isMale: stepsController.myIsMale,
@@ -155,10 +151,6 @@ class DetailsAboutYouController extends GetxController {
       city: selectedCity,
       cityId: selectedCityId,
     });
-
-    for (final MapEntry<String, String> field in formData.fields) {
-      consoleLog('keys: ${field.key}: value: ${field.value}');
-    }
 
     await ApiRequest(
       path: '$patient/${stepsController.patientId}',

@@ -18,6 +18,14 @@ class RecentBookings extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  final ChangeParamContentAndNextPage change = Get.find();
+                  change.goToComponentHeader.value = 'waitingForYourTurn';
+                  change.update();
+                },
+                child: const Text('test'),
+              ),
               CustomText(
                 text: 'Recent_bookings'.tr,
                 fontSize: 18,
