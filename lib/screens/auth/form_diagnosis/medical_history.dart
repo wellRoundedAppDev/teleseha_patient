@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import '../../../../general_exports.dart';
 
 class MedicalHistory extends StatelessWidget {
@@ -213,6 +215,20 @@ class MedicalHistory extends StatelessWidget {
                                                       onTap: () {
                                                         item['isSelected'] =
                                                             !isSelected;
+
+                                                        // final hasSelectedItems =
+                                                        //     subItem['items'].any(
+                                                        //       (itm) =>
+                                                        //           itm['isSelected'] ==
+                                                        //           true,
+                                                        //     );
+
+                                                        // if (hasSelectedItems) {
+                                                        //   consoleLog(
+                                                        //     '✅ Selected subSection for current question: ${jsonEncode(subItem)}',
+                                                        //   );
+                                                        // }
+
                                                         controller.update();
                                                       },
                                                       child: Row(

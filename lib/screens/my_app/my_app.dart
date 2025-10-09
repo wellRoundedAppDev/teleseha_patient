@@ -25,8 +25,9 @@ class MyApp extends StatelessWidget {
           GlobalCupertinoLocalizations.delegate,
         ],
         translations: Translation(),
-        debugShowCheckedModeBanner: false,        
-        initialRoute: routeFingerPrint,
+        debugShowCheckedModeBanner: false,
+        // initialRoute: routeFingerPrint,
+        initialRoute: routeFormDiagnosis,
         // initialRoute: routeScreen,
         getPages: appRoutes,
         builder: (BuildContext context, Widget? child) {
