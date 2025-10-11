@@ -71,6 +71,7 @@ class ContentArea extends StatelessWidget {
                       textBtn: 'home_page'.tr,
                       titleSpecializationSelected: 'thanks_booked_success'.tr,
                       textSpecializationSelected: 'please_arrive_on_time'.tr,
+                      textSpecializationSelectedText: 'alert_mony'.tr,
                       onPressed: () {
                         // ignore: non_constant_identifier_names
                         final HomePageContentController HomePage = Get.find();

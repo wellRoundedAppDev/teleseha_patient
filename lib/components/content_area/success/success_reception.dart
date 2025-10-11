@@ -10,12 +10,14 @@ class SuccessReception extends StatelessWidget {
     this.textSpecializationSelected,
     this.textBtn,
     this.onPressed,
+    this.textSpecializationSelectedText,
   });
 
   bool? receptionTextStatus;
   String? titleSpecializationSelected;
   String? textSpecializationSelected;
   String? textBtn;
+  String? textSpecializationSelectedText;
   Function? onPressed;
 
   @override
@@ -53,9 +55,17 @@ class SuccessReception extends StatelessWidget {
                     type: CustomTextType.title,
                     color: const Color(AppColors.colorLineAndText),
                   ),
-                  SizedBox(height: DEVICE_HEIGHT * 0.015),
+                  SizedBox(height: DEVICE_HEIGHT * 0.025),
                   CustomText(
                     text: textSpecializationSelected,
+                    fontSize: 13,
+                    type: CustomTextType.title,
+                    color: const Color.fromRGBO(0, 0, 0, 0.54),
+                  ),
+                  SizedBox(height: DEVICE_HEIGHT * 0.025),
+                  CustomText(
+                    textAlign: TextAlign.center,
+                    text: textSpecializationSelectedText,
                     fontSize: 13,
                     type: CustomTextType.title,
                     color: const Color.fromRGBO(0, 0, 0, 0.54),

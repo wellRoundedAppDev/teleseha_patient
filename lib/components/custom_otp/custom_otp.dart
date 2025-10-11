@@ -18,7 +18,7 @@ class CustomOtp extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 SizedBox(height: DEVICE_HEIGHT * 0.1),
-                const Logo(),
+                Logo(),
                 SizedBox(height: DEVICE_HEIGHT * 0.10),
                 Center(
                   child: Column(

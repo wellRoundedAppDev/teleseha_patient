@@ -125,7 +125,7 @@ class PatternLock extends StatelessWidget {
                               vertical: DEVICE_HEIGHT * 0.038,
                               horizontal: DEVICE_HEIGHT * 0.03,
                             ),
-                            child: const Directionality(
+                            child: Directionality(
                               textDirection: TextDirection.rtl,
                               child: Logo(),
                             ),

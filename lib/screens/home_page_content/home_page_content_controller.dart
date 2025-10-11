@@ -7,7 +7,6 @@ class HomePageContentController extends GetxController {
   String testNameUserData = 'name_user'.tr;
 
   // here check response if have last reservations
-  int nextReservation = 3;
   int selectedSpecialtyIndex = 0;
   int selectedIndex = 2;
   String selectedacademicDegree = 'Consultant';
@@ -17,7 +16,9 @@ class HomePageContentController extends GetxController {
   RxDouble currentSliderValue = 100.0.obs;
   bool isLoading = false;
   String? accessToken;
+  int? loukMyPatientId;
   bool? isShowPage = true;
+  String? nextReservationMinute;
 
   LocalStorage localStorage = LocalStorage();
 
@@ -28,6 +29,7 @@ class HomePageContentController extends GetxController {
     super.onInit();
     specialityRequest();
     _loadUserName();
+    _checkCommingRequest();
   }
 
   Future<void> _loadUserName() async {
@@ -38,8 +40,10 @@ class HomePageContentController extends GetxController {
     if (userJson != null) {
       final Map<String, dynamic> userMap = jsonDecode(userJson);
       final String? name = userMap['patients']?[0]?['name'];
+      final int? patientId = userMap['patients']?[0]?['patientId'];
       if (name != null && name.isNotEmpty) {
         testNameUserData = name;
+        loukMyPatientId = patientId;
       }
     }
   }
@@ -122,34 +126,41 @@ class HomePageContentController extends GetxController {
   }
 
   // ignore: always_specify_types
-  // List checkComming = <dynamic>[];
-  // Future<void> checkCommingRequest() async {
-  //   isLoading = true;
-  //   update();
-  //   accessToken = await localStorage.readFromStorage(storageAccessToken);
-  //   await ApiRequest(
-  //     path: checkCommingPath,
-  //     className: '',
-  //     formatResponse: true,
-  //     header: <String, dynamic>{
-  //       'Content-Type': 'application/json',
-  //       'Accept': '*/*',
-  //       'Authorization': 'Bearer $accessToken',
-  //     },
-  //   ).request(
-  //     onSuccess: (dynamic data, dynamic response) async {
-  //       checkComming = response ?? <dynamic>[];
-  //       update();
-  //     },
-  //     // ignore: always_specify_types
-  //     onError: (error) {
-  //       update();
-  //       return null;
-  //     },
-  //   );
-  //   isLoading = false;
-  //   update();
-  // }
+  Map<String, dynamic> checkComming = {};
+  Future<void> _checkCommingRequest() async {
+    isLoading = true;
+    update();
+    accessToken = await localStorage.readFromStorage(storageAccessToken);
+    await ApiRequest(
+      path: '$checkCommingPath/$loukMyPatientId',
+      className: '',
+      formatResponse: true,
+      header: <String, dynamic>{
+        'Content-Type': 'application/json',
+        'Accept': '*/*',
+        'Authorization': 'Bearer $accessToken',
+      },
+    ).request(
+      onSuccess: (dynamic data, dynamic response) async {
+        if (response != null && response is Map<String, dynamic>) {
+          checkComming = response;
+          final String? nextDateTimeStr = response['next_date_time'];
+          if (nextDateTimeStr != null) {
+            final DateTime dateTime = DateTime.parse(nextDateTimeStr);
+            nextReservationMinute = dateTime.minute.toString().padLeft(2, '0');
+          }
+          update();
+        }
+      },
+      // ignore: always_specify_types
+      onError: (error) {
+        update();
+        return null;
+      },
+    );
+    isLoading = false;
+    update();
+  }
 
   Future<void> openContentDoctorsAboutSelected(int index) async {
     final ChangeParamContentAndNextPage changeParam = Get.find();

@@ -69,50 +69,26 @@ class MedicalHistoryController extends GetxController {
     update();
   }
 
-  Future<void> sendAnswer() async {
-    isSendingAnswer = true;
-    update();
-
-    final StartStepsController stepsController =
-        Get.find<StartStepsController>();
-
-    accessToken = await localStorage.readFromStorage(storageAccessToken);
-
-    await ApiRequest(
-      path: '$pathPatientMedicalProfileSection/$loukMyPatientId/$currentStep',
-      className: '',
-      formatResponse: true,
-      header: <String, dynamic>{
-        'Authorization': 'Bearer $accessToken',
-        'Content-Type': 'application/json',
-      },
-    ).request(
-      // ignore: always_specify_types
-      onSuccess: (data, response) {
-        currentStep = response['sectionId'];
-        sectionName = response['sectionName'];
-      },
-      onError: (error) {
-        return null;
-      },
-    );
-    isSendingAnswer = false;
-    update();
-  }
-
   Future<void> patientMedicalProfileSectionPost(
     Map<String, dynamic> currentQuestion,
   ) async {
+    // ignore: always_specify_types
     final currentQuestion = questions[currentStep - 1];
+    // ignore: always_specify_types
     final subSections = currentQuestion['subSection'] ?? <dynamic>[];
     final List<Map<String, dynamic>> selectedSubSections =
         <Map<String, dynamic>>[];
 
+    // ignore: always_specify_types
     for (final sub in subSections) {
+      // ignore: always_specify_types
       final items = sub['items'] ?? <dynamic>[];
 
+      // ignore: always_specify_types
       final selectedItems = items
+          // ignore: always_specify_types
           .where((item) => item['isSelected'] == true)
+          // ignore: always_specify_types
           .map((item) {
             return <String, dynamic>{
               itemId: item['itemId'],
@@ -137,7 +113,7 @@ class MedicalHistoryController extends GetxController {
     final Map<String, Object?> bodyData = <String, Object?>{
       myPatientId: loukMyPatientId,
       section: <String?, dynamic>{
-        sectionId: currentStep,
+        sectionId: currentQuestion['sectionId'],
         logukSectionName: currentQuestion['sectionName'] ?? '',
         sectionSubSection: selectedSubSections,
       },
@@ -151,9 +127,16 @@ class MedicalHistoryController extends GetxController {
       header: <String, dynamic>{'Authorization': 'Bearer $accessToken'},
       body: bodyData,
     ).request(
+      // ignore: always_specify_types
       onSuccess: (data, response) async {
         isLoading = false;
-        // await sendAnswer();
+        final String? nextStep = response['nextStepEnum']?.toString();
+        if (nextStep == 'ContinueMedicalProfile') {
+          ++currentStep;
+          update();
+        } else {
+          Get.toNamed(details);
+        }
         update();
       },
       onError: (error) {
@@ -171,17 +154,23 @@ class MedicalHistoryController extends GetxController {
     );
   }
 
-  Future<void> nextStep() async {
-    if (isLoading) return;
-
-    if (currentStep < questions.length) {
-      await patientMedicalProfileSectionPost(questions[currentStep - 1]);
-      ++currentStep;
+  Future<void> prevMedicalProfileSection() async {
+    if (currentStep > 1) {
+      currentStep--;
+      sectionName = questions[currentStep - 1]['sectionName'];
       update();
-    } else {
-      Get.toNamed(details);
     }
   }
+
+  // Future<void> nextStep() async {
+  //   if (isLoading) return;
+
+  //   if (currentStep < questions.length) {
+  //     await patientMedicalProfileSectionPost(questions[currentStep - 1]);
+  //   } else {
+  //     Get.toNamed(details);
+  //   }
+  // }
 
   bool get hasSelectedAnswer {
     if (questions.isEmpty) return false;

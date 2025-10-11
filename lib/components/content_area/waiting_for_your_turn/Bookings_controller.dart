@@ -1,6 +1,9 @@
 import 'dart:async';
+import 'dart:convert' show jsonDecode;
 
-import '../../../general_exports.dart';
+import 'package:intl/intl.dart';
+
+import '../../../general_exports.dart' hide FormData;
 
 class BookingsController extends GetxController {
   int? passedIndex = 0;
@@ -12,6 +15,7 @@ class BookingsController extends GetxController {
   int remainingMinutes = 1;
   bool isLoading = false;
   String? accessToken;
+  int? loukMyPatientId;
 
   LocalStorage localStorage = LocalStorage();
 
@@ -26,8 +30,34 @@ class BookingsController extends GetxController {
       update();
     });
 
+    _loadUserName();
     _comming();
     // _sessionWaitingData();
+  }
+
+  Future<void> _loadUserName() async {
+    final String? userJson = await localStorage.readFromStorage(
+      storageUserData,
+    );
+
+    if (userJson != null) {
+      final Map<String, dynamic> userMap = jsonDecode(userJson);
+      final String? name = userMap['patients']?[0]?['name'];
+      final int? patientId = userMap['patients']?[0]?['patientId'];
+      if (name != null && name.isNotEmpty) {
+        loukMyPatientId = patientId;
+      }
+    }
+  }
+
+  String formatDate(String dateStr) {
+    try {
+      final DateTime date = DateTime.parse(dateStr);
+      final String formatted = DateFormat('dd MMMM', 'ar').format(date);
+      return formatted;
+    } catch (e) {
+      return 'تاريخ غير صالح';
+    }
   }
 
   // ignore: always_specify_types
@@ -37,7 +67,7 @@ class BookingsController extends GetxController {
     update();
     accessToken = await localStorage.readFromStorage(storageAccessToken);
     await ApiRequest(
-      path: comming,
+      path: '$comming/$loukMyPatientId',
       className: '',
       formatResponse: true,
       header: <String, dynamic>{
@@ -52,7 +82,6 @@ class BookingsController extends GetxController {
       },
       // ignore: always_specify_types
       onError: (error) {
-        // specialtiesWithSub = 'not_found_medical_profile_section'.tr;
         update();
         return null;
       },
@@ -60,37 +89,6 @@ class BookingsController extends GetxController {
     isLoading = false;
     update();
   }
-
-  // ignore: always_specify_types
-  // List lastWatingData = <dynamic>[];
-  // Future<void> _sessionWaitingData() async {
-  //   isLoading = true;
-  //   update();
-  //   accessToken = await localStorage.readFromStorage(storageAccessToken);
-  //   await ApiRequest(
-  //     path: '$session/$selectedRecentBookingsId',
-  //     className: '',
-  //     formatResponse: true,
-  //     header: <String, dynamic>{
-  //       'Content-Type': 'application/json',
-  //       'Accept': '*/*',
-  //       'Authorization': 'Bearer $accessToken',
-  //     },
-  //   ).request(
-  //     onSuccess: (dynamic data, dynamic response) async {
-  //       lastWatingData = response ?? <dynamic>[];
-  //       update();
-  //     },
-  //     // ignore: always_specify_types
-  //     onError: (error) {
-  //       // specialtiesWithSub = 'not_found_medical_profile_section'.tr;
-  //       update();
-  //       return null;
-  //     },
-  //   );
-  //   isLoading = false;
-  //   update();
-  // }
 
   Future<void> chatPostRequest() async {
     await ApiRequest(
@@ -103,7 +101,7 @@ class BookingsController extends GetxController {
         'Accept': '*/*',
         'Authorization': 'Bearer $accessToken',
       },
-      body: {
+      body: <String, Object>{
         rating: 3,
         review: 'string',
         callTimeRating: 3,
@@ -127,70 +125,6 @@ class BookingsController extends GetxController {
       },
     );
   }
-
-  // ignore: always_specify_types
-  // List lastRecent = [
-  //   <String, Object>{
-  //     'id': 1,
-  //     'image': imageDoctor,
-  //     'name': 'name_doctor1',
-  //     'specialization': 'general_internal_affairs',
-  //     'range': '4.9',
-  //     'reveal': 'detection_times'.tr,
-  //     'date': 'accosts'.tr,
-  //     'time': '2:00',
-  //   },
-  //   <String, Object>{
-  //     'id': 2,
-  //     'image': imageDoctorDetails,
-  //     'name': 'name_doctor2',
-  //     'specialization': 'general_internal_affairs',
-  //     'range': '4.9',
-  //     'reveal': 'detection_times'.tr,
-  //     'date': 'accosts'.tr,
-  //     'time': '2:00',
-  //   },
-  //   <String, Object>{
-  //     'id': 3,
-  //     'image': imageDoctor,
-  //     'name': 'name_doctor1',
-  //     'specialization': 'general_internal_affairs',
-  //     'range': '4.9',
-  //     'reveal': 'detection_times'.tr,
-  //     'date': 'accosts'.tr,
-  //     'time': '2:00',
-  //   },
-  //   <String, Object>{
-  //     'id': 4,
-  //     'image': imageDoctor,
-  //     'name': 'name_doctor1',
-  //     'specialization': 'general_internal_affairs',
-  //     'range': '4.9',
-  //     'reveal': 'detection_times'.tr,
-  //     'date': 'accosts'.tr,
-  //     'time': '2:00',
-  //   },
-  //   <String, Object>{
-  //     'id': 5,
-  //     'image': imageDoctor,
-  //     'name': 'name_doctor1',
-  //     'specialization': 'general_internal_affairs',
-  //     'range': '4.9',
-  //     'reveal': 'detection_times'.tr,
-  //     'date': 'accosts'.tr,
-  //     'time': '2:00',
-  //   },
-  //   <String, Object>{
-  //     'id': 6,
-  //     'image': imageDoctor,
-  //     'name': 'name_doctor1',
-  //     'specialization': 'general_internal_affairs',
-  //     'range': '4.9',
-  //     'reveal': 'detection_times'.tr,
-  //     'date': 'accosts'.tr,
-  //     'time': '2:00',
-  //   },
-  // ];
 
   // void selectedLastRecentFunction() {
   //   selectedLastRecent = lastRecent.firstWhere(

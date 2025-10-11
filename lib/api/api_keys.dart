@@ -24,6 +24,7 @@ const String cityId = 'CityId';
 const String myPatientId = 'patientId';
 const String sectionId = 'sectionId';
 const String logukSectionName = 'sectionName';
+const String mySessionId = 'SessionId';
 const String sectionSubSection = 'subSections';
 const String subSectionId = 'subSectionId';
 const String subSectionName = 'subSectionName';

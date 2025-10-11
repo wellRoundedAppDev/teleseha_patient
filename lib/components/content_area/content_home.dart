@@ -15,111 +15,99 @@ class ContentHome extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            // if (controller.checkComming.isNotEmpty)
-            GestureDetector(
-              onTap: () {
-                change.goToComponentHeader.value = 'RecentBookings';
-                change.update();
-              },
-              child: Container(
-                padding: EdgeInsets.all(DEVICE_WIDTH * 0.047),
-                decoration: BoxDecoration(
-                  color: const Color(AppColors.colorLastReception),
-                  borderRadius: BorderRadius.circular(DEVICE_HEIGHT * 0.024),
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                      color: const Color(0xFFD8DADC).withValues(alpha: 0.4),
-                      blurRadius: 6,
-                      spreadRadius: 2,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            CustomText(
-                              text: 'Recent_bookings'.tr,
-                              fontSize: 16,
-                              type: CustomTextType.title,
-                              color: const Color(AppColors.colorLineAndText),
-                            ),
-                            SizedBox(width: DEVICE_WIDTH * 0.01),
-                            SvgPicture.asset(
-                              iconRecentBookings,
-                              width: DEVICE_WIDTH * 0.1,
-                              height: DEVICE_HEIGHT * 0.02,
-                              fit: BoxFit.cover,
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: DEVICE_HEIGHT * 0.01),
-                        Row(
-                          children: <Widget>[
-                            CustomText(
-                              text: 'nearest_reservation'.tr,
-                              fontSize: 12,
-                              type: CustomTextType.title,
-                              color: const Color(AppColors.colorSuccessLine),
-                            ),
-                            SizedBox(width: DEVICE_WIDTH * 0.02),
-                            SvgPicture.asset(
-                              iconTime,
-                              width: DEVICE_WIDTH * 0.018,
-                              height: DEVICE_HEIGHT * 0.018,
-                              fit: BoxFit.cover,
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: DEVICE_HEIGHT * 0.01),
-                        Row(
-                          children: <Widget>[
-                            CustomText(
-                              text:
-                                  '${'next_reservation'.tr} ${controller.nextReservation}',
-                              fontSize: 12,
-                              type: CustomTextType.title,
-                              color: const Color(AppColors.colorLineAndText),
-                            ),
-                            SizedBox(width: DEVICE_WIDTH * 0.01),
-                            SvgPicture.asset(
-                              iconDateNextReservation,
-                              width: DEVICE_WIDTH * 0.018,
-                              height: DEVICE_HEIGHT * 0.018,
-                              fit: BoxFit.cover,
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: DEVICE_HEIGHT * 0.011),
-                        CustomText(
-                          text: 'click_view_details'.tr,
-                          fontSize: 12,
-                          type: CustomTextType.button,
-                          color: const Color(AppColors.colorTextSkep),
-                        ),
-                      ],
-                    ),
-                    SvgPicture.asset(
-                      iconArrowRecentBookings,
-                      width: 40,
-                      height: 38,
-                    ),
-                  ],
+            if (controller.checkComming.isNotEmpty)
+              GestureDetector(
+                onTap: () {
+                  change.goToComponentHeader.value = 'RecentBookings';
+                  change.update();
+                },
+                child: Container(
+                  padding: EdgeInsets.all(DEVICE_WIDTH * 0.047),
+                  decoration: BoxDecoration(
+                    color: const Color(AppColors.colorLastReception),
+                    borderRadius: BorderRadius.circular(DEVICE_HEIGHT * 0.024),
+                    boxShadow: <BoxShadow>[
+                      BoxShadow(
+                        color: const Color(0xFFD8DADC).withValues(alpha: 0.4),
+                        blurRadius: 6,
+                        spreadRadius: 2,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          CustomText(
+                            text: 'Recent_bookings'.tr,
+                            fontSize: 16,
+                            type: CustomTextType.title,
+                            color: const Color(AppColors.colorLineAndText),
+                          ),
+                          SizedBox(height: DEVICE_HEIGHT * 0.01),
+                          Row(
+                            children: <Widget>[
+                              CustomText(
+                                text:
+                                    '${'next_reservation'.tr} ${controller.checkComming['count'] ?? 0}',
+                                fontSize: 12,
+                                type: CustomTextType.title,
+                                color: const Color(AppColors.colorLineAndText),
+                              ),
+                              SizedBox(width: DEVICE_WIDTH * 0.01),
+                              SvgPicture.asset(
+                                iconDateNextReservation,
+                                width: DEVICE_WIDTH * 0.018,
+                                height: DEVICE_HEIGHT * 0.018,
+                                fit: BoxFit.cover,
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: DEVICE_HEIGHT * 0.01),
+                          Row(
+                            children: <Widget>[
+                              CustomText(
+                                text:
+                                    '${'nearest_reservation'.tr} ${controller.nextReservationMinute ?? 0} ${'minutes'.tr}',
+                                fontSize: 12,
+                                type: CustomTextType.title,
+                                color: const Color(AppColors.colorSuccessLine),
+                              ),
+                              SizedBox(width: DEVICE_WIDTH * 0.02),
+                              SvgPicture.asset(
+                                iconTime,
+                                width: DEVICE_WIDTH * 0.018,
+                                height: DEVICE_HEIGHT * 0.018,
+                                fit: BoxFit.cover,
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: DEVICE_HEIGHT * 0.011),
+                          CustomText(
+                            text: 'click_view_details'.tr,
+                            fontSize: 12,
+                            type: CustomTextType.button,
+                            color: const Color(AppColors.colorTextSkep),
+                          ),
+                        ],
+                      ),
+                      SvgPicture.asset(
+                        iconArrowRecentBookings,
+                        width: 40,
+                        height: 38,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            // else
-            //   const SizedBox(),
-            // if (controller.checkComming.isNotEmpty)
-            //   SizedBox(height: DEVICE_HEIGHT * 0.02)
-            // else
-            //   const SizedBox(),
+            if (controller.checkComming.isNotEmpty)
+              SizedBox(height: DEVICE_HEIGHT * 0.02)
+            else
+              const SizedBox(),
             Container(
               margin: EdgeInsets.only(
                 top: DEVICE_HEIGHT * 0.01,

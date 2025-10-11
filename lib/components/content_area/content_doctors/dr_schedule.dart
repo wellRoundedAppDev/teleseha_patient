@@ -6,7 +6,6 @@ class DrSchedule extends StatelessWidget {
   const DrSchedule({super.key});
   @override
   Widget build(BuildContext context) {
-    final ChangeParamContentAndNextPage change = Get.find();
     return GetBuilder<DoctorsController>(
       initState: (_) {
         final DoctorsController controller = Get.find<DoctorsController>();
@@ -319,12 +318,14 @@ class DrSchedule extends StatelessWidget {
                                 ) {
                                   final String startTime = session['start'];
                                   final String endTime = session['end'];
+                                  final int sessionId = session['sessionId'];
                                   final bool isSelected =
                                       controller.selectedTime == startTime;
-
                                   return GestureDetector(
                                     onTap: () {
+                                      controller.selectedSessionId = sessionId;
                                       controller.selectedTime = startTime;
+                                      controller.isSelected = 1;
                                       controller.update();
                                     },
                                     child: Container(
@@ -352,7 +353,8 @@ class DrSchedule extends StatelessWidget {
                                             MainAxisAlignment.center,
                                         children: <Widget>[
                                           CustomText(
-                                            text: startTime,
+                                            text:
+                                                ' ${controller.getTimePeriod(startTime)} ${startTime.substring(0, 5)} ',
                                             type: CustomTextType.title,
                                             fontSize: 12,
                                             color: isSelected
@@ -387,88 +389,6 @@ class DrSchedule extends StatelessWidget {
                                   );
                                 }).toList(),
                               ),
-                        // child: Wrap(
-                        //   spacing: DEVICE_WIDTH * 0.04,
-                        //   runSpacing: DEVICE_HEIGHT * 0.013,
-                        //   children: controller.doctorsProfileSessions
-                        //       .where(
-                        //         (Map<String, dynamic> session) =>
-                        //             session['date'] ==
-                        //             controller.savedDateWithDay,
-                        //       )
-                        //       .map<Widget>((Map<String, dynamic> session) {
-                        //         final String startTime = session['start'];
-                        //         final String endTime = session['end'];
-
-                        //         final bool isSelected =
-                        //             controller.selectedTime == startTime;
-
-                        //         return GestureDetector(
-                        //           onTap: () {
-                        //             controller.selectedTime = startTime;
-                        //             controller.update();
-                        //           },
-                        //           child: Container(
-                        //             alignment: Alignment.center,
-                        //             width: DEVICE_WIDTH * 0.415,
-                        //             decoration: BoxDecoration(
-                        //               color: isSelected
-                        //                   ? const Color(
-                        //                       AppColors.colorLineAndText,
-                        //                     )
-                        //                   : const Color.fromRGBO(
-                        //                       171,
-                        //                       211,
-                        //                       233,
-                        //                       0.50,
-                        //                     ),
-                        //               borderRadius: BorderRadius.circular(20),
-                        //             ),
-                        //             padding: EdgeInsets.symmetric(
-                        //               horizontal: DEVICE_WIDTH * 0.033,
-                        //               vertical: DEVICE_HEIGHT * 0.013,
-                        //             ),
-                        //             child: Row(
-                        //               mainAxisAlignment:
-                        //                   MainAxisAlignment.center,
-                        //               children: <Widget>[
-                        //                 CustomText(
-                        //                   text: startTime,
-                        //                   type: CustomTextType.title,
-                        //                   fontSize: 12,
-                        //                   color: isSelected
-                        //                       ? Colors.white
-                        //                       : const Color(
-                        //                           AppColors.colorLineAndText,
-                        //                         ),
-                        //                 ),
-                        //                 CustomText(
-                        //                   text: ' - ',
-                        //                   type: CustomTextType.title,
-                        //                   fontSize: 12,
-                        //                   color: isSelected
-                        //                       ? Colors.white
-                        //                       : const Color(
-                        //                           AppColors.colorLineAndText,
-                        //                         ),
-                        //                 ),
-                        //                 CustomText(
-                        //                   text: endTime,
-                        //                   type: CustomTextType.title,
-                        //                   fontSize: 12,
-                        //                   color: isSelected
-                        //                       ? Colors.white
-                        //                       : const Color(
-                        //                           AppColors.colorLineAndText,
-                        //                         ),
-                        //                 ),
-                        //               ],
-                        //             ),
-                        //           ),
-                        //         );
-                        //       })
-                        //       .toList(),
-                        // ),
                       ),
                     ),
                   ],
@@ -477,11 +397,10 @@ class DrSchedule extends StatelessWidget {
               Align(
                 child: Btn(
                   onPressed: () {
-                    controller.saveDateWithDay();
-                    // change.goToComponentHeader.value = 'enterSymptoms';
-                    // change.update();
+                    controller.sendSelectedSession();
                   },
                   text: 'reservation'.tr,
+                  isLoading: controller.isLoading,
                 ),
               ),
               SizedBox(height: DEVICE_HEIGHT * 0.1),

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import '../../../../general_exports.dart';
 
 class MedicalHistory extends StatelessWidget {
@@ -17,7 +15,7 @@ class MedicalHistory extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   SizedBox(height: DEVICE_HEIGHT * 0.1),
-                  const Logo(),
+                  Logo(controllerBack: false),
                   SizedBox(height: DEVICE_HEIGHT * 0.035),
                   CustomText(
                     text: 'medical_history'.tr,
@@ -348,7 +346,10 @@ class MedicalHistory extends StatelessWidget {
                         text: 'next'.tr,
                         onPressed: controller.hasSelectedAnswer
                             ? () {
-                                controller.nextStep();
+                                controller.patientMedicalProfileSectionPost(
+                                  controller.questions[controller.currentStep -
+                                      1],
+                                );
                               }
                             : null,
                         style: ElevatedButton.styleFrom(

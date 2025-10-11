@@ -1,7 +1,9 @@
-// ignore: depend_on_referenced_packages
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
 
-import '../../general_exports.dart';
+import '../../../general_exports.dart' hide FormData;
 
 class WeekDay {
   WeekDay({
@@ -16,11 +18,15 @@ class WeekDay {
 
 class DoctorsController extends GetxController {
   TextEditingController filterDoctors = TextEditingController();
+  final ChangeParamContentAndNextPage change = Get.find();
 
+  bool isLoading = false;
   bool showDoctors = false;
+  List<int> sessionIds = <int>[];
 
   final double widthSelected = DEVICE_WIDTH <= 380 ? 0.38 : 0.4;
   final double sizeTextSelected = DEVICE_WIDTH <= 380 ? 11 : 15;
+  RxList<Map<String, dynamic>> filteredSessions = <Map<String, dynamic>>[].obs;
 
   int? passedIndex = 0;
   int? get selectedDoctorId => passedIndex;
@@ -36,9 +42,6 @@ class DoctorsController extends GetxController {
   RxList<Map<String, dynamic>> qualifications = <Map<String, dynamic>>[].obs;
   RxList<String> heHasExperienceIn = <String>[].obs;
   RxList<String> clinicalExperience = <String>[].obs;
-
-  int? _lastCalledSpecialityId;
-
   String selectedMonthName = DateFormat(
     'MMMM yyyy',
     'ar',
@@ -47,6 +50,14 @@ class DoctorsController extends GetxController {
   bool selectedGeneralOrSpecializedMajor = true;
 
   int isSelected = 0;
+  int? selectedIndex;
+  int? selectedSessionId;
+
+  void updateSelectedSession() {
+    if (selectedIndex != null && doctorsProfileSessions.isNotEmpty) {
+      selectedSessionId = doctorsProfileSessions[selectedIndex!]['sessionId'];
+    }
+  }
 
   RxList<WeekDay> weekDays = <WeekDay>[].obs;
   String currentDay = '';
@@ -54,10 +65,23 @@ class DoctorsController extends GetxController {
   String savedDateWithDay = '';
 
   String? selectedTime;
-
+  int? loukMyPatientId;
   DateTime selectedDate = DateTime.now();
 
   TextEditingController yourCommentOnTheSession = TextEditingController();
+
+  Future<void> _loadPatientId() async {
+    final String? userJson = await localStorage.readFromStorage(
+      storageUserData,
+    );
+    if (userJson != null) {
+      final Map<String, dynamic> userMap = jsonDecode(userJson);
+      final int? patientId = userMap['patients']?[0]?['patientId'];
+      if (patientId != null) {
+        loukMyPatientId = patientId;
+      }
+    }
+  }
 
   Future<void> pickDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -69,6 +93,7 @@ class DoctorsController extends GetxController {
 
     if (picked != null) {
       selectedDate = picked;
+
       selectedMonthName = DateFormat('MMMM yyyy', 'ar').format(picked);
       generateWeekDays();
 
@@ -77,24 +102,88 @@ class DoctorsController extends GetxController {
       );
 
       savedDateWithDay = DateFormat('yyyy-MM-dd').format(picked);
-      
+
+      await saveDateWithDay();
+
       selectedDayIndex = picked.difference(startOfWeek).inDays;
       update();
     } else {}
     update();
   }
 
-  void saveDateWithDay() {
+  Future<void> saveDateWithDay() async {
     final DateTime currentDate = selectedDate;
     final String formattedDate = DateFormat('yyyy-MM-dd').format(currentDate);
     savedDateWithDay = formattedDate;
-    consoleLog(savedDateWithDay);
+    consoleLog('>>> savedDateWithDay = $savedDateWithDay');
+
+    filteredSessions.value = doctorsProfileSessions
+        .where(
+          (Map<String, dynamic> session) => session['date'] == savedDateWithDay,
+        )
+        .toList();
     update();
+  }
+
+  Future<void> sendSelectedSession() async {
+    if (isSelected == 0) {
+      Get.snackbar(
+        'worryning'.tr,
+        'enter_worryning'.tr,
+        snackPosition: SnackPosition.BOTTOM,
+        // ignore: deprecated_member_use
+        backgroundColor: Colors.red.withOpacity(0.7),
+        colorText: Colors.white,
+      );
+      return;
+    }
+
+    isLoading = true;
+    update();
+    accessToken = await localStorage.readFromStorage(storageAccessToken);
+
+    final FormData formData = FormData.fromMap(<String, dynamic>{
+      mySessionId: selectedSessionId,
+      myPatientId: loukMyPatientId,
+    });
+
+    await ApiRequest(
+      path: appotntmentControllersPath,
+      className: '',
+      formatResponse: true,
+      method: ApiMethods.post,
+      header: <String, dynamic>{
+        'Content-Type': 'multipart/form-data',
+        'Accept': '*/*',
+        'Authorization': 'Bearer $accessToken',
+      },
+      body: formData,
+    ).request(
+      onSuccess: (dynamic data, dynamic response) async {
+        isLoading = false;
+        change.goToComponentHeader.value = 'successSendToDoctor';
+        change.update();
+        consoleLog(change.goToComponentHeader.value);
+        update();
+      },
+      // ignore: always_specify_types
+      onError: (error) {
+        final int? statusCode = error.response?.statusCode;
+        isLoading = false;
+        update();
+        if (statusCode == 401) {
+          final MyAppController appController = Get.find();
+          appController.futureRefreshLogin();
+        }
+        return null;
+      },
+    );
   }
 
   @override
   void onInit() {
     super.onInit();
+    _loadPatientId();
     generateWeekDays();
     selectedDayIndex = selectedDate.weekday == 7 ? 0 : selectedDate.weekday;
     final ChangeParamContentAndNextPage change = Get.find();
@@ -142,7 +231,27 @@ class DoctorsController extends GetxController {
 
     selectedDate = startOfWeek.add(Duration(days: index));
     selectedMonthName = DateFormat('MMMM yyyy', 'ar').format(selectedDate);
+
+    saveDateWithDay();
     update();
+  }
+
+  String getTimePeriod(String startTime) {
+    try {
+      final int hour = int.parse(startTime.split(':')[0]);
+
+      if (hour >= 6 && hour < 12) {
+        return 'صباحًا';
+      } else if (hour >= 12 && hour < 17) {
+        return 'ظهرًا';
+      } else if (hour >= 17 && hour < 21) {
+        return 'مساءً';
+      } else {
+        return 'ليلًا';
+      }
+    } catch (e) {
+      return 'غير معروف';
+    }
   }
 
   // ignore: always_specify_types
@@ -273,6 +382,12 @@ class DoctorsController extends GetxController {
       },
     ).request(
       onSuccess: (dynamic data, dynamic response) async {
+        consoleLog('>>> API sessions response: $response');
+        // ignore: always_specify_types
+        for (var session in response) {
+          sessionIds.add(session['sessionId']);
+        }
+        // sessionId = response['sessionId'] ?? <dynamic>[];
         doctorsProfileSessions = List<Map<String, dynamic>>.from(
           response ?? <dynamic>[],
         );
