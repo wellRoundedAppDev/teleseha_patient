@@ -256,33 +256,30 @@ class RecentBookings extends StatelessWidget {
                                           ),
                                         ],
                                       ),
-                                      StyleBtnHeader(
-                                        textBtn: 'entry_to_the_session'.tr,
-                                        onPressed: () {
-                                          final int lastRecentId = controller
-                                              .lastRecent[index]['id'];
-                                          controller.passedIndex = lastRecentId;
+                                      if (controller.showHeaderBtn)
+                                        StyleBtnHeader(
+                                          textBtn:
+                                              controller.nameAndGoNextPageInBtn,
+                                          onPressed: () {
+                                            controller.changeAvailableBtn();
+                                          },
+                                        )
+                                      else
+                                        const SizedBox.shrink(),
+                                      //     // import 'paymob_manager.dart';
+                                      //     // import 'package:url_launcher/url_launcher.dart';
 
-                                          final ChangeParamContentAndNextPage
-                                          change = Get.find();
-                                          change.goToComponentHeader.value =
-                                              'waitingForYourTurn';
-                                          change.update();
-
-                                          // import 'paymob_manager.dart';
-                                          // import 'package:url_launcher/url_launcher.dart';
-
-                                          // Future<void> _pay() async {
-                                          //   PayMobManager().getPaymentKey(10, 'EGP').then((String paymentKey) {
-                                          //     launchUrl(
-                                          //       Uri.parse(
-                                          //         "https://accept.paymob.com/api/acceptance/iframe/5555/?payment_token${paymentKey}",
-                                          //       ),
-                                          //     );
-                                          //   });
-                                          // }
-                                        },
-                                      ),
+                                      //     // Future<void> _pay() async {
+                                      //     //   PayMobManager().getPaymentKey(10, 'EGP').then((String paymentKey) {
+                                      //     //     launchUrl(
+                                      //     //       Uri.parse(
+                                      //     //         "https://accept.paymob.com/api/acceptance/iframe/5555/?payment_token${paymentKey}",
+                                      //     //       ),
+                                      //     //     );
+                                      //     //   });
+                                      //     // }
+                                      //   },
+                                      // ),
                                     ],
                                   ),
                                 ],

@@ -2,8 +2,10 @@ import 'dart:async';
 import 'dart:convert' show jsonDecode;
 
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../general_exports.dart' hide FormData;
+import '../content_reception/paymob_manager.dart';
 
 class BookingsController extends GetxController {
   int? passedIndex = 0;
@@ -16,6 +18,8 @@ class BookingsController extends GetxController {
   bool isLoading = false;
   String? accessToken;
   int? loukMyPatientId;
+  String? nameAndGoNextPageInBtn;
+  bool showHeaderBtn = true;
 
   LocalStorage localStorage = LocalStorage();
 
@@ -60,6 +64,30 @@ class BookingsController extends GetxController {
     }
   }
 
+  Future<void> _pay() async {
+    // PayMobManager().getPaymentKey(10, 'EGP').then((String paymentKey) {
+    //   // launchUrl(
+    //   //   Uri.parse(
+    //   //     "https://accept.paymob.com/api/acceptance/iframe/5555/?payment_token${paymentKey}",
+    //   //   ),
+    //   // );
+    // });
+  }
+
+  Future<void> changeAvailableBtn() async {
+    // if (nameAndGoNextPageInBtn == 'Opened') {
+    if (nameAndGoNextPageInBtn == 'Created') {
+      _pay();
+    }
+    //  else if (nameAndGoNextPageInBtn == 'CreateComplaint') {
+    //   Get.toNamed(aiChat);
+    // } else if (nameAndGoNextPageInBtn == 'Pending') {
+    //   Get.toNamed(waitingForYourTurn);
+    // } else if (nameAndGoNextPageInBtn == 'Started') {
+    //   Get.toNamed(meetingPage);
+    // }
+  }
+
   // ignore: always_specify_types
   List lastRecent = <dynamic>[];
   Future<void> _comming() async {
@@ -78,7 +106,41 @@ class BookingsController extends GetxController {
     ).request(
       onSuccess: (dynamic data, dynamic response) async {
         lastRecent = response ?? <dynamic>[];
+
+        for (final item in lastRecent) {
+          // if (item['status'] == 'Opened') {
+          if (item['status'] == 'Created') {
+            nameAndGoNextPageInBtn = 'buy'.tr;
+            showHeaderBtn = true;
+          } else if (item['status'] == 'CreateComplaint') {
+            nameAndGoNextPageInBtn = 'send_ai'.tr;
+            showHeaderBtn = true;
+          } else if (item['status'] == 'Pending') {
+            nameAndGoNextPageInBtn = 'page_wating'.tr;
+            showHeaderBtn = true;
+          } else if (item['status'] == 'Started') {
+            nameAndGoNextPageInBtn = 'meeting'.tr;
+            showHeaderBtn = true;
+          } else {
+            showHeaderBtn = false;
+          }
+        }
         update();
+
+        // ignore: always_specify_types
+        // for (final item in lastRecent) {
+        //   if (item['status'] == 'Opened') {
+        //     nameAndGoNextPageInBtn = 'buy'.tr;
+        //   } else if (item['status'] == 'CreateComplaint') {
+        //     nameAndGoNextPageInBtn = 'send_ai'.tr;
+        //   } else if (item['status'] == 'Pending') {
+        //     nameAndGoNextPageInBtn = 'page_wating'.tr;
+        //   } else if (item['status'] == 'Started') {
+        //     nameAndGoNextPageInBtn = 'meeting'.tr;
+        //   } else {
+        //     consoleLog('not create btn');
+        //   }
+        // }
       },
       // ignore: always_specify_types
       onError: (error) {
