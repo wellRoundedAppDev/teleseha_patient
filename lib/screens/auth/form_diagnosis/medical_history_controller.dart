@@ -45,11 +45,7 @@ class MedicalHistoryController extends GetxController {
       path: pathMedicalProfileSection,
       className: '',
       formatResponse: true,
-      header: <String, dynamic>{
-        'Content-Type': 'application/json',
-        'Accept': '*/*',
-        'Authorization': 'Bearer $accessToken',
-      },
+      header: <String, dynamic>{'Authorization': 'Bearer $accessToken'},
     ).request(
       onSuccess: (dynamic data, dynamic response) async {
         questions = response ?? <dynamic>[];

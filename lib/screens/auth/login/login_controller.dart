@@ -32,17 +32,7 @@ class LoginController extends GetxController {
     await loadPatientsFromStorage();
   }
 
-  // check pass about data if true open the user and open response users and loop to users and view to list view
-  // final List<Map<String, dynamic>> profiles = <Map<String, dynamic>>[
-  //   <String, dynamic>{'id': 1, 'icon': iconUser, 'name': 'name_user'.tr},
-  // ];
-
   List<dynamic> profiles = <dynamic>[];
-
-  // final List<Map<String, dynamic>> profiles = <Map<String, dynamic>>[
-  //   <String, dynamic>{'id': 1, 'icon': iconUser, 'name': 'name_user'.tr},
-  // ];
-
   Future<void> loadPatientsFromStorage() async {
     final String? userJson = await localStorage.readFromStorage(
       storageUserData,
@@ -156,7 +146,7 @@ class LoginController extends GetxController {
               ?.toString();
           final String? refreshToken = response['data']?['refreshToken']
               ?.toString();
-          final String? userData = response['data']?['user']?.toString();
+          final String? userData = jsonEncode(response['data']?['user']);
           await localStorage.saveToStorage(
             key: storageUserData,
             value: userData,
@@ -197,7 +187,7 @@ class LoginController extends GetxController {
               ?.toString();
           final String? refreshToken = response['data']?['refreshToken']
               ?.toString();
-          final String? userData = response['data']?['user']?.toString();
+          final String? userData = jsonEncode(response['data']?['user']);
           await localStorage.saveToStorage(
             key: storageUserData,
             value: userData,

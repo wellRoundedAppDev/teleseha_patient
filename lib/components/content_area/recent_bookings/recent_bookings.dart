@@ -256,30 +256,21 @@ class RecentBookings extends StatelessWidget {
                                           ),
                                         ],
                                       ),
-                                      if (controller.showHeaderBtn)
+                                      if (item['showButton'] == true)
                                         StyleBtnHeader(
-                                          textBtn:
-                                              controller.nameAndGoNextPageInBtn,
+                                          textBtn: item['buttonName'],
                                           onPressed: () {
-                                            controller.changeAvailableBtn();
+                                            controller.changeAvailableBtn(
+                                              item['status'],
+                                              item['doctorCard']['doctorId'] ??
+                                                  0,
+                                              item['session']['sessionId'] ??
+                                                  0,
+                                            );
                                           },
                                         )
                                       else
                                         const SizedBox.shrink(),
-                                      //     // import 'paymob_manager.dart';
-                                      //     // import 'package:url_launcher/url_launcher.dart';
-
-                                      //     // Future<void> _pay() async {
-                                      //     //   PayMobManager().getPaymentKey(10, 'EGP').then((String paymentKey) {
-                                      //     //     launchUrl(
-                                      //     //       Uri.parse(
-                                      //     //         "https://accept.paymob.com/api/acceptance/iframe/5555/?payment_token${paymentKey}",
-                                      //     //       ),
-                                      //     //     );
-                                      //     //   });
-                                      //     // }
-                                      //   },
-                                      // ),
                                     ],
                                   ),
                                 ],

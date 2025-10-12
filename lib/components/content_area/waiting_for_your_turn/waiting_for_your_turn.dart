@@ -6,20 +6,24 @@ import '../../../general_exports.dart';
 class WaitingForYourTurn extends StatelessWidget {
   WaitingForYourTurn({super.key});
   final ChangeParamContentAndNextPage change = Get.find();
+  final BookingsController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.sessionWaitingData();
+    });
+
     return GetBuilder<BookingsController>(
       builder: (BookingsController controller) {
-        if (controller.currentStep == 2) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            // final VideoCallController videoCall = Get.find();
-            // if (!videoCall.isCallStarted.value) {
-            //   videoCall.initAgora();
-            // }
-          });
-        }
-
+        // if (controller.currentStep == 2) {
+        //   WidgetsBinding.instance.addPostFrameCallback((_) {
+        // final VideoCallController videoCall = Get.find();
+        // if (!videoCall.isCallStarted.value) {
+        //   videoCall.initAgora();
+        // }
+        //   });
+        // }
         // controller.selectedLastRecentFunction();
         return Container(
           alignment: Alignment.center,

@@ -45,10 +45,8 @@ class ApiRequest {
     return Dio(
       BaseOptions(
         headers: <String, dynamic>{
-          // 'Authorization': authorization(),
           'Content-Type': 'application/json',
           'Accept': '*/*',
-          //  'sharedKey': sharedKey,
           ...(header ?? <String, dynamic>{}),
         },
         queryParameters: <String, dynamic>{

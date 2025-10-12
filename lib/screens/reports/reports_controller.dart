@@ -26,6 +26,7 @@ class ReportsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    _listLabAnalysisRequestData();
     // _reportsData();
   }
 
@@ -59,6 +60,36 @@ class ReportsController extends GetxController {
   //   isLoading = false;
   //   update();
   // }
+
+  // ignore: always_specify_types
+  List listLabAnalysisRequest = <dynamic>[];
+  Future<void> _listLabAnalysisRequestData() async {
+    isLoading = true;
+    update();
+    accessToken = await localStorage.readFromStorage(storageAccessToken);
+    await ApiRequest(
+      path: labAnalysisRequest,
+      className: '',
+      formatResponse: true,
+      header: <String, dynamic>{
+        'Content-Type': 'application/json',
+        'Accept': '*/*',
+        'Authorization': 'Bearer $accessToken',
+      },
+    ).request(
+      onSuccess: (dynamic data, dynamic response) async {
+        listLabAnalysisRequest = response ?? <dynamic>[];
+        update();
+      },
+      // ignore: always_specify_types
+      onError: (error) {
+        update();
+        return null;
+      },
+    );
+    isLoading = false;
+    update();
+  }
 
   // ignore: always_specify_types
   List doctors = <dynamic>[

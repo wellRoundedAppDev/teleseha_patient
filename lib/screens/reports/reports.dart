@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../general_exports.dart';
 
 class Reports extends StatelessWidget {
-   Reports({super.key});
+  Reports({super.key});
   final ChangeParamContentAndNextPage change = Get.find();
 
   @override
@@ -190,154 +190,155 @@ class Reports extends StatelessWidget {
                               SizedBox(height: DEVICE_HEIGHT * 0.012),
                               SizedBox(
                                 height: DEVICE_HEIGHT * 0.5,
-                                child: ListView.builder(
-                                  shrinkWrap: true,
-                                  padding: EdgeInsets.zero,
-                                  itemCount: controller.doctors.length,
-                                  itemBuilder: (BuildContext context, int index) {
-                                    return Stack(
-                                      children: <Widget>[
-                                        Card(
-                                          elevation: 0.5,
-                                          color: const Color(
-                                            AppColors.colorWhiteSelectedType,
-                                          ),
-                                          margin: EdgeInsets.only(
-                                            bottom: DEVICE_HEIGHT * 0.02,
-                                          ),
-                                          child: Padding(
-                                            padding:
-                                                const EdgeInsetsGeometry.symmetric(
-                                                  horizontal: 15,
-                                                  vertical: 25,
-                                                ),
-                                            child: Row(
-                                              children: <Widget>[
-                                                ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadiusGeometry.circular(
-                                                        10,
-                                                      ),
-                                                  child: Image.asset(
-                                                    controller
-                                                        .doctors[index]['image'],
-                                                    width: DEVICE_WIDTH * 0.16,
-                                                    height:
-                                                        DEVICE_HEIGHT * 0.09,
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  width: DEVICE_WIDTH * 0.06,
-                                                ),
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: <Widget>[
-                                                    CustomText(
-                                                      text: controller
-                                                          .doctors[index]['name']
-                                                          .toString()
-                                                          .tr,
-                                                      type:
-                                                          CustomTextType.title,
-                                                      fontSize: 13,
-                                                      color: const Color(
-                                                        AppColors.colorTitle,
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      height:
-                                                          DEVICE_HEIGHT * 0.01,
-                                                    ),
-                                                    Row(
-                                                      children: <Widget>[
-                                                        CustomText(
-                                                          text: controller
-                                                              .doctors[index]['specialization'],
-                                                          type: CustomTextType
-                                                              .inputTitle,
-                                                          fontSize: 10,
-                                                          color: const Color(
-                                                            AppColors
-                                                                .colorNameSpecialization,
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          width:
-                                                              DEVICE_WIDTH *
-                                                              0.015,
-                                                        ),
-                                                        CustomText(
-                                                          text: controller
-                                                              .doctors[index]['range'],
-                                                          type: CustomTextType
-                                                              .inputTitle,
-                                                          fontSize: 10,
-                                                          color: const Color(
-                                                            AppColors
-                                                                .colorSelectDropDown,
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          width:
-                                                              DEVICE_WIDTH *
-                                                              0.008,
-                                                        ),
-                                                        SvgPicture.asset(
-                                                          iconStar,
-                                                          width:
-                                                              DEVICE_WIDTH *
-                                                              0.025,
-                                                          height:
-                                                              DEVICE_HEIGHT *
-                                                              0.015,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    SizedBox(
-                                                      height:
-                                                          DEVICE_HEIGHT * 0.01,
-                                                    ),
-                                                    CustomText(
-                                                      text: controller
-                                                          .doctors[index]['date_revelation'],
-                                                      type:
-                                                          CustomTextType.title,
-                                                      fontSize: 8,
-                                                      color: const Color(
-                                                        AppColors
-                                                            .colorNameSpecialization,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                SizedBox(
-                                                  height: DEVICE_HEIGHT * 0.02,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        Positioned(
-                                          top: 20,
-                                          left: 10,
-                                          child: StyleBtnHeader(
-                                            width: DEVICE_WIDTH * 0.00068,
-                                            height: 0.05,
-                                            size: controller.sizeTextSelected,
-                                            textBtn: 'view_prescriptions'.tr,
-                                            onPressed: () {
-                                              change.goToComponentHeader.value =
-                                                  'ContentPrescription';
-                                              change.update();
-                                            },
-                                          ),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                ),
+                                // child: ListView.builder(
+                                //   shrinkWrap: true,
+                                //   padding: EdgeInsets.zero,
+                                // itemCount: controller.listLabAnalysisRequest.length,
+                                //   itemCount: controller.doctors.length,
+                                //   itemBuilder: (BuildContext context, int index) {
+                                //     return Stack(
+                                //       children: <Widget>[
+                                //         Card(
+                                //           elevation: 0.5,
+                                //           color: const Color(
+                                //             AppColors.colorWhiteSelectedType,
+                                //           ),
+                                //           margin: EdgeInsets.only(
+                                //             bottom: DEVICE_HEIGHT * 0.02,
+                                //           ),
+                                //           child: Padding(
+                                //             padding:
+                                //                 const EdgeInsetsGeometry.symmetric(
+                                //                   horizontal: 15,
+                                //                   vertical: 25,
+                                //                 ),
+                                //             child: Row(
+                                //               children: <Widget>[
+                                //                 ClipRRect(
+                                //                   borderRadius:
+                                //                       BorderRadiusGeometry.circular(
+                                //                         10,
+                                //                       ),
+                                //                   child: Image.asset(
+                                //                     controller
+                                //                         .doctors[index]['image'],
+                                //                     width: DEVICE_WIDTH * 0.16,
+                                //                     height:
+                                //                         DEVICE_HEIGHT * 0.09,
+                                //                     fit: BoxFit.cover,
+                                //                   ),
+                                //                 ),
+                                //                 SizedBox(
+                                //                   width: DEVICE_WIDTH * 0.06,
+                                //                 ),
+                                //                 Column(
+                                //                   crossAxisAlignment:
+                                //                       CrossAxisAlignment.start,
+                                //                   children: <Widget>[
+                                //                     CustomText(
+                                //                       text: controller
+                                //                           .doctors[index]['name']
+                                //                           .toString()
+                                //                           .tr,
+                                //                       type:
+                                //                           CustomTextType.title,
+                                //                       fontSize: 13,
+                                //                       color: const Color(
+                                //                         AppColors.colorTitle,
+                                //                       ),
+                                //                     ),
+                                //                     SizedBox(
+                                //                       height:
+                                //                           DEVICE_HEIGHT * 0.01,
+                                //                     ),
+                                //                     Row(
+                                //                       children: <Widget>[
+                                //                         CustomText(
+                                //                           text: controller
+                                //                               .doctors[index]['specialization'],
+                                //                           type: CustomTextType
+                                //                               .inputTitle,
+                                //                           fontSize: 10,
+                                //                           color: const Color(
+                                //                             AppColors
+                                //                                 .colorNameSpecialization,
+                                //                           ),
+                                //                         ),
+                                //                         SizedBox(
+                                //                           width:
+                                //                               DEVICE_WIDTH *
+                                //                               0.015,
+                                //                         ),
+                                //                         CustomText(
+                                //                           text: controller
+                                //                               .doctors[index]['range'],
+                                //                           type: CustomTextType
+                                //                               .inputTitle,
+                                //                           fontSize: 10,
+                                //                           color: const Color(
+                                //                             AppColors
+                                //                                 .colorSelectDropDown,
+                                //                           ),
+                                //                         ),
+                                //                         SizedBox(
+                                //                           width:
+                                //                               DEVICE_WIDTH *
+                                //                               0.008,
+                                //                         ),
+                                //                         SvgPicture.asset(
+                                //                           iconStar,
+                                //                           width:
+                                //                               DEVICE_WIDTH *
+                                //                               0.025,
+                                //                           height:
+                                //                               DEVICE_HEIGHT *
+                                //                               0.015,
+                                //                         ),
+                                //                       ],
+                                //                     ),
+                                //                     SizedBox(
+                                //                       height:
+                                //                           DEVICE_HEIGHT * 0.01,
+                                //                     ),
+                                //                     CustomText(
+                                //                       text: controller
+                                //                           .doctors[index]['date_revelation'],
+                                //                       type:
+                                //                           CustomTextType.title,
+                                //                       fontSize: 8,
+                                //                       color: const Color(
+                                //                         AppColors
+                                //                             .colorNameSpecialization,
+                                //                       ),
+                                //                     ),
+                                //                   ],
+                                //                 ),
+                                //                 SizedBox(
+                                //                   height: DEVICE_HEIGHT * 0.02,
+                                //                 ),
+                                //               ],
+                                //             ),
+                                //           ),
+                                //         ),
+                                //         Positioned(
+                                //           top: 20,
+                                //           left: 10,
+                                //           child: StyleBtnHeader(
+                                //             width: DEVICE_WIDTH * 0.00068,
+                                //             height: 0.05,
+                                //             size: controller.sizeTextSelected,
+                                //             textBtn: 'view_prescriptions'.tr,
+                                //             onPressed: () {
+                                //               change.goToComponentHeader.value =
+                                //                   'ContentPrescription';
+                                //               change.update();
+                                //             },
+                                //           ),
+                                //         ),
+                                //       ],
+                                //     );
+                                //   },
+                                // ),
                               ),
                             ],
                           ),

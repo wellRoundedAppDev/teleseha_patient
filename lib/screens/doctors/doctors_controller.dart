@@ -276,11 +276,7 @@ class DoctorsController extends GetxController {
       path: query,
       className: '',
       formatResponse: true,
-      header: <String, dynamic>{
-        'Content-Type': 'application/json',
-        'Accept': '*/*',
-        'Authorization': 'Bearer $accessToken',
-      },
+      header: <String, dynamic>{'Authorization': 'Bearer $accessToken'},
     ).request(
       onSuccess: (dynamic data, dynamic response) async {
         doctors = response ?? <dynamic>[];
@@ -345,11 +341,7 @@ class DoctorsController extends GetxController {
       path: '$doctorProfile/$selectedDoctorId',
       className: '',
       formatResponse: true,
-      header: <String, dynamic>{
-        'Content-Type': 'application/json',
-        'Accept': '*/*',
-        'Authorization': 'Bearer $accessToken',
-      },
+      header: <String, dynamic>{'Authorization': 'Bearer $accessToken'},
     ).request(
       onSuccess: (dynamic data, dynamic response) async {
         doctorsProfile = response ?? <String, dynamic>{};
@@ -375,11 +367,7 @@ class DoctorsController extends GetxController {
       path: '$doctor/$selectedDoctorId/$doctorProfileSessions',
       className: '',
       formatResponse: true,
-      header: <String, dynamic>{
-        'Content-Type': 'application/json',
-        'Accept': '*/*',
-        'Authorization': 'Bearer $accessToken',
-      },
+      header: <String, dynamic>{'Authorization': 'Bearer $accessToken'},
     ).request(
       onSuccess: (dynamic data, dynamic response) async {
         consoleLog('>>> API sessions response: $response');

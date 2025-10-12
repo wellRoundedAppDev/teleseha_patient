@@ -30,6 +30,14 @@ class HomePageContentController extends GetxController {
     specialityRequest();
     _loadUserName();
     _checkCommingRequest();
+    _initData();
+  }
+
+  Future<void> _initData() async {
+    await _loadUserName();
+    if (loukMyPatientId != null) {
+      await _checkCommingRequest();
+    }
   }
 
   Future<void> _loadUserName() async {
@@ -44,6 +52,7 @@ class HomePageContentController extends GetxController {
       if (name != null && name.isNotEmpty) {
         testNameUserData = name;
         loukMyPatientId = patientId;
+        update();
       }
     }
   }
@@ -58,11 +67,7 @@ class HomePageContentController extends GetxController {
       path: speciality,
       className: '',
       formatResponse: true,
-      header: <String, dynamic>{
-        'Content-Type': 'application/json',
-        'Accept': '*/*',
-        'Authorization': 'Bearer $accessToken',
-      },
+      header: <String, dynamic>{'Authorization': 'Bearer $accessToken'},
     ).request(
       onSuccess: (dynamic data, dynamic response) async {
         specialties = response ?? <dynamic>[];
@@ -92,11 +97,7 @@ class HomePageContentController extends GetxController {
         path: '$subSpeciality/$id',
         className: '',
         formatResponse: true,
-        header: <String, dynamic>{
-          'Content-Type': 'application/json',
-          'Accept': '*/*',
-          'Authorization': 'Bearer $accessToken',
-        },
+        header: <String, dynamic>{'Authorization': 'Bearer $accessToken'},
       ).request(
         onSuccess: (dynamic data, dynamic response) async {
           if (response is List) {
@@ -128,6 +129,10 @@ class HomePageContentController extends GetxController {
   // ignore: always_specify_types
   Map<String, dynamic> checkComming = {};
   Future<void> _checkCommingRequest() async {
+    if (loukMyPatientId == null) {
+      return;
+    }
+
     isLoading = true;
     update();
     accessToken = await localStorage.readFromStorage(storageAccessToken);
@@ -135,11 +140,7 @@ class HomePageContentController extends GetxController {
       path: '$checkCommingPath/$loukMyPatientId',
       className: '',
       formatResponse: true,
-      header: <String, dynamic>{
-        'Content-Type': 'application/json',
-        'Accept': '*/*',
-        'Authorization': 'Bearer $accessToken',
-      },
+      header: <String, dynamic>{'Authorization': 'Bearer $accessToken'},
     ).request(
       onSuccess: (dynamic data, dynamic response) async {
         if (response != null && response is Map<String, dynamic>) {
