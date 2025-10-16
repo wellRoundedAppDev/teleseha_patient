@@ -1,6 +1,6 @@
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../general_exports.dart';
+import '../../../../general_exports.dart';
 
 class FingerPrint extends StatelessWidget {
   const FingerPrint({super.key});
@@ -13,23 +13,18 @@ class FingerPrint extends StatelessWidget {
         return Scaffold(
           appBar: PreferredSize(
             preferredSize: const Size.fromHeight(kToolbarHeight),
-            child: Directionality(
-              textDirection: TextDirection.ltr,
-              child: AppBar(
-                backgroundColor: Colors.transparent,
-                actions: <Widget>[
-                  TextButton(
-                    onPressed: () {
-                      controller.checkUserAndNavigate();
-                    },
-                    child: CustomText(
-                      text: 'skep'.tr,
-                      type: CustomTextType.title,
-                      fontSize: 10,
-                      color: const Color(AppColors.colorBlack),
-                    ),
-                  ),
-                ],
+            child: AppBar(
+              backgroundColor: Colors.transparent,
+              leading: TextButton(
+                onPressed: () {
+                  Get.toNamed(routeLogin);
+                },
+                child: CustomText(
+                  text: 'skip'.tr,
+                  type: CustomTextType.title,
+                  fontSize: 10,
+                  color: const Color(AppColors.colorBlack),
+                ),
               ),
             ),
           ),

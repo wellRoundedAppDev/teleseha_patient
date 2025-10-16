@@ -23,6 +23,7 @@ Future<void> main() async {
   Get.put(LoginController());
   Get.put(StartStepsController());
   Get.put(MyAppController());
+  Get.put(AuthStorageController());  
   // Get.put(BookingsController());
   // Get.put(VideoCallController(), permanent: true);
   Get.put(ListPresciption(), permanent: true);
