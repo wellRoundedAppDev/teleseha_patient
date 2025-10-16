@@ -17,7 +17,6 @@ class LoginController extends GetxController {
   bool showPhoneNumberError = false;
   double linePercentage = 0.0;
 
-  // check pass about data if true open the user and open response users and loop to users and view to list view
   List<int> inputPattern = <int>[];
   PatternState state = PatternState.normal;
   bool showForgetPatter = false;
@@ -29,20 +28,20 @@ class LoginController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    await loadPatientsFromStorage();
+    // await loadPatientsFromStorage();
   }
 
-  List<dynamic> profiles = <dynamic>[];
-  Future<void> loadPatientsFromStorage() async {
-    final String? userJson = await localStorage.readFromStorage(
-      storageUserData,
-    );
-    if (userJson != null) {
-      final Map<String, dynamic> userMap = jsonDecode(userJson);
-      profiles = userMap['patients'] ?? <dynamic>[];
-      update();
-    }
-  }
+  // List<dynamic> profiles = <dynamic>[];
+  // Future<void> loadPatientsFromStorage() async {
+  //   final String? userJson = await localStorage.readFromStorage(
+  //     storageUserData,
+  //   );
+  //   if (userJson != null) {
+  //     final Map<String, dynamic> userMap = jsonDecode(userJson);
+  //     profiles = userMap['patients'] ?? <dynamic>[];
+  //     update();
+  //   }
+  // }
 
   void updatePage(String newResolution) {
     page = newResolution;
@@ -141,69 +140,21 @@ class LoginController extends GetxController {
       onSuccess: (dynamic data, dynamic response) async {
         isLoading = false;
         final String? nextStep = response['nextStepEnum']?.toString();
-        if (nextStep == 'CreateProfile') {
-          final String? accessToken = response['data']?['accessToken']
-              ?.toString();
-          final String? refreshToken = response['data']?['refreshToken']
-              ?.toString();
-          final String? userData = jsonEncode(response['data']?['user']);
-          await localStorage.saveToStorage(
-            key: storageUserData,
-            value: userData,
-          );
-          await localStorage.readFromStorage(storageUserData);
-          await localStorage.saveToStorage(
-            key: storageAccessToken,
-            value: accessToken,
-          );
-          await localStorage.readFromStorage(storageAccessToken);
-          await localStorage.saveToStorage(
-            key: storageRefreshToken,
-            value: refreshToken,
-          );
-          await localStorage.readFromStorage(storageRefreshToken);
-          final StartStepsController steps = Get.find();
-          steps.currentStep = 3;
-          steps.update();
-          Get.toNamed(routeSteps);
-        } else if (nextStep == 'SelectProfile') {
-          final String? accessToken = response['data']?['accessToken']
-              ?.toString();
-          final String? refreshToken = response['data']?['refreshToken']
-              ?.toString();
-          await localStorage.saveToStorage(
-            key: storageAccessToken,
-            value: accessToken,
-          );
-          await localStorage.readFromStorage(storageAccessToken);
-          await localStorage.saveToStorage(
-            key: storageRefreshToken,
-            value: refreshToken,
-          );
-          await localStorage.readFromStorage(storageRefreshToken);
-          Get.toNamed(routeProfiles);
-        } else if (nextStep == 'OpenHome') {
-          final String? accessToken = response['data']?['accessToken']
-              ?.toString();
-          final String? refreshToken = response['data']?['refreshToken']
-              ?.toString();
-          final String? userData = jsonEncode(response['data']?['user']);
-          await localStorage.saveToStorage(
-            key: storageUserData,
-            value: userData,
-          );
-          await localStorage.readFromStorage(storageUserData);
-          await localStorage.saveToStorage(
-            key: storageAccessToken,
-            value: accessToken,
-          );
-          await localStorage.readFromStorage(storageAccessToken);
-          await localStorage.saveToStorage(
-            key: storageRefreshToken,
-            value: refreshToken,
-          );
-          await localStorage.readFromStorage(storageRefreshToken);
-          Get.toNamed(routeScreen);
+        final AuthStorageController authStorage = Get.find();
+        await authStorage.saveAuthData(response['data']);
+        final Map<String, VoidCallback> nextStepActions = <String, VoidCallback>{
+          'CreateProfile': () {
+            final StartStepsController steps = Get.find();
+            steps.currentStep = 3;
+            steps.update();
+            Get.toNamed(routeSteps);
+          },
+          'SelectProfile': () => Get.toNamed(routeProfiles),
+          'OpenHome': () => Get.toNamed(routeScreen),
+        };
+
+        if (nextStep != null && nextStepActions.containsKey(nextStep)) {
+          nextStepActions[nextStep]!();
         }
         update();
       },
@@ -218,7 +169,6 @@ class LoginController extends GetxController {
     );
   }
 
-  // create verification for existingUser about user
   void createVerificationForExistingUser() {
     if (page == 'update') {
       if (inputPattern.isNotEmpty) {

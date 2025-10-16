@@ -3,13 +3,13 @@ import 'package:flutter_svg/svg.dart';
 import '../../general_exports.dart';
 
 class Logo extends StatelessWidget {
-  Logo({super.key, this.controllerBack});
+  Logo({super.key, this.controllerBack = true});
 
-  MedicalHistoryController medicalHistoryController = Get.put(
-    MedicalHistoryController(),
-  );
+  // MedicalHistoryController medicalHistoryController = Get.put(
+  //   MedicalHistoryController(),
+  // );
 
-  bool? controllerBack;
+  final bool controllerBack;
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +21,10 @@ class Logo extends StatelessWidget {
           GestureDetector(
             onTap: () {
               if (controllerBack == true) {
+                consoleLog('true');
                 Get.back();
               } else {
-                medicalHistoryController.prevMedicalProfileSection();
+                // medicalHistoryController.prevMedicalProfileSection();
               }
             },
             child: SvgPicture.asset(

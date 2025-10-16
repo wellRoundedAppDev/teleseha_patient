@@ -88,16 +88,39 @@ class StartStepsController extends GetxController {
   }
 
   bool checkOtp() {
-    if (!isValidOtpIsValid()) {
+    if (!isOtpValid()) {
       markOtpInvalid();
       return false;
-    } else {
-      clearOtpError();
-      return true;
     }
+    clearOtpError();
+    return true;
   }
 
   Future<void> checkOtpToNextPage() async {
+    if (_isOtpExpired()) {
+      return;
+    }
+
+    if (!checkOtp()) {
+      return;
+    }
+
+    isLoading = true;
+    update();
+
+    final LoginController controller = Get.find<LoginController>();
+
+    if (controller.page == 'signIn') {
+      _handleSignIn(controller);
+    } else if (controller.page == 'signUp') {
+      await _handleSignUp(controller);
+    }
+
+    isLoading = false;
+    update();
+  }
+
+  bool _isOtpExpired() {
     if (secondsRemaining <= 0) {
       Get.snackbar(
         'error'.tr,
@@ -105,57 +128,46 @@ class StartStepsController extends GetxController {
         backgroundColor: Colors.red,
         colorText: Colors.white,
       );
-      return;
+      return true;
     }
+    return false;
+  }
 
-    if (checkOtp()) {
-      isLoading = true;
-      update();
-      final LoginController controller = Get.find<LoginController>();
-      if (controller.page == 'signIn') {
-        controller.updatePage('update');
+  void _handleSignIn(LoginController controller) {
+    controller.updatePage('update');
+    otpController.clear();
+    Get.to(() => PatternLock());
+    controller.resetPattern();
+  }
+
+  Future<void> _handleSignUp(LoginController controller) async {
+    await ApiRequest(
+      path: otpConfirm,
+      className: '',
+      formatResponse: true,
+      method: ApiMethods.post,
+      body: <String, dynamic>{
+        mobile: login.passNumberPhone.trim(),
+        otp: otpController.text,
+      },
+    ).request(
+      onSuccess: (dynamic data, dynamic response) {
+        final String? nextStep = response['nextStepEnum']?.toString();
+        if (nextStep == 'CreatePassword') {
+          controller.updatePage('signUp');
+          otpController.clear();
+          Get.toNamed(routeSteps);
+        }
+        showOtpError = false;
+        ++currentStep;
+        clearOtpError();
+      },
+      onError: (error) {
         otpController.clear();
-        Get.to(() => PatternLock());
-        update();
-        controller.resetPattern();
-      } else if (controller.page == 'signUp') {
-        await ApiRequest(
-          path: otpConfirm,
-          className: '',
-          formatResponse: true,
-          method: ApiMethods.post,
-          body: <String, dynamic>{
-            mobile: login.passNumberPhone.trim(),
-            otp: otpController.text,
-          },
-        ).request(
-          onSuccess: (dynamic data, dynamic response) {
-            isLoading = false;
-            final String? data = response['data']?.toString();
-            final String? nextStep = response['nextStepEnum']?.toString();
-            if (nextStep == 'CreatePassword') {
-              controller.updatePage('signUp');
-              otpController.clear();
-              Get.toNamed(routeSteps);
-              dataPassword = data ?? '';
-            }
-            showOtpError = false;
-            ++currentStep;
-            clearOtpError();
-            update();
-          },
-          // ignore: always_specify_types
-          onError: (error) {
-            isLoading = false;
-            otpController.clear();
-            markOtpInvalid();
-            showOtpError = true;
-            update();
-            return null;
-          },
-        );
-      }
-    }
+        markOtpInvalid();
+        showOtpError = true;
+      },
+    );
   }
 
   void startPattern() {
@@ -378,7 +390,7 @@ class StartStepsController extends GetxController {
     update();
   }
 
-  bool isValidOtpIsValid() {
+  bool isOtpValid() {
     return otpController.text.length == 6;
   }
 }

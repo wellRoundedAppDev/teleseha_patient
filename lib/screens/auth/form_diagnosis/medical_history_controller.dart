@@ -18,7 +18,7 @@ class MedicalHistoryController extends GetxController {
   void onInit() {
     super.onInit();
     loadPatientId();
-    medicalProfileSection();
+    // medicalProfileSection();
   }
 
   Future<void> loadPatientId() async {

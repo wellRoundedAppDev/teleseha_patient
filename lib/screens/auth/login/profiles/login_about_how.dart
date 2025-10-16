@@ -65,83 +65,83 @@ class Profiles extends StatelessWidget {
                       color: const Color(AppColors.colorTextBlue),
                     ),
                     SizedBox(height: DEVICE_HEIGHT * 0.075),
-                    Center(
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: controller.profiles.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Container(
-                            margin: const EdgeInsets.fromLTRB(24, 0, 25, 24),
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 16,
-                              vertical: 22,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(
-                                DEVICE_HEIGHT * 0.025,
-                              ),
-                              boxShadow: <BoxShadow>[
-                                BoxShadow(
-                                  color: Colors.black.withValues(alpha: 0.06),
-                                  spreadRadius: 1,
-                                  blurRadius: 6,
-                                  offset: const Offset(0, 2),
-                                ),
-                              ],
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                SizedBox(
-                                  width: DEVICE_WIDTH * 0.22,
-                                  height: DEVICE_HEIGHT * 0.035,
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: const Color(
-                                        AppColors.colorLineAndText,
-                                      ),
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: DEVICE_HEIGHT * 0.01,
-                                        vertical: DEVICE_HEIGHT * 0.001,
-                                      ),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      textStyle: const TextStyle(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                    onPressed: () {
-                                      Get.toNamed(routeScreen);
-                                    },
-                                    child: CustomText(
-                                      text: 'login'.tr,
-                                      fontSize: 9,
-                                      color: const Color(
-                                        AppColors.colorBackgroundScreen,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(width: DEVICE_WIDTH * 0.02),
-                                CustomText(
-                                  text:
-                                      controller.profiles[index]['name'] ?? '',
-                                  fontSize: 15,
-                                  type: CustomTextType.title,
-                                  color: const Color(
-                                    AppColors.colorSelectDropDown,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
-                    ),
+                    // Center(
+                    //   child: ListView.builder(
+                    //     shrinkWrap: true,
+                    //     physics: const NeverScrollableScrollPhysics(),
+                    //     itemCount: controller.profiles.length,
+                    //     itemBuilder: (BuildContext context, int index) {
+                    //       return Container(
+                    //         margin: const EdgeInsets.fromLTRB(24, 0, 25, 24),
+                    //         padding: const EdgeInsets.symmetric(
+                    //           horizontal: 16,
+                    //           vertical: 22,
+                    //         ),
+                    //         decoration: BoxDecoration(
+                    //           color: Colors.white,
+                    //           borderRadius: BorderRadius.circular(
+                    //             DEVICE_HEIGHT * 0.025,
+                    //           ),
+                    //           boxShadow: <BoxShadow>[
+                    //             BoxShadow(
+                    //               color: Colors.black.withValues(alpha: 0.06),
+                    //               spreadRadius: 1,
+                    //               blurRadius: 6,
+                    //               offset: const Offset(0, 2),
+                    //             ),
+                    //           ],
+                    //         ),
+                    //         child: Row(
+                    //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //           children: <Widget>[
+                    //             SizedBox(
+                    //               width: DEVICE_WIDTH * 0.22,
+                    //               height: DEVICE_HEIGHT * 0.035,
+                    //               child: ElevatedButton(
+                    //                 style: ElevatedButton.styleFrom(
+                    //                   backgroundColor: const Color(
+                    //                     AppColors.colorLineAndText,
+                    //                   ),
+                    //                   padding: EdgeInsets.symmetric(
+                    //                     horizontal: DEVICE_HEIGHT * 0.01,
+                    //                     vertical: DEVICE_HEIGHT * 0.001,
+                    //                   ),
+                    //                   shape: RoundedRectangleBorder(
+                    //                     borderRadius: BorderRadius.circular(20),
+                    //                   ),
+                    //                   textStyle: const TextStyle(
+                    //                     fontSize: 10,
+                    //                     fontWeight: FontWeight.w600,
+                    //                   ),
+                    //                 ),
+                    //                 onPressed: () {
+                    //                   Get.toNamed(routeScreen);
+                    //                 },
+                    //                 child: CustomText(
+                    //                   text: 'login'.tr,
+                    //                   fontSize: 9,
+                    //                   color: const Color(
+                    //                     AppColors.colorBackgroundScreen,
+                    //                   ),
+                    //                 ),
+                    //               ),
+                    //             ),
+                    //             SizedBox(width: DEVICE_WIDTH * 0.02),
+                    //             CustomText(
+                    //               text:
+                    //                   controller.profiles[index]['name'] ?? '',
+                    //               fontSize: 15,
+                    //               type: CustomTextType.title,
+                    //               color: const Color(
+                    //                 AppColors.colorSelectDropDown,
+                    //               ),
+                    //             ),
+                    //           ],
+                    //         ),
+                    //       );
+                    //     },
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
