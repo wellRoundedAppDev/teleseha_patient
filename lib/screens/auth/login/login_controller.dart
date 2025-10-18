@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pattern_dots/pattern_dots.dart';
@@ -142,16 +140,17 @@ class LoginController extends GetxController {
         final String? nextStep = response['nextStepEnum']?.toString();
         final AuthStorageController authStorage = Get.find();
         await authStorage.saveAuthData(response['data']);
-        final Map<String, VoidCallback> nextStepActions = <String, VoidCallback>{
-          'CreateProfile': () {
-            final StartStepsController steps = Get.find();
-            steps.currentStep = 3;
-            steps.update();
-            Get.toNamed(routeSteps);
-          },
-          'SelectProfile': () => Get.toNamed(routeProfiles),
-          'OpenHome': () => Get.toNamed(routeScreen),
-        };
+        final Map<String, VoidCallback> nextStepActions =
+            <String, VoidCallback>{
+              'CreateProfile': () {
+                final StartStepsController steps = Get.find();
+                steps.currentStep = 3;
+                steps.update();
+                Get.toNamed(routeSteps);
+              },
+              'SelectProfile': () => Get.toNamed(routeProfiles),
+              'OpenHome': () => Get.toNamed(routeScreen),
+            };
 
         if (nextStep != null && nextStepActions.containsKey(nextStep)) {
           nextStepActions[nextStep]!();

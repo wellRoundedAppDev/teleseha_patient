@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -22,6 +23,8 @@ class StartStepsController extends GetxController {
   String? name;
   String? barthDay;
   bool? myIsMale;
+
+  final AuthStorageController authStorage = Get.find();
 
   TextEditingController otpController = TextEditingController();
   DateTime selectedDate = DateTime.now();
@@ -136,7 +139,7 @@ class StartStepsController extends GetxController {
   void _handleSignIn(LoginController controller) {
     controller.updatePage('update');
     otpController.clear();
-    Get.to(() => PatternLock());
+    Get.to(() => const PatternLock());
     controller.resetPattern();
   }
 
@@ -152,11 +155,14 @@ class StartStepsController extends GetxController {
       },
     ).request(
       onSuccess: (dynamic data, dynamic response) {
+        isLoading = false;
+        final String? data = response['data']?.toString();
         final String? nextStep = response['nextStepEnum']?.toString();
         if (nextStep == 'CreatePassword') {
           controller.updatePage('signUp');
           otpController.clear();
           Get.toNamed(routeSteps);
+          dataPassword = data ?? '';
         }
         showOtpError = false;
         ++currentStep;
@@ -166,6 +172,7 @@ class StartStepsController extends GetxController {
         otpController.clear();
         markOtpInvalid();
         showOtpError = true;
+        return null;
       },
     );
   }
@@ -231,52 +238,43 @@ class StartStepsController extends GetxController {
 
   Future<void> onNextButtonPress() async {
     if (currentStep == 2) {
-      if (canGoToStepTwo(inputPattern)) {
-        isLoading = true;
-        update();
-        await ApiRequest(
-          path: createPassword,
-          className: '',
-          formatResponse: true,
-          method: ApiMethods.post,
-          body: <String, dynamic>{
-            mobile: login.passNumberPhone.trim(),
-            password: inputPattern.join(),
-            createPasswordToken: dataPassword,
-          },
-        ).request(
-          onSuccess: (dynamic data, dynamic response) async {
-            isLoading = false;
-            final String? nextStep = response['nextStepEnum']?.toString();
-            if (nextStep == 'CreateProfile') {
-              final String? accessToken = response['data']?['accessToken']
-                  ?.toString();
-              final String? refreshToken = response['data']?['refreshToken']
-                  ?.toString();
-              await localStorage.saveToStorage(
-                key: storageAccessToken,
-                value: accessToken,
-              );
-              await localStorage.readFromStorage(storageAccessToken);
-              await localStorage.saveToStorage(
-                key: storageRefreshToken,
-                value: refreshToken,
-              );
-              await localStorage.readFromStorage(storageRefreshToken);
-              currentStep++;
-              update();
-            }
-          },
-          // ignore: always_specify_types
-          onError: (error) {
-            isLoading = false;
-            update();
-            return null;
-          },
-        );
-        resetPattern();
-        update();
+      if (!canGoToStepTwo(inputPattern)) {
+        return;
       }
+
+      isLoading = true;
+      update();
+
+      await ApiRequest(
+        path: createPassword,
+        className: '',
+        formatResponse: true,
+        method: ApiMethods.post,
+        body: <String, String>{
+          mobile: login.passNumberPhone.trim(),
+          password: inputPattern.join(),
+          createPasswordToken: dataPassword,
+        },
+      ).request(
+        // ignore: always_specify_types
+        onSuccess: (data, response) async {
+          isLoading = false;
+          final String? nextStep = response['nextStepEnum']?.toString();
+          if (nextStep == 'CreateProfile') {
+            await authStorage.saveAuthData(response['data']);
+            currentStep++;
+          }
+          update();
+        },
+        onError: (_) {
+          isLoading = false;
+          update();
+          return null;
+        },
+      );
+
+      resetPattern();
+      update();
     } else if (currentStep == 3) {
       isLoading = true;
       update();
@@ -302,20 +300,32 @@ class StartStepsController extends GetxController {
       ).request(
         onSuccess: (dynamic data, dynamic response) async {
           isLoading = false;
-          Get.toNamed(routeFormDiagnosis);
           patientId = response['patientId'];
           name = response['name'];
           barthDay = response['birthDate'];
           final String? genderStr = response['gender']
               ?.toString()
               .toLowerCase();
-          if (genderStr == 'male') {
-            myIsMale = true;
-          } else if (genderStr == 'female') {
-            myIsMale = false;
-          } else {
-            myIsMale = null;
-          }
+          genderStr == 'male'
+              ? myIsMale = true
+              : genderStr == 'female'
+              ? myIsMale = false
+              : myIsMale = null;
+          final Map<String, dynamic> userMap = <String, dynamic>{
+            'patients': <Map<String, dynamic>>[
+              <String, dynamic>{myPatientId: response['patientId']},
+            ],
+          };
+          await localStorage.saveToStorage(
+            key: storageUserData,
+            value: jsonEncode(userMap),
+          );
+          await localStorage.readFromStorage(
+            storageUserData,
+          );
+          // ignore: always_specify_types
+          await Future.delayed(const Duration(milliseconds: 300));
+          Get.toNamed(routeCreateAccountSuccess);
           update();
         },
         // ignore: always_specify_types

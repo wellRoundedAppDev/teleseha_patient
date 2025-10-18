@@ -13,7 +13,6 @@ class CreateAccountSuccess extends StatelessWidget {
         margin: EdgeInsets.symmetric(vertical: DEVICE_HEIGHT * 0.11),
         child: Column(
           children: <Widget>[
-            // const Logo(),
             SizedBox(height: DEVICE_HEIGHT * 0.058),
             SvgPicture.asset(
               successMark,
@@ -40,8 +39,7 @@ class CreateAccountSuccess extends StatelessWidget {
               text: 'next'.tr,
               color: const Color(AppColors.colorLineAndText),
               onPressed: () {
-                // Get.toNamed(routeDiagnosis);
-                Get.toNamed(routeScreen);
+                Get.toNamed(routeFormDiagnosis);
               },
             ),
           ],

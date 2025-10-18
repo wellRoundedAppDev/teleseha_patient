@@ -35,7 +35,6 @@ class StartSteps extends StatelessWidget {
                     ? Column(
                         children: <Widget>[
                           SizedBox(height: DEVICE_HEIGHT * 0.053),
-                          // FormDataUser(isFromProfile: true),
                           FormDataUser(),
                           SizedBox(height: DEVICE_HEIGHT * 0.067),
                           StepIndicator(

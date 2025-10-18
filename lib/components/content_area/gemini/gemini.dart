@@ -8,7 +8,7 @@ class Gemini extends StatelessWidget {
     return GetBuilder<GeminiController>(
       init: GeminiController(),
       builder: (GeminiController controller) {
-        final ChangeParamContentAndNextPage change = Get.find();
+        // final ChangeParamContentAndNextPage change = Get.find();
         return SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,8 +38,9 @@ class Gemini extends StatelessWidget {
                   Btn(
                     onPressed: controller.isInputNotEmpty
                         ? () {
-                            change.goToComponentHeader.value = 'Reception';
-                            change.update();
+                            consoleLog('success send');
+                            // change.goToComponentHeader.value = 'Reception';
+                            // change.update();
                           }
                         : null,
                     style: ElevatedButton.styleFrom(
