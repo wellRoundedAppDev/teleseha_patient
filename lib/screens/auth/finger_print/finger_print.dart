@@ -17,7 +17,16 @@ class FingerPrint extends StatelessWidget {
               backgroundColor: Colors.transparent,
               leading: TextButton(
                 onPressed: () {
-                  Get.toNamed(routeLogin);
+                  final VideoCallController videoCall = Get.find();
+                  videoCall.signInChat(
+                    userId: 'patient',
+                    token:
+                        '007eJxTYBB0P1X9uvjerfPr17tmh69fbleie+Pjw/KtW/odN4lHlt1XYDBKtjAxNk+yNDExTjUxMzBPTDE0szQ3TjFJMUk2Mjc2s5zzOaMhkJHhVhAHCyMDKwMjEIL4KgzGhsnJqcbmBroWFikWuoaGaQa6lmmJBrqGaSkWFkYGqSZpiYkAQE4pEA==',
+                  );
+                  consoleLog('test');
+                  // routeVideoCall
+                  // Get.toNamed(routeVideoCall);
+                  // Get.toNamed(routeLogin);
                 },
                 child: CustomText(
                   text: 'skip'.tr,
