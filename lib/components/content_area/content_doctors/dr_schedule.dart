@@ -330,7 +330,7 @@ class DrSchedule extends StatelessWidget {
                                     },
                                     child: Container(
                                       alignment: Alignment.center,
-                                      width: DEVICE_WIDTH * 0.415,
+                                      width: DEVICE_WIDTH * 0.425,
                                       decoration: BoxDecoration(
                                         color: isSelected
                                             ? const Color(

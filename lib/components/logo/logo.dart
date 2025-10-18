@@ -5,10 +5,6 @@ import '../../general_exports.dart';
 class Logo extends StatelessWidget {
   Logo({super.key, this.controllerBack = true});
 
-  // MedicalHistoryController medicalHistoryController = Get.put(
-  //   MedicalHistoryController(),
-  // );
-
   final bool controllerBack;
 
   @override
@@ -24,7 +20,10 @@ class Logo extends StatelessWidget {
                 consoleLog('true');
                 Get.back();
               } else {
-                // medicalHistoryController.prevMedicalProfileSection();
+                final MedicalHistoryController medicalHistoryController = Get.put(
+                  MedicalHistoryController(),
+                );
+                medicalHistoryController.prevMedicalProfileSection();
               }
             },
             child: SvgPicture.asset(

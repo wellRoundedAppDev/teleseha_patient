@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import '../../general_exports.dart';
 
 class MyAppController extends GetxController {
@@ -16,7 +14,6 @@ class MyAppController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    // futureRefreshLogin();
   }
 
   void onSignOut() {

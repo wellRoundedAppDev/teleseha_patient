@@ -11,27 +11,21 @@ class HomeStatusBar extends StatelessWidget {
       builder: (HomePageContentController controller) {
         return Container(
           margin: EdgeInsets.symmetric(horizontal: DEVICE_WIDTH * 0.035),
-          child: Container(
-            margin: EdgeInsets.only(top: DEVICE_HEIGHT * 0.06),
+          child: Padding(
+            padding: EdgeInsets.only(top: DEVICE_HEIGHT * 0.06),
             child: Column(
               children: <Widget>[
-                Container(
-                  margin: EdgeInsets.only(bottom: DEVICE_HEIGHT * 0.02),
-                  child: const LogoHome(),
-                ),
+                const LogoHome(),
                 SizedBox(height: DEVICE_HEIGHT * 0.015),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: CustomText(
-                        text:
-                            '${'say_welcome'.tr} ${controller.testNameUserData}!',
-                        fontSize: 20,
-                        type: CustomTextType.title,
-                        color: const Color(AppColors.colorWhiteSelectedType),
-                      ),
+                    CustomText(
+                      text:
+                          '${'say_welcome'.tr} ${controller.testNameUserData}!',
+                      fontSize: 20,
+                      type: CustomTextType.title,
+                      color: const Color(AppColors.colorWhiteSelectedType),
                     ),
                     Stack(
                       clipBehavior: Clip.none,

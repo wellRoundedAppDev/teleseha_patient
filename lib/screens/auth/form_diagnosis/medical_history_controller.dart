@@ -18,7 +18,7 @@ class MedicalHistoryController extends GetxController {
   void onInit() {
     super.onInit();
     loadPatientId();
-    // medicalProfileSection();
+    medicalProfileSection();
   }
 
   Future<void> loadPatientId() async {
@@ -135,6 +135,7 @@ class MedicalHistoryController extends GetxController {
         }
         update();
       },
+      // ignore: always_specify_types
       onError: (error) {
         final int? statusCode = error.response?.statusCode;
         isLoading = false;
@@ -158,18 +159,11 @@ class MedicalHistoryController extends GetxController {
     }
   }
 
-  // Future<void> nextStep() async {
-  //   if (isLoading) return;
-
-  //   if (currentStep < questions.length) {
-  //     await patientMedicalProfileSectionPost(questions[currentStep - 1]);
-  //   } else {
-  //     Get.toNamed(details);
-  //   }
-  // }
-
   bool get hasSelectedAnswer {
-    if (questions.isEmpty) return false;
+    if (questions.isEmpty) {
+      return false;
+    }
+    // ignore: always_specify_types
     final currentQuestion = questions[currentStep - 1];
     return currentQuestion['isSelected'] != null;
   }

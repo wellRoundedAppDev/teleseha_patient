@@ -397,6 +397,7 @@ class DoctorsController extends GetxController {
 
   final List<String> tabs = <String>['practical_experiments'.tr, 'ratings'.tr];
 
+  // ignore: always_specify_types
   final List ratings = <dynamic>[
     <String, String>{'titleRatings': 'good_listen'.tr, 'icon': iconGoodListen},
     <String, String>{'titleRatings': 'friendly'.tr, 'icon': iconCalm},
