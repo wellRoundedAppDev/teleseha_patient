@@ -25,12 +25,12 @@ const String session = 'session/wating-data';
 const String chatMessage = 'chat-message';
 const String ratingReview = 'rating-review';
 const String infoLists = 'general/info-lists';
-const String paymentPath = 'payment';
 const String labAnalysisRequest = 'lab-analysis-request';
 
 // ******************** appotntmentControllersPath ********************
 const String checkCommingPath = '$appotntmentControllersPath/check-comming';
 const String comming = '$appotntmentControllersPath/comming';
+const String paymentPath = '$appotntmentControllersPath/pay';
 
 // ******************** metting ********************
 const String meeting = '$meetingPath/initial-data';

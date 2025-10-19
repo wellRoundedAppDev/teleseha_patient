@@ -262,10 +262,9 @@ class RecentBookings extends StatelessWidget {
                                           onPressed: () {
                                             controller.changeAvailableBtn(
                                               item['status'],
-                                              item['doctorCard']['doctorId'] ??
+                                              item['id'] ??
                                                   0,
-                                              item['session']['sessionId'] ??
-                                                  0,
+                                              item['session']['sessionId'] ?? 0,
                                             );
                                           },
                                         )
