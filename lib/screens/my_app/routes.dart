@@ -21,8 +21,5 @@ List<GetPage<dynamic>> appRoutes = <GetPage<dynamic>>[
     name: routeNotifications,
     page: () => const Notifications(),
   ),
-  GetPage<DetailsAboutYou>(
-    name: details,
-    page: () => const DetailsAboutYou(),
-  ),
+  GetPage<DetailsAboutYou>(name: details, page: () => const DetailsAboutYou()),
 ];

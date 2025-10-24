@@ -18,7 +18,7 @@ class BookingsController extends GetxController {
   bool isLoading = false;
   String? accessToken;
   int? loukMyPatientId;
-  final ChangeParamContentAndNextPage change = Get.find();
+  // final ChangeParamContentAndNextPage change = Get.find();
   // String? nameAndGoNextPageInBtn;
   // bool showHeaderBtn = true;
   bool hasLoadedSessionWaiting = false;
@@ -174,8 +174,8 @@ class BookingsController extends GetxController {
 
       case 'Pending':
         mySectionId = secionId;
-        change.goToComponentHeader.value = 'waitingForYourTurn';
-        change.update();
+        // change.goToComponentHeader.value = 'waitingForYourTurn';
+        // change.update();
         break;
       case 'Started':
         // Get.toNamed(meetingPage);
