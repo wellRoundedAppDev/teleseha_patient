@@ -53,7 +53,6 @@ class VideoCallController extends GetxController {
   bool isOpenContainerRange = false;
   RxBool isCallEnded = false.obs;
 
-  BookingsController bookings = Get.put(BookingsController());
   bool get hasParticipant => localUserJoined || remoteUid != null;
   // bool get hasParticipant => localUserJoined;
 
@@ -551,9 +550,7 @@ class VideoCallController extends GetxController {
 
   Future<void> joinAsFirstUser() async {
     localUserJoined = true;
-    bookings.currentStep = 2;
     update();
-    bookings.update();
     await initAgora();
     Get.toNamed(routeVideoCall);
   }
@@ -616,8 +613,6 @@ class VideoCallController extends GetxController {
           },
           onUserJoined: (RtcConnection connection, int remoteUid, int elapsed) {
             this.remoteUid = remoteUid;
-            bookings.currentStep = 2;
-            bookings.update();
             startTimer();
             update();
           },

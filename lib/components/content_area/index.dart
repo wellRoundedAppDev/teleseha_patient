@@ -1,3 +1,4 @@
+export 'chat_gemini/index.dart';
 export 'content_area.dart';
 export 'content_doctor_evaluation/index.dart';
 export 'content_doctors/index.dart';

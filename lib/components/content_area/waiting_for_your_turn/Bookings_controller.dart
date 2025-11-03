@@ -18,7 +18,7 @@ class BookingsController extends GetxController {
   bool isLoading = false;
   String? accessToken;
   int? loukMyPatientId;
-  // final ChangeParamContentAndNextPage change = Get.find();
+  final ChangeParamContentAndNextPage change = Get.find();
   // String? nameAndGoNextPageInBtn;
   // bool showHeaderBtn = true;
   bool hasLoadedSessionWaiting = false;
@@ -28,7 +28,8 @@ class BookingsController extends GetxController {
 
   @override
   void onInit() {
-    super.onInit();
+    _loadUserName();
+    _comming();
 
     Timer.periodic(const Duration(seconds: 20), (Timer timer) {
       remainingMinutes > 0 ? remainingMinutes-- : timer.cancel();
@@ -37,8 +38,7 @@ class BookingsController extends GetxController {
       update();
     });
 
-    _loadUserName();
-    _comming();
+    super.onInit();
   }
 
   Future<void> _loadUserName() async {
@@ -92,6 +92,7 @@ class BookingsController extends GetxController {
               break;
             case 'CreateComplaint':
               btnName = 'send_ai'.tr;
+              
               showBtn = true;
               break;
             case 'Pending':
@@ -113,6 +114,7 @@ class BookingsController extends GetxController {
       },
       // ignore: always_specify_types
       onError: (error) {
+        isLoading = true;
         update();
         return null;
       },
@@ -169,7 +171,8 @@ class BookingsController extends GetxController {
         break;
 
       case 'CreateComplaint':
-        // Get.toNamed(aiChat);
+        change.goToComponentHeader.value = 'ChatGemini';
+        change.update();
         break;
 
       case 'Pending':

@@ -1,51 +1,26 @@
 {
   "project_info": {
-    "project_number": "314790822390",
-    "project_id": "ksq-vue-learning",
-    "storage_bucket": "ksq-vue-learning.firebasestorage.app"
+    "project_number": "1014102616537",
+    "project_id": "telesehadoctor",
+    "storage_bucket": "telesehadoctor.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:314790822390:android:33faf371cd64f9bdf147d7",
+        "mobilesdk_app_id": "1:1014102616537:android:db9f2ac344957ebc4791c8",
         "android_client_info": {
           "package_name": "com.example.patient"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "314790822390-fg6f6o2qg1q8jpmukitfraakusi7h6sl.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.patient",
-            "certificate_hash": "9e9df5340a81cd1640d2f5a1f8f183a9de481489"
-          }
-        },
-        {
-          "client_id": "314790822390-2l3ic74a1hp1881sut7i9d8p05ldbqjb.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAV0sltPDYWUaPHg9nArdw2hWG_2d2Z-oc"
+          "current_key": "AIzaSyB_OeBZcrwnZEdnHYUN68IAJmwvc5FAs9Q"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "314790822390-2l3ic74a1hp1881sut7i9d8p05ldbqjb.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "314790822390-91om4jscmp69l6ruvpscpfn4mbs9922n.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.test"
-              }
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

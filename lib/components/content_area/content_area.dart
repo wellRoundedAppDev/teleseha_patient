@@ -98,6 +98,8 @@ class ContentArea extends StatelessWidget {
                   ? const ContentProfileDoctor()
                   : controller.goToComponentHeader.value == 'DoctorEvaluation'
                   ? ContentDoctorEvaluation()
+                  : controller.goToComponentHeader.value == 'ChatGemini'
+                  ? ChatGemini()
                   : const ContentPrescription();
             }),
           ),

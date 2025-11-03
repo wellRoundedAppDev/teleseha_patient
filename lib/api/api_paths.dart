@@ -26,6 +26,7 @@ const String chatMessage = 'chat-message';
 const String ratingReview = 'rating-review';
 const String infoLists = 'general/info-lists';
 const String labAnalysisRequest = 'lab-analysis-request';
+const String patientComplaint = 'patient-complaint';
 
 // ******************** appotntmentControllersPath ********************
 const String checkCommingPath = '$appotntmentControllersPath/check-comming';
