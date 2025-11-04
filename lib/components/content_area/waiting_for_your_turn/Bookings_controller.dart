@@ -92,7 +92,7 @@ class BookingsController extends GetxController {
               break;
             case 'CreateComplaint':
               btnName = 'send_ai'.tr;
-              
+
               showBtn = true;
               break;
             case 'Pending':
@@ -171,8 +171,13 @@ class BookingsController extends GetxController {
         break;
 
       case 'CreateComplaint':
+        final ChatGeminiController chatController = Get.put(
+          ChatGeminiController(),
+        );
+        chatController.gemeiniStart(id);
         change.goToComponentHeader.value = 'ChatGemini';
         change.update();
+
         break;
 
       case 'Pending':
