@@ -81,7 +81,7 @@ class RecentBookings extends StatelessWidget {
                                                   10,
                                                 ),
                                             child: Image.network(
-                                              item['doctorCard']['imageUrl'] ??
+                                              item['doctorCard']?['imageUrl'] ??
                                                   '',
                                               width: DEVICE_WIDTH * 0.17,
                                               height: DEVICE_HEIGHT * 0.083,
@@ -120,7 +120,7 @@ class RecentBookings extends StatelessWidget {
                                                     children: <Widget>[
                                                       CustomText(
                                                         text:
-                                                            item['doctorCard']['name'] ??
+                                                            item['doctorCard']?['name'] ??
                                                             '',
                                                         type: CustomTextType
                                                             .title,
@@ -140,7 +140,7 @@ class RecentBookings extends StatelessWidget {
                                                   children: <Widget>[
                                                     CustomText(
                                                       text:
-                                                          item['doctorCard']['specialty'] ??
+                                                          item['doctorCard']?['specialty'] ??
                                                           '',
                                                       type: CustomTextType
                                                           .inputTitle,
@@ -161,7 +161,7 @@ class RecentBookings extends StatelessWidget {
                                         children: <Widget>[
                                           CustomText(
                                             text:
-                                                item['doctorCard']['ratingCount']
+                                                item['doctorCard']?['ratingCount']
                                                     ?.toString() ??
                                                 '0',
                                             fontSize: 10,
@@ -179,7 +179,7 @@ class RecentBookings extends StatelessWidget {
                                           SizedBox(width: DEVICE_WIDTH * 0.025),
                                           CustomText(
                                             text:
-                                                '(${item['doctorCard']['successfuls']?.toString() ?? ''} ${'detection_times'.tr})',
+                                                '(${item['doctorCard']?['successfuls']?.toString() ?? ''} ${'detection_times'.tr})',
                                             fontSize: 10,
                                             type: CustomTextType.inputTitle,
                                             color: const Color(
@@ -209,7 +209,7 @@ class RecentBookings extends StatelessWidget {
                                               ),
                                               CustomText(
                                                 text: controller.formatDate(
-                                                  item['session']['date']
+                                                  item['session']?['date']
                                                           ?.toString() ??
                                                       '',
                                                 ),
@@ -225,10 +225,7 @@ class RecentBookings extends StatelessWidget {
                                           Row(
                                             children: <Widget>[
                                               CustomText(
-                                                text:
-                                                    (item['session']['start'] ??
-                                                            '')
-                                                        .substring(0, 5),
+                                                text: controller.getSafeTime(item['session']?['start']),
                                                 fontSize: 12,
                                                 type: CustomTextType.title,
                                                 color: const Color(
@@ -262,8 +259,7 @@ class RecentBookings extends StatelessWidget {
                                           onPressed: () {
                                             controller.changeAvailableBtn(
                                               item['status'],
-                                              item['id'] ??
-                                                  0,
+                                              item['id'] ?? 0,
                                               item['session']['sessionId'] ?? 0,
                                             );
                                           },

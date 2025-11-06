@@ -10,3 +10,6 @@ const String routeScreen = '/main-screen';
 const String routeVideoCall = '/video-call';
 const String routeNotifications = '/notificaions';
 const String details = '/details';
+const String routeSecurity = '/routeSecurity';
+const String routeTechnicalSupport = '/routeTechnicalSupport';
+const String routeCopyRight = '/routeCopyRight';

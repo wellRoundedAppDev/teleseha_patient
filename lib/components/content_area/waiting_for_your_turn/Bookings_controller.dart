@@ -6,6 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
 
 import '../../../general_exports.dart' hide FormData;
+import '../../../services/signalr_service.dart';
 
 class BookingsController extends GetxController {
   int? passedIndex = 0;
@@ -25,6 +26,8 @@ class BookingsController extends GetxController {
   int? mySectionId;
 
   LocalStorage localStorage = LocalStorage();
+
+  final SignalRService signalRService = SignalRService();
 
   @override
   void onInit() {
@@ -66,61 +69,77 @@ class BookingsController extends GetxController {
     }
   }
 
+  String getSafeTime(dynamic start) {
+    if (start == null || start.toString().isEmpty) {
+      return '--:--';
+    }
+    final String value = start.toString();
+    return value.length >= 5 ? value.substring(0, 5) : value;
+  }
+
   // ignore: always_specify_types
   List lastRecent = <dynamic>[];
   Future<void> _comming() async {
-    isLoading = true;
-    update();
-    accessToken = await localStorage.readFromStorage(storageAccessToken);
-    await ApiRequest(
-      path: '$comming/$loukMyPatientId',
-      className: '',
-      formatResponse: true,
-      header: <String, dynamic>{'Authorization': 'Bearer $accessToken'},
-    ).request(
-      onSuccess: (dynamic data, dynamic response) async {
-        lastRecent = response ?? <dynamic>[];
+    try {
+      isLoading = true;
+      update();
 
+      accessToken = await localStorage.readFromStorage(storageAccessToken);
+
+      await ApiRequest(
+        path: '$comming/$loukMyPatientId',
+        className: '',
+        formatResponse: true,
+        header: <String, dynamic>{'Authorization': 'Bearer $accessToken'},
+      ).request(
         // ignore: always_specify_types
-        for (final item in lastRecent) {
-          String btnName;
-          bool showBtn;
-          switch (item['status']) {
-            case 'Confirmed':
-              btnName = 'buy'.tr;
-              showBtn = true;
-              break;
-            case 'CreateComplaint':
-              btnName = 'send_ai'.tr;
+        onSuccess: (data, response) async {
+          // ignore: always_specify_types
+          lastRecent = (response ?? <dynamic>[]) as List;
+          for (final item in lastRecent) {
+            String btnName = '';
+            bool showBtn = false;
 
-              showBtn = true;
-              break;
-            case 'Pending':
-              btnName = 'page_wating'.tr;
-              showBtn = true;
-              break;
-            case 'Started':
-              btnName = 'meeting'.tr;
-              showBtn = true;
-              break;
-            default:
-              showBtn = false;
-              btnName = ''.tr;
+            switch (item['status']) {
+              case 'Confirmed':
+                btnName = 'buy'.tr;
+                showBtn = true;
+                break;
+              case 'CreateComplaint':
+                btnName = 'send_ai'.tr;
+                showBtn = true;
+                break;
+              case 'Pending':
+                btnName = 'page_wating'.tr;
+                showBtn = true;
+                break;
+              case 'Started':
+                btnName = 'meeting'.tr;
+                showBtn = true;
+                break;
+              default:
+                btnName = '';
+                showBtn = false;
+            }
+
+            item['buttonName'] = btnName;
+            item['showButton'] = showBtn;
           }
-          item['buttonName'] = btnName;
-          item['showButton'] = showBtn;
-        }
-        update();
-      },
-      // ignore: always_specify_types
-      onError: (error) {
-        isLoading = true;
-        update();
-        return null;
-      },
-    );
-    isLoading = false;
-    update();
+
+          isLoading = false;
+          update();
+        },
+        // ignore: always_specify_types
+        onError: (error) {
+          isLoading = false;
+          update();
+          return null;
+        },
+      );
+    } catch (e) {
+      isLoading = false;
+      update();
+    }
   }
 
   Future<void> _pay(int id) async {
@@ -156,7 +175,7 @@ class BookingsController extends GetxController {
         isLoading = false;
         update();
         if (statusCode == 401) {
-          final FingerPrintController appController = Get.find();
+          final LoginController appController = Get.find();
           appController.futureRefreshLogin();
         }
         return null;
@@ -171,21 +190,39 @@ class BookingsController extends GetxController {
         break;
 
       case 'CreateComplaint':
-        final ChatGeminiController chatController = Get.put(
-          ChatGeminiController(),
-        );
-        chatController.gemeiniStart(id);
-        change.goToComponentHeader.value = 'ChatGemini';
-        change.update();
+        // final ChatGeminiController chatController = Get.put(
+        //   ChatGeminiController(),
+        // );
+        // chatController.gemeiniStart(id);
+        // change.goToComponentHeader.value = 'ChatGemini';
+        // change.update();
+
+        signalRService
+            .initConnection(
+              'https://teleseha.com/api/hub/appointment',
+              'Bearer $accessToken',
+            )
+            .then((_) {
+              // مثلاً نرسل إشعار للمستخدمين أو نستقبل دعوات
+              // signalRService.sendInvite('targetUserId', 'room123', 'callerName');
+
+              // بعدها نغيّر الواجهة إلى شاشة الانتظار
+              change.goToComponentHeader.value = 'waitingForYourTurn';
+              change.update();
+            })
+            .catchError((error) {
+              print('❌ فشل الاتصال بـ SignalR: $error');
+            });
 
         break;
 
       case 'Pending':
         mySectionId = secionId;
-        // change.goToComponentHeader.value = 'waitingForYourTurn';
-        // change.update();
+        change.goToComponentHeader.value = 'waitingForYourTurn';
+        change.update();
         break;
       case 'Started':
+        // await signalR.sendInvite('doctor-id', 'room_123', 'Aya');
         // Get.toNamed(meetingPage);
         break;
 

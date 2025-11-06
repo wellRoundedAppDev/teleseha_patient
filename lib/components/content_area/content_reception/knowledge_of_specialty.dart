@@ -87,7 +87,6 @@ class KnowledgeOfSpecialty extends StatelessWidget {
                 ),
                 SizedBox(height: DEVICE_HEIGHT * 0.095),
                 Btn(
-                  
                   onPressed: () {
                     change.goToComponentHeader.value = 'HomePage';
                     // homePage.checkReservations = true;

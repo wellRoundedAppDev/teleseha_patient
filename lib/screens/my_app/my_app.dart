@@ -26,7 +26,8 @@ class MyApp extends StatelessWidget {
         ],
         translations: Translation(),
         debugShowCheckedModeBanner: false,
-        initialRoute: routeFingerPrint,
+        initialRoute: routeLogin,
+        // initialRoute: routeFingerPrint,
         // initialRoute: routeScreen,
         getPages: appRoutes,
         builder: (BuildContext context, Widget? child) {

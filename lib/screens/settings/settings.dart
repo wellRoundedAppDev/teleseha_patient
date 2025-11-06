@@ -27,22 +27,42 @@ class Settings extends StatelessWidget {
                       padding: const EdgeInsets.all(14),
                       child: Column(
                         children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              CustomText(
-                                text: 'settings'.tr,
-                                fontSize: 18,
-                                type: CustomTextType.title,
-                                color: const Color(AppColors.colorLineAndText),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Get.back();
+                                },
+                                child: SvgPicture.asset(
+                                  iconBack,
+                                  width: 24,
+                                  height: 26,
+                                  color: Colors.black,
+                                ),
                               ),
-                              SizedBox(width: DEVICE_WIDTH * 0.02),
-                              SvgPicture.asset(
-                                iconSettings1,
-                                width: 24,
-                                height: 26,
-                                // ignore: deprecated_member_use
-                                color: const Color(AppColors.colorLineAndText),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  CustomText(
+                                    text: 'settings'.tr,
+                                    fontSize: 18,
+                                    type: CustomTextType.title,
+                                    color: const Color(
+                                      AppColors.colorLineAndText,
+                                    ),
+                                  ),
+                                  SizedBox(width: DEVICE_WIDTH * 0.02),
+                                  SvgPicture.asset(
+                                    iconSettings1,
+                                    width: 24,
+                                    height: 26,
+                                    // ignore: deprecated_member_use
+                                    color: const Color(
+                                      AppColors.colorLineAndText,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
@@ -52,25 +72,69 @@ class Settings extends StatelessWidget {
                             child: SingleChildScrollView(
                               child: Column(
                                 children: <Widget>[
-                                  ContainerSettings(
-                                    title: 'profile'.tr,
-                                    icon: iconDataUser,
+                                  GestureDetector(
+                                    onTap: () {
+                                      final BottomNavController bottomNav =
+                                          Get.find();
+                                      bottomNav.selectedIndexBottomNav.value =
+                                          0;
+                                    },
+                                    child: ContainerSettings(
+                                      title: 'profile'.tr,
+                                      icon: iconDataUser,
+                                    ),
                                   ),
                                   SizedBox(height: DEVICE_HEIGHT * 0.035),
                                   ContainerSettings(
                                     title: 'settings_notificion'.tr,
                                     isActive: false,
                                     isActiveSwitch: true,
+                                    icon: iconNotificationBLue,
+                                  ),
+                                  SizedBox(height: DEVICE_HEIGHT * 0.035),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.toNamed(routeSecurity);
+                                    },
+                                    child: ContainerSettings(
+                                      title: 'copy_right'.tr,
+                                      icon: iconCopyRight,
+                                    ),
+                                  ),
+                                  SizedBox(height: DEVICE_HEIGHT * 0.035),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.toNamed(routeFormDiagnosis);
+                                    },
+                                    child: ContainerSettings(
+                                      title: 'medical_history1'.tr,
+                                      icon: iconMdeicalHistory,
+                                    ),
+                                  ),
+                                  SizedBox(height: DEVICE_HEIGHT * 0.035),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.toNamed(routeCopyRight);
+                                    },
+                                    child: ContainerSettings(
+                                      title: 'copy_right_setting'.tr,
+                                      icon: copyRightSetting,
+                                    ),
                                   ),
                                   SizedBox(height: DEVICE_HEIGHT * 0.035),
                                   ContainerSettings(
-                                    title: 'copy_right'.tr,
-                                    icon: iconCopyRight,
+                                    title: 'copy'.tr,
+                                    icon: copy,
                                   ),
                                   SizedBox(height: DEVICE_HEIGHT * 0.035),
-                                  ContainerSettings(
-                                    title: 'technical_support'.tr,
-                                    icon: iconTechnicalSupport,
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.toNamed(routeTechnicalSupport);
+                                    },
+                                    child: ContainerSettings(
+                                      title: 'technical_support'.tr,
+                                      icon: tecTeam,
+                                    ),
                                   ),
                                   SizedBox(height: DEVICE_HEIGHT * 0.035),
                                   ContainerSettings(

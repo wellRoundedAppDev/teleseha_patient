@@ -320,9 +320,7 @@ class StartStepsController extends GetxController {
             key: storageUserData,
             value: jsonEncode(userMap),
           );
-          await localStorage.readFromStorage(
-            storageUserData,
-          );
+          await localStorage.readFromStorage(storageUserData);
           // ignore: always_specify_types
           await Future.delayed(const Duration(milliseconds: 300));
           Get.toNamed(routeCreateAccountSuccess);
@@ -334,7 +332,7 @@ class StartStepsController extends GetxController {
           isLoading = false;
           update();
           if (statusCode == 401) {
-            final FingerPrintController appController = Get.find();
+            final LoginController appController = Get.find();
             appController.futureRefreshLogin();
           } else {
             if (textFieldName.text.isEmpty) {

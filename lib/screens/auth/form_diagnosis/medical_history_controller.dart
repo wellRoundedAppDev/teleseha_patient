@@ -141,7 +141,7 @@ class MedicalHistoryController extends GetxController {
         isLoading = false;
         update();
         if (statusCode == 401) {
-          final FingerPrintController appController = Get.find();
+          final LoginController appController = Get.find();
           appController.futureRefreshLogin();
         } else {
           Get.toNamed(details);

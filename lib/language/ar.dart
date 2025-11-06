@@ -4,6 +4,68 @@ const Map<String, String> ar = <String, String>{
   'is_valid_enter_age': 'الرجاء ادخال تاريخ الميلاد',
   'type': 'النوع',
   'next': 'التالي',
+  'copy_right_setting': 'سياسة الخصوصية',
+  'first_session': 'المادة الأولى: البيانات التي يتم جمعها',
+  'first_session_text': 'تقوم المنصة بجمع الأنواع التالية من البيانات:',
+  'first_session_list_title_one': 'بيانات التسجيل: ',
+  'first_session_list_one':
+      'مثل الاسم الكامل, البريد الإلكتروني, رقم الهاتف, كلمة المرور, ومعلومات الحساب وغيرها',
+  'first_session_list_title_two': 'بيانات الطبيب: ',
+  'first_session_list_two':
+      'مثل التاريخ الطبي, الأعراض, نتائج الفحوصات, تقارير التشخيص, والوصفات الطبية وغيرها',
+  'first_session_list_title_three': 'بيانات مقدمي الخدمة: ',
+  'first_session_list_three':
+      'مثل رقم ترخيص مزاولة مهنة السبرة المهنية المؤهقلات والشهادات وغيرها',
+  'first_session_list_title_four': 'بيانات الدفع: ',
+  'first_session_list_four':
+      'مثل وصولات الدفع طرق الدفع الدفع الإكتروني (مع الالتزام بالشفيرة وحماية المعاملات) وغيرها',
+  'first_session_list_title_five': 'بيانات تقنية: ',
+  'first_session_list_five':
+      'مثل عنوان برتوكول الإنترنت IP Address نوع الجهاز والمتصفح ملفات تعريف الارتباط Cookies وغيرها',
+  'enter_plat_form': 'تضع منصة',
+  'text_copy_right':
+      'خصوصية مستخدميها من أطباء (مقدمي الخدمة) ومرضى (المستخدمين) وزوار الموقع في مقدمة أولوياتها. تهدف هذه السياسة إلى توضيح كيفية جمع البيانات الشخصية والطبية، وكيفية استخدامها ومعالجتها وحمايتها، والحقوق المكفولة للمستخدمين بموجب القوانين والأنظمة المعمول بها.',
+  'second_session': 'المادة الثانية: كيفية استخدام البيانات',
+  'second_session_text':
+      'تستخدم المنصة البيانات التي يتم جمعها للأعراض التالية:',
+  'second_session_list_title_one': 'توفير الخدمات الطبية: ',
+  'second_session_list_one':
+      'غير المنصة مثل حجز المواعيد وإجراء الاستشارة الطبية',
+  'second_session_list_title_two': 'التحقق من الهوية: ',
+  'second_session_list_two': 'المستخدمين ومقدمي الخدمة',
+  'second_session_list_title_three': 'تحسين تجربة المستخدم: ',
+  'second_session_list_three': 'وتطوير خدمات المنصة',
+  'second_session_list_title_four': 'التواصل مع المستخدمين: ',
+  'second_session_list_four': 'بشان المواعيد والتحديثات والإشعارات',
+  'second_session_list_title_five': 'الوفاء بالالتزامات: ',
+  'second_session_list_five': 'القانونية والتنظيمية',
+  'second_session_list_title_six': 'أغراض البحث: ',
+  'second_session_list_six': 'والإحصاء بعد إخفاء الهوية Anonymization',
+  'thireed_session': 'المادة الثالثة: مشاركة البيانات',
+  'thireed_session_list_title_one': 'المشاركة: ',
+  'thireed_session_list_one':
+      'يتم مشاركة بيانات المستخدمين مع مقدمي الخدمة فقط بالقدراللازم لتدقيم الاستشارة الطبية',
+  'thireed_session_list_title_two': 'المشاركة: ',
+  'thireed_session_list_two':
+      'قد يتم مشاركة البيانات مع جهات رسمية أو قضائية إذا تطلب القانون ذلك ',
+  'thireed_session_list_title_three': 'التأخير: ',
+  'thireed_session_list_three':
+      'لا يتم بيع أو تأخير بيانات المستخدمين لأي طرف ثالث لأغراض تسويقية دون موافقة صريحة مسبقة',
+
+  'fourth_session': 'المادة الرابعة: حقوق النشر',
+  'fourth_session_list_title_one': 'مسؤلية: ',
+  'fourth_session_list_one':
+      'تقتر مسؤولية المنصة على توفير الوسيط التقني الذي يربط بين المستخدم ومقدم الخدمة',
+  'fourth_session_list_title_two': 'لا تقدم: ',
+  'fourth_session_list_two': 'المنصة أي استشارات طبية أو توصيات علاجية مباشرة',
+  'fourth_session_list_title_three': 'تقع المسؤولية: ',
+  'fourth_session_list_three': 'الطبية كاملة على مقدم الخدمة وحده',
+  // 'first_session_list_title_four': 'بيانات الدفع: ',
+  // 'first_session_list_four':
+  //     'مثل وصولات الدفع طرق الدفع الدفع الإكتروني (مع الالتزام بالشفيرة وحماية المعاملات) وغيرها',
+  // 'first_session_list_title_five': 'بيانات تقنية: ',
+  // 'first_session_list_five':
+  //     'مثل عنوان برتوكول الإنترنت IP Address نوع الجهاز والمتصفح ملفات تعريف الارتباط Cookies وغيرها',
   'title_foot_print': 'سجل بصمة اصبعك للحماية',
   'text_foot_print':
       'سيتم استخدام بصمة اصبعك لتأمين حسابك وتسريع تسجيل ادخال لاحقاً',
@@ -14,6 +76,11 @@ const Map<String, String> ar = <String, String>{
   'dont_have_commint': 'لا يوجد تعليقات',
   'not_found_medical_profile_section': 'الرجاء التحقق من الدخول او الأنترنت',
   'name': 'الاسم',
+  'call_phones': 'الأجهزه المتصلة',
+  'contact_us': 'اتصل بنا',
+  'contacut': 'راسلنا',
+  'help_technical_support':
+      'مساعدة المستخدمين (مرضى/أطباء) في حل المشكلات الفنية أو الاستفسارات المتعلقة بالتطبيق',
   'details_about_you': 'تفاصيل عامة عنك',
   'name_field': 'عبدالرحمن عبالله محمد',
   'is_valid_name_field': 'الرجاء ادخال الاسم',
@@ -184,7 +251,7 @@ const Map<String, String> ar = <String, String>{
   'marital_status': 'الحالة الاجتماعية',
   'enter_marital_status': 'اختر الحالة الاجتماعية',
   'job_title': 'المسمى الوظيفي',
-  'write_answer': 'اكتب اجابة السؤال',  
+  'write_answer': 'اكتب اجابة السؤال',
   'enter_job_title': 'اكتب المسمى الوظيفي الخاص بك',
   'length': 'الطول',
   'enter_length': 'اكتب الطول',
@@ -207,6 +274,8 @@ const Map<String, String> ar = <String, String>{
   'exceptional_appointments': 'المواعيد الاستثنائية',
   'qualifications': 'المؤهلات',
   'university': 'الجامعة',
+  'copy': 'الشروط والأحكام',
+  'pattern': 'نمط الأمان',
   'al_azhar_al_sharif': 'الازهر الشريف',
   'bachelor_of_medicine_and_surgery': 'بكالوريوس طب وجراحة',
   'practical_experiences': 'الخبرات العلمية',

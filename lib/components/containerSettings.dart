@@ -41,16 +41,7 @@ class ContainerSettings extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Container(
-                margin: const EdgeInsets.only(top: 3),
-                child: isActive
-                    ? SvgPicture.asset(
-                        iconArrowSmaill,
-                        width: DEVICE_WIDTH * 0.02,
-                        height: DEVICE_HEIGHT * 0.02,
-                      )
-                    : const SizedBox(),
-              ),
+              if (icon != null) SvgPicture.asset(icon!) else const SizedBox(),
               const SizedBox(width: 14),
               Expanded(
                 child: CustomText(
@@ -60,7 +51,19 @@ class ContainerSettings extends StatelessWidget {
                   color: const Color(AppColors.colorSelectDropDown),
                 ),
               ),
-              if (icon != null) SvgPicture.asset(icon!) else const SizedBox(),
+              Container(
+                margin: const EdgeInsets.only(top: 3),
+                child: isActive
+                    ? Transform.rotate(
+                        angle: 3.1416,
+                        child: SvgPicture.asset(
+                          iconArrowSmaill,
+                          width: DEVICE_WIDTH * 0.02,
+                          height: DEVICE_HEIGHT * 0.02,
+                        ),
+                      )
+                    : const SizedBox(),
+              ),
               if (isActiveSwitch)
                 FlutterSwitch(
                   width: 40.0,

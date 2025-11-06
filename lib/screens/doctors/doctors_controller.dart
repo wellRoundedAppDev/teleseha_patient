@@ -172,7 +172,7 @@ class DoctorsController extends GetxController {
         isLoading = false;
         update();
         if (statusCode == 401) {
-          final FingerPrintController appController = Get.find();
+          final LoginController appController = Get.find();
           appController.futureRefreshLogin();
         }
         return null;
@@ -370,7 +370,6 @@ class DoctorsController extends GetxController {
       header: <String, dynamic>{'Authorization': 'Bearer $accessToken'},
     ).request(
       onSuccess: (dynamic data, dynamic response) async {
-        consoleLog('>>> API sessions response: $response');
         // ignore: always_specify_types
         for (var session in response) {
           sessionIds.add(session['sessionId']);

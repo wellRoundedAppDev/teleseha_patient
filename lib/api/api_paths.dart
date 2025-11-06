@@ -37,3 +37,4 @@ const String paymentPath = '$appotntmentControllersPath/pay';
 // ******************** metting ********************
 const String meeting = '$meetingPath/initial-data';
 const String reportsMeeting = '$meetingPath/reports';
+const String openPath = 'doctor-app/appointment/open';

@@ -82,6 +82,15 @@ const String iconTechnicalSupport = '${iconsPath}technicalSupport.svg';
 const String iconCopyRight = '${iconsPath}copyRight.svg';
 const String iconHowAreWe = '${iconsPath}howAreWe.svg';
 const String iconLogoLogin = '${iconsPath}logoLogin.svg';
+const String iconMdeicalHistory = '${iconsPath}mdeical_history.svg';
+const String iconNotificationBLue = '${iconsPath}iconNotificationBLue.svg';
+const String copyRightSetting = '${iconsPath}copy_right_setting.svg';
+const String copy = '${iconsPath}copy.svg';
+const String iconPhoneBlue = '${iconsPath}iconPhoneBlue.svg';
+const String phones = '${iconsPath}phones.svg';
+const String tecTeam = '${iconsPath}tec_team.svg';
+const String technicalSupport1 = '${iconsPath}technicalSupport1.svg';
+const String mail = '${iconsPath}mail.svg';
 
 // images
 const String imageDoctor = '${imagesPath}doctor.png';

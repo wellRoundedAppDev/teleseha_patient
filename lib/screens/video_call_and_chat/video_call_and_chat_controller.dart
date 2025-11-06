@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../general_exports.dart';
+import '../../services/signalr_service.dart';
 
 class ChatLog {
   ChatLog({
@@ -44,6 +45,9 @@ class VideoCallController extends GetxController {
   bool isSwapped = false;
   bool isRotateFolderAndImageSend = false;
   int selectedIndex = 2;
+  int? myCheckUpId;
+  RxMap<int, bool> isLoadingMap = <int, bool>{}.obs;
+  final SignalRService signalR = SignalRService();
 
   final ScrollController scrollController = ScrollController();
   late ScrollController firstPageScrollController;
@@ -90,6 +94,7 @@ class VideoCallController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    _initSignalR();
     bottomSheetController.addListener(() {
       bottomSheetSize.value = bottomSheetController.size;
     });
@@ -105,6 +110,32 @@ class VideoCallController extends GetxController {
 
     // _sessionMeeting();
     // _chatMeeting();
+  }
+
+  Future<void> _initSignalR() async {
+    accessToken = await localStorage.readFromStorage(storageAccessToken);
+
+    await signalR.initConnection(
+      "https://your-api-url/hubs/call", // استبدلي بعنوان السيرفر الحقيقي
+      accessToken ?? '',
+    );
+
+    // لما يجي حدث من SignalR نستدعي دوال Agora أو نفتح شاشة المكالمة
+    signalR.connection.on("CallInvite", (args) {
+      final data = args?.first;
+      print("📩 SignalR invite received: $data");
+      // هنا تفتحي شاشة فيها زر قبول/رفض
+    });
+
+    signalR.connection.on("CallAccepted", (args) {
+      print("📞 SignalR call accepted");
+      joinAsFirstUser(); // Agora join
+    });
+
+    signalR.connection.on("CallEnded", (args) {
+      print("❌ SignalR call ended");
+      endCall();
+    });
   }
 
   // ignore: always_specify_types
@@ -251,6 +282,59 @@ class VideoCallController extends GetxController {
           );
         },
       ),
+    );
+  }
+
+  // ignore: always_specify_types
+  Future<void> open(int? appointmentId) async {
+    if (appointmentId == null) {
+      return;
+    }
+
+    isLoadingMap[appointmentId] = true;
+    update();
+
+    accessToken = await localStorage.readFromStorage(storageAccessToken);
+
+    await ApiRequest(
+      path: '$openPath/$appointmentId',
+      method: ApiMethods.post,
+      header: {'Authorization': 'Bearer $accessToken'},
+      className: '',
+    ).request(
+      onSuccess: (dynamic data, dynamic response) async {
+        isLoadingMap[appointmentId] = false;
+        update();
+        if (data is Map<String, dynamic>) {
+          myCheckUpId = data['checkUpId'];
+          final List<dynamic>? chatMessagesApi = data['chatMessages'];
+          final String providerToken = data['providerToken'].toString();
+          final String channelName = data['channelName'].toString();
+          int? lastMessageId;
+          if (chatMessagesApi != null && chatMessagesApi.isNotEmpty) {
+            final dynamic lastMsg = chatMessagesApi.last;
+            if (lastMsg is Map<String, dynamic>) {
+              lastMessageId = lastMsg['messageId'] as int?;
+            }
+          }
+          // Get.put(
+          // VideoCallController(isAppointmentId: appointmentId),
+          // permanent: false,
+          // );
+          // final VideoCallController videoCall = Get.find();
+          // videoCall.token = providerToken;
+          // videoCall.channel = channelName;
+          // videoCall.update();
+          // videoCall.joinAsFirstUser();
+          // chatMessages(chatMessagesApi, lastMessageId);
+        }
+      },
+      // ignore: always_specify_types
+      onError: (error) {
+        isLoadingMap[appointmentId] = false;
+        update();
+        return null;
+      },
     );
   }
 

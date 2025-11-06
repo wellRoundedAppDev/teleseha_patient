@@ -1,5 +1,3 @@
-import 'package:flutter_svg/svg.dart';
-
 import '../../../general_exports.dart';
 
 class ChatGemini extends StatelessWidget {
@@ -27,69 +25,108 @@ class ChatGemini extends StatelessWidget {
                   color: const Color(AppColors.colorLineAndText),
                 ),
                 SizedBox(height: DEVICE_HEIGHT * 0.01),
-                Container(
-                  height: DEVICE_HEIGHT * 0.3,
-                  child: ListView.builder(
-                    itemCount: controller.messages.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final Map<String, dynamic> message =
-                          controller.messages[index];
-                      final bool isMe = message['isMe'];
+                if (controller.isLoading)
+                  const CircularProgressIndicator()
+                else
+                  Container(
+                    height: DEVICE_HEIGHT * 0.3,
+                    child: ListView.builder(
+                      itemCount: controller.myBodyValue.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        // ignore: always_specify_types
+                        final item = controller.myBodyValue[index];
+                        final String question = item['content'] ?? '';
+                        final List<dynamic> choices =
+                            item['choicesList'] ?? <dynamic>[];
 
-                      return Align(
-                        alignment: isMe
-                            ? Alignment.centerLeft
-                            : Alignment.centerRight,
-                        child: Container(
+                        return Container(
                           margin: EdgeInsets.symmetric(
                             vertical: DEVICE_HEIGHT * 0.008,
                           ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              if (!isMe)
-                                SvgPicture.asset(
-                                  'assets/icons/star.svg',
-                                  width: DEVICE_WIDTH * 0.025,
-                                  height: DEVICE_HEIGHT * 0.02,
-                                ),
-                              SizedBox(width: DEVICE_WIDTH * 0.01),
-                              Container(
-                                padding: EdgeInsets.all(DEVICE_HEIGHT * 0.012),
-                                decoration: BoxDecoration(
-                                  color: isMe
-                                      ? const Color(AppColors.colorLineAndText)
-                                      : const Color(AppColors.colorLineAndText),
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: CustomText(
-                                  text: message['text'],
-                                  fontSize: 12,
-                                  type: CustomTextType.title,
-                                  color: const Color(
-                                    AppColors.colorWhiteSelectedType,
+                          child: Column(
+                            children: [
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Container(
+                                  padding: EdgeInsets.all(
+                                    DEVICE_HEIGHT * 0.012,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: const Color(
+                                      AppColors.colorLineAndText,
+                                    ),
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: CustomText(
+                                    text: question,
+                                    fontSize: 12,
+                                    type: CustomTextType.title,
+                                    color: const Color(
+                                      AppColors.colorWhiteSelectedType,
+                                    ),
                                   ),
                                 ),
                               ),
-                              SizedBox(width: DEVICE_WIDTH * 0.01),
-                              if (isMe)
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                    left: DEVICE_WIDTH * 0.015,
+                              SizedBox(height: DEVICE_HEIGHT * 0.015),
+                              ...choices.map((choice) {
+                                return Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Container(
+                                    margin: EdgeInsets.symmetric(
+                                      vertical: DEVICE_HEIGHT * 0.006,
+                                    ),
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: DEVICE_WIDTH * 0.02,
+                                      vertical: DEVICE_HEIGHT * 0.004,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: const Color(
+                                        AppColors.colorWhiteSelectedType,
+                                      ),
+                                      borderRadius: BorderRadius.circular(15),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.2),
+                                          blurRadius: 6,
+                                          offset: const Offset(0, 3),
+                                        ),
+                                      ],
+                                    ),
+                                    child: IntrinsicWidth(
+                                      child: RadioListTile<String>(
+                                        value: choice,
+                                        groupValue: controller.selectedChoice,
+                                        onChanged: (String? value) {
+                                          controller.selectedChoice = value;
+                                          controller.update();
+                                        },
+                                        title: CustomText(
+                                          text: choice,
+                                          fontSize: 10,
+                                          color: const Color(
+                                            AppColors.colorSelectDropDown,
+                                          ),
+                                        ),
+                                        activeColor: Colors.white,
+                                        contentPadding: EdgeInsets.zero,
+                                        dense: true,
+                                        visualDensity: VisualDensity.compact,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                            15,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                  child: SvgPicture.asset(
-                                    'assets/icons/star.svg',
-                                    width: DEVICE_WIDTH * 0.025,
-                                    height: DEVICE_HEIGHT * 0.02,
-                                  ),
-                                ),
+                                );
+                              }).toList(),
                             ],
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
-                ),
                 SizedBox(height: DEVICE_HEIGHT * 0.01),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -105,8 +142,8 @@ class ChatGemini extends StatelessWidget {
                         ),
                         CustomInput(
                           hint: 'write_answer'.tr,
-                          // controller: controller.filterDoctors,
-                          // showValidMessage: controller.showDoctors,
+                          controller: controller.writeAnswer,
+                          showValidMessage: controller.showWriteAnswer,
                           widthContainer: DEVICE_WIDTH,
                           fontSize: 14,
                           colorLabel: AppColors.colorLineAndText,
@@ -117,7 +154,13 @@ class ChatGemini extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: DEVICE_HEIGHT * 0.005),
-                    Btn(onPressed: () {}, text: 'next'.tr),
+                    Btn(
+                      isLoading: controller.isLoadingGemini,
+                      onPressed: () {
+                        controller.isGemeini();
+                      },
+                      text: 'next'.tr,
+                    ),
                   ],
                 ),
               ],

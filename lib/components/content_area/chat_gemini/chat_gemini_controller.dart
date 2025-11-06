@@ -1,41 +1,26 @@
+import 'dart:convert';
+
 import '../../../general_exports.dart';
 
 class ChatGeminiController extends GetxController {
   bool isLoading = false;
+  bool isLoadingGemini = false;
   String? accessToken;
   LocalStorage localStorage = LocalStorage();
   int? currentId;
+  String? isContentType;
+  String? isPatientMedicalComplaintId;
+  String? message;
+  String? selectedChoice;
+  TextEditingController writeAnswer = TextEditingController();
+
+  bool showWriteAnswer = false;
 
   @override
   void onInit() {
     _myPatientComplaint();
     super.onInit();
   }
-
-  // void setCurrentId(int id) {
-  //   currentId = id;
-  //   print(currentId);
-  //   update();
-  // }
-
-  // final List<Map<String, dynamic>> messages = <Map<String, dynamic>>[
-  //   <String, dynamic>{
-  //     'text': 'Hello doctor, I feel dizzy recently.',
-  //     'isMe': true,
-  //   },
-  //   <String, dynamic>{
-  //     'text': 'Please describe your symptoms more clearly.',
-  //     'isMe': false,
-  //   },
-  //   <String, dynamic>{
-  //     'text': 'I often feel tired and have low energy.',
-  //     'isMe': true,
-  //   },
-  //   <String, dynamic>{
-  //     'text': 'It could be anemia. I recommend a blood test.',
-  //     'isMe': false,
-  //   },
-  // ];
 
   // ignore: always_specify_types
   List gemini = <dynamic>[];
@@ -78,7 +63,7 @@ class ChatGeminiController extends GetxController {
         isLoading = false;
         update();
         if (statusCode == 401) {
-          final FingerPrintController appController = Get.find();
+          final LoginController appController = Get.find();
           appController.futureRefreshLogin();
         }
         return null;
@@ -87,7 +72,7 @@ class ChatGeminiController extends GetxController {
   }
 
   // ignore: always_specify_types
-  List messages = [];
+  List myBodyValue = [];
   Future<void> gemeiniStart(int id) async {
     isLoading = true;
     update();
@@ -98,16 +83,24 @@ class ChatGeminiController extends GetxController {
       className: '',
       formatResponse: true,
       method: ApiMethods.post,
-      header: <String, dynamic>{
-        'Content-Type': 'multipart/form-data',
-        'Accept': '*/*',
-        'Authorization': 'Bearer $accessToken',
-      },
+      header: <String, dynamic>{'Authorization': 'Bearer $accessToken'},
+      body: jsonEncode('String'),
     ).request(
       onSuccess: (dynamic data, dynamic response) async {
+        // ignore: always_specify_types
+        final patientMedicalComplaintId = response['patientMedicalComplaintId'];
+        // ignore: always_specify_types
+        final body = response['bodyValue'];
+        // ignore: always_specify_types
+        final contentType = response['bodyValue']['contentType'];
+
+        isContentType = contentType;
+        isPatientMedicalComplaintId = patientMedicalComplaintId;
+
+        myBodyValue = <dynamic>[body];
+
         isLoading = false;
         // ignore: always_specify_types
-        print('success');
         update();
       },
       // ignore: always_specify_types
@@ -116,7 +109,53 @@ class ChatGeminiController extends GetxController {
         isLoading = false;
         update();
         if (statusCode == 401) {
-          final FingerPrintController appController = Get.find();
+          final LoginController appController = Get.find();
+          appController.futureRefreshLogin();
+        }
+        return null;
+      },
+    );
+  }
+
+  Future<void> isGemeini() async {
+    isLoadingGemini = true;
+    update();
+    accessToken = await localStorage.readFromStorage(storageAccessToken);
+
+    String? isBodyRequest;
+
+    if (isContentType == 'McqQuestion') {
+      isBodyRequest = jsonEncode(selectedChoice);
+    } else if (isContentType == 'question') {
+      isBodyRequest = writeAnswer.text;
+    }
+
+    await ApiRequest(
+      path: '$patientComplaint/$isPatientMedicalComplaintId',
+      className: '',
+      formatResponse: true,
+      method: ApiMethods.post,
+      header: <String, dynamic>{'Authorization': 'Bearer $accessToken'},
+      body: isBodyRequest,
+    ).request(
+      onSuccess: (dynamic data, dynamic response) async {
+        // ignore: always_specify_types
+        final body = response['bodyValue'];
+
+        if (body != null) {
+          myBodyValue = <dynamic>[body];
+        }
+
+        isLoadingGemini = false;
+        update();
+      },
+      // ignore: always_specify_types
+      onError: (error) {
+        final int? statusCode = error.response?.statusCode;
+        isLoadingGemini = false;
+        update();
+        if (statusCode == 401) {
+          final LoginController appController = Get.find();
           appController.futureRefreshLogin();
         }
         return null;

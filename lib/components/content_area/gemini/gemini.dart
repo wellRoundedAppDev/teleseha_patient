@@ -38,7 +38,6 @@ class Gemini extends StatelessWidget {
                   Btn(
                     onPressed: controller.isInputNotEmpty
                         ? () {
-                            consoleLog('success send');
                             // change.goToComponentHeader.value = 'Reception';
                             // change.update();
                           }

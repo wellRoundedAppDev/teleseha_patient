@@ -8,6 +8,11 @@ class LoginController extends GetxController {
   final TextEditingController phoneNumberController = TextEditingController();
   List<int> tempSavedPattern = <int>[];
 
+  String? myNextStep;
+  String? refreshToken;
+  final AuthStorageController authStorage = Get.find();
+  // final StartStepsController stepController = Get.find();
+
   String page = 'signIn';
   String phoneErrorMessage = '';
   String passNumberPhone = '';
@@ -26,7 +31,51 @@ class LoginController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
+    await futureRefreshLogin();
     // await loadPatientsFromStorage();
+  }
+
+  Future<void> futureRefreshLogin() async {
+    refreshToken = await localStorage.readFromStorage(storageRefreshToken);
+
+    await ApiRequest(
+      path: refreshLogin,
+      className: '',
+      formatResponse: true,
+      method: ApiMethods.post,
+      body: <String, String?>{myRefreshToken: refreshToken},
+    ).request(
+      onSuccess: (dynamic data, dynamic response) async {
+        final String? nextStep = response['nextStepEnum']?.toString();
+
+        await authStorage.saveAuthData(response['data']);
+
+        myNextStep = nextStep;
+        update();
+
+        switch (nextStep) {
+          case 'CreateProfile':
+            // stepController.currentStep = 3;
+            // stepController.update();
+            Get.toNamed(routeSteps);
+            break;
+          case 'SelectProfile':
+            Get.toNamed(routeProfiles);
+            break;
+          case 'OpenHome':
+            Get.toNamed(routeScreen);
+            break;
+          default:
+            Get.offAllNamed(routeLogin);
+        }
+      },
+      // ignore: always_specify_types
+      onError: (error) {
+        authStorage.clearAuthData();
+        Get.toNamed(routeLogin);
+        return null;
+      },
+    );
   }
 
   // List<dynamic> profiles = <dynamic>[];
