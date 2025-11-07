@@ -1,4 +1,3 @@
-
 import '../../general_exports.dart';
 
 Future<Map<String, dynamic>> getDefaultQueryParams() async {
@@ -11,7 +10,6 @@ Future<Map<String, dynamic>> getDefaultQueryParams() async {
     // keyOsVersion: deviceInfo.osVersion,
     // keyPlatform: Platform.isAndroid ? platformAndroid : platformIOS,
     // keyAppVersion: myAppController.buildNumber,
-    'sharedKey': sharedKey,
     // keyBidderId: 62, // Open available balance sheet
     // keyBidderId: 83, // Open un available balance sheet (IN_SUFFICIENT_BALANCE)
     // keyBidderId: 101, // Need nafath

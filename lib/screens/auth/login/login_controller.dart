@@ -9,7 +9,7 @@ class LoginController extends GetxController {
   List<int> tempSavedPattern = <int>[];
 
   String? myNextStep;
-  String? refreshToken;
+  dynamic refreshToken;
   final AuthStorageController authStorage = Get.find();
   // final StartStepsController stepController = Get.find();
 
@@ -36,8 +36,7 @@ class LoginController extends GetxController {
   }
 
   Future<void> futureRefreshLogin() async {
-    refreshToken = await localStorage.readFromStorage(storageRefreshToken);
-
+    refreshToken = await localStorage.getFromStorage(key: storageRefreshToken);
     await ApiRequest(
       path: refreshLogin,
       className: '',
@@ -71,7 +70,7 @@ class LoginController extends GetxController {
       },
       // ignore: always_specify_types
       onError: (error) {
-        authStorage.clearAuthData();
+        // authStorage.clearAuthData();
         Get.toNamed(routeLogin);
         return null;
       },

@@ -6,7 +6,6 @@ const bool viewLog = true;
 const String testImage = 'https://i.imgur.com/X30QPYP.jpg';
 
 String googleApiKey = Platform.isAndroid ? '' : '';
-const String sharedKey = '';
 
 int? unReadNotifications = 0;
 

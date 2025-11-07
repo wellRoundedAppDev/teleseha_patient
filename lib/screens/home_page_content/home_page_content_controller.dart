@@ -65,7 +65,7 @@ class HomePageContentController extends GetxController {
     accessToken = await localStorage.readFromStorage(storageAccessToken);
     await ApiRequest(
       path: speciality,
-      className: '',
+      className: 'HomePageContentController',
       formatResponse: true,
       header: <String, dynamic>{'Authorization': 'Bearer $accessToken'},
     ).request(

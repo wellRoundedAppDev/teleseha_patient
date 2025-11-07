@@ -225,7 +225,7 @@ class CopyRight extends StatelessWidget {
                                       },
                                     ),
                                   ),
-                                  Text('test'),
+                                  const Text('test'),
                                 ],
                               ),
                             ],
