@@ -231,6 +231,7 @@ class ContentProfileDoctor extends StatelessWidget {
                                         children:
                                             (controller.doctorsProfile['schedules']
                                                     as List<dynamic>?)
+                                                // ignore: always_specify_types
                                                 ?.map<Widget>((scheduleItem) {
                                                   final Map<String, dynamic>
                                                   time =

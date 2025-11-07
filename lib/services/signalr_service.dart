@@ -5,7 +5,6 @@ class SignalRService {
   bool isConnected = false;
 
   Future<void> initConnection(String hubUrl, String accessToken) async {
-    // إعداد الاتصال مع التوكن
     connection = HubConnectionBuilder()
         .withUrl(
           hubUrl,
@@ -16,24 +15,13 @@ class SignalRService {
         .withAutomaticReconnect()
         .build();
 
-    // استقبال الأحداث القادمة من السيرفر
-    connection.on('CallInvite', (List<Object?>? args) {
-      print('📩 Incoming call invite: $args');
-      // هنا استدعي دالة داخل VideoCallController مثلاً
-    });
-
-    connection.on('CallAccepted', (List<Object?>? args) {
-      print('📞 Call accepted: $args');
-      // استدعي joinAgora()
-    });
-
-    connection.on('CallEnded', (List<Object?>? args) {
-      print('❌ Call ended: $args');
-      // استدعي endCall()
+    connection.on('ReceiveAppointmentUpdates', (List<Object?>? args) {
+      print('📩 Received: $args');
     });
 
     await connection.start();
     isConnected = true;
+    print('✅ Connected: ${connection.state}');
     print('✅ SignalR Connected!');
   }
 

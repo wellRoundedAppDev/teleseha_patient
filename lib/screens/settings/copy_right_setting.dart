@@ -28,7 +28,7 @@ class CopyRight extends StatelessWidget {
                         children: <Widget>[
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
+                            children: <Widget>[
                               GestureDetector(
                                 onTap: () {
                                   Get.back();
@@ -37,6 +37,7 @@ class CopyRight extends StatelessWidget {
                                   iconBack,
                                   width: 24,
                                   height: 26,
+                                  // ignore: deprecated_member_use
                                   color: Colors.black,
                                 ),
                               ),
@@ -107,14 +108,16 @@ class CopyRight extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Container(
-                                    height: DEVICE_HEIGHT * 0.3,
+                                    height: DEVICE_HEIGHT * 0.5,
                                     child: ListView.builder(
                                       itemCount:
                                           controller.listFirstSubject.length,
                                       itemBuilder: (BuildContext context, int index) {
-                                        final item =
+                                        final Map<String, dynamic> item =
                                             controller.listFirstSubject[index];
-                                        final innerList = item['list'] as List;
+                                        // ignore: always_specify_types
+                                        final List innerList =
+                                            item['list'] as List;
 
                                         return Column(
                                           crossAxisAlignment:
@@ -152,10 +155,13 @@ class CopyRight extends StatelessWidget {
                                                     BuildContext context,
                                                     int innerIndex,
                                                   ) {
+                                                    // ignore: always_specify_types
                                                     final innerItem =
                                                         innerList[innerIndex];
+                                                    // ignore: always_specify_types
                                                     final title =
                                                         innerItem.keys.first;
+                                                    // ignore: always_specify_types
                                                     final text =
                                                         innerItem.values.first;
 
@@ -163,7 +169,7 @@ class CopyRight extends StatelessWidget {
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
                                                               .start,
-                                                      children: [
+                                                      children: <Widget>[
                                                         Text.rich(
                                                           TextSpan(
                                                             children: <InlineSpan>[
@@ -219,6 +225,7 @@ class CopyRight extends StatelessWidget {
                                       },
                                     ),
                                   ),
+                                  Text('test'),
                                 ],
                               ),
                             ],

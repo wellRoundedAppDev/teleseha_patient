@@ -44,7 +44,7 @@ class ChatGemini extends StatelessWidget {
                             vertical: DEVICE_HEIGHT * 0.008,
                           ),
                           child: Column(
-                            children: [
+                            children: <Widget>[
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Container(
@@ -68,6 +68,7 @@ class ChatGemini extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(height: DEVICE_HEIGHT * 0.015),
+                              // ignore: always_specify_types
                               ...choices.map((choice) {
                                 return Align(
                                   alignment: Alignment.centerRight,
@@ -84,8 +85,9 @@ class ChatGemini extends StatelessWidget {
                                         AppColors.colorWhiteSelectedType,
                                       ),
                                       borderRadius: BorderRadius.circular(15),
-                                      boxShadow: [
+                                      boxShadow: <BoxShadow>[
                                         BoxShadow(
+                                          // ignore: deprecated_member_use
                                           color: Colors.black.withOpacity(0.2),
                                           blurRadius: 6,
                                           offset: const Offset(0, 3),
@@ -95,7 +97,9 @@ class ChatGemini extends StatelessWidget {
                                     child: IntrinsicWidth(
                                       child: RadioListTile<String>(
                                         value: choice,
+                                        // ignore: deprecated_member_use
                                         groupValue: controller.selectedChoice,
+                                        // ignore: deprecated_member_use
                                         onChanged: (String? value) {
                                           controller.selectedChoice = value;
                                           controller.update();

@@ -170,9 +170,29 @@ class LoginController extends GetxController {
     update();
   }
 
+  // Future<String?> getFcmToken() async {
+  //   try {
+  //     final String? token = await FirebaseMessaging.instance.getToken();
+  //     debugPrint('FCM token: $token');
+  //     return token;
+  //   } on FirebaseException catch (e, s) {
+  //     debugPrint('FirebaseException while getting FCM token: $e\n$s');
+  //     return null;
+  //   } catch (e, s) {
+  //     debugPrint('Unknown error while getting FCM token: $e\n$s');
+  //     return null;
+  //   }
+  // }
+
+  // Future<void> fetchAndStoreFcmToken() async {
+  //   fcmToken = await getFcmToken();
+  //   update();
+  // }
+
   Future<void> validatePattern() async {
     isLoading = true;
     update();
+    // final String? token = fcmToken ?? await getFcmToken();
 
     await ApiRequest(
       path: login,
@@ -182,6 +202,7 @@ class LoginController extends GetxController {
       body: <String, dynamic>{
         mobile: passNumberPhone,
         password: inputPattern.join(),
+        // if (token != null) 'fcm_token': token,
       },
     ).request(
       onSuccess: (dynamic data, dynamic response) async {

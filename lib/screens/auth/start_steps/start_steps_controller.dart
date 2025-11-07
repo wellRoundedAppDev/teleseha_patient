@@ -168,6 +168,7 @@ class StartStepsController extends GetxController {
         ++currentStep;
         clearOtpError();
       },
+      // ignore: always_specify_types
       onError: (error) {
         otpController.clear();
         markOtpInvalid();

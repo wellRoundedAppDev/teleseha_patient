@@ -60,12 +60,61 @@ const Map<String, String> ar = <String, String>{
   'fourth_session_list_two': 'المنصة أي استشارات طبية أو توصيات علاجية مباشرة',
   'fourth_session_list_title_three': 'تقع المسؤولية: ',
   'fourth_session_list_three': 'الطبية كاملة على مقدم الخدمة وحده',
-  // 'first_session_list_title_four': 'بيانات الدفع: ',
-  // 'first_session_list_four':
-  //     'مثل وصولات الدفع طرق الدفع الدفع الإكتروني (مع الالتزام بالشفيرة وحماية المعاملات) وغيرها',
-  // 'first_session_list_title_five': 'بيانات تقنية: ',
-  // 'first_session_list_five':
-  //     'مثل عنوان برتوكول الإنترنت IP Address نوع الجهاز والمتصفح ملفات تعريف الارتباط Cookies وغيرها',
+  'fourth_session_list_title_four': 'لا تضمن المنصة: ',
+  'fourth_session_list_four':
+      'ملاءمة أي خدمة طبية للاحتياجات المستخدم ويقع على عاتق المستخدم اتخاذ القرار بشأن الخدمة واختيار مقدم الخدمة',
+
+  'five_session': 'المادة الخامسة: إخلاء المسؤولية',
+  'five_session_text': 'للمستخدمين الحقوق التالية:',
+  'five_session_list_title_one': 'الحق: ',
+  'five_session_list_one': 'في الوصول إلى بياناتهم الشخصية والاطلاع عليها',
+  'five_session_list_title_two': 'الحق في تعديل: ',
+  'five_session_list_two': 'أو تصريح البيانات غير الدقيقة',
+  'five_session_list_title_three': 'الحق: ',
+  'five_session_list_three':
+      'في طلب حذف البيانات في حال انتهاء الغرض من استخدامها أو سحب الموافقة',
+  'five_session_list_title_four': 'الحق في الاعتراض: ',
+  'five_session_list_four': 'على معالجة البيانات لأغراض تسويقية',
+
+  'six_session': 'المادة السادسة: حماية وأمن البيانات',
+  'six_session_list_title_one': 'تستخدم المنصة: ',
+  'six_session_list_one':
+      'بروتوكولات تشفير متقدمة HTTPS لضمان سرية البيانات النقل',
+  'six_session_list_title_two': 'يتم تخزين البيانات: ',
+  'six_session_list_two':
+      'في خوادم أمنة مزودة بإجراءات حماية تقنية ومقدمي الخدمة وفقا لسياسة صارمة',
+  'six_session_list_title_three': 'صلاحية الوصول: ',
+  'six_session_list_three':
+      'تقتصر صلاحية الوصول إلى البيانات على الموظفين المخولين ومقدمي الخدمة وفقا لسياسة صارمة',
+  'six_session_list_title_four': 'رغم ما سبق: ',
+  'six_session_list_four':
+      'لا تضمن المنصة حماية مطلقة من المخاطر الإكترونية أو الهجمات السيبرانية',
+
+  'seven_session': 'المادة السابعة: ملفات تعريف الارتباط',
+  'seven_session_list_title_one': 'تستخدم المنصة: ',
+  'seven_session_list_one':
+      'ملفات تعريف الارتباط لتحسين تجربة الاستخدام مثل حفظ تفضيلات المستخدم وتسهيل تسجيل الدخول',
+  'seven_session_list_title_two': 'يمكن للمستخدم: ',
+  'seven_session_list_two':
+      'التحكم في إعدادات ملفات تعريف الإرتباط من خلال المتصفح مع العلم أن تعطيلها قد يؤثر على بعض وظائف المنصة',
+
+  'eat_session': 'المادة الثامنة: مدة الاحتفاظ بالبيانات',
+  'eat_session_list_title_one': 'تحتفظ المنصة: ',
+  'eat_session_list_one':
+      'ببيانات المستخدمين للتفرة اللازمة لتقديم الخدمة أو طالما حساب المستخدم نشط أو للامتثال للوقانين والأنظمة',
+  'eat_session_list_title_two': 'يتم حذف: ',
+  'eat_session_list_two':
+      'أو اخفاء هوية البيانات عند انتهاء الغرض من استخدامها أو بعد إلغاء حساب المستخدم',
+
+  'nine_session': 'المادة التاسعة: القبول والتعديلات',
+  'nine_session_list_title_one': 'يعتبر استخدام: ',
+  'nine_session_list_one':
+      'المنصة موافقة صريحة من المستخدمين على سياسة الخصوصية هذه',
+  'nine_session_list_title_two': 'تحتفظ المنصة: ',
+  'nine_session_list_two': 'بحقها في تعديل أو تحديث السياسة في أي وقت',
+  'nine_session_list_title_three': 'يعد استمرار: ',
+  'nine_session_list_three':
+      'استخدام المنصة بعد نشر التعديلات موافقة ضمنية عليها',
   'title_foot_print': 'سجل بصمة اصبعك للحماية',
   'text_foot_print':
       'سيتم استخدام بصمة اصبعك لتأمين حسابك وتسريع تسجيل ادخال لاحقاً',

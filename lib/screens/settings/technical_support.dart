@@ -21,7 +21,7 @@ class TechnicalSupport extends StatelessWidget {
                 children: <Widget>[
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+                    children: <Widget>[
                       GestureDetector(
                         onTap: () {
                           Get.back();
@@ -30,6 +30,7 @@ class TechnicalSupport extends StatelessWidget {
                           iconBack,
                           width: 24,
                           height: 26,
+                          // ignore: deprecated_member_use
                           color: Colors.black,
                         ),
                       ),
@@ -63,7 +64,7 @@ class TechnicalSupport extends StatelessWidget {
                   ),
                   SizedBox(height: DEVICE_HEIGHT * 0.2),
                   Column(
-                    children: [
+                    children: <Widget>[
                       Btn(
                         onPressed: () {},
                         text: 'contact_us'.tr,

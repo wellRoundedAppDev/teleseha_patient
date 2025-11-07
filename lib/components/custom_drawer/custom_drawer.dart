@@ -225,6 +225,7 @@ class CustomDrawer extends StatelessWidget {
                             Wrap(
                               spacing: 9,
                               runSpacing: 11,
+                              // ignore: always_specify_types
                               children: List.generate(
                                 controller.academicDegree.length,
                                 (int index) {

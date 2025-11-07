@@ -109,6 +109,7 @@ class HomePageContentController extends GetxController {
           }
           update();
         },
+        // ignore: always_specify_types
         onError: (error) {
           subSpecialties = <dynamic>[];
           isShowPage = false;

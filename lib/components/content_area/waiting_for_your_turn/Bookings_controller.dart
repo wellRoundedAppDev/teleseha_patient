@@ -96,6 +96,7 @@ class BookingsController extends GetxController {
         onSuccess: (data, response) async {
           // ignore: always_specify_types
           lastRecent = (response ?? <dynamic>[]) as List;
+          // ignore: always_specify_types
           for (final item in lastRecent) {
             String btnName = '';
             bool showBtn = false;
@@ -199,31 +200,45 @@ class BookingsController extends GetxController {
 
         signalRService
             .initConnection(
-              'https://teleseha.com/api/hub/appointment',
+              'https://teleseha.com/hubs/appointment?appointmentid=$id',
               'Bearer $accessToken',
             )
             .then((_) {
-              // مثلاً نرسل إشعار للمستخدمين أو نستقبل دعوات
-              // signalRService.sendInvite('targetUserId', 'room123', 'callerName');
-
-              // بعدها نغيّر الواجهة إلى شاشة الانتظار
               change.goToComponentHeader.value = 'waitingForYourTurn';
               change.update();
             })
+            // ignore: always_specify_types
             .catchError((error) {
-              print('❌ فشل الاتصال بـ SignalR: $error');
+              print(error);
             });
 
         break;
 
       case 'Pending':
-        mySectionId = secionId;
-        change.goToComponentHeader.value = 'waitingForYourTurn';
-        change.update();
-        break;
-      case 'Started':
         // await signalR.sendInvite('doctor-id', 'room_123', 'Aya');
         // Get.toNamed(meetingPage);
+        mySectionId = secionId;
+        signalRService
+            .initConnection(
+              'https://teleseha.com/hubs/appointment?appointmentid=$id',
+              'Bearer $accessToken',
+            )
+            .then((_) {
+              signalRService.sendInvite(
+                'targetUserId',
+                'room123',
+                'callerName',
+              );
+
+              change.goToComponentHeader.value = 'waitingForYourTurn';
+              change.update();
+            })
+            // ignore: always_specify_types
+            .catchError((error) {
+              print(error);
+            });
+        break;
+      case 'Started':
         break;
 
       default:

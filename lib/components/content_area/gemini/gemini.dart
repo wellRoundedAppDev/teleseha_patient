@@ -36,10 +36,10 @@ class Gemini extends StatelessWidget {
                   ),
                   SizedBox(height: DEVICE_HEIGHT * 0.055),
                   Btn(
+                    isLoading: controller.isLoading,
                     onPressed: controller.isInputNotEmpty
                         ? () {
-                            // change.goToComponentHeader.value = 'Reception';
-                            // change.update();
+                            controller.gemeiniChat();
                           }
                         : null,
                     style: ElevatedButton.styleFrom(

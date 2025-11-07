@@ -273,7 +273,9 @@ class PatternLock extends StatelessWidget {
     StartStepsController? stepsController,
     LoginController controller,
   ) {
-    if (controller.isLoading) return const SizedBox.shrink();
+    if (controller.isLoading) {
+      return const SizedBox.shrink();
+    }
     return Column(
       children: <Widget>[
         CustomText(

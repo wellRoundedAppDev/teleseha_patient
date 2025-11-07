@@ -50,7 +50,9 @@ class ContentDoctors extends StatelessWidget {
                         padding: EdgeInsets.zero,
                         itemCount: controller.doctors.length,
                         itemBuilder: (BuildContext context, int index) {
+                          // ignore: always_specify_types
                           final doctor = controller.doctors[index];
+                          // ignore: always_specify_types
                           final advantages =
                               doctor['availableAdvantages'] ?? <dynamic>[];
 

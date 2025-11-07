@@ -28,6 +28,7 @@ const String infoLists = 'general/info-lists';
 const String labAnalysisRequest = 'lab-analysis-request';
 const String patientComplaint = 'patient-complaint';
 const String patientComplaintStart = 'patient-complaint/start';
+const String receiption = 'receiption';
 
 // ******************** appotntmentControllersPath ********************
 const String checkCommingPath = '$appotntmentControllersPath/check-comming';

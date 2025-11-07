@@ -42,6 +42,7 @@ class RecentBookings extends StatelessWidget {
                       : ListView.builder(
                           itemCount: controller.lastRecent.length,
                           itemBuilder: (BuildContext context, int index) {
+                            // ignore: always_specify_types
                             final item = controller.lastRecent[index];
 
                             return Container(

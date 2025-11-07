@@ -29,7 +29,7 @@ class Settings extends StatelessWidget {
                         children: <Widget>[
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
+                            children: <Widget>[
                               GestureDetector(
                                 onTap: () {
                                   Get.back();
@@ -38,6 +38,7 @@ class Settings extends StatelessWidget {
                                   iconBack,
                                   width: 24,
                                   height: 26,
+                                  // ignore: deprecated_member_use
                                   color: Colors.black,
                                 ),
                               ),
