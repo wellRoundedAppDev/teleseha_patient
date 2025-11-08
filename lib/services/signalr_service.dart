@@ -23,6 +23,7 @@ class SignalRService {
     isConnected = true;
     print('✅ Connected: ${connection.state}');
     print('✅ SignalR Connected!');
+    dispose();
   }
 
   Future<void> sendInvite(

@@ -215,7 +215,6 @@ class BookingsController extends GetxController {
         break;
 
       case 'Pending':
-        // await signalR.sendInvite('doctor-id', 'room_123', 'Aya');
         // Get.toNamed(meetingPage);
         mySectionId = secionId;
         signalRService
@@ -233,6 +232,7 @@ class BookingsController extends GetxController {
             });
         break;
       case 'Started':
+        print('hello world');
         break;
       case 'Created':
         break;
