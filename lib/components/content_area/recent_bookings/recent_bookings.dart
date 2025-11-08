@@ -72,73 +72,68 @@ class RecentBookings extends StatelessWidget {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          ClipRRect(
-                                            borderRadius:
-                                                BorderRadiusGeometry.circular(
-                                                  10,
-                                                ),
-                                            child: Image.network(
-                                              item['doctorCard']?['imageUrl'] ??
-                                                  '',
-                                              width: DEVICE_WIDTH * 0.17,
-                                              height: DEVICE_HEIGHT * 0.083,
-                                              fit: BoxFit.cover,
-                                              errorBuilder:
-                                                  (
-                                                    BuildContext context,
-                                                    Object error,
-                                                    StackTrace? stackTrace,
-                                                  ) {
-                                                    return Image.asset(
-                                                      imageDoctor,
-                                                      width:
-                                                          DEVICE_WIDTH * 0.17,
-                                                      height:
-                                                          DEVICE_HEIGHT * 0.083,
-                                                      fit: BoxFit.cover,
-                                                    );
-                                                  },
-                                            ),
-                                          ),
-                                          SizedBox(width: DEVICE_WIDTH * 0.02),
-                                          Container(
-                                            margin: const EdgeInsets.only(
-                                              top: 3,
-                                            ),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: <Widget>[
-                                                SizedBox(
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: <Widget>[
-                                                      CustomText(
-                                                        text:
-                                                            item['doctorCard']?['name'] ??
-                                                            '',
-                                                        type: CustomTextType
-                                                            .title,
-                                                        fontSize: 14,
-                                                        color: const Color(
-                                                          AppColors
-                                                              .colorLineAndText,
-                                                        ),
-                                                      ),
-                                                    ],
+                                      Expanded(
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            ClipRRect(
+                                              borderRadius:
+                                                  BorderRadiusGeometry.circular(
+                                                    10,
                                                   ),
+                                              child: Image.network(
+                                                item['doctorCard']?['imageUrl'] ??
+                                                    '',
+                                                width: DEVICE_WIDTH * 0.17,
+                                                height: DEVICE_HEIGHT * 0.083,
+                                                fit: BoxFit.cover,
+                                                errorBuilder:
+                                                    (
+                                                      BuildContext context,
+                                                      Object error,
+                                                      StackTrace? stackTrace,
+                                                    ) {
+                                                      return Image.asset(
+                                                        imageDoctor,
+                                                        width:
+                                                            DEVICE_WIDTH * 0.17,
+                                                        height:
+                                                            DEVICE_HEIGHT *
+                                                            0.083,
+                                                        fit: BoxFit.cover,
+                                                      );
+                                                    },
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: DEVICE_WIDTH * 0.02,
+                                            ),
+                                            Expanded(
+                                              child: Container(
+                                                margin: const EdgeInsets.only(
+                                                  top: 3,
                                                 ),
-                                                SizedBox(
-                                                  height: DEVICE_HEIGHT * 0.004,
-                                                ),
-                                                Row(
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
                                                   children: <Widget>[
+                                                    CustomText(
+                                                      text:
+                                                          item['doctorCard']?['name'] ??
+                                                          '',
+                                                      type:
+                                                          CustomTextType.title,
+                                                      fontSize: 14,
+                                                      color: const Color(
+                                                        AppColors
+                                                            .colorLineAndText,
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height:
+                                                          DEVICE_HEIGHT * 0.004,
+                                                    ),
                                                     CustomText(
                                                       text:
                                                           item['doctorCard']?['specialty'] ??
@@ -153,10 +148,10 @@ class RecentBookings extends StatelessWidget {
                                                     ),
                                                   ],
                                                 ),
-                                              ],
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                       Row(
                                         children: <Widget>[
@@ -226,7 +221,9 @@ class RecentBookings extends StatelessWidget {
                                           Row(
                                             children: <Widget>[
                                               CustomText(
-                                                text: controller.getSafeTime(item['session']?['start']),
+                                                text: controller.getSafeTime(
+                                                  item['session']?['start'],
+                                                ),
                                                 fontSize: 12,
                                                 type: CustomTextType.title,
                                                 color: const Color(

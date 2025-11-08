@@ -11,6 +11,7 @@ class ContentDoctors extends StatelessWidget {
   Widget build(BuildContext context) {
     final ChangeParamContentAndNextPage change = Get.find();
     return GetBuilder<DoctorsController>(
+      init: DoctorsController(),
       builder: (DoctorsController controller) {
         return SingleChildScrollView(
           child: Column(

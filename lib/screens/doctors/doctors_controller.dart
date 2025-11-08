@@ -185,7 +185,13 @@ class DoctorsController extends GetxController {
     super.onInit();
     _loadPatientId();
     generateWeekDays();
-    selectedDayIndex = selectedDate.weekday == 7 ? 0 : selectedDate.weekday;
+    selectedDayIndex = selectedDate.weekday == 7 ? 0 : selectedDate.weekday;    
+    update();
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
     final ChangeParamContentAndNextPage change = Get.find();
     if (change.knowNextPage.value ==
         'comping from subSpiecilaties going to profile doctor') {
@@ -268,7 +274,6 @@ class DoctorsController extends GetxController {
 
     accessToken = await localStorage.readFromStorage(storageAccessToken);
 
-    // &$availableDate=${selectedAppointmentKey ?? ''}
     final String query =
         '$doctor?$keyName=${filterDoctors.text.trim()}&$specialityId=${selectedSpecialityId ?? ''}&$scientificDegree=${selectedacademicDegree ?? ''}&$maxPrice=${currentSliderValue ?? ''}';
 
@@ -279,7 +284,7 @@ class DoctorsController extends GetxController {
       header: <String, dynamic>{'Authorization': 'Bearer $accessToken'},
     ).request(
       onSuccess: (dynamic data, dynamic response) async {
-        doctors = response ?? <dynamic>[];
+        doctors = response['data'] ?? <dynamic>[];
         for (int i = 0; i < doctors.length; i++) {
           doctors[i]['availableAdvantages'] = _getAdvantagesFromDoctorData(
             doctors[i],

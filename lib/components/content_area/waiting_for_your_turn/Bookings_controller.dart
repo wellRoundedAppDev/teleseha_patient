@@ -224,12 +224,6 @@ class BookingsController extends GetxController {
               'Bearer $accessToken',
             )
             .then((_) {
-              signalRService.sendInvite(
-                'targetUserId',
-                'room123',
-                'callerName',
-              );
-
               change.goToComponentHeader.value = 'waitingForYourTurn';
               change.update();
             })
@@ -239,6 +233,8 @@ class BookingsController extends GetxController {
             });
         break;
       case 'Started':
+        break;
+      case 'Created':
         break;
 
       default:
