@@ -232,7 +232,19 @@ class BookingsController extends GetxController {
             });
         break;
       case 'Started':
-        print('hello world');
+        signalRService
+            .initConnection(
+              'https://teleseha.com/hubs/appointment?appointmentid=$id',
+              'Bearer $accessToken',
+            )
+            .then((_) {
+              change.goToComponentHeader.value = 'waitingForYourTurn';
+              change.update();
+            })
+            // ignore: always_specify_types
+            .catchError((error) {
+              print(error);
+            });
         break;
       case 'Created':
         break;
