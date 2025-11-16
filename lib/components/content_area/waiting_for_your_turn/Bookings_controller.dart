@@ -3,6 +3,7 @@ import 'dart:convert' show jsonDecode;
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 
 import '../../../general_exports.dart' hide FormData;
@@ -24,6 +25,14 @@ class BookingsController extends GetxController {
   // bool showHeaderBtn = true;
   bool hasLoadedSessionWaiting = false;
   int? mySectionId;
+  int selectedIndex = -1;
+
+  List<String> rates = <String>['25%', '50%', '75%', '100%'];
+
+  void selectRate(int index) {
+    selectedIndex = index;
+    update();
+  }
 
   LocalStorage localStorage = LocalStorage();
 
@@ -115,7 +124,7 @@ class BookingsController extends GetxController {
                 showBtn = true;
                 break;
               case 'Started':
-                btnName = 'meeting'.tr;
+                btnName = 'improvement_rate'.tr;
                 showBtn = true;
                 break;
               default:
@@ -187,6 +196,20 @@ class BookingsController extends GetxController {
   Future<void> changeAvailableBtn(String status, int id, int secionId) async {
     switch (status) {
       case 'Confirmed':
+        signalRService
+            .initConnection(
+              // $id
+              'https://teleseha.com/hubs/appointment?appointmentid=76',
+              'Bearer $accessToken',
+            )
+            .then((_) {
+              change.goToComponentHeader.value = 'waitingForYourTurn';
+              change.update();
+            })
+            // ignore: always_specify_types
+            .catchError((error) {
+              print(error);
+            });
         _pay(id);
         break;
 
@@ -200,7 +223,8 @@ class BookingsController extends GetxController {
 
         signalRService
             .initConnection(
-              'https://teleseha.com/hubs/appointment?appointmentid=$id',
+              // $id
+              'https://teleseha.com/hubs/appointment?appointmentid=76',
               'Bearer $accessToken',
             )
             .then((_) {
@@ -219,7 +243,8 @@ class BookingsController extends GetxController {
         mySectionId = secionId;
         signalRService
             .initConnection(
-              'https://teleseha.com/hubs/appointment?appointmentid=$id',
+              // $id
+              'https://teleseha.com/hubs/appointment?appointmentid=76',
               'Bearer $accessToken',
             )
             .then((_) {
@@ -232,19 +257,92 @@ class BookingsController extends GetxController {
             });
         break;
       case 'Started':
-        signalRService
-            .initConnection(
-              'https://teleseha.com/hubs/appointment?appointmentid=$id',
-              'Bearer $accessToken',
-            )
-            .then((_) {
-              change.goToComponentHeader.value = 'waitingForYourTurn';
-              change.update();
-            })
-            // ignore: always_specify_types
-            .catchError((error) {
-              print(error);
-            });
+        Get.dialog(
+          GetBuilder<BookingsController>(
+            builder: (controller) {
+              return AlertDialog(
+                title: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: <Widget>[
+                    GestureDetector(
+                      onTap: () => Get.back(),
+                      child: SvgPicture.asset(
+                        iconClose,
+                        width: 12,
+                        height: 12,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    SizedBox(height: DEVICE_HEIGHT * 0.03),
+                    Align(
+                      child: CustomText(
+                        text: 'text_improvement_rate'.tr,
+                        fontSize: 16,
+                        type: CustomTextType.title,
+                        color: const Color(AppColors.colorLineAndText),
+                      ),
+                    ),
+                    SizedBox(height: DEVICE_HEIGHT * 0.03),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(controller.rates.length, (index) {
+                        final bool isSelected =
+                            controller.selectedIndex == index;
+
+                        return GestureDetector(
+                          onTap: () {
+                            controller.selectRate(index);
+                          },
+                          child: Container(
+                            margin: EdgeInsets.symmetric(
+                              horizontal: DEVICE_WIDTH * 0.015,
+                            ),
+                            width: 40,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              color: isSelected
+                                  ? const Color(0xFF2E6FF3)
+                                  : Colors.transparent,
+                              borderRadius: BorderRadius.circular(100),
+                              border: Border.all(
+                                width: 2,
+                                color: isSelected
+                                    ? const Color(0xFF2E6FF3)
+                                    : const Color.fromARGB(113, 139, 139, 139),
+                              ),
+                            ),
+                            child: Center(
+                              child: CustomText(
+                                text: controller.rates[index].tr,
+                                fontSize: 11,
+                                type: CustomTextType.title,
+                                color: isSelected
+                                    ? Colors.white
+                                    : const Color(AppColors.colorTextSkep),
+                              ),
+                            ),
+                          ),
+                        );
+                      }),
+                    ),
+                  ],
+                ),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Get.back(),
+                    child: Btn(
+                      customHeight: 0.07,
+                      onPressed: () {},
+                      text: 'send'.tr,
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+          barrierDismissible: false,
+        );
         break;
       case 'Created':
         break;

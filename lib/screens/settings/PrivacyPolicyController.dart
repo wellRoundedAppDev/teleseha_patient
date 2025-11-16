@@ -1,6 +1,6 @@
 import '../../../general_exports.dart';
 
-class CopyRightSettingsConroller extends GetxController {
+class PrivacyPolicyController extends GetxController {
   // ignore: always_specify_types
   final List<Map<String, dynamic>> listFirstSubject = [
     <String, dynamic>{

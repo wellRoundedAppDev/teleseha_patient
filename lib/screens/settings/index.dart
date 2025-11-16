@@ -1,6 +1,10 @@
-export 'CopyRightSettingsConroller.dart';
-export 'copy_right_setting.dart';
+export 'PrivacyPolicyController.dart';
+export 'TermsAndConditionsController.dart';
+export 'WhoWeAreController.dart';
+export 'privacyPolicy.dart';
+export 'routeTermsAndConditions.dart';
 export 'security.dart';
 export 'settings.dart';
 export 'settings_controller.dart';
 export 'technical_support.dart';
+export 'whoWeAre.dart';

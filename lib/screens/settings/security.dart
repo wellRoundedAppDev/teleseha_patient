@@ -8,95 +8,87 @@ class Security extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: DEVICE_HEIGHT * 0.007),
-          margin: EdgeInsets.only(top: DEVICE_HEIGHT * 0.1),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                width: DEVICE_WIDTH,
-                padding: const EdgeInsets.all(14),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Column(
+    return Scaffold(
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: DEVICE_HEIGHT * 0.027),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              width: DEVICE_WIDTH,
+              padding: const EdgeInsets.all(14),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  SvgPicture.asset(
+                    iconBack,
+                    width: 24,
+                    height: 26,
+                    color: const Color(AppColors.colorBlack),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: DEVICE_HEIGHT * 0.05),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        GestureDetector(
-                          onTap: () {
-                            Get.back();
-                          },
-                          child: SvgPicture.asset(
-                            iconBack,
-                            width: 24,
-                            height: 26,
-                            // ignore: deprecated_member_use
-                            color: Colors.black,
-                          ),
+                        CustomText(
+                          text: 'copy_right'.tr,
+                          fontSize: 18,
+                          type: CustomTextType.title,
+                          color: const Color(AppColors.colorLineAndText),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            CustomText(
-                              text: 'settings'.tr,
-                              fontSize: 18,
-                              type: CustomTextType.title,
-                              color: const Color(AppColors.colorLineAndText),
-                            ),
-                            SizedBox(width: DEVICE_WIDTH * 0.02),
-                            SvgPicture.asset(
-                              iconSettings1,
-                              width: 24,
-                              height: 26,
-                              // ignore: deprecated_member_use
-                              color: const Color(AppColors.colorLineAndText),
-                            ),
-                          ],
+                        SizedBox(width: DEVICE_WIDTH * 0.02),
+                        SvgPicture.asset(
+                          iconCopyRight,
+                          width: 24,
+                          height: 26,
+                          // ignore: deprecated_member_use
+                          color: const Color(AppColors.colorLineAndText),
                         ),
                       ],
                     ),
-                    SizedBox(height: DEVICE_HEIGHT * 0.06),
-                    SizedBox(
-                      height: DEVICE_HEIGHT * 0.6,
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: <Widget>[
-                            GestureDetector(
-                              onTap: () {},
-                              child: ContainerSettings(
-                                title: 'pattern'.tr,
-                                icon: iconCopyRight,
-                              ),
+                  ),
+                  SizedBox(height: DEVICE_HEIGHT * 0.06),
+                  SizedBox(
+                    height: DEVICE_HEIGHT * 0.6,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: <Widget>[
+                          GestureDetector(
+                            onTap: () {},
+                            child: ContainerSettings(
+                              title: 'security_mode'.tr,
+                              icon: iconCopyRight,
                             ),
-                            SizedBox(height: DEVICE_HEIGHT * 0.035),
-                            GestureDetector(
-                              onTap: () {},
-                              child: ContainerSettings(
-                                title: 'number_phone'.tr,
-                                icon: iconPhoneBlue,
-                              ),
+                          ),
+                          SizedBox(height: DEVICE_HEIGHT * 0.035),
+                          GestureDetector(
+                            onTap: () {},
+                            child: ContainerSettings(
+                              title: 'number_phone'.tr,
+                              icon: iconNumber,
                             ),
-                            SizedBox(height: DEVICE_HEIGHT * 0.035),
-                            GestureDetector(
-                              onTap: () {},
-                              child: ContainerSettings(
-                                title: 'call_phones'.tr,
-                                icon: phones,
-                              ),
+                          ),
+                          SizedBox(height: DEVICE_HEIGHT * 0.035),
+                          GestureDetector(
+                            onTap: () {
+                              Get.toNamed(routeSecurity);
+                            },
+                            child: ContainerSettings(
+                              title: 'call_phone'.tr,
+                              icon: phones,
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

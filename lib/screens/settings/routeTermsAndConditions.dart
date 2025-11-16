@@ -2,14 +2,14 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../general_exports.dart';
 
-class CopyRight extends StatelessWidget {
-  const CopyRight({super.key});
+class TermsAndConditions extends StatelessWidget {
+  const TermsAndConditions({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<CopyRightSettingsConroller>(
-      init: CopyRightSettingsConroller(),
-      builder: (CopyRightSettingsConroller controller) {
+    return GetBuilder<TermsAndConditionsController>(
+      init: TermsAndConditionsController(),
+      builder: (TermsAndConditionsController controller) {
         return Scaffold(
           body: Stack(
             children: <Widget>[
@@ -45,7 +45,7 @@ class CopyRight extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   CustomText(
-                                    text: 'copy_right_setting'.tr,
+                                    text: 'terms_and_conditions'.tr,
                                     fontSize: 18,
                                     type: CustomTextType.title,
                                     color: const Color(
@@ -54,7 +54,7 @@ class CopyRight extends StatelessWidget {
                                   ),
                                   SizedBox(width: DEVICE_WIDTH * 0.02),
                                   SvgPicture.asset(
-                                    copyRightSetting,
+                                    terms_and_conditions,
                                     width: 24,
                                     height: 26,
                                     // ignore: deprecated_member_use
@@ -71,7 +71,7 @@ class CopyRight extends StatelessWidget {
                                     TextSpan(
                                       children: <InlineSpan>[
                                         TextSpan(
-                                          text: '${'enter_plat_form'.tr} ',
+                                          text: '${'agreement_intro'.tr} ',
                                           style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: Color(
@@ -90,7 +90,8 @@ class CopyRight extends StatelessWidget {
                                           ),
                                         ),
                                         TextSpan(
-                                          text: ' ${'text_copy_right'.tr}',
+                                          text:
+                                              ' ${'agreement_users_clause'.tr}',
                                           style: const TextStyle(
                                             color: Color(
                                               AppColors.colorSelectDropDown,
@@ -117,6 +118,7 @@ class CopyRight extends StatelessWidget {
                                             controller.listFirstSubject[index];
                                         // ignore: always_specify_types
                                         final List innerList =
+                                            // ignore: always_specify_types
                                             item['list'] as List;
 
                                         return Column(
@@ -225,7 +227,65 @@ class CopyRight extends StatelessWidget {
                                       },
                                     ),
                                   ),
-                                  const Text('test'),
+                                ],
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: DEVICE_HEIGHT * 0.05),
+                          Column(
+                            children: <Widget>[
+                              SizedBox(height: DEVICE_HEIGHT * 0.02),
+                              CustomText(
+                                text: 'copy_right_tele'.tr,
+                                fontSize: 11,
+                                type: CustomTextType.title,
+                                color: const Color(AppColors.colorTextSkep),
+                              ),
+                              SizedBox(height: DEVICE_HEIGHT * 0.02),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.toNamed(routePrivacyPolicy);
+                                    },
+                                    child: CustomText(
+                                      text: 'copy_right_setting'.tr,
+                                      fontSize: 11,
+                                      type: CustomTextType.title,
+                                      color: const Color(
+                                        AppColors.colorLineAndText,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(width: DEVICE_WIDTH * 0.05),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.toNamed(routeTermsAndConditions);
+                                    },
+                                    child: CustomText(
+                                      text: 'terms_and_conditions'.tr,
+                                      fontSize: 11,
+                                      type: CustomTextType.title,
+                                      color: const Color(
+                                        AppColors.colorLineAndText,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(width: DEVICE_WIDTH * 0.05),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.toNamed(routeTechnicalSupport);
+                                    },
+                                    child: CustomText(
+                                      text: 'technical_support'.tr,
+                                      fontSize: 11,
+                                      type: CustomTextType.title,
+                                      color: const Color(
+                                        AppColors.colorLineAndText,
+                                      ),
+                                    ),
+                                  ),
                                 ],
                               ),
                             ],

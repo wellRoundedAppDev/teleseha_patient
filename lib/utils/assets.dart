@@ -91,6 +91,8 @@ const String phones = '${iconsPath}phones.svg';
 const String tecTeam = '${iconsPath}tec_team.svg';
 const String technicalSupport1 = '${iconsPath}technicalSupport1.svg';
 const String mail = '${iconsPath}mail.svg';
+const String privacyPolicy = '${iconsPath}privacy_policy.svg';
+const String terms_and_conditions = '${iconsPath}terms_and_conditions.svg';
 
 // images
 const String imageDoctor = '${imagesPath}doctor.png';

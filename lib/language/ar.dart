@@ -4,7 +4,195 @@ const Map<String, String> ar = <String, String>{
   'is_valid_enter_age': 'الرجاء ادخال تاريخ الميلاد',
   'type': 'النوع',
   'next': 'التالي',
+
   'copy_right_setting': 'سياسة الخصوصية',
+
+  'first_session_conditions': 'المادة الأولى: التعريفات',
+  'first_session_list_title_one_conditions': 'المنصة: ',
+  'first_session_list_one_conditions':
+      'التطبيق أو الموقع الإلكتروني المملوك والمدار من قبل الجهة المالكة، والذي يتيح للمستخدمين طلب الاستشارات الطبية عبر الإنترنت.',
+  'first_session_list_title_two_conditions': 'المستخدم/المريض: ',
+  'first_session_list_two_conditions':
+      ' أي شخص طبيعي يقوم بإنشاء حساب على المنصة بغرض حجز مواعيد استشارات طبية.',
+  'first_session_list_title_three_conditions': 'مقدم الخدمة: ',
+  'first_session_list_three_conditions':
+      'أي طبيب أو ممارس صحي أو عيادة أو مؤسسة طبية مرخصة تشترك في المنصة لتقديم خدماتها الطبية للمستخدمين.',
+  'first_session_list_title_four_conditions': 'الخدمات: ',
+  'first_session_list_four_conditions':
+      ' جميع الخدمات التي يتم تقديمها من خلال المنصة، وتشمل -على سبيل المثال لا الحصر- الاستشارات الطبية عبر الفيديو، وصف الأدوية، ومتابعة المرضى، وغير ذلك مما يدخل ضمن نطاق الترخيص القانوني لمقدم الخدمة.',
+
+  'second_session_condition': 'المادة الثانية: شروط التسجيل والاستخدام',
+  'second_session_list_title_one_condition': 'يجب على: ',
+  'second_session_list_one_condition':
+      'المستخدم تزويد المنصة ببيانات صحيحة وكاملة ودقيقة عند التسجيل أو طلب الخدمة.',
+  'second_session_list_title_two_condition': 'لا يحق: ',
+  'second_session_list_two_condition':
+      'للمستخدم انتحال هوية أي شخص آخر أو تقديم بيانات مضللة.',
+  'second_session_list_title_three_condition': 'يلتزم: ',
+  'second_session_list_three_condition':
+      'المستخدم بعدم مشاركة حسابه مع أي طرف ثالث أو السماح باستخدامه من قبل آخرين.',
+  'second_session_list_title_four_condition': 'تحتفظ: ',
+  'second_session_list_four_condition':
+      'المنصة بالحق في تعليق أو إلغاء حساب المستخدم في حال مخالفة هذه الشروط.',
+
+  'thireed_session_condition': 'المادة الثالثة: التزامات المستخدم',
+  'thireed_session_list_title_one_condition': 'يلتزم: ',
+  'thireed_session_list_one_condition':
+      'المستخدم باستخدام المنصة للأغراض المشروعة فقط المتعلقة بالحصول على الاستشارات الطبية.',
+  'thireed_session_list_title_two_condition': 'يقر: ',
+  'thireed_session_list_two_condition':
+      'المستخدم بأن المنصة ليست بديلًا عن المؤسسات الصحية أو الطوارئ الطبية.',
+  'thireed_session_list_title_three_condition': ' حال: ',
+  'thireed_session_list_three_condition':
+      ' حالة طبية طارئة، يلتزم المستخدم بالاتصال الفوري بخدمات الطوارئ أو التوجه إلى أقرب مستشفى.',
+  'thireed_session_list_title_four_condition': 'يلتزم: ',
+  'thireed_session_list_four_condition':
+      ' المستخدم بدفع كافة الرسوم المقررة نظير الاستشارات أو الخدمات وفق سياسة الدفع المعتمدة.',
+  'thireed_session_list_title_five_condition': 'يتحمل: ',
+  'thireed_session_list_five_condition':
+      'المستخدم المسؤولية الكاملة عن صحة البيانات الطبية والمعلومات الشخصية المقدمة عبر المنصة.',
+
+  'fourth_session_condition': 'المادة الرابعة: حدود الخدمة',
+  'fourth_session_list_title_one_condition': 'تقتصر: ',
+  'fourth_session_list_one_condition':
+      'مسؤولية المنصة على توفير الوسيط التقني الذي يربط بين المستخدم ومقدم الخدمة.',
+  'fourth_session_list_title_two_condition': 'لا تقد',
+  'fourth_session_list_two_condition':
+      'المنصة أي استشارات طبية أو توصيات علاجية مباشرة تقع المسؤولية الطبية كاملة على مقدم الخدمة وحده ',
+  'fourth_session_list_title_three_condition': ' تقع: ',
+  'fourth_session_list_three_condition':
+      ' المسؤولية الطبية كاملة على مقدم الخدمة وحده.',
+  'fourth_session_list_title_four_condition': 'لا تضمن: ',
+  'fourth_session_list_four_condition':
+      ' المنصة ملاءمة أي خدمة طبية لاحتياجات المستخدم، ويقع على عاتق المستخدم اتخاذ القرار بشأن تلقي الخدمة واختيار مقدم الخدمة.',
+
+  'five_session_condition': 'المادة الخامسة: إخلاء المسؤولية',
+  'five_session_list_title_one_condition': 'يقر: ',
+  'five_session_list_one_condition':
+      'المستخدم بأن المنصة ليست جهة طبية ولا تتحمل أي مسؤولية عن التشخيص أو العلاج أو نتائج الخدمات الطبية المقدمة.',
+  'five_session_list_title_two_condition': 'أي',
+  'five_session_list_two_condition':
+      'تواصل أو استشارة عبر المنصة تتم على مسؤولية المستخدم ومقدم الخدمة حصراً.',
+  'five_session_list_title_three_condition': 'لا تتحمل: ',
+  'five_session_list_three_condition':
+      'المنصة أي التزام تجاه الأضرار المباشرة أو غير المباشرة أو العرضية أو التبعية الناشئة عن استخدام المنصة أو الخدمات المقدمة عبرها.',
+
+  'six_session_condition': 'المادة السادسة: خصوصية البيانات',
+  'six_session_list_title_one_condition': 'تلتزم: ',
+  'six_session_list_one_condition':
+      'المنصة بحماية خصوصية وسرية بيانات المستخدمين وفق سياسة الخصوصية المعمول بها.',
+  'six_session_list_title_two_condition': 'يوافق',
+  'six_session_list_two_condition':
+      'المستخدم على جمع واستخدام بياناته الشخصية والصحية لأغراض تقديم الخدمة وتحسين تجربة الاستخدام.',
+  'six_session_list_title_three_condition': 'لا يجوز: ',
+  'six_session_list_three_condition':
+      'مشاركة بيانات المستخدم مع أطراف ثالثة إلا في الحالات التي ينص عليها القانون أو بموافقة صريحة من المستخدم.',
+  'six_session_list_title_four_condition': 'البيانات الشخصية: ',
+  'six_session_list_four_condition': 'oالاسم الكامل، تاريخ الميلاد، النوع',
+  'seven_session_list_title_four_condition': 'البيانات الطبية: ',
+  'seven_session_list_four_condition': 'oالتاريخ المرضي والأدوية الحالية',
+  'eat_session_list_title_four_condition': 'كيف نستخدم بياناتك: ',
+  'eat_session_list_four_condition': 'oتقديم الخدمات الطبية والاستشارات',
+  'nine_session_list_title_four_condition': 'مشاركة البيانات: ',
+  'nine_session_list_four_condition':
+      'لا نشارك بياناتك إلا في الحالات التالية o مع الطبيب المعالج لتقديم الخدم o مع شركات التأمين (بموافقتك المسبقة o مع السلطات القانونية (إذا تطلب القانون ذلك o مع مقدمي الخدمات التقنية (تحت اتفاقيات سرية مشد',
+
+  'seven_session_condition': 'المادة السابعة: القبول والتعديلات',
+  'seven_session_list_title_one_condition': 'يُعتبر: ',
+  'seven_session_list_one_condition':
+      'استخدام المنصة قبولًا صريحًا من المستخدم بجميع بنود هذه الاتفاقية.',
+  'seven_session_list_title_two_condition': 'تحتفظ',
+  'seven_session_list_two_condition':
+      'المنصة بحقها في تعديل أو تحديث الاتفاقية في أي وقت، ويُعد استمرار استخدام المنصة بعد التعديلات قبولًا ضمنيًا بها.',
+
+  'eat_session_condition': 'المادة الثامنة: سياسة إلغاء وإرجاع الرسوم',
+  'eat_session_list_title_one_condition': 'في حالة: ',
+  'eat_session_list_one_condition':
+      'عدم توفر مقدم الخدمة لأسباب تقنية أو انقطاع الخدمة لأكثر من 30 دقيقة يحق للمريض (المستخدم) استرجاع قيمة الكشف (يتم خصم 5% من المبلغ نظير خدمات بوابات الدفع) أو طلب حجز موعد جديد.',
+  'eat_session_list_title_two_condition': '.إذا تكرر',
+  'eat_session_list_two_condition':
+      'إلغاء المواعيد مرتين متتاليتين من طرف نفس المريض يتم تعليق حسابه لمدة أسبوعين.',
+
+  'nine_session_condition':
+      'المادة التاسعة: القانون الواجب التطبيق والاختصاص القضائي',
+  'nine_session_list_title_one_condition': 'تخضع: ',
+  'nine_session_list_one_condition':
+      'هذه الاتفاقية وتفسر وفقًا لأحكام القوانين المعمول بها في جمهورية مصر العربية.',
+  'nine_session_list_title_two_condition': '.تختص',
+  'nine_session_list_two_condition':
+      'المحاكم المحلية في (المنصورة – الدقهلية) وحدها بالفصل في أي نزاع ينشأ عن تفسير أو تنفيذ هذه الاتفاقية.',
+
+  'first_session_who_we_are': 'طبيعة الخدمة الطبية',
+  'first_session_list_title_one_who_we_are': 'خدمات التطبيب: ',
+  'first_session_list_one_who_we_are':
+      ' عن بُعد في المنصة تشمل الاستشارات الطبية عبر الفيديو أوالصوت أوالرسائل النصية مع أطباء مرخصين من وزارة الصحة المصرية ومسجلين في نقابة الأطباء المصرية. هذه الخدمات قد تكون بسيطة ويستطيع الطبيب التشخيص من خلالها ، أو تكون مكملة للرعاية الطبية التقليدية التي يلزم فيها مناظرة المريض وفحصه اكلينيكيا.',
+
+  'second_session_who_we_are': 'رسالتنا',
+  'text_one_who_we_are':
+      'نقدم الرعاية الصحية المناسبة لمن يحتاجها، حيث يحتاجها، وقت ما يحتاجها: ',
+  'second_session_list_title_one_who_we_are': 'نلتزم بتقديم: ',
+  'second_session_list_one_who_we_are':
+      'تجربة طبية متكاملة للمستخدمين عبر ربطهم مباشرة بمقدمي الرعاية الصحية المؤهلين، مع ضمان أعلى مستويات الخصوصية، والالتزام بالمعايير الطبية، وتسهيل الوصول إلى الخدمات الصحية في أي وقت ومن أي مكان.',
+
+  'thireed_session_who_we_are': 'قيمنا',
+  'thireed_session_list_title_one_who_we_are': 'سهولة الوصول: ',
+  'thireed_session_list_one_who_we_are':
+      'نتيح للمستخدمين حجز مواعيد الاستشارات الطبية بضغطة زر.',
+  'thireed_session_list_title_two_who_we_are': 'العدالة في الوصول:',
+  'thireed_session_list_two_who_we_are':
+      'الرعاية الصحية حق وليس امتياز. نعمل على كسر الحواجز التي تمنع الناس من الحصول على الرعاية الطبية المناسبة.',
+  'thireed_session_list_title_four_who_we_are': 'الرعاية المناسبة:',
+  'thireed_session_list_four_who_we_are':
+      'كل استشارة يجب أن تقدم قيمة حقيقية وتساعد المريض على الشفاء.',
+  'thireed_session_list_title_five_who_we_are': 'الموثوقية:',
+  'thireed_session_list_five_who_we_are':
+      'نضمن أن جميع الأطباء والخبراء على منصتنا مرخصون ومعتمدون.',
+  'fourth_session_list_title_five_who_we_are': 'الابتكار:',
+  'fourth_session_list_five_who_we_are':
+      'نستخدم أحدث تقنيات الاتصال الرقمي لتوفير تجربة سهلة وآمنة.',
+  'fiveth_session_list_title_five_who_we_are': 'الخصوصية:',
+  'fiveth_session_list_five_who_we_are':
+      'نحمي بيانات مستخدمينا وفقًا لأعلى معايير الأمان والسرية.',
+
+  'fourth_session_who_we_are': 'ماذا يجعلنا مختلفين؟',
+  'fourth_text_one_who_we_are': 'نحن نفهم تحدياتك الحقيقية',
+  'fourth_session_list_title_one_who_we_are': 'تحدي المسافة: ',
+  'fourth_session_list_one_who_we_are':
+      'طبيبك المتخصص بعيد؟ أحضرناه إليك عبر الشاشة.',
+  'fourth_session_list_title_two_who_we_are': 'تحدي الوقت: ',
+  'fourth_session_list_two_who_we_are':
+      'لا تجد وقت للذهاب والانتظار في العيادة؟ العيادة بين يديك.',
+  'fourth_session_list_title_three_who_we_are': 'تحدي التكلفة:',
+  'fourth_session_list_three_who_we_are':
+      ': الأسعار عالية؟ وفرنا خيارات تناسب جميع الميزانيات.',
+  'fourth_session_list_title_four_who_we_are': 'تحدي الحرج:',
+  'fourth_session_list_four_who_we_are':
+      'تشعر بالخجل من حالتك؟ استشارتك سرية تماماً.',
+  'fiveth_session_list_title_four_who_we_are': 'تحدي التخصص:',
+  'fiveth_session_list_four_who_we_are':
+      'لا تعرف أي طبيب تحتاج؟ نظامنا الذكي سيوجهك للتخصص المناسب.',
+
+  'five_session_who_we_are': 'من نخدم؟',
+  'five_session_list_title_one_who_we_are': 'كبار السن: ',
+  'five_session_list_one_who_we_are':
+      'الذين يجدون صعوبة في التنقل إلى العيادات',
+  'five_session_list_title_two_who_we_are': 'الأمهات: ',
+  'five_session_list_two_who_we_are':
+      'اللواتي يقلقن على صحة أطفالهن ويحتجن طمأنة سريع',
+  'five_session_list_title_three_who_we_are': 'المشغولون بالعمل:',
+  'five_session_list_three_who_we_are':
+      'الذين لا يجدون وقت للذهاب للطبيب خلال ساعات العمل',
+  'five_session_list_title_four_who_we_are': 'سكان المناطق النائية:',
+  'five_session_list_four_who_we_are':
+      'الذين لا يوجد بالقرب منهم أطباء متخصصون',
+  'five_session_list_title_six_who_we_are': 'من يبحث عن الخصوصية:',
+  'five_session_list_six_who_we_are': 'في المسائل الصحية الحساسة',
+  'five_session_list_title_seven_who_we_are': 'من يريد توفير المال:',
+  'five_session_list_seven_who_we_are':
+      'بدلاً من المواصلات وإجازات العمل والانتظار',
+  'five_session_list_title_eat_who_we_are': 'المرضى المزمنون:',
+  'five_session_list_eat_who_we_are': 'الذين يحتاجون متابعة دورية مستمرة',
+
   'first_session': 'المادة الأولى: البيانات التي يتم جمعها',
   'first_session_text': 'تقوم المنصة بجمع الأنواع التالية من البيانات:',
   'first_session_list_title_one': 'بيانات التسجيل: ',
@@ -23,6 +211,12 @@ const Map<String, String> ar = <String, String>{
   'first_session_list_five':
       'مثل عنوان برتوكول الإنترنت IP Address نوع الجهاز والمتصفح ملفات تعريف الارتباط Cookies وغيرها',
   'enter_plat_form': 'تضع منصة',
+  'agreement_users_clause':
+      '  والمستخدمين الذين يقومون بالتسجيل أو استخدام خدمات المنصة لطلب أو تلقي الاستشارات الطبية. ويُعد الدخول إلى المنصة أو استخدامها موافقة صريحة وغير مشروطة على الالتزام بأحكام هذه الاتفاقية.',
+  'agreement_intro': 'تشكل هذه الاتفاقية عقدًا ملزمًا ينظم العلاقة بين منصة',
+  'agreement_intro_who_we_are': 'مرحبًا بكم في تطبيق',
+  'agreement_users_clause_who_we_are':
+      '، منصتكم الرقمية الموثوقة للاستشارات الطبية عن بُعد نحن تطبيق طبي رقمي رائد يهدف إلى تقديم أفضل خدمات الرعاية الصحية عن بُعد للمرضى في مصر والمنطقة العربية. نحن نؤمن بأن الوصول إلى الرعاية الصحية الجيدة حق أساسي لكل إنسان، بغض النظر عن موقعه الجغرافي أو ظروفه المعيشية. نقدم خدماتنا من خلال المكالمات المرئية، المكالمات الصوتية، أو المحادثات النصية.',
   'text_copy_right':
       'خصوصية مستخدميها من أطباء (مقدمي الخدمة) ومرضى (المستخدمين) وزوار الموقع في مقدمة أولوياتها. تهدف هذه السياسة إلى توضيح كيفية جمع البيانات الشخصية والطبية، وكيفية استخدامها ومعالجتها وحمايتها، والحقوق المكفولة للمستخدمين بموجب القوانين والأنظمة المعمول بها.',
   'second_session': 'المادة الثانية: كيفية استخدام البيانات',
@@ -115,6 +309,7 @@ const Map<String, String> ar = <String, String>{
   'nine_session_list_title_three': 'يعد استمرار: ',
   'nine_session_list_three':
       'استخدام المنصة بعد نشر التعديلات موافقة ضمنية عليها',
+
   'title_foot_print': 'سجل بصمة اصبعك للحماية',
   'text_foot_print':
       'سيتم استخدام بصمة اصبعك لتأمين حسابك وتسريع تسجيل ادخال لاحقاً',
@@ -170,6 +365,8 @@ const Map<String, String> ar = <String, String>{
   'please_auth_finger_print': 'يرجى المصادقة لرؤية محتوى الصفحة الخاصة',
   'page_wating': 'صفحة الأنتظار',
   'meeting': 'جاري الأن',
+  'improvement_rate': 'نسبة التحسن',
+  'text_improvement_rate': 'ما مدى نسبة تحسنك بعد الكشف الاخير؟',
   'error_auth_finger_print': 'حدث خطأ ما، يرجى المحاولة مرة أخرى',
   'password': 'الرقم السري',
   'skip': 'تخطي',
@@ -358,6 +555,8 @@ const Map<String, String> ar = <String, String>{
   'write_your_comment_about_the_session': 'اكتب تعليقك على الجلسة',
   'send_about_doctor': 'ارسال للطبيب',
   'send': 'ارسال',
+  'privacy_policy': 'سياسةالخصوصية ',
+  'terms_and_conditions': 'الشروط والاحكام',
   'accosts': '24 اغسطس',
   'entry_to_the_session': 'الدخول للجلسه',
   'active_now': 'نشط الان',

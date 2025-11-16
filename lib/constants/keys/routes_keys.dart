@@ -12,4 +12,6 @@ const String routeNotifications = '/notificaions';
 const String details = '/details';
 const String routeSecurity = '/routeSecurity';
 const String routeTechnicalSupport = '/routeTechnicalSupport';
-const String routeCopyRight = '/routeCopyRight';
+const String routePrivacyPolicy = '/privacyPolicy';
+const String routeTermsAndConditions = '/termsAndConditions';
+const String routeWhoWeAre = '/whoWeAre';
