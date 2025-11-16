@@ -20,11 +20,17 @@ class Security extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  SvgPicture.asset(
-                    iconBack,
-                    width: 24,
-                    height: 26,
-                    color: const Color(AppColors.colorBlack),
+                  GestureDetector(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: SvgPicture.asset(
+                      iconBack,
+                      width: 24,
+                      height: 26,
+                      // ignore: deprecated_member_use
+                      color: Colors.black,
+                    ),
                   ),
                   Container(
                     margin: EdgeInsets.only(top: DEVICE_HEIGHT * 0.05),

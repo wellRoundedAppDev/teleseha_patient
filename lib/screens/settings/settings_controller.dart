@@ -27,7 +27,7 @@ class SettingsController extends GetxController {
         update();
         await localStorage.removeFromStorage(key: storageAccessToken);
         await localStorage.removeFromStorage(key: storageRefreshToken);
-        Get.toNamed(routeFingerPrint);
+        Get.toNamed(routeLogin);
       },
       // ignore: always_specify_types
       onError: (error) {
