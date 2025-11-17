@@ -61,7 +61,117 @@ class Security extends StatelessWidget {
                       child: Column(
                         children: <Widget>[
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    backgroundColor: const Color(
+                                      AppColors.colorPointerborder,
+                                    ),
+                                    title: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: <Widget>[
+                                        GestureDetector(
+                                          child: SvgPicture.asset(iconClose),
+                                          onTap: () {
+                                            Get.back();
+                                          },
+                                        ),
+                                        SizedBox(height: DEVICE_HEIGHT * 0.025),
+                                        Align(
+                                          child: CustomText(
+                                            textAlign: TextAlign.center,
+                                            text: 'are_you_sure_change_pattern'
+                                                .tr,
+                                            fontSize: 16,
+                                            type: CustomTextType.title,
+                                            color: const Color(
+                                              AppColors.colorLineAndText,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    actions: <Widget>[
+                                      Row(
+                                        children: <Widget>[
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(30),
+                                            ),
+                                            child: Btn(
+                                              colorText: const Color(
+                                                AppColors.colorLineAndText,
+                                              ),
+                                              size: 12,
+                                              customWidth: 0.3,
+                                              onPressed: () {
+                                                final LoginController login =
+                                                    Get.find();
+
+                                                login.showForgetPatter = false;
+                                                // ignore: always_specify_types
+                                                Future.delayed(
+                                                  const Duration(seconds: 2),
+                                                  () {
+                                                    Get.toNamed(routeLogin);
+                                                    login.showPage =
+                                                        'forgetPassword';
+                                                    login.update();
+                                                  },
+                                                );
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: const Color(
+                                                  AppColors
+                                                      .colorWhiteSelectedType,
+                                                ),
+                                                padding: EdgeInsets.symmetric(
+                                                  vertical:
+                                                      DEVICE_HEIGHT * 0.002,
+                                                ),
+                                              ),
+                                              text: 'yes'.tr,
+                                            ),
+                                          ),
+                                          SizedBox(width: DEVICE_WIDTH * 0.04),
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(30),
+                                            ),
+                                            child: Btn(
+                                              colorText: const Color(
+                                                AppColors
+                                                    .colorWhiteSelectedType,
+                                              ),
+                                              size: 12,
+                                              customWidth: 0.3,
+                                              onPressed: () {
+                                                Get.back();
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: const Color(
+                                                  AppColors.colorLineAndText,
+                                                ),
+                                                padding: EdgeInsets.symmetric(
+                                                  vertical:
+                                                      DEVICE_HEIGHT * 0.002,
+                                                ),
+                                              ),
+                                              text: 'no'.tr,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
                             child: ContainerSettings(
                               title: 'security_mode'.tr,
                               icon: iconCopyRight,
@@ -69,20 +179,12 @@ class Security extends StatelessWidget {
                           ),
                           SizedBox(height: DEVICE_HEIGHT * 0.035),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Get.toNamed(routeLogin);
+                            },
                             child: ContainerSettings(
                               title: 'number_phone'.tr,
                               icon: iconNumber,
-                            ),
-                          ),
-                          SizedBox(height: DEVICE_HEIGHT * 0.035),
-                          GestureDetector(
-                            onTap: () {
-                              Get.toNamed(routeSecurity);
-                            },
-                            child: ContainerSettings(
-                              title: 'call_phone'.tr,
-                              icon: phones,
                             ),
                           ),
                         ],

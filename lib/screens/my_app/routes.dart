@@ -27,6 +27,16 @@ List<GetPage<dynamic>> appRoutes = <GetPage<dynamic>>[
     name: routeTechnicalSupport,
     page: () => const TechnicalSupport(),
   ),
-  GetPage<PrivacyPolicy>(name: routePrivacyPolicy, page: () => const PrivacyPolicy()),
-  GetPage<TermsAndConditions>(name: routeTermsAndConditions, page: () => const TermsAndConditions()),  
+  GetPage<PrivacyPolicy>(
+    name: routePrivacyPolicy,
+    page: () => const PrivacyPolicy(),
+  ),
+  GetPage<TermsAndConditions>(
+    name: routeTermsAndConditions,
+    page: () => const TermsAndConditions(),
+  ),
+  GetPage<Policiesandprocedures>(
+    name: routepoliciesAndProcedures,
+    page: () => const Policiesandprocedures(),
+  ),
 ];

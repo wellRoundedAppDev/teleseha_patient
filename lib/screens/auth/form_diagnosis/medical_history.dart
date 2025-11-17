@@ -38,7 +38,8 @@ class MedicalHistory extends StatelessWidget {
                         : ListView.builder(
                             padding: EdgeInsets.zero,
                             shrinkWrap: true,
-                            physics: const AlwaysScrollableScrollPhysics(),
+
+                            physics: const NeverScrollableScrollPhysics(),
                             itemCount: controller.questions.length,
                             itemBuilder: (BuildContext context, int index) {
                               // ignore: always_specify_types

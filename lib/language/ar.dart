@@ -4,8 +4,13 @@ const Map<String, String> ar = <String, String>{
   'is_valid_enter_age': 'الرجاء ادخال تاريخ الميلاد',
   'type': 'النوع',
   'next': 'التالي',
+  'security_mode': 'نمط الأمان',
+  'copy_right_tele': 'تلي صحة – جميع الحقوق محفوظة 2025 ©.',
 
+  'policies_and_procedures': ' السياسات والاجراءات',
   'copy_right_setting': 'سياسة الخصوصية',
+  'are_you_sure_log_out': 'هل أنت متأكد من تسجيل الخروج',
+  'are_you_sure_change_pattern': 'هل أنت متأكد من تغيير النمط؟',  
 
   'first_session_conditions': 'المادة الأولى: التعريفات',
   'first_session_list_title_one_conditions': 'المنصة: ',
@@ -309,6 +314,35 @@ const Map<String, String> ar = <String, String>{
   'nine_session_list_title_three': 'يعد استمرار: ',
   'nine_session_list_three':
       'استخدام المنصة بعد نشر التعديلات موافقة ضمنية عليها',
+
+  'first_session_policies': '1. سياسة الخصوصية وحماية البيانات',
+  'first_session_text_policies':
+      'نحن في منصة نتعهد بحماية خصوصيتك والحفاظ على أمان بياناتك الطبية وفقاً لأعلى المعايير والقوانين.',
+  'first_session_list_title_one_policies': ' البيانات الشخصية: ',
+  'first_session_list_one_policies':
+      'الاسم الكامل، تاريخ الميلاد، النوع oمعلومات التواصل (هاتف، عنوان، إيميل) oالمعلومات المالية للدفع (محفوظة بشكل مشفر) البيانات الطبية oالتاريخ المرضي والأدوية الحالية oالأعراض والشكاوى المرضي oنتائج الفحوصات والأشعة',
+  'first_session_list_title_two_policies': ': كيف نستخدم بياناتك ',
+  'first_session_list_two_policies':
+      'تقديم الخدمات الطبية والاستشارات التواصل معك حول حالتك الصحية إصدار الفواتير ومعالجة المدفوعات تحسين جودة خدماتنا الامتثال للقوانين والأنظمة الطبي',
+  'first_session_list_title_three_policies': ':مشاركة البيانات',
+  'first_session_list_three_policies':
+      'لا نشارك بياناتك إلا في الحالات التالية:  مع الطبيب المعالج لتقديم الخدمة  مع شركات التأمين (بموافقتك المسبقة)  مع السلطات القانونية (إذا تطلب القانون ذلك)  مع مقدمي الخدمات التقنية (تحت اتفاقيات سرية مشددة',
+
+  'second_session_policies': '2. شروط الاستخدام',
+  'second_session_list_title_one_policies': 'يُسمح لك بـ:',
+  'second_session_list_one_policies':
+      'إجراء استشارات طبية مع الأطباء المرخصين حفظ وطباعة الوصفات والتقارير الطبية تقييم الخدمة وتقديم الملاحظات',
+  'second_session_list_title_two_policies': 'يُمنع عليك:',
+  'second_session_list_two_policies':
+      'تقديم معلومات طبية كاذبة أو مضللة مشاركة حسابك مع أشخاص آخرين استخدام الخدمة لأغراض غير طبية انتهاك خصوصية الأطباء أو المرضى الآخرين',
+  'second_session_list_title_three_policies': 'المسؤوليات والحدود:',
+  'second_session_list_three_policies':
+      'الخدمة مخصصة للاستشارات الطبية العامة وليس للحالات الطارئة. النصائح الطبية لا تحل محل زيارة الطبيب عند الضرورة المنصة غير مسؤولة عن القرارات الطبية للأطباء كما الحال في العيادات الخاصة.',
+
+  'thireed_session_policies': '3. سياسة إلغاء وإرجاع الرسوم',
+  'thireed_session_list_title_one_policies': 'يُسمح لك بـ:',
+  'thireed_session_list_one_policies':
+      'في حالة عدم توفر الطبيب لأسباب تقنية أو انقطاع الخدمة لأكثر من 30 دقيقة يحق للمريض استرجاع قيمة الكشف (يتم خصم 5% من المبلغ نظير خدمات بوابات الدفع) أو طلب حجز موعد جديد. إذا تكرر إلغاء المواعيد مرتين متتاليتين من طرف نفس المريض يتم تعليق حسابه لمدة أسبوعين.',
 
   'title_foot_print': 'سجل بصمة اصبعك للحماية',
   'text_foot_print':

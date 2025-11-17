@@ -26,6 +26,7 @@ class Settings extends StatelessWidget {
                         iconBack,
                         width: 24,
                         height: 26,
+                        // ignore: deprecated_member_use
                         color: const Color(AppColors.colorBlack),
                       ),
                       Container(
@@ -90,7 +91,9 @@ class Settings extends StatelessWidget {
                           ),
                           SizedBox(height: DEVICE_HEIGHT * 0.035),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Get.toNamed(routeFormDiagnosis);
+                            },
                             child: ContainerSettings(
                               title: 'medical_history'.tr,
                               icon: iconMdeicalHistory,
@@ -104,6 +107,16 @@ class Settings extends StatelessWidget {
                             child: ContainerSettings(
                               title: 'privacy_policy'.tr,
                               icon: privacyPolicy,
+                            ),
+                          ),
+                          SizedBox(height: DEVICE_HEIGHT * 0.035),
+                          GestureDetector(
+                            onTap: () {
+                              Get.toNamed(routepoliciesAndProcedures);
+                            },
+                            child: ContainerSettings(
+                              title: 'policies_and_procedures'.tr,
+                              icon: iconFolders,
                             ),
                           ),
                           SizedBox(height: DEVICE_HEIGHT * 0.035),

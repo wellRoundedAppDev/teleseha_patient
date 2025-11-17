@@ -55,7 +55,8 @@ class DetailsAboutYou extends StatelessWidget {
                           title: 'city'.tr,
                           myListCountry: controller.myCity
                               // ignore: always_specify_types
-                              .map<String>((e) => e['cityName'].toString())
+                             // .map<String>((e) => e['cityName'].toString()??"")
+                           .map<String>((e) => e)
                               .toList(),
                           value: controller.selectedCity,
                           onChanged: (String? newValue) {
@@ -130,6 +131,9 @@ class DetailsAboutYou extends StatelessWidget {
                           },
                           text: 'next'.tr,
                         ),
+
+                        SizedBox(height: DEVICE_HEIGHT * 0.05),
+
                       ],
                     ),
                   ),

@@ -259,6 +259,19 @@ class StartStepsController extends GetxController {
       ).request(
         // ignore: always_specify_types
         onSuccess: (data, response) async {
+        //   "data": {
+        //   "user": {
+        //   "id": 315,
+        //   "mobile": "01274322776",
+        //   "role": "Patient",
+        //   "status": "Active",
+        //   "patients": []
+        //   },
+        //   "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIzMTUiLCJyb2xlIjoiUGF0aWVudCIsIm5iZiI6MTc2NDAyNDczMCwiZXhwIjoxNzY0MDI1MzMwLCJpYXQiOjE3NjQwMjQ3MzAsImlzcyI6IlRlbGVTZWhhQXBpIiwiYXVkIjoiVGVsZVNlaGFVc2VycyJ9.XYIkHtpAJlr11uIr00O6rJVLP-hxS0WPiE58F4-QBJU",
+        //   "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIzMTUiLCJyb2xlIjoiUGF0aWVudCIsIm5iZiI6MTc2NDAyNDczMCwiZXhwIjoxNzY5MjA4NzMwLCJpYXQiOjE3NjQwMjQ3MzAsImlzcyI6IlRlbGVTZWhhQXBpIiwiYXVkIjoiVGVsZVNlaGFVc2VycyJ9.3R8l16cOw_8Ww5ICNrUiDIBC-02x_Dx2M-KTzsA1RdA"
+        //   },
+        //   "nextStepEnum": "CreateProfile"
+        // }
           isLoading = false;
           final String? nextStep = response['nextStepEnum']?.toString();
           if (nextStep == 'CreateProfile') {
@@ -277,6 +290,21 @@ class StartStepsController extends GetxController {
       resetPattern();
       update();
     } else if (currentStep == 3) {
+
+      // print("Step 3:\n");
+      // accessToken = await localStorage.readFromStorage(storageAccessToken);
+      // print((accessToken??"")+"\n");
+      // final FormData formData = FormData.fromMap(<String, dynamic>{
+      //   keyName: textFieldName.text.trim(),
+      //   isMale: selectedMaleCode,
+      //   date: apiDate,
+      // });
+      // print({
+      //   "keyName": textFieldName.text.trim(),
+      //   "isMale": selectedMaleCode,
+      //   "date": apiDate,
+      // });
+      // return;
       isLoading = true;
       update();
       accessToken = await localStorage.readFromStorage(storageAccessToken);
@@ -312,6 +340,13 @@ class StartStepsController extends GetxController {
               : genderStr == 'female'
               ? myIsMale = false
               : myIsMale = null;
+          
+          print("patientId:${patientId}\n");
+          print("name:${name}\n");
+          print("birthday:${barthDay}\n");
+          print("genderStr:${genderStr}\n");
+
+
           final Map<String, dynamic> userMap = <String, dynamic>{
             'patients': <Map<String, dynamic>>[
               <String, dynamic>{myPatientId: response['patientId']},
@@ -329,10 +364,12 @@ class StartStepsController extends GetxController {
         },
         // ignore: always_specify_types
         onError: (error) {
+          print('xxxxxxxxxxxx${error.toString()}');
           final int? statusCode = error.response?.statusCode;
           isLoading = false;
           update();
           if (statusCode == 401) {
+
             final LoginController appController = Get.find();
             appController.futureRefreshLogin();
           } else {

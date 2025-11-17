@@ -1,5 +1,7 @@
 import 'package:signalr_netcore/signalr_client.dart';
 
+import '../general_exports.dart';
+
 class SignalRService {
   late HubConnection connection;
   bool isConnected = false;
@@ -16,13 +18,13 @@ class SignalRService {
         .build();
 
     connection.on('ReceiveAppointmentUpdates', (List<Object?>? args) {
-      print('📩 Received: $args');
+      consoleLog('📩 Received: $args');
     });
 
     await connection.start();
     isConnected = true;
-    print('✅ Connected: ${connection.state}');
-    print('✅ SignalR Connected!');
+    consoleLog('✅ Connected: ${connection.state}');
+    consoleLog('✅ SignalR Connected!');
     dispose();
   }
 

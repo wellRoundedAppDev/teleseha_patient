@@ -252,14 +252,12 @@ class BookingsController extends GetxController {
               change.update();
             })
             // ignore: always_specify_types
-            .catchError((error) {
-              print(error);
-            });
+            .catchError((error) {});
         break;
       case 'Started':
         Get.dialog(
           GetBuilder<BookingsController>(
-            builder: (controller) {
+            builder: (BookingsController controller) {
               return AlertDialog(
                 title: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -286,7 +284,10 @@ class BookingsController extends GetxController {
 
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: List.generate(controller.rates.length, (index) {
+                      // ignore: always_specify_types
+                      children: List.generate(controller.rates.length, (
+                        int index,
+                      ) {
                         final bool isSelected =
                             controller.selectedIndex == index;
 

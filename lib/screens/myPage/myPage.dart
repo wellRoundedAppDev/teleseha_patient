@@ -108,9 +108,120 @@ class Mypage extends StatelessWidget {
                                 icon: iconHistoryBuy,
                               ),
                               SizedBox(height: DEVICE_HEIGHT * 0.035),
-                              ContainerSettings(
-                                title: 'log_out'.tr,
-                                icon: iconLogOut,
+                              GestureDetector(
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        backgroundColor: const Color(
+                                          AppColors.colorPointerborder,
+                                        ),
+                                        title: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          children: <Widget>[
+                                            GestureDetector(
+                                              child: SvgPicture.asset(
+                                                iconClose,
+                                              ),
+                                              onTap: () {
+                                                Get.back();
+                                              },
+                                            ),
+                                            SizedBox(
+                                              height: DEVICE_HEIGHT * 0.025,
+                                            ),
+                                            Align(
+                                              child: CustomText(
+                                                textAlign: TextAlign.center,
+                                                text: 'are_you_sure_log_out'.tr,
+                                                fontSize: 16,
+                                                type: CustomTextType.title,
+                                                color: const Color(
+                                                  AppColors.colorLineAndText,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        actions: <Widget>[
+                                          Row(
+                                            children: <Widget>[
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(30),
+                                                ),
+                                                child: Btn(
+                                                  colorText: const Color(
+                                                    AppColors.colorLineAndText,
+                                                  ),
+                                                  size: 12,
+                                                  customWidth: 0.3,
+                                                  onPressed: () {
+                                                    controller.logOut();
+                                                  },
+                                                  style: ElevatedButton.styleFrom(
+                                                    backgroundColor: const Color(
+                                                      AppColors
+                                                          .colorWhiteSelectedType,
+                                                    ),
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                          vertical:
+                                                              DEVICE_HEIGHT *
+                                                              0.002,
+                                                        ),
+                                                  ),
+                                                  text: 'yes'.tr,
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                width: DEVICE_WIDTH * 0.04,
+                                              ),
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(30),
+                                                ),
+                                                child: Btn(
+                                                  colorText: const Color(
+                                                    AppColors
+                                                        .colorWhiteSelectedType,
+                                                  ),
+                                                  size: 12,
+                                                  customWidth: 0.3,
+                                                  onPressed: () {
+                                                    Get.back();
+                                                  },
+                                                  style: ElevatedButton.styleFrom(
+                                                    backgroundColor:
+                                                        const Color(
+                                                          AppColors
+                                                              .colorLineAndText,
+                                                        ),
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                          vertical:
+                                                              DEVICE_HEIGHT *
+                                                              0.002,
+                                                        ),
+                                                  ),
+                                                  text: 'no'.tr,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                },
+                                child: ContainerSettings(
+                                  title: 'log_out'.tr,
+                                  icon: iconLogOut,
+                                ),
                               ),
                             ],
                           ),

@@ -92,8 +92,9 @@ const String tecTeam = '${iconsPath}tec_team.svg';
 const String technicalSupport1 = '${iconsPath}technicalSupport1.svg';
 const String mail = '${iconsPath}mail.svg';
 const String privacyPolicy = '${iconsPath}privacy_policy.svg';
+// ignore: constant_identifier_names
 const String terms_and_conditions = '${iconsPath}terms_and_conditions.svg';
-
+const String iconFolders = '${iconsPath}folders.svg';
 // images
 const String imageDoctor = '${imagesPath}doctor.png';
 const String imageDoctorDetails = '${imagesPath}imageDoctor.png';

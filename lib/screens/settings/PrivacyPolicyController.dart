@@ -46,8 +46,7 @@ class PrivacyPolicyController extends GetxController {
       ],
     },
     <String, dynamic>{
-      'title': 'thireed_session'.tr,
-      'subTitle': ''.tr,
+      'title': 'thireed_session'.tr,      
       'list': <Map<String, String>>[
         <String, String>{
           'thireed_session_list_title_one'.tr: 'thireed_session_list_one'.tr,
@@ -62,8 +61,7 @@ class PrivacyPolicyController extends GetxController {
       ],
     },
     <String, dynamic>{
-      'title': 'fourth_session'.tr,
-      'subTitle': ''.tr,
+      'title': 'fourth_session'.tr,      
       'list': <Map<String, String>>[
         <String, String>{
           'fourth_session_list_title_one'.tr: 'fourth_session_list_one'.tr,
@@ -98,8 +96,7 @@ class PrivacyPolicyController extends GetxController {
       ],
     },
     <String, dynamic>{
-      'title': 'six_session'.tr,
-      'subTitle': ''.tr,
+      'title': 'six_session'.tr,      
       'list': <Map<String, String>>[
         <String, String>{
           'six_session_list_title_one'.tr: 'six_session_list_one'.tr,
@@ -116,8 +113,7 @@ class PrivacyPolicyController extends GetxController {
       ],
     },
     <String, dynamic>{
-      'title': 'seven_session'.tr,
-      'subTitle': ''.tr,
+      'title': 'seven_session'.tr,      
       'list': <Map<String, String>>[
         <String, String>{
           'seven_session_list_title_one'.tr: 'seven_session_list_one'.tr,
@@ -128,8 +124,7 @@ class PrivacyPolicyController extends GetxController {
       ],
     },
     <String, dynamic>{
-      'title': 'eat_session'.tr,
-      'subTitle': ''.tr,
+      'title': 'eat_session'.tr,      
       'list': <Map<String, String>>[
         <String, String>{
           'eat_session_list_title_one'.tr: 'eat_session_list_one'.tr,
@@ -140,8 +135,7 @@ class PrivacyPolicyController extends GetxController {
       ],
     },
     <String, dynamic>{
-      'title': 'nine_session'.tr,
-      'subTitle': ''.tr,
+      'title': 'nine_session'.tr,      
       'list': <Map<String, String>>[
         <String, String>{
           'nine_session_list_title_one'.tr: 'nine_session_list_one'.tr,

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:dio/dio.dart';
 
@@ -32,7 +33,9 @@ class DetailsAboutYouController extends GetxController {
   String? selectedState;
   String? selectedCity;
   String? selectedMaritalStatus;
-  int? selectedCityId;
+  // int? selectedCityId;
+  String?    selectedCityId;
+
   String? accessToken;
 
   LocalStorage localStorage = LocalStorage();
@@ -116,12 +119,16 @@ class DetailsAboutYouController extends GetxController {
     // ignore: always_specify_types
     final selectedCityObj = myCity.firstWhere(
       // ignore: always_specify_types
-      (city) => city['cityName'] == newCityName,
+      // (city) => city['cityName'] == newCityName,
+          (city) => city == newCityName,
+
       orElse: () => null,
     );
 
     if (selectedCityObj != null) {
-      selectedCityId = selectedCityObj['cityId'];
+      //selectedCityId = selectedCityObj['cityId'];
+      selectedCityId = selectedCityObj;
+
     }
 
     update();
@@ -138,22 +145,106 @@ class DetailsAboutYouController extends GetxController {
 
     accessToken = await localStorage.readFromStorage(storageAccessToken);
 
+    var userFromStorage = await localStorage.readFromStorage(storageUserData);
+  //  print(userFromStorage);
+    var patientFromStorage =
+    userFromStorage != null&&  jsonDecode(userFromStorage??"")['patients'] != null && jsonDecode(userFromStorage??"")['patients'].isNotEmpty?
+    jsonDecode(userFromStorage??"")['patients'][0]:null;
+
+    print(patientFromStorage);
     isLoading = true;
     update();
 
     final FormData formData = FormData.fromMap(<String, dynamic>{
-      keyName: stepsController.name,
-      isMale: stepsController.myIsMale,
-      maritalStatus: selectedMaritalStatus,
-      date: stepsController.barthDay,
-      jobTitle: myJobTitle.text.trim(),
-      myState: selectedState,
-      city: selectedCity,
-      cityId: selectedCityId,
+      keyName:
+
+      stepsController.name??patientFromStorage['name'],
+      isMale:
+
+      stepsController.myIsMale?? patientFromStorage['gender'],
+      maritalStatus:
+      // patientFromStorage != null?
+      // patientFromStorage['maritalStatus']
+      //     :
+
+      selectedMaritalStatus,
+      date:
+      // patientFromStorage != null?
+      // patientFromStorage['birthDate']
+      //     :
+      stepsController.barthDay?? patientFromStorage['birthDate'],
+      jobTitle:
+      // patientFromStorage != null?
+      // patientFromStorage['jobTitle']
+      //     :
+      myJobTitle.text.trim(),
+      myState:
+      // patientFromStorage != null?
+      // patientFromStorage['state']
+      //     :
+      selectedState,
+      city:
+      // patientFromStorage != null?
+      // patientFromStorage['city']
+      //     :
+      selectedCity,
+      cityId:
+      // patientFromStorage != null?
+      // patientFromStorage['city']
+      //     :
+      // selectedCityId,
+      selectedCity
     });
 
+    print({
+      keyName:
+
+      stepsController.name??patientFromStorage['name'],
+      isMale:
+
+      stepsController.myIsMale?? patientFromStorage['gender'],
+      maritalStatus:
+      // patientFromStorage != null?
+      // patientFromStorage['maritalStatus']
+      //     :
+
+      selectedMaritalStatus,
+      date:
+      // patientFromStorage != null?
+      // patientFromStorage['birthDate']
+      //     :
+      stepsController.barthDay?? patientFromStorage['birthDate'],
+      jobTitle:
+      // patientFromStorage != null?
+      // patientFromStorage['jobTitle']
+      //     :
+      myJobTitle.text.trim(),
+      myState:
+      // patientFromStorage != null?
+      // patientFromStorage['state']
+      //     :
+      selectedState,
+      city:
+      // patientFromStorage != null?
+      // patientFromStorage['city']
+      //     :
+      selectedCity,
+      cityId:
+      // patientFromStorage != null?
+      // patientFromStorage['city']
+      //     :
+      selectedCity,
+    });
+   // I/flutter (26722): {Name: noor, IsMale: Male, MaritalStatus: Single, BirthDate: 2025-11-03, JobTitle: مبرمج, State: الاسكندرية, City: ssssss, CityId: ssssss}
+
+    // print('$patient/${
+    //
+    //     stepsController.patientId??   patientFromStorage['patientId']}');
+    //
+    //
+    // return;
     await ApiRequest(
-      path: '$patient/${stepsController.patientId}',
+      path: '$patient/${stepsController.patientId??   patientFromStorage['patientId']}',
       className: '',
       formatResponse: true,
       method: ApiMethods.put,
@@ -171,6 +262,8 @@ class DetailsAboutYouController extends GetxController {
       },
       // ignore: always_specify_types
       onError: (error) {
+
+        print("error:${error}");
         isLoading = false;
         Get.snackbar(
           'فشل الحفظ',

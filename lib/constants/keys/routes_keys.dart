@@ -15,3 +15,4 @@ const String routeTechnicalSupport = '/routeTechnicalSupport';
 const String routePrivacyPolicy = '/privacyPolicy';
 const String routeTermsAndConditions = '/termsAndConditions';
 const String routeWhoWeAre = '/whoWeAre';
+const String routepoliciesAndProcedures = '/policiesAndProcedures';

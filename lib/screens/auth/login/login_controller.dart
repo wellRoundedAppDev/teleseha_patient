@@ -49,6 +49,7 @@ class LoginController extends GetxController {
 
         await authStorage.saveAuthData(response['data']);
 
+
         myNextStep = nextStep;
         update();
 
@@ -64,6 +65,8 @@ class LoginController extends GetxController {
           case 'OpenHome':
             Get.toNamed(routeScreen);
             break;
+          case 'CreateMedicalProfile':
+            Get.offAllNamed(routeFormDiagnosis,);
           default:
             Get.offAllNamed(routeLogin);
         }
@@ -219,6 +222,7 @@ class LoginController extends GetxController {
               },
               'SelectProfile': () => Get.toNamed(routeProfiles),
               'OpenHome': () => Get.toNamed(routeScreen),
+               "CreateMedicalProfile":()=>Get.toNamed(routeFormDiagnosis)
             };
 
         if (nextStep != null && nextStepActions.containsKey(nextStep)) {

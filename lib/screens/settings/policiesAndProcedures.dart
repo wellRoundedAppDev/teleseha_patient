@@ -2,14 +2,14 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../general_exports.dart';
 
-class PrivacyPolicy extends StatelessWidget {
-  const PrivacyPolicy({super.key});
+class Policiesandprocedures extends StatelessWidget {
+  const Policiesandprocedures({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<PrivacyPolicyController>(
-      init: PrivacyPolicyController(),
-      builder: (PrivacyPolicyController controller) {
+    return GetBuilder<Policiesandprocedurescontroller>(
+      init: Policiesandprocedurescontroller(),
+      builder: (Policiesandprocedurescontroller controller) {
         return Scaffold(
           body: Stack(
             children: <Widget>[
@@ -45,7 +45,7 @@ class PrivacyPolicy extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   CustomText(
-                                    text: 'copy_right_setting'.tr,
+                                    text: 'policies_and_procedures'.tr,
                                     fontSize: 18,
                                     type: CustomTextType.title,
                                     color: const Color(
@@ -54,51 +54,12 @@ class PrivacyPolicy extends StatelessWidget {
                                   ),
                                   SizedBox(width: DEVICE_WIDTH * 0.02),
                                   SvgPicture.asset(
-                                    privacyPolicy,
+                                    iconFolders,
                                     width: 24,
                                     height: 26,
                                     // ignore: deprecated_member_use
                                     color: const Color(
                                       AppColors.colorLineAndText,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: DEVICE_HEIGHT * 0.03),
-                              Column(
-                                children: <Widget>[
-                                  Text.rich(
-                                    TextSpan(
-                                      children: <InlineSpan>[
-                                        TextSpan(
-                                          text: '${'enter_plat_form'.tr} ',
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Color(
-                                              AppColors.colorSelectDropDown,
-                                            ),
-                                            fontSize: 12,
-                                          ),
-                                        ),
-                                        WidgetSpan(
-                                          alignment:
-                                              PlaceholderAlignment.middle,
-                                          child: SvgPicture.asset(
-                                            iconLogoLogin,
-                                            width: 22,
-                                            height: 24,
-                                          ),
-                                        ),
-                                        TextSpan(
-                                          text: ' ${'text_copy_right'.tr}',
-                                          style: const TextStyle(
-                                            color: Color(
-                                              AppColors.colorSelectDropDown,
-                                            ),
-                                            fontSize: 13,
-                                          ),
-                                        ),
-                                      ],
                                     ),
                                   ),
                                 ],
