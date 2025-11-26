@@ -1,4 +1,5 @@
 import 'package:flutter_svg/svg.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 import '../../../general_exports.dart';
 
@@ -20,18 +21,57 @@ Widget buildLoginForm(LoginController controller) => Container(
         color: const Color(AppColors.colorTextBlue),
       ),
       SizedBox(height: DEVICE_HEIGHT * 0.053),
-      CustomInput(
-        title: 'number_phone'.tr,
-        hint: 'number_phone_field'.tr,
-        controller: controller.phoneNumberController,
-        showValidMessage: controller.showPhoneNumberError,
-        textIsValid: controller.phoneErrorMessage,
-        colorLabel: AppColors.colorLabel,
-        keyboardType: TextInputType.phone,
-        suffixIconPath: iconNumber,
-        bottomSpacing: DEVICE_HEIGHT * 0.0,
-        sizespace: DEVICE_HEIGHT * 0.000018,
+      InternationalPhoneNumberInput(
+        onInputChanged: (PhoneNumber number) {
+          // print(number.dialCode);
+          //
+
+          // print(number.phoneNumber);
+          // print(controller.phoneNumberController.text);
+          controller.setSelectedPhoneNumber(number.dialCode??"");
+        },
+        onInputValidated: (bool isValid) {
+          print("Is valid? $isValid");
+          controller.isValidPhoneNumber = isValid;
+        //  controller.isPhoneValid.value = isValid;   // if using GetX
+        },
+
+        selectorConfig: const SelectorConfig(
+          selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+
+       //   backgroundColor: Colors.black87,
+        ),
+        ignoreBlank: false,
+        autoValidateMode: AutovalidateMode.always,
+
+        selectorTextStyle: const TextStyle(color: Colors.black),
+        initialValue:PhoneNumber(
+          isoCode: 'EG',
+          dialCode: '+20',
+        ),
+
+        //initialValue: number,
+        textFieldController: controller.phoneNumberController,
+        formatInput: false,
+
+        keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
+        inputBorder: const OutlineInputBorder(),
+        onSaved: (PhoneNumber number) {
+          print('On Saved: $number');
+        },
       ),
+      // CustomInput(
+      //   title: 'number_phone'.tr,
+      //   hint: 'number_phone_field'.tr,
+      //   controller: controller.phoneNumberController,
+      //   showValidMessage: controller.showPhoneNumberError,
+      //   textIsValid: controller.phoneErrorMessage,
+      //   colorLabel: AppColors.colorLabel,
+      //   keyboardType: TextInputType.phone,
+      //   suffixIconPath: iconNumber,
+      //   bottomSpacing: DEVICE_HEIGHT * 0.0,
+      //   sizespace: DEVICE_HEIGHT * 0.000018,
+      // ),
       SizedBox(height: DEVICE_HEIGHT * 0.046),
       Btn(
         text: 'next'.tr,

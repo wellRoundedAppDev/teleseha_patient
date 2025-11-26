@@ -28,9 +28,16 @@ class LoginController extends GetxController {
   String? showPage;
   String? showPathMobileRegistered;
 
+  String? selectedPhoneNumber = "";
+
+  bool isValidPhoneNumber = false;
+
   @override
   Future<void> onInit() async {
     super.onInit();
+    phoneNumberController.clear();
+    selectedPhoneNumber = "";
+    isValidPhoneNumber = false;
     refreshToken = await localStorage.getFromStorage(key: storageRefreshToken);
 
     if(refreshToken!= null){
@@ -77,7 +84,7 @@ class LoginController extends GetxController {
             Get.toNamed(routeProfiles);
             break;
           case 'OpenHome':
-            Get.toNamed(routeScreen);
+            Get.offAllNamed(routeScreen);
             break;
           case 'CreateMedicalProfile':
             Get.offAllNamed(routeFormDiagnosis,);
@@ -111,11 +118,24 @@ class LoginController extends GetxController {
     update();
   }
 
+  setSelectedPhoneNumber(String dialCode){
+
+    selectedPhoneNumber = ("$dialCode-") + phoneNumberController.text.trim();
+    print(selectedPhoneNumber);
+
+  }
+
   Future<void> handleLogin() async {
+
+    if(isValidPhoneNumber == false){
+      return;
+    }
     isLoading = true;
     update();
 
-    final String phone = phoneNumberController.text.trim();
+    final String phone =
+    selectedPhoneNumber??"";
+    //phoneNumberController.text.trim();
 
     if (showPage == 'forgetPassword') {
       showPathMobileRegistered = forgotPassword;
@@ -138,14 +158,23 @@ class LoginController extends GetxController {
           page = 'signIn';
           var startStepsController = Get.put(StartStepsController());
           startStepsController.inputPattern.clear();
+          phoneNumberController.clear();
+          selectedPhoneNumber = '';
+          isValidPhoneNumber = false;
           Get.to(() => const PatternLock());
           update();
         } else if (nextStep == 'OtpConfirm') {
           updatePage('signUp');
           var startStepsController = Get.put(StartStepsController());
           startStepsController.otpController.clear();
+          phoneNumberController.clear();
+          selectedPhoneNumber = '';
+          isValidPhoneNumber = false;
           Get.to(() => CustomOtp());
         } else if (nextStep == 'CreatePassword') {
+          phoneNumberController.clear();
+          selectedPhoneNumber = '';
+          isValidPhoneNumber = false;
           final StartStepsController steps = Get.find();
           steps.currentStep = 2;
           updatePage('signUp');

@@ -28,11 +28,28 @@ class DetailsAboutYouController extends GetxController {
   List states = <dynamic>[];
   List<dynamic> myCity = <dynamic>[];
   List<dynamic> myMaritalStatus = <dynamic>[];
+  List<dynamic> jobTitles = <dynamic>[];
 
   String? selectedCountry;
   String? selectedState;
   String? selectedCity;
+
+  String? selectedJobTitle;
   String? selectedMaritalStatus;
+
+  final Map<String, String> maritalStatusMap = {
+    "Single": "أعزب",
+    "Married": "متزوج",
+    "Divorced": "مطلق",
+    "Widower": "أرمل",
+  };
+  final Map<String, String> maritalStatusArToEn = {
+    "أعزب": "Single",
+    "متزوج": "Married",
+    "مطلق": "Divorced",
+    "أرمل": "Widower",
+  };
+
   // int? selectedCityId;
   String?    selectedCityId;
 
@@ -59,6 +76,7 @@ class DetailsAboutYouController extends GetxController {
         isLoading = false;
         countrys = response['countries'] ?? <dynamic>[];
         myMaritalStatus = response['maritalStatus'] ?? <dynamic>[];
+        jobTitles = response['jobTitles']?? <dynamic>[];
         update();
       },
       // ignore: always_specify_types
@@ -135,7 +153,17 @@ class DetailsAboutYouController extends GetxController {
   }
 
   void updateSelectedMaritalStatus(String newValue) {
-    selectedMaritalStatus = newValue;
+
+    selectedMaritalStatus =
+
+      newValue;
+    print(selectedMaritalStatus);
+    update();
+  }
+
+
+  void selectJobTitle(String newValue) {
+    selectedJobTitle = newValue;
     update();
   }
 
@@ -152,7 +180,7 @@ class DetailsAboutYouController extends GetxController {
     userFromStorage != null&&  jsonDecode(userFromStorage??"")['patients'] != null && jsonDecode(userFromStorage??"")['patients'].isNotEmpty?
     jsonDecode(userFromStorage??"")['patients'][0]:null;
 
-    print("from storage:${patientFromStorage}");
+    print('from storage:${patientFromStorage}');
     isLoading = true;
     update();
 
@@ -168,7 +196,7 @@ class DetailsAboutYouController extends GetxController {
       // patientFromStorage['maritalStatus']
       //     :
 
-      selectedMaritalStatus,
+      maritalStatusArToEn[selectedMaritalStatus],
       // date:
       // // patientFromStorage != null?
       // // patientFromStorage['birthDate']
@@ -178,7 +206,7 @@ class DetailsAboutYouController extends GetxController {
       // patientFromStorage != null?
       // patientFromStorage['jobTitle']
       //     :
-      myJobTitle.text.trim(),
+      selectedJobTitle,
       myState:
       // patientFromStorage != null?
       // patientFromStorage['state']
@@ -219,7 +247,7 @@ class DetailsAboutYouController extends GetxController {
       // patientFromStorage['maritalStatus']
       //     :
 
-      selectedMaritalStatus,
+      maritalStatusArToEn[selectedMaritalStatus],
       // date:
       // // patientFromStorage != null?
       // // patientFromStorage['birthDate']
@@ -229,7 +257,7 @@ class DetailsAboutYouController extends GetxController {
       // patientFromStorage != null?
       // patientFromStorage['jobTitle']
       //     :
-      myJobTitle.text.trim(),
+      selectedJobTitle,
       myState:
       // patientFromStorage != null?
       // patientFromStorage['state']

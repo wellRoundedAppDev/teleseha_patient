@@ -69,8 +69,10 @@ class DetailsAboutYou extends StatelessWidget {
                         SizedBox(height: DEVICE_HEIGHT * 0.04),
                         DetailsAboutYouComp(
                           title: 'marital_status'.tr,
-                          myListCountry: controller.myMaritalStatus
-                              .cast<String>(),
+                          myListCountry:
+                          controller.maritalStatusMap.entries.map((e)=>e.value)?.toList().cast<String>(),
+                          // controller.myMaritalStatus
+                          //     .cast<String>(),
                           value: controller.selectedMaritalStatus,
                           onChanged: (String? newValue) {
                             if (newValue != null) {
@@ -79,19 +81,45 @@ class DetailsAboutYou extends StatelessWidget {
                           },
                           subTitle: 'enter_marital_status'.tr,
                         ),
+                        // SizedBox(height: DEVICE_HEIGHT * 0.04),
+                        // DetailsAboutYouComp(
+                        //   title: 'marital_status'.tr,
+                        //   myListCountry: controller.myMaritalStatus
+                        //       .cast<String>(),
+                        //   value: controller.selectedMaritalStatus,
+                        //   onChanged: (String? newValue) {
+                        //     if (newValue != null) {
+                        //       controller.updateSelectedMaritalStatus(newValue);
+                        //     }
+                        //   },
+                        //   subTitle: 'enter_marital_status'.tr,
+                        // ),
                         SizedBox(height: DEVICE_HEIGHT * 0.04),
-                        CustomInput(
+
+                        DetailsAboutYouComp(
                           title: 'job_title'.tr,
-                          hint: 'enter_job_title'.tr,
-                          textType: CustomTextType.title,
-                          controller: controller.myJobTitle,
-                          showValidMessage: controller.showjobTitleError,
-                          textIsValid: controller.jobTitleErrorMessage,
-                          colorLabel: AppColors.colorLabel,
-                          keyboardType: TextInputType.text,
-                          bottomSpacing: DEVICE_HEIGHT * 0.0,
-                          sizespace: DEVICE_HEIGHT * 0.000028,
+                          myListCountry: controller.jobTitles
+                              .cast<String>(),
+                          value: controller.selectedJobTitle,
+                          onChanged: (String? newValue) {
+                            if (newValue != null) {
+                              controller.selectJobTitle(newValue);
+                            }
+                          },
+                          subTitle: 'enter_job_title'.tr,
                         ),
+                        // CustomInput(
+                        //   title: 'job_title'.tr,
+                        //   hint: 'enter_job_title'.tr,
+                        //   textType: CustomTextType.title,
+                        //   controller: controller.myJobTitle,
+                        //   showValidMessage: controller.showjobTitleError,
+                        //   textIsValid: controller.jobTitleErrorMessage,
+                        //   colorLabel: AppColors.colorLabel,
+                        //   keyboardType: TextInputType.text,
+                        //   bottomSpacing: DEVICE_HEIGHT * 0.0,
+                        //   sizespace: DEVICE_HEIGHT * 0.000028,
+                        // ),
                         SizedBox(height: DEVICE_HEIGHT * 0.04),
                         Row(
                           children: <Widget>[

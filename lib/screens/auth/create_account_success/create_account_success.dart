@@ -39,7 +39,9 @@ class CreateAccountSuccess extends StatelessWidget {
               text: 'next'.tr,
               color: const Color(AppColors.colorLineAndText),
               onPressed: () {
-                Get.offAllNamed(routeScreen);
+                var loginController = Get.put(LoginController());
+                loginController.futureRefreshLogin();
+             //   Get.offAllNamed(routeScreen);
               },
             ),
           ],
