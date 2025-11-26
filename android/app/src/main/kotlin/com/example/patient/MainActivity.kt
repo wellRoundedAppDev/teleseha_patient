@@ -1,4 +1,4 @@
-package com.example.patient
+package com.app.patient
 
 import io.flutter.embedding.android.FlutterFragmentActivity
 

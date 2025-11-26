@@ -140,6 +140,7 @@ class DetailsAboutYouController extends GetxController {
   }
 
   Future<void> putPatient() async {
+
     final StartStepsController stepsController =
         Get.find<StartStepsController>();
 
@@ -151,28 +152,28 @@ class DetailsAboutYouController extends GetxController {
     userFromStorage != null&&  jsonDecode(userFromStorage??"")['patients'] != null && jsonDecode(userFromStorage??"")['patients'].isNotEmpty?
     jsonDecode(userFromStorage??"")['patients'][0]:null;
 
-    print(patientFromStorage);
+    print("from storage:${patientFromStorage}");
     isLoading = true;
     update();
 
     final FormData formData = FormData.fromMap(<String, dynamic>{
-      keyName:
+      // keyName:
+      //
+      // stepsController.name??patientFromStorage['name'],
+      // isMale:
 
-      stepsController.name??patientFromStorage['name'],
-      isMale:
-
-      stepsController.myIsMale?? patientFromStorage['gender'],
+      // stepsController.myIsMale?? patientFromStorage['gender'],
       maritalStatus:
       // patientFromStorage != null?
       // patientFromStorage['maritalStatus']
       //     :
 
       selectedMaritalStatus,
-      date:
-      // patientFromStorage != null?
-      // patientFromStorage['birthDate']
-      //     :
-      stepsController.barthDay?? patientFromStorage['birthDate'],
+      // date:
+      // // patientFromStorage != null?
+      // // patientFromStorage['birthDate']
+      // //     :
+      // stepsController.barthDay?? patientFromStorage['birthDate'],
       jobTitle:
       // patientFromStorage != null?
       // patientFromStorage['jobTitle']
@@ -188,32 +189,42 @@ class DetailsAboutYouController extends GetxController {
       // patientFromStorage['city']
       //     :
       selectedCity,
-      cityId:
-      // patientFromStorage != null?
-      // patientFromStorage['city']
-      //     :
-      // selectedCityId,
-      selectedCity
+      // cityId:
+      // // patientFromStorage != null?
+      // // patientFromStorage['city']
+      // //     :
+      // // selectedCityId,
+      // selectedCity,
+      // maritalStatus :
+      //     selectedMaritalStatus,
+      country:
+          selectedCountry,
+      weightKey:
+          weight.text.trim(),
+      heightKey:
+          length.text.trim()
+
+
     });
 
     print({
-      keyName:
+      // keyName:
+      //
+      // stepsController.name??patientFromStorage['name'],
+      // isMale:
 
-      stepsController.name??patientFromStorage['name'],
-      isMale:
-
-      stepsController.myIsMale?? patientFromStorage['gender'],
+      // stepsController.myIsMale?? patientFromStorage['gender'],
       maritalStatus:
       // patientFromStorage != null?
       // patientFromStorage['maritalStatus']
       //     :
 
       selectedMaritalStatus,
-      date:
-      // patientFromStorage != null?
-      // patientFromStorage['birthDate']
-      //     :
-      stepsController.barthDay?? patientFromStorage['birthDate'],
+      // date:
+      // // patientFromStorage != null?
+      // // patientFromStorage['birthDate']
+      // //     :
+      // stepsController.barthDay?? patientFromStorage['birthDate'],
       jobTitle:
       // patientFromStorage != null?
       // patientFromStorage['jobTitle']
@@ -229,11 +240,22 @@ class DetailsAboutYouController extends GetxController {
       // patientFromStorage['city']
       //     :
       selectedCity,
-      cityId:
-      // patientFromStorage != null?
-      // patientFromStorage['city']
-      //     :
-      selectedCity,
+      // cityId:
+      // // patientFromStorage != null?
+      // // patientFromStorage['city']
+      // //     :
+      // // selectedCityId,
+      // selectedCity,
+      // maritalStatus :
+      // myMaritalStatus,
+      country:
+      selectedCountry,
+      weightKey:
+      weight.text.trim(),
+      heightKey:
+      length.text.trim()
+
+
     });
    // I/flutter (26722): {Name: noor, IsMale: Male, MaritalStatus: Single, BirthDate: 2025-11-03, JobTitle: مبرمج, State: الاسكندرية, City: ssssss, CityId: ssssss}
 
@@ -244,7 +266,7 @@ class DetailsAboutYouController extends GetxController {
     //
     // return;
     await ApiRequest(
-      path: '$patient/${stepsController.patientId??   patientFromStorage['patientId']}',
+      path: '$patient/complete/${ patientFromStorage['patientId']}',
       className: '',
       formatResponse: true,
       method: ApiMethods.put,
@@ -257,7 +279,7 @@ class DetailsAboutYouController extends GetxController {
     ).request(
       onSuccess: (dynamic data, dynamic response) {
         isLoading = false;
-        Get.toNamed(routeScreen);
+        Get.offAllNamed(routeCreateAccountSuccess);
         update();
       },
       // ignore: always_specify_types

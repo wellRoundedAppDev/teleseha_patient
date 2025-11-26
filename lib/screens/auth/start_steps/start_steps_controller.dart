@@ -161,8 +161,14 @@ class StartStepsController extends GetxController {
         if (nextStep == 'CreatePassword') {
           controller.updatePage('signUp');
           otpController.clear();
-          Get.toNamed(routeSteps);
+
+          Get.offNamed(routeSteps);
           dataPassword = data ?? '';
+          // if (kDebugMode) {
+          //   print("data Password:$dataPassword");
+          // }
+          // localStorage.saveToStorage(key: createPasswordTokenStoreKey,value: dataPassword);
+
         }
         showOtpError = false;
         ++currentStep;
@@ -245,7 +251,9 @@ class StartStepsController extends GetxController {
 
       isLoading = true;
       update();
-
+     // var dataPassword = await localStorage.getFromStorage(key: createPasswordTokenStoreKey,);
+     //
+      print("dataPassword:$dataPassword");
       await ApiRequest(
         path: createPassword,
         className: '',
@@ -328,11 +336,12 @@ class StartStepsController extends GetxController {
         body: formData,
       ).request(
         onSuccess: (dynamic data, dynamic response) async {
+          print(response);
           isLoading = false;
-          patientId = response['patientId'];
-          name = response['name'];
-          barthDay = response['birthDate'];
-          final String? genderStr = response['gender']
+          patientId = response['data']['patientId'];
+          name = response['data']['name'];
+          barthDay = response['data']['birthDate'];
+          final String? genderStr = response['data']['gender']
               ?.toString()
               .toLowerCase();
           genderStr == 'male'
@@ -349,7 +358,7 @@ class StartStepsController extends GetxController {
 
           final Map<String, dynamic> userMap = <String, dynamic>{
             'patients': <Map<String, dynamic>>[
-              <String, dynamic>{myPatientId: response['patientId']},
+              <String, dynamic>{myPatientId: patientId},
             ],
           };
           await localStorage.saveToStorage(
@@ -359,7 +368,7 @@ class StartStepsController extends GetxController {
           await localStorage.readFromStorage(storageUserData);
           // ignore: always_specify_types
           await Future.delayed(const Duration(milliseconds: 300));
-          Get.toNamed(routeCreateAccountSuccess);
+          Get.offAllNamed(routeFormDiagnosis);
           update();
         },
         // ignore: always_specify_types

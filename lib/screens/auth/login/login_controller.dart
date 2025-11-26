@@ -31,12 +31,20 @@ class LoginController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    await futureRefreshLogin();
+    refreshToken = await localStorage.getFromStorage(key: storageRefreshToken);
+
+    if(refreshToken!= null){
+      await futureRefreshLogin();
+
+    }
     // await loadPatientsFromStorage();
   }
 
   Future<void> futureRefreshLogin() async {
+
     refreshToken = await localStorage.getFromStorage(key: storageRefreshToken);
+
+    print('Refresh token:$refreshToken');
     await ApiRequest(
       path: refreshLogin,
       className: '',
@@ -47,6 +55,9 @@ class LoginController extends GetxController {
       onSuccess: (dynamic data, dynamic response) async {
         final String? nextStep = response['nextStepEnum']?.toString();
 
+        if (kDebugMode) {
+          print('nextStep: $nextStep');
+        }
         await authStorage.saveAuthData(response['data']);
 
 
@@ -57,7 +68,10 @@ class LoginController extends GetxController {
           case 'CreateProfile':
             // stepController.currentStep = 3;
             // stepController.update();
-            Get.toNamed(routeSteps);
+            StartStepsController controller = Get.put(StartStepsController());
+
+            controller.currentStep = 3;
+            Get.offAllNamed(routeSteps);
             break;
           case 'SelectProfile':
             Get.toNamed(routeProfiles);
@@ -122,10 +136,14 @@ class LoginController extends GetxController {
         if (nextStep == 'Login') {
           linePercentage = 0.6;
           page = 'signIn';
+          var startStepsController = Get.put(StartStepsController());
+          startStepsController.inputPattern.clear();
           Get.to(() => const PatternLock());
           update();
         } else if (nextStep == 'OtpConfirm') {
           updatePage('signUp');
+          var startStepsController = Get.put(StartStepsController());
+          startStepsController.otpController.clear();
           Get.to(() => CustomOtp());
         } else if (nextStep == 'CreatePassword') {
           final StartStepsController steps = Get.find();
