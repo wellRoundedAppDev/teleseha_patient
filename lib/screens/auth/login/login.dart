@@ -6,7 +6,7 @@ import '../../../general_exports.dart';
 Widget buildLogo() =>
     SvgPicture.asset(iconLogoLogin, width: 142, height: 44, fit: BoxFit.cover);
 
-Widget buildLoginForm(LoginController controller) => Container(
+Widget buildLoginForm(LoginController controller, var context) => Container(
   margin: EdgeInsets.symmetric(
     vertical: DEVICE_HEIGHT * 0.035,
     horizontal: DEVICE_HEIGHT * 0.03,
@@ -54,6 +54,54 @@ Widget buildLoginForm(LoginController controller) => Container(
         textFieldController: controller.phoneNumberController,
         formatInput: false,
 
+      //   inputDecoration: InputDecoration(
+      //
+      //
+      //     enabledBorder: OutlineInputBorder(
+      //       borderRadius: BorderRadius.circular(20),
+      //       borderSide: BorderSide(width: 0.8,color: Colors.black),
+      //
+      //
+      //       ),
+      //     focusedBorder: OutlineInputBorder(
+      //       borderRadius: BorderRadius.circular(20),
+      //   borderSide: const BorderSide(width: 0.8,
+      //       color: Colors.black
+      //   ),
+      //
+      // ),
+      //     // suffixIcon: suffixIconPath != null
+      //     //     ? GestureDetector(
+      //     //   onTap: onSuffixIconTap,
+      //     //   child: SizedBox(
+      //     //     width: DEVICE_WIDTH * 0.1,
+      //     //     child: Center(
+      //     //       child: SvgPicture.asset(
+      //     //         suffixIconPath!,
+      //     //         width: DEVICE_WIDTH * 0.02,
+      //     //         height: DEVICE_HEIGHT * 0.02,
+      //     //       ),
+      //     //     ),
+      //     //   ),
+      //     // )
+      //     //     : null,
+      //     border: InputBorder.none,
+      //     contentPadding: EdgeInsets.symmetric(
+      //       horizontal: DEVICE_HEIGHT * 0.024,
+      //       vertical: 8,
+      //     ),
+      //     hintText: "hint",
+      //     hintStyle: TextStyle(
+      //       fontFamily: 'Cairo',
+      //       fontSize: 14,
+      //       fontStyle: FontStyle.normal,
+      //       fontWeight: FontWeight.w400,
+      //       color: const Color(
+      //         AppColors.colorHintText,
+      //       ).withValues(alpha: 20),
+      //     ),
+      //   ),
+
         keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
         inputBorder: const OutlineInputBorder(),
         onSaved: (PhoneNumber number) {
@@ -75,7 +123,9 @@ Widget buildLoginForm(LoginController controller) => Container(
       SizedBox(height: DEVICE_HEIGHT * 0.046),
       Btn(
         text: 'next'.tr,
-        onPressed: controller.handleLogin,
+        onPressed: (){
+          controller.handleLogin(context);
+        },
         isLoading: controller.isLoading,
       ),
     ],
@@ -96,7 +146,7 @@ class Login extends StatelessWidget {
                 SizedBox(height: DEVICE_HEIGHT * 0.1),
                 buildLogo(),
                 SizedBox(height: DEVICE_HEIGHT * 0.12),
-                buildLoginForm(controller),
+                buildLoginForm(controller,context),
               ],
             ),
           ),

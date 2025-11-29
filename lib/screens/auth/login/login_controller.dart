@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:pattern_dots/pattern_dots.dart';
 
 import '../../../general_exports.dart';
@@ -38,6 +39,7 @@ class LoginController extends GetxController {
     phoneNumberController.clear();
     selectedPhoneNumber = "";
     isValidPhoneNumber = false;
+    showPhoneNumberError = false;
     refreshToken = await localStorage.getFromStorage(key: storageRefreshToken);
 
     if(refreshToken!= null){
@@ -125,7 +127,7 @@ class LoginController extends GetxController {
 
   }
 
-  Future<void> handleLogin() async {
+  Future<void> handleLogin(var context) async {
 
     if(isValidPhoneNumber == false){
       return;
@@ -202,6 +204,8 @@ class LoginController extends GetxController {
             : phoneErrorMessage = 'is_vaild_error'.tr;
 
         showPhoneNumberError = true;
+        
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(phoneErrorMessage)));
         update();
         return null;
       },
